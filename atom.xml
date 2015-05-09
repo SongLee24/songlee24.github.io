@@ -4,7 +4,7 @@
   <subtitle><![CDATA[李松]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://yoursite.com/"/>
-  <updated>2015-05-09T17:45:24.885Z</updated>
+  <updated>2015-05-09T17:48:36.873Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -13,6 +13,40 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[C++与C的那些差异]]></title>
+    <link href="http://yoursite.com/2014/07/06/difference-between-c-and-cpp/"/>
+    <id>http://yoursite.com/2014/07/06/difference-between-c-and-cpp/</id>
+    <published>2014-07-06T10:27:21.000Z</published>
+    <updated>2015-05-09T17:48:36.873Z</updated>
+    <content type="html"><![CDATA[<p>虽说C++是向后兼容C的，但C++与C还是存在许多差异。这里举了几个例子，也是我们很容易忽略的地方。如果你还知道其他的更多的Differences，或者发现什么错误，可以评论告诉我，大家一起学习进步。另外，随着学习的进行，本文会持续更新……</p>
+<p><strong>C编译通过但C++编译不通过</strong><br><a id="more"></a></p>
+<blockquote>
+<h4 id="1、C++中编译器不允许在一个函数声明之前调用它，但C中编译器是允许的。">1、C++中编译器不允许在一个函数声明之前调用它，但C中编译器是允许的。</h4></blockquote>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#<span class="keyword">include</span>&lt;stdio.h&gt;  <span class="comment">// 请用gcc和g++分别进行编译</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span><br><span class="line"></span>&#123;</span><br><span class="line">   foo();     <span class="comment">// foo()在它的声明/定义之前被调用</span></span><br><span class="line">&#125; </span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">foo</span><span class="params">()</span></span><br><span class="line"></span>&#123;</span><br><span class="line">   <span class="built_in">printf</span>(<span class="string">"Hello"</span>);</span><br><span class="line">   <span class="keyword">return</span> <span class="number">0</span>; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<h4 id="2、C++中不能用一个普通指针指向一个常量，但C中可以。">2、C++中不能用一个普通指针指向一个常量，但C中可以。</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#<span class="keyword">include</span> &lt;stdio.h&gt;  <span class="comment">// 请用gcc和g++分别进行编译</span></span></span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span><br><span class="line"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> <span class="keyword">const</span> j = <span class="number">20</span>;  </span><br><span class="line">    <span class="comment">/* C++编译会报错，C中编译会有warning，但可以通过 */</span></span><br><span class="line">    <span class="keyword">int</span> *ptr = &amp;j; </span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"*ptr: %d\n"</span>, *ptr);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="3、在C语言中，void指针可以直接赋给其他类型的指针，如int*,_char*等。但在C++中，void指针必须要明确地进行类型转换。（malloc函数返回值为void_*类型）">3、在C语言中，void指针可以直接赋给其他类型的指针，如int*, char*等。但在C++中，void指针必须要明确地进行类型转换。（malloc函数返回值为void *类型）</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#<span class="keyword">include</span> &lt;stdio.h&gt;  <span class="comment">// 请用gcc和g++分别进行编译</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span><br><span class="line"></span>&#123;</span><br><span class="line">    <span class="keyword">void</span> *vptr;</span><br><span class="line">    <span class="keyword">int</span> *iptr = vptr; <span class="comment">// C++中必须用int *iptr = (int *)vptr;</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<p><strong>C和C++输出结果不相同</strong></p>
+<blockquote>
+<h4 id="4、字符常量在C和C++被当作不同地类型看待：在C中，字符常量如’a’,’b’被当作int型，而在C++中被当作char型。所以，在C中sizeof(‘A’)相当于sizeof(int)，输出为4；在C++中sizeof(‘A’)仍相当于sizeof(char)，输出为1。">4、字符常量在C和C++被当作不同地类型看待：在C中，字符常量如’a’,’b’被当作int型，而在C++中被当作char型。所以，在C中sizeof(‘A’)相当于sizeof(int)，输出为4；在C++中sizeof(‘A’)仍相当于sizeof(char)，输出为1。</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#<span class="keyword">include</span>&lt;stdio.h&gt;  <span class="comment">// 请用gcc和g++分别进行编译</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span><br><span class="line"></span>&#123;</span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">"%d"</span>, <span class="keyword">sizeof</span>(<span class="string">'a'</span>));</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="5、在C中定义结构体必须使用struct关键字，但在C++中可以省略。在C++中局部变量会覆盖同名的全局变量，但在C中却不会。">5、在C中定义结构体必须使用<code>struct</code>关键字，但在C++中可以省略。<strong>在C++中局部变量会覆盖同名的全局变量，但在C中却不会。</strong></h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#<span class="keyword">include</span> &lt;stdio.h&gt;  <span class="comment">// 请用gcc和g++分别进行编译</span></span></span><br><span class="line"><span class="keyword">int</span> T;</span><br><span class="line">  </span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span><br><span class="line"></span>&#123;</span><br><span class="line">    <span class="keyword">struct</span> T &#123; <span class="keyword">double</span> x; &#125;; </span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%d"</span>, <span class="keyword">sizeof</span>(T));  <span class="comment">// C输出4，C++输出8</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="6、布尔结果在C++和C中的表示是不同的。因为C语言不直接支持布尔型，所以其实返回的是int型，而C++则返回的是bool类型。所以sizeof(1==1)在C中是sizeof(int)，在C++中是sizeof(bool)。">6、布尔结果在C++和C中的表示是不同的。因为C语言不直接支持布尔型，所以其实返回的是int型，而C++则返回的是bool类型。所以<strong>sizeof(1==1)</strong>在C中是sizeof(int)，在C++中是sizeof(bool)。</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#<span class="keyword">include</span> &lt;stdio.h&gt;  <span class="comment">// 请用gcc和g++分别进行编译</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span><br><span class="line"></span>&#123;</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"%d\n"</span>, <span class="keyword">sizeof</span>(<span class="number">1</span>==<span class="number">1</span>));  <span class="comment">// C输出4，C++输出1</span></span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</blockquote>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>虽说C++是向后兼容C的，但C++与C还是存在许多差异。这里举了几个例子，也是我们很容易忽略的地方。如果你还知道其他的更多的Differences，或者发现什么错误，可以评论告诉我，大家一起学习进步。另外，随着学习的进行，本文会持续更新……</p>
+<p><strong>C编译通过但C++编译不通过</strong><br>]]>
+    
+    </summary>
+    
+      <category term="C++" scheme="http://yoursite.com/tags/C/"/>
+    
+      <category term="Lang.-C++" scheme="http://yoursite.com/categories/Lang-C/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[C++学习之extern关键字]]></title>
