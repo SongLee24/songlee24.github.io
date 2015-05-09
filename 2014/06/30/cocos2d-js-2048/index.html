@@ -1,0 +1,976 @@
+<!doctype html>
+<html class="theme-next use-motion theme-next-next">
+<head>
+  
+
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+  <meta name="google-site-verification" content="VvyjvVXcJQa0QklHipu6pwm2PJGnnchIqX7s5JbbT_0" />
+
+
+
+  <link rel="stylesheet" type="text/css" href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5"/>
+
+
+<link rel="stylesheet" type="text/css" href="/css/main.css?v=0.4.0"/>
+
+
+    <meta name="description" content="放宽心，多努力" />
+
+
+
+	<meta name="keywords" content="Cocos2dx," />
+
+  <title> Cocos2d-JS入门之2048游戏 // Code Man </title>
+</head>
+
+<body>
+  <div class="container one-column page-post-detail">
+    <div class="headband"></div>
+
+    <div id="header" class="header">
+      <div class="header-inner">
+        <h1 class="site-meta">
+  <span class="logo-line-before"><i></i></span>
+  <a href="/" class="brand">
+      <span class="logo">
+        <i class="icon-logo"></i>
+      </span>
+      <span class="site-title">Code Man</span>
+  </a>
+  <span class="logo-line-after"><i></i></span>
+</h1>
+
+
+  <ul id="menu" class="menu">
+    
+      
+      <li class="menu-item menu-item-home">
+        <a href="/">
+          <i class="menu-item-icon icon-home"></i> <br />
+          首页
+        </a>
+      </li>
+    
+      
+      <li class="menu-item menu-item-categories">
+        <a href="/categories">
+          <i class="menu-item-icon icon-categories"></i> <br />
+          分类
+        </a>
+      </li>
+    
+      
+      <li class="menu-item menu-item-archives">
+        <a href="/archives">
+          <i class="menu-item-icon icon-archives"></i> <br />
+          归档
+        </a>
+      </li>
+    
+      
+      <li class="menu-item menu-item-tags">
+        <a href="/tags">
+          <i class="menu-item-icon icon-tags"></i> <br />
+          标签
+        </a>
+      </li>
+    
+      
+      <li class="menu-item menu-item-about">
+        <a href="/about">
+          <i class="menu-item-icon icon-about"></i> <br />
+          关于
+        </a>
+      </li>
+    
+  </ul>
+
+
+      </div>
+    </div>
+
+    <div id="main" class="main">
+      <div class="main-inner">
+        <div id="content" class="content">
+          
+            
+          
+
+          <div id="posts" class="posts-expand">
+            
+  
+
+  <div class="post post-type-normal ">
+    <div class="post-header">
+
+      
+      
+        <h1 class="post-title">
+          
+          
+            
+              Cocos2d-JS入门之2048游戏
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          
+            发表于 2014-06-30
+          
+        </span>
+
+        
+          
+            <span class="post-category">
+              &nbsp; | &nbsp; 分类于
+              
+                <a href="/categories/应用-Cocos2dx/">应用-Cocos2dx</a>
+
+                
+                
+
+              
+            </span>
+          
+        
+
+        
+          
+            <span class="post-comments-count">
+            &nbsp; | &nbsp;
+            <a href="/2014/06/30/cocos2d-js-2048/#comments" >
+              <span class="post-comments-count ds-thread-count" data-thread-key="2014/06/30/cocos2d-js-2048/"></span>
+            </a>
+          </span>
+          
+        
+      </div>
+    </div>
+
+    
+      <div class="post-body">
+
+        
+        
+
+        
+          <h3 id="介绍">介绍</h3><p><strong>Cocos2d-JS</strong>是Cocos2d-x的Javascript版本，它的前身是<strong>Cocos2d-html5</strong>。在3.0版本以前叫做Cocos2d-html5，从3.0版本开始叫做Cocos2d-JS。我们知道Cocos2d-x支持使用C++、Lua、Javascript来进行程序开发，其所内置的是一个Javascript引擎，通过用C++解析Javascript去执行；而Cocos2d-html5是使用Javascript进行开发，最终运行在浏览器里的。那么在v3.0的时候，Cocos2d-html5和Cocos2d-x JSBinding被合到了一起，称作<strong>Cocos2d-JS</strong>。<a id="more"></a></p>
+<p><strong>和Cocos2d-html5不同的是</strong>，Cocos2d-JS开发的程序不仅可以运行在浏览器里，还可以编译运行在Mac OSX, Windows, iOS, Android的原生平台上，真正做到“一次开发，全平台运行”。Cocos2d-JS支持Cocos2d-x的所有特性并提供更简单易用的Javascript风格API，它还自带了Cocos Console，一个用于简化项目创建和不同目标平台编译发布流程的终端工具。</p>
+<h3 id="Cocos2d-html5目录结构">Cocos2d-html5目录结构</h3><p>为了快速入门，所以决定开发一个最近比较热门的2048小游戏。当然，首先需要去<a href="http://www.cocos2d-x.org/download" target="_blank" rel="external">Cocos2d-x官网</a>下载Cocos2d-html5-v2.2.3引擎，下载后解压就行了。Cocos2d-html5的目录结构如下：</p>
+<p><img src="http://img.blog.csdn.net/20140630200715781?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvbGlzb25nbGlzb25nbGlzb25n/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt=""></p>
+<ul>
+<li>cocos2d：游戏引擎的主要文件</li>
+<li>extensions：包含一些扩展的功能，且支持自定义扩展</li>
+<li>external：包含box2d和chipmunk这两个物理引擎</li>
+<li>HelloHTML5World：一个最简单的HelloWorld项目</li>
+<li>samples：官网例子和几款小游戏</li>
+<li>template：项目模板</li>
+</ul>
+<p>我们可以通过拷贝 HelloHTML5World 或 template中的项目模板，然后基于它编写自己的代码程序。</p>
+<p>这里使用<strong>WebStorm</strong>作为IDE进行游戏开发，WebStorm有非常强大的智能补全功能，提高了开发效率。还能与 Google Chrome 浏览器配合，完成实时编辑和调试。只需要下载WebStorm然后载入引擎目录稍微配置一下就可以了，不知道怎么做的可以看看<a href="http://www.tairan.com/archives/4857" target="_blank" rel="external">快速搭建 Cocos2d-HTML5 开发调试环境</a>这篇博文。</p>
+<h3 id="2048游戏开发">2048游戏开发</h3><p><strong>1、创建项目</strong></p>
+<p>Cocos2d-html5中创建项目很简单，只需要拷贝HelloHTML5World项目（当然你也可以复制template下的文件夹），然后重命名就行了。</p>
+<ul>
+<li>res：资源文件夹（图片、音频等）</li>
+<li>src：js脚本存放目录(我们自己的项目源码目录)</li>
+<li>index.html：主页面</li>
+<li>build.xml：文件的引用，包括引擎库文件和自己写的文件</li>
+<li>cocos2d.js：定义了程序运行需要的一些参数，如 是否显示FPS，是否加载扩展库等</li>
+<li>main.js：定义程序的入口，初始化导演类等等。</li>
+</ul>
+<p>我们需要在src文件夹里编写我们自己的代码，首先我们删除<strong>myApp.js</strong>中的所有代码，开始写我们自己的2048游戏。</p>
+<p><strong>2、创建游戏场景</strong></p>
+<p>由于2048游戏很简单，它只需要一个场景，下面我们来创建一个场景：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 层</span></span><br><span class="line"><span class="keyword">var</span> Helloworld = cc.Layer.extend(&#123;</span><br><span class="line">    init:<span class="function"><span class="keyword">function</span> <span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>._super();</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 场景</span></span><br><span class="line"><span class="keyword">var</span> HelloWorldScene = cc.Scene.extend(&#123;</span><br><span class="line">    onEnter:<span class="function"><span class="keyword">function</span> <span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>._super();</span><br><span class="line">        <span class="keyword">var</span> layer = <span class="keyword">new</span> Helloworld();</span><br><span class="line">        layer.init();</span><br><span class="line">        <span class="keyword">this</span>.addChild(layer);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<p>很简单吧！我们只需要创建一个<strong>Layer</strong>类，然后将它的一个实例加入<strong>Scene</strong>中，程序运行时main.js会创建一个Scene的实例作为程序入口。</p>
+<p><strong>3、创建卡片类</strong></p>
+<p>我们把2048游戏中的每一个方格看作一个卡片，上面的数字是它的属性。也就是说我们需要4x4=16个卡片类的对象。新建一个CardSprite.js文件：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> CardSprite = cc.Layer.extend(&#123;</span><br><span class="line">    <span class="comment">// 全局变量</span></span><br><span class="line">    number:<span class="number">0</span>,</span><br><span class="line">    labelCardNumber:<span class="literal">null</span>,</span><br><span class="line">    cardColorBG:<span class="literal">null</span>,</span><br><span class="line">    <span class="comment">// 构造函数</span></span><br><span class="line">    ctor:<span class="function"><span class="keyword">function</span><span class="params">()</span></span><br><span class="line">    </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>._super();</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="comment">// 初始化卡牌</span></span><br><span class="line">    initCard:<span class="function"><span class="keyword">function</span><span class="params">(num, width, height, positionX, positionY)</span></span><br><span class="line">    </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.number = num;</span><br><span class="line">        <span class="comment">// 背景层，也就是一个小正方形</span></span><br><span class="line">        <span class="keyword">this</span>.cardColorBG = cc.LayerColor.create(<span class="keyword">new</span> cc.Color4B(<span class="number">200</span>, <span class="number">190</span>, <span class="number">180</span>, <span class="number">255</span>), width-<span class="number">15</span>, height-<span class="number">15</span>);</span><br><span class="line">        <span class="keyword">this</span>.cardColorBG.setPosition(positionX, positionY);</span><br><span class="line">        <span class="comment">// 添加数字，大于0显示，否则不显示</span></span><br><span class="line">        <span class="keyword">if</span>(<span class="keyword">this</span>.number &gt; <span class="number">0</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">this</span>.labelCardNumber = cc.LabelTTF.create(<span class="keyword">this</span>.number,<span class="string">"Arial"</span>, <span class="number">60</span>);</span><br><span class="line">            <span class="keyword">this</span>.labelCardNumber.setPosition(<span class="keyword">this</span>.cardColorBG.getContentSize().width/<span class="number">2</span>, <span class="keyword">this</span>.cardColorBG.getContentSize().height/<span class="number">2</span>);</span><br><span class="line">            <span class="keyword">this</span>.labelCardNumber.setTag(<span class="number">8</span>);</span><br><span class="line">            <span class="keyword">this</span>.cardColorBG.addChild(<span class="keyword">this</span>.labelCardNumber);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">this</span>.labelCardNumber = cc.LabelTTF.create(<span class="string">""</span>,<span class="string">"Arial"</span>, <span class="number">60</span>);</span><br><span class="line">            <span class="keyword">this</span>.labelCardNumber.setPosition(<span class="keyword">this</span>.cardColorBG.getContentSize().width/<span class="number">2</span>, <span class="keyword">this</span>.cardColorBG.getContentSize().height/<span class="number">2</span>);</span><br><span class="line">            <span class="keyword">this</span>.labelCardNumber.setTag(<span class="number">8</span>);</span><br><span class="line">            <span class="keyword">this</span>.cardColorBG.addChild(<span class="keyword">this</span>.labelCardNumber);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">this</span>.addChild(<span class="keyword">this</span>.cardColorBG);</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="comment">// 获取数字</span></span><br><span class="line">    getNumber:<span class="function"><span class="keyword">function</span><span class="params">()</span></span><br><span class="line">    </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.number;</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="comment">// 重置卡片数字</span></span><br><span class="line">    setNumber:<span class="function"><span class="keyword">function</span><span class="params">(num)</span></span><br><span class="line">    </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.number = num;</span><br><span class="line">        <span class="keyword">if</span>(<span class="keyword">this</span>.number &gt; <span class="number">0</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">this</span>.labelCardNumber.setString(<span class="keyword">this</span>.number);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">this</span>.labelCardNumber.setString(<span class="string">""</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 静态函数</span></span><br><span class="line">CardSprite.createCardSprite = <span class="function"><span class="keyword">function</span><span class="params">(num, width, height, positionX, positionY)</span></span><br><span class="line"></span>&#123;</span><br><span class="line">    <span class="keyword">var</span> card = <span class="keyword">new</span> CardSprite();</span><br><span class="line">    <span class="keyword">if</span>(card)</span><br><span class="line">    &#123;</span><br><span class="line">        card.initCard(num, width, height, positionX, positionY);</span><br><span class="line">        <span class="keyword">return</span> card;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>这里将CardSprite类继承自Layer，然后初始化卡片背景和上面的数字，还定义了number的set/get方法。这里需要注意几点：</p>
+<ul>
+<li>新建.js文件以后需要在build.xml和cocos2d.js相关位置添加文件路径。</li>
+<li>继承都需要有 <code>this._super();</code>，一般写在构造函数<code>ctor:function()</code>中。</li>
+<li>注意静态函数的写法，<code>类名.函数名 = function(){}</code>。</li>
+</ul>
+<p><strong>4、初始化界面</strong></p>
+<p>下面我们来初始化游戏界面，主要是在Layer的init()函数中初始化，我们使用一个4x4的二维组来放置在主界面创建16个卡片：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> Helloworld = cc.Layer.extend(&#123;</span><br><span class="line">    cardArr:<span class="literal">null</span>,  <span class="comment">// 存放4x4=16个卡片</span></span><br><span class="line">    <span class="comment">// 初始化</span></span><br><span class="line">    init:<span class="function"><span class="keyword">function</span> <span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>._super();</span><br><span class="line">        <span class="keyword">var</span> size = cc.Director.getInstance().getWinSize();</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 主界面背景层-&gt;设置颜色</span></span><br><span class="line">        <span class="keyword">var</span> lazyLayer = cc.LayerColor.create(<span class="keyword">new</span> cc.Color4B(<span class="number">180</span>, <span class="number">170</span>, <span class="number">160</span>, <span class="number">255</span>) , <span class="literal">null</span>, <span class="literal">null</span>);</span><br><span class="line">        <span class="keyword">this</span>.addChild(lazyLayer);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 创建卡片数组</span></span><br><span class="line">        <span class="keyword">this</span>.cardArr = <span class="keyword">new</span> <span class="built_in">Array</span>(<span class="number">4</span>);</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>; i&lt;<span class="number">4</span>; i++) &#123;</span><br><span class="line">            <span class="keyword">this</span>.cardArr[i] = <span class="keyword">new</span> <span class="built_in">Array</span>(<span class="number">4</span>);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 初始化所有卡片，数字为0，不显示</span></span><br><span class="line">        <span class="keyword">this</span>.createCards(size);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 开始的时候，随机生成两个数字</span></span><br><span class="line">        <span class="keyword">this</span>.autoCreateCardNumber();</span><br><span class="line">        <span class="keyword">this</span>.autoCreateCardNumber();</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;,</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 初始化卡片数组*******************************</span></span><br><span class="line">    createCards:<span class="function"><span class="keyword">function</span><span class="params">(size)</span></span><br><span class="line">    </span>&#123;</span><br><span class="line">        <span class="keyword">var</span> unitSize = (size.height - <span class="number">80</span>)/<span class="number">4</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>; i&lt;<span class="number">4</span>; i++) &#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">var</span> j=<span class="number">0</span>; j&lt;<span class="number">4</span>; j++) &#123;</span><br><span class="line">                <span class="keyword">var</span> card = CardSprite.createCardSprite(<span class="number">0</span>, unitSize, unitSize, unitSize*i + <span class="number">210</span>, unitSize*j + <span class="number">30</span>);</span><br><span class="line">                <span class="keyword">this</span>.cardArr[i][j] = card;</span><br><span class="line">                <span class="keyword">this</span>.addChild(card);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 随机生成新的2或4的卡片****************</span></span><br><span class="line">    autoCreateCardNumber:<span class="function"><span class="keyword">function</span><span class="params">()</span></span><br><span class="line">    </span>&#123;</span><br><span class="line">        <span class="keyword">while</span>(<span class="number">1</span>) &#123;</span><br><span class="line">            <span class="keyword">var</span> i = <span class="built_in">Math</span>.floor(<span class="built_in">Math</span>.random()*<span class="number">4</span>);  <span class="comment">// 随机生成0～3</span></span><br><span class="line">            <span class="keyword">var</span> j = <span class="built_in">Math</span>.floor(<span class="built_in">Math</span>.random()*<span class="number">4</span>);</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> (<span class="keyword">this</span>.cardArr[i][j].getNumber() == <span class="number">0</span>) &#123;   </span><br><span class="line">                <span class="comment">// 4与2生成的概率比为1:9</span></span><br><span class="line">                <span class="keyword">this</span>.cardArr[i][j].setNumber(<span class="built_in">Math</span>.floor(<span class="built_in">Math</span>.random()*<span class="number">10</span>) &lt; <span class="number">1</span> ? <span class="number">4</span> : <span class="number">2</span>);</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> (!<span class="keyword">this</span>.shouldCreateCardNumber()) &#123;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 判断是否还有空位******************</span></span><br><span class="line">    shouldCreateCardNumber:<span class="function"><span class="keyword">function</span><span class="params">()</span></span><br><span class="line">    </span>&#123;</span><br><span class="line">        <span class="keyword">var</span> should = <span class="literal">false</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>; i&lt;<span class="number">4</span>; ++i) &#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">var</span> j=<span class="number">0</span>; j&lt;<span class="number">4</span>; ++j) &#123;</span><br><span class="line">                <span class="keyword">if</span> (<span class="keyword">this</span>.cardArr[i][j].getNumber() == <span class="number">0</span>) &#123;</span><br><span class="line">                    should = <span class="literal">true</span>;</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> should;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<p>通过调用<code>this.createCards(size);</code>初始化所有16个卡片，由于0不显示，所以卡片上都没有数字。然后调用<code>this.autoCreateCardNumber();</code>在随机的两个卡片上生成数字，在随机生成的时候我们应该<strong>先判断还有没有空位</strong>，否则有可能会陷入死循环。<br>初始化的界面如下图：<br><img src="http://img.blog.csdn.net/20140701125010750?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvbGlzb25nbGlzb25nbGlzb25n/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt=""></p>
+<p><strong>5、定义手势动作</strong></p>
+<p>我们需要通过触摸滑动来操作游戏，所以就需要定义上下左右的手势动作。这就要用到引擎的触摸响应机制，Cocos2d-html5与Cocos2d-x一样，有<strong>多点触控</strong> 和 <strong>单点触控</strong>。默认情况下是多点触控，要使用单点触控，我们要使用<code>addTargetedDelegate()</code>方法设置代理。<br>那么如何判断上下左右呢？当然是根据起始触摸点和结束触摸点的坐标变化：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> Helloworld = cc.Layer.extend(&#123;</span><br><span class="line">    firstX:<span class="literal">null</span>,</span><br><span class="line">    firstY:<span class="literal">null</span>,</span><br><span class="line">    cardArr:<span class="literal">null</span>,</span><br><span class="line"></span><br><span class="line">    init:<span class="function"><span class="keyword">function</span> <span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>._super();</span><br><span class="line">        <span class="comment">// 设置单点触摸</span></span><br><span class="line">        cc.Director.getInstance().getTouchDispatcher()._addTargetedDelegate(<span class="keyword">this</span>, <span class="number">0</span>, <span class="literal">true</span>);</span><br><span class="line">        ...</span><br><span class="line">        <span class="comment">// 打开触摸</span></span><br><span class="line">        <span class="keyword">this</span>.setTouchEnabled(<span class="literal">true</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="comment">// onTouchBegan函数，需要返回true</span></span><br><span class="line">    onTouchBegan:<span class="function"><span class="keyword">function</span> <span class="params">(touch, event)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">var</span> touchPoint = touch.getLocation();</span><br><span class="line">        <span class="keyword">this</span>.firstX = touchPoint.x;</span><br><span class="line">        <span class="keyword">this</span>.firstY = touchPoint.y;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="comment">// onTouchEnded函数</span></span><br><span class="line">    onTouchEnded:<span class="function"><span class="keyword">function</span> <span class="params">(touch, event)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">var</span> touchPoint = touch.getLocation();</span><br><span class="line">        <span class="keyword">var</span> offsetX = <span class="keyword">this</span>.firstX - touchPoint.x;</span><br><span class="line">        <span class="keyword">var</span> offsetY = <span class="keyword">this</span>.firstY - touchPoint.y;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span>(<span class="built_in">Math</span>.abs(offsetX) &gt; <span class="built_in">Math</span>.abs(offsetY)) &#123;</span><br><span class="line">            <span class="keyword">if</span>(offsetX &gt; <span class="number">5</span>) &#123;</span><br><span class="line">                <span class="keyword">this</span>.doLeft();</span><br><span class="line">                <span class="comment">//this.doCheckGameOver();</span></span><br><span class="line">                <span class="comment">//this.setScore(this.score);</span></span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span>(offsetX &lt; -<span class="number">5</span>) &#123;</span><br><span class="line">                <span class="keyword">this</span>.doRight();</span><br><span class="line">                <span class="comment">//this.doCheckGameOver();</span></span><br><span class="line">                <span class="comment">//this.setScore(this.score);</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">if</span>(offsetY &gt; <span class="number">5</span>) &#123;</span><br><span class="line">                <span class="keyword">this</span>.doDown();</span><br><span class="line">                <span class="comment">//this.doCheckGameOver();</span></span><br><span class="line">                <span class="comment">//this.setScore(this.score);</span></span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span>(offsetY &lt; -<span class="number">5</span>) &#123;</span><br><span class="line">                <span class="keyword">this</span>.doUp();</span><br><span class="line">                <span class="comment">//this.doCheckGameOver();</span></span><br><span class="line">                <span class="comment">//this.setScore(this.score);</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="comment">// ...other methods</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<p><strong>6、卡片合并</strong></p>
+<p>游戏2048主要玩法就是通过合并相同数字的卡片以达到2048。通过手势动作往一个方向进行合并。我们的思路就是根据手势方向，遍历每一行或每一列，将在这个方向上相邻（中间没有其他数字）且数字相同的卡片合并加倍。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 向上***************************************</span></span><br><span class="line">doUp:<span class="function"><span class="keyword">function</span><span class="params">()</span></span>&#123;</span><br><span class="line"><span class="keyword">var</span> isdo = <span class="literal">false</span>;</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">var</span> x=<span class="number">0</span>; x&lt;<span class="number">4</span>; ++x)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">var</span> y=<span class="number">3</span>; y&gt;=<span class="number">0</span>; --y)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">var</span> y1=y-<span class="number">1</span>; y1&gt;=<span class="number">0</span>; --y1)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span> (<span class="keyword">this</span>.cardArr[x][y1].getNumber() &gt; <span class="number">0</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">if</span> (<span class="keyword">this</span>.cardArr[x][y].getNumber() &lt;= <span class="number">0</span>)</span><br><span class="line">                &#123;</span><br><span class="line">                    <span class="keyword">this</span>.cardArr[x][y].setNumber(<span class="keyword">this</span>.cardArr[x][y1].getNumber());</span><br><span class="line">                    <span class="keyword">this</span>.cardArr[x][y1].setNumber(<span class="number">0</span>);</span><br><span class="line">                    ++y;</span><br><span class="line">                    isdo = <span class="literal">true</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">else</span> <span class="keyword">if</span>(<span class="keyword">this</span>.cardArr[x][y].getNumber() == <span class="keyword">this</span>.cardArr[x][y1].getNumber())</span><br><span class="line">                &#123;</span><br><span class="line">                    <span class="keyword">this</span>.cardArr[x][y].setNumber(<span class="keyword">this</span>.cardArr[x][y].getNumber()*<span class="number">2</span>);</span><br><span class="line">                    <span class="keyword">this</span>.cardArr[x][y1].setNumber(<span class="number">0</span>);</span><br><span class="line">                    <span class="comment">//this.score += this.cardArr[x][y].getNumber(); </span></span><br><span class="line">                    isdo = <span class="literal">true</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">return</span> isdo;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 向下***************************************</span></span><br><span class="line">doDown:<span class="function"><span class="keyword">function</span><span class="params">()</span> </span>&#123;</span><br><span class="line"><span class="keyword">var</span> isdo = <span class="literal">false</span>;</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">var</span> x=<span class="number">0</span>; x&lt;<span class="number">4</span>; ++x)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">var</span> y=<span class="number">0</span>; y&lt;<span class="number">4</span>; ++y)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">var</span> y1=y+<span class="number">1</span>; y1&lt;<span class="number">4</span>; ++y1)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span> (<span class="keyword">this</span>.cardArr[x][y1].getNumber() &gt; <span class="number">0</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">if</span> (<span class="keyword">this</span>.cardArr[x][y].getNumber() &lt;= <span class="number">0</span>)</span><br><span class="line">                &#123;</span><br><span class="line">                    <span class="keyword">this</span>.cardArr[x][y].setNumber(<span class="keyword">this</span>.cardArr[x][y1].getNumber());</span><br><span class="line">                    <span class="keyword">this</span>.cardArr[x][y1].setNumber(<span class="number">0</span>);</span><br><span class="line">                    --y;</span><br><span class="line">                    isdo = <span class="literal">true</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">else</span> <span class="keyword">if</span>(<span class="keyword">this</span>.cardArr[x][y].getNumber() == <span class="keyword">this</span>.cardArr[x][y1].getNumber())</span><br><span class="line">                &#123;</span><br><span class="line">                    <span class="keyword">this</span>.cardArr[x][y].setNumber(<span class="keyword">this</span>.cardArr[x][y].getNumber()*<span class="number">2</span>);</span><br><span class="line">                    <span class="keyword">this</span>.cardArr[x][y1].setNumber(<span class="number">0</span>);</span><br><span class="line">                    <span class="comment">//this.score += this.cardArr[x][y].getNumber(); </span></span><br><span class="line">                    isdo = <span class="literal">true</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">return</span> isdo;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 向左***************************************</span></span><br><span class="line">doLeft:<span class="function"><span class="keyword">function</span><span class="params">()</span> </span>&#123;</span><br><span class="line"><span class="keyword">var</span> isdo = <span class="literal">false</span>;</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">var</span> y=<span class="number">0</span>; y&lt;<span class="number">4</span>; ++y)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">var</span> x=<span class="number">0</span>; x&lt;<span class="number">4</span>; ++x)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">var</span> x1=x+<span class="number">1</span>; x1&lt;<span class="number">4</span>; ++x1)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span>(<span class="keyword">this</span>.cardArr[x1][y].getNumber() &gt; <span class="number">0</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">if</span>(<span class="keyword">this</span>.cardArr[x][y].getNumber() &lt;= <span class="number">0</span>)</span><br><span class="line">                &#123;</span><br><span class="line">                    <span class="keyword">this</span>.cardArr[x][y].setNumber(<span class="keyword">this</span>.cardArr[x1][y].getNumber());</span><br><span class="line">                    <span class="keyword">this</span>.cardArr[x1][y].setNumber(<span class="number">0</span>);</span><br><span class="line">                    --x;</span><br><span class="line">                    isdo = <span class="literal">true</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">else</span> <span class="keyword">if</span>(<span class="keyword">this</span>.cardArr[x][y].getNumber() == <span class="keyword">this</span>.cardArr[x1][y].getNumber())</span><br><span class="line">                &#123;</span><br><span class="line">                    <span class="keyword">this</span>.cardArr[x][y].setNumber(<span class="keyword">this</span>.cardArr[x][y].getNumber()*<span class="number">2</span>);</span><br><span class="line">                    <span class="keyword">this</span>.cardArr[x1][y].setNumber(<span class="number">0</span>);</span><br><span class="line">                    <span class="comment">//this.score += this.cardArr[x][y].getNumber();</span></span><br><span class="line">                    isdo = <span class="literal">true</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">return</span> isdo;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 向右***************************************</span></span><br><span class="line">doRight:<span class="function"><span class="keyword">function</span><span class="params">()</span> </span>&#123;</span><br><span class="line"><span class="keyword">var</span> isdo = <span class="literal">false</span>;</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">var</span> y = <span class="number">0</span>; y &lt; <span class="number">4</span>; ++y)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">var</span> x = <span class="number">3</span>; x &gt;= <span class="number">0</span>; --x)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">var</span> x1 = x - <span class="number">1</span>; x1 &gt;= <span class="number">0</span>; --x1)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span> (<span class="keyword">this</span>.cardArr[x1][y].getNumber() &gt; <span class="number">0</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">if</span> (<span class="keyword">this</span>.cardArr[x][y].getNumber() &lt;= <span class="number">0</span>)</span><br><span class="line">                &#123;</span><br><span class="line">                    <span class="keyword">this</span>.cardArr[x][y].setNumber(<span class="keyword">this</span>.cardArr[x1][y].getNumber());</span><br><span class="line">                    <span class="keyword">this</span>.cardArr[x1][y].setNumber(<span class="number">0</span>);</span><br><span class="line">                    ++x;</span><br><span class="line">                    isdo = <span class="literal">true</span>;</span><br><span class="line">                &#125;<span class="keyword">else</span> <span class="keyword">if</span>(<span class="keyword">this</span>.cardArr[x][y].getNumber() == <span class="keyword">this</span>.cardArr[x1][y].getNumber())</span><br><span class="line">                &#123;</span><br><span class="line">                    <span class="keyword">this</span>.cardArr[x][y].setNumber(<span class="keyword">this</span>.cardArr[x][y].getNumber()*<span class="number">2</span>);</span><br><span class="line">                    <span class="keyword">this</span>.cardArr[x1][y].setNumber(<span class="number">0</span>);</span><br><span class="line">                    <span class="comment">//this.score += this.cardArr[x][y].getNumber(); </span></span><br><span class="line">                    isdo = <span class="literal">true</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">return</span> isdo;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><strong>7、添加分数</strong></p>
+<p>添加两个变量：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">score:<span class="number">0</span>,  <span class="comment">// 分数</span></span><br><span class="line">scoreLabel:<span class="literal">null</span>,  <span class="comment">// 显示分数的控件</span></span><br></pre></td></tr></table></figure></p>
+<p>然后初始化分数显示：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 显示分数</span></span><br><span class="line"><span class="keyword">var</span> label = cc.LabelTTF.create(<span class="string">"Score : "</span>, <span class="string">"Arial"</span>, <span class="number">20</span>);</span><br><span class="line">label.setAnchorPoint(<span class="number">0</span>,<span class="number">0</span>);</span><br><span class="line">label.setPosition(size.width/<span class="number">2</span> - <span class="number">50</span>, size.height-<span class="number">50</span>);</span><br><span class="line"><span class="keyword">this</span>.addChild(label);</span><br><span class="line"></span><br><span class="line"><span class="keyword">this</span>.scoreLabel = cc.LabelTTF.create(<span class="string">"0"</span>, <span class="string">"Arial"</span>, <span class="number">20</span>);</span><br><span class="line"><span class="keyword">this</span>.scoreLabel.setAnchorPoint(<span class="number">0</span>,<span class="number">0</span>);</span><br><span class="line"><span class="keyword">this</span>.scoreLabel.setPosition(size.width/<span class="number">2</span> + <span class="number">20</span>, size.height-<span class="number">50</span>);</span><br><span class="line"><span class="keyword">this</span>.addChild(<span class="keyword">this</span>.scoreLabel);</span><br></pre></td></tr></table></figure></p>
+<p>卡片合并的时候要增加分数，然后更新分数显示：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 更新分数 -&gt; this.setScore(this.score);</span></span><br><span class="line">setScore:<span class="function"><span class="keyword">function</span><span class="params">(s)</span></span><br><span class="line"></span>&#123;</span><br><span class="line">	<span class="keyword">this</span>.scoreLabel.setString(s);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><strong>8、判断游戏结束和胜利</strong></p>
+<p>每一次卡片合并操作后，我们都需要判断游戏是否胜利或者结束。利用五个条件判断游戏是否还能够继续：（1）还有空卡片 （2）还可以向右滑 （3）还可以向左滑 （4）还可以向上滑 （5）还可以向下滑。只要以上条件满足一个，游戏就可以再继续。否则，游戏不能再继续了。判断胜利则是看卡片中有没有数字达到2048。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 判断游戏是否结束*******************************</span></span><br><span class="line">doCheckGameOver:<span class="function"><span class="keyword">function</span><span class="params">()</span></span><br><span class="line"></span>&#123;</span><br><span class="line">	<span class="keyword">var</span> size = cc.Director.getInstance().getWinSize();</span><br><span class="line"></span><br><span class="line">	<span class="keyword">var</span> isGameOver = <span class="literal">true</span>;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">var</span> y=<span class="number">0</span>; y&lt;<span class="number">4</span>; ++y)</span><br><span class="line">	&#123;</span><br><span class="line">	    <span class="keyword">for</span>(<span class="keyword">var</span> x=<span class="number">0</span>; x&lt;<span class="number">4</span>; ++x)</span><br><span class="line">	    &#123;</span><br><span class="line">		<span class="keyword">if</span>(<span class="keyword">this</span>.cardArr[x][y].getNumber() == <span class="number">0</span> ||</span><br><span class="line">		    (x&gt;<span class="number">0</span>&amp;&amp;(<span class="keyword">this</span>.cardArr[x][y].getNumber() == <span class="keyword">this</span>.cardArr[x-<span class="number">1</span>][y].getNumber())) ||</span><br><span class="line">		    (x&lt;<span class="number">3</span>&amp;&amp;(<span class="keyword">this</span>.cardArr[x][y].getNumber() == <span class="keyword">this</span>.cardArr[x+<span class="number">1</span>][y].getNumber())) ||</span><br><span class="line">		    (y&gt;<span class="number">0</span>&amp;&amp;(<span class="keyword">this</span>.cardArr[x][y].getNumber() == <span class="keyword">this</span>.cardArr[x][y-<span class="number">1</span>].getNumber())) ||</span><br><span class="line">		    (y&lt;<span class="number">3</span>&amp;&amp;(<span class="keyword">this</span>.cardArr[x][y].getNumber() == <span class="keyword">this</span>.cardArr[x][y+<span class="number">1</span>].getNumber())))</span><br><span class="line">		&#123;</span><br><span class="line">		    isGameOver = <span class="literal">false</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	    &#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> (isGameOver)  &#123;     <span class="comment">// if the game is over</span></span><br><span class="line">	    <span class="built_in">console</span>.log(<span class="string">"The Game Is Over!"</span>);</span><br><span class="line">	    cc.Director.getInstance().replaceScene(cc.TransitionFade.create(<span class="number">1</span>, <span class="keyword">new</span> HelloWorldScene()));</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">else</span> &#123;</span><br><span class="line">	    <span class="keyword">if</span> (<span class="keyword">this</span>.shouldCreateCardNumber()) &#123;</span><br><span class="line">		<span class="keyword">this</span>.autoCreateCardNumber();</span><br><span class="line">	    &#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span>(<span class="keyword">this</span>.isWin())  &#123;     <span class="comment">// if win</span></span><br><span class="line">	    cc.Director.getInstance().replaceScene(cc.TransitionFade.create(<span class="number">1</span>, <span class="keyword">new</span> HelloWorldScene()));</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 判断是否胜利**********************</span></span><br><span class="line">isWin:<span class="function"><span class="keyword">function</span><span class="params">()</span> </span>&#123;</span><br><span class="line"><span class="keyword">var</span> Win = <span class="literal">false</span>;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">var</span> i=<span class="number">0</span>; i&lt;<span class="number">4</span>; ++i) &#123;</span><br><span class="line">	    <span class="keyword">for</span>(<span class="keyword">var</span> j=<span class="number">0</span>; j&lt;<span class="number">4</span>; ++j) &#123;</span><br><span class="line">		<span class="keyword">if</span> (<span class="keyword">this</span>.cardArr[i][j].getNumber() == <span class="number">2048</span>) &#123;</span><br><span class="line">		    Win = <span class="literal">true</span>;</span><br><span class="line">		    <span class="keyword">break</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	    &#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> Win;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><strong>9、界面优化</strong></p>
+<p>在一个卡片里面，当数字变成两位数、三位数的时候，就需要调整一下数字的大小，在CardSprite的setNumber方法中添加代码：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 设置数字大小</span></span><br><span class="line"><span class="keyword">if</span>(num &gt;= <span class="number">0</span>)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">this</span>.labelCardNumber.setFontSize(<span class="number">60</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">if</span>(num &gt;= <span class="number">16</span>)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">this</span>.labelCardNumber.setFontSize(<span class="number">55</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">if</span>(num &gt;= <span class="number">128</span>)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">this</span>.labelCardNumber.setFontSize(<span class="number">40</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">if</span>(num &gt;= <span class="number">1024</span>)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">this</span>.labelCardNumber.setFontSize(<span class="number">30</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>我们还需要给不同的数字设置不同的卡片颜色，同样在setNumber方法中添加代码：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//判断数字的大小来调整颜色</span></span><br><span class="line"><span class="keyword">if</span>(<span class="keyword">this</span>.number == <span class="number">0</span>)&#123;</span><br><span class="line">    <span class="keyword">this</span>.cardColorBG.setColor(<span class="keyword">new</span> cc.Color3B(<span class="number">200</span>,<span class="number">190</span>,<span class="number">180</span>));</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">if</span> (<span class="keyword">this</span>.number == <span class="number">2</span>) &#123;</span><br><span class="line">    <span class="keyword">this</span>.cardColorBG.setColor(<span class="keyword">new</span> cc.Color3B(<span class="number">240</span>,<span class="number">230</span>,<span class="number">220</span>));</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">if</span> (<span class="keyword">this</span>.number == <span class="number">4</span>) &#123;</span><br><span class="line">    <span class="keyword">this</span>.cardColorBG.setColor(<span class="keyword">new</span> cc.Color3B(<span class="number">240</span>,<span class="number">220</span>,<span class="number">200</span>));</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">if</span> (<span class="keyword">this</span>.number == <span class="number">8</span>) &#123;</span><br><span class="line">    <span class="keyword">this</span>.cardColorBG.setColor(<span class="keyword">new</span> cc.Color3B(<span class="number">240</span>,<span class="number">180</span>,<span class="number">120</span>));</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">if</span> (<span class="keyword">this</span>.number == <span class="number">16</span>) &#123;</span><br><span class="line">    <span class="keyword">this</span>.cardColorBG.setColor(<span class="keyword">new</span> cc.Color3B(<span class="number">240</span>,<span class="number">140</span>,<span class="number">90</span>));</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">if</span> (<span class="keyword">this</span>.number == <span class="number">32</span>) &#123;</span><br><span class="line">    <span class="keyword">this</span>.cardColorBG.setColor(<span class="keyword">new</span> cc.Color3B(<span class="number">240</span>,<span class="number">120</span>,<span class="number">90</span>));</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">if</span> (<span class="keyword">this</span>.number == <span class="number">64</span>) &#123;</span><br><span class="line">    <span class="keyword">this</span>.cardColorBG.setColor(<span class="keyword">new</span> cc.Color3B(<span class="number">240</span>,<span class="number">90</span>,<span class="number">60</span>));</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">if</span> (<span class="keyword">this</span>.number == <span class="number">128</span>) &#123;</span><br><span class="line">    <span class="keyword">this</span>.cardColorBG.setColor(<span class="keyword">new</span> cc.Color3B(<span class="number">240</span>,<span class="number">90</span>,<span class="number">60</span>));</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">if</span> (<span class="keyword">this</span>.number == <span class="number">256</span>) &#123;</span><br><span class="line">    <span class="keyword">this</span>.cardColorBG.setColor(<span class="keyword">new</span> cc.Color3B(<span class="number">240</span>,<span class="number">200</span>,<span class="number">70</span>));</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">if</span> (<span class="keyword">this</span>.number == <span class="number">512</span>) &#123;</span><br><span class="line">    <span class="keyword">this</span>.cardColorBG.setColor(<span class="keyword">new</span> cc.Color3B(<span class="number">240</span>,<span class="number">200</span>,<span class="number">70</span>));</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">if</span> (<span class="keyword">this</span>.number == <span class="number">1024</span>) &#123;</span><br><span class="line">    <span class="keyword">this</span>.cardColorBG.setColor(<span class="keyword">new</span> cc.Color3B(<span class="number">0</span>,<span class="number">130</span>,<span class="number">0</span>));</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">if</span> (<span class="keyword">this</span>.number == <span class="number">2048</span>) &#123;</span><br><span class="line">    <span class="keyword">this</span>.cardColorBG.setColor(<span class="keyword">new</span> cc.Color3B(<span class="number">0</span>,<span class="number">130</span>,<span class="number">0</span>));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><strong>10、最终游戏截图</strong></p>
+<p><img src="http://img.blog.csdn.net/20140701140423187?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvbGlzb25nbGlzb25nbGlzb25n/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt=""></p>
+<h2 id="结语">结语</h2><ul>
+<li><p>2048源码：<a href="https://github.com/SongLee24/2048-js" target="_blank" rel="external">https://github.com/SongLee24/2048-js</a></p>
+</li>
+<li><p>在线试玩：<a href="http://2048m.sinaapp.com" target="_blank" rel="external">http://2048m.sinaapp.com</a> （新浪云）</p>
+</li>
+</ul>
+<p>采用Cocos2D-HTML5引擎进行游戏开发，开发效率更高，加上丰富的工具集支持、实时的各种调试手段和云合作开发手段，更加直接的效果调校方式，完全没有开发环境依赖，各种优势的叠加，可以大幅度降低开发成本，提升游戏的上架速度。</p>
+<p>如果觉得这样还不够，我们可以使用Cocos2d-JS-v3.0，同一份JavaScript游戏代码不用修改或者小范围修改，配合Cocos2D-X JavaScript-Binding就能以Hybrid的方式直接作为本地应用发布，也可以编译到Android、iOS等移动平台。</p>
+<p>通过Cocos2D-HTML5或Cocos2d-JS，开发者能以一个更快、更惬意的方式实现自己的想法。</p>
+<hr>
+<p>参考：<a href="http://blog.csdn.net/column/details/love2048.html" target="_blank" rel="external">http://blog.csdn.net/column/details/love2048.html</a></p>
+
+        
+      </div>
+    
+
+    
+      <div class="post-footer">
+        
+          <div class="post-tags">
+            
+              <a href="/tags/Cocos2dx/">
+                #Cocos2dx
+              </a>
+            
+          </div>
+        
+
+        
+          <div class="post-nav">
+            <div class="post-nav-prev post-nav-item">
+              
+            </div>
+
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/2014/06/22/Kth-Order-Statistic/">第K顺序统计量的求解</a>
+              
+            </div>
+          </div>
+        
+
+        
+        
+      </div>
+    
+  </div>
+
+
+
+  
+    <div class="comments" id="comments">
+      
+        <div class="ds-thread" data-thread-key="2014/06/30/cocos2d-js-2048/"
+             data-title="Cocos2d-JS入门之2048游戏" data-url="http://yoursite.com/2014/06/30/cocos2d-js-2048/">
+        </div>
+
+      
+    </div>
+  
+
+          </div>
+
+          
+        </div>
+
+        
+<div class="sidebar-toggle">
+  <div class="sidebar-toggle-line-wrap">
+    <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+    <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+    <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+  </div>
+</div>
+
+<div id="sidebar" class="sidebar">
+  <div class="sidebar-inner">
+
+    
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview" data-target="site-overview">
+          站点概览
+        </li>
+      </ul>
+    
+
+    <div class="site-overview">
+      <div class="site-author motion-element">
+        <img class="site-author-image" src="https://avatars0.githubusercontent.com/u/6904366?v=3&s=140" alt="Song Lee" />
+        <p class="site-author-name">Song Lee</p>
+      </div>
+      <p class="site-description motion-element">放宽心，多努力</p>
+      <div class="site-state motion-element">
+        <div class="site-state-item site-state-posts">
+          <span class="site-state-item-count">13</span>
+          <span class="site-state-item-name">日志</span>
+        </div>
+        <div class="site-state-item site-state-tags">
+            <span class="site-state-item-count">7</span>
+            <span class="site-state-item-name">标签</span>
+        </div>
+        <div class="site-state-item site-state-pages">
+            <span class="site-state-item-count">4</span>
+            <span class="site-state-item-name">页面</span>
+        </div>
+      </div>
+
+      
+        <div class="feed-link motion-element">
+          <a href="/atom.xml">
+            <i class="menu-item-icon icon-feed"></i>
+            RSS
+          </a>
+        </div>
+      
+
+      <div class="links-of-author motion-element">
+        
+          
+            <span class="links-of-author-item">
+              <a href="https://github.com/SongLee24">GitHub</a>
+            </span>
+          
+            <span class="links-of-author-item">
+              <a href="http://blog.csdn.net/lisonglisonglisong">CSDN</a>
+            </span>
+          
+            <span class="links-of-author-item">
+              <a href="http://weibo.com/lisonglisong">Weibo</a>
+            </span>
+          
+            <span class="links-of-author-item">
+              <a href="http://www.douban.com/people/122455925/">DouBan</a>
+            </span>
+          
+            <span class="links-of-author-item">
+              <a href="http://www.zhihu.com/people/shen-yi-59">ZhiHu</a>
+            </span>
+          
+        
+      </div>
+
+      
+      
+        <div class="cc-license motion-element">
+          <a href="http://creativecommons.org/licenses/by-nc-sa/4.0" class="cc-opacity" target="_blank">
+            <img src="/images/cc-by-nc-sa.svg" alt="Creative Commons" />
+          </a>
+        </div>
+      
+
+    </div>
+
+    
+      <div class="post-toc-wrap sidebar-panel-active">
+        <div class="post-toc-indicator-top post-toc-indicator"></div>
+        <div class="post-toc">
+          
+          
+            <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#介绍"><span class="nav-number">1.</span> <span class="nav-text">介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Cocos2d-html5目录结构"><span class="nav-number">2.</span> <span class="nav-text">Cocos2d-html5目录结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2048游戏开发"><span class="nav-number">3.</span> <span class="nav-text">2048游戏开发</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#结语"><span class="nav-number"></span> <span class="nav-text">结语</span></a></div>
+          
+        </div>
+        <div class="post-toc-indicator-bottom post-toc-indicator"></div>
+      </div>
+    
+
+  </div>
+</div>
+
+
+      </div>
+    </div>
+
+    <div id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy; &nbsp;  2014 - 
+  2015
+  <span class="with-love">
+    <i class="icon-heart"></i>
+  </span>
+  <span class="author">Song Lee</span>
+</div>
+
+<div class="powered-by">
+  <div style="float:left;margin-top:7px;margin-right:10px;">
+	<script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1254974724'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s11.cnzz.com/z_stat.php%3Fid%3D1254974724%26show%3Dpic' type='text/javascript'%3E%3C/script%3E"));</script>
+  </div>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+
+      </div>
+    </div>
+
+    <div class="back-to-top"></div>
+  </div>
+
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript">
+    $(document).ready(function() {
+      $(".fancybox").fancybox();
+    });
+  </script>
+
+  <script type="text/javascript">
+  function hasMobileUA () {
+    var nav = window.navigator;
+    var ua = nav.userAgent;
+    var pa = /iPad|iPhone|Android|Opera Mini|BlackBerry|webOS|UCWEB|Blazer|PSP|IEMobile|Symbian/g;
+
+    return pa.test(ua);
+  }
+
+  function isDesktop () {
+    return screen.width > 991 && !hasMobileUA();
+  }
+
+  function isTablet () {
+    return screen.width < 992 && screen.width > 767 && hasMobileUA();
+  }
+
+  function isMobile () {
+    return screen.width < 767 && hasMobileUA();
+  }
+
+  function escapeSelector (selector) {
+    return selector.replace(/[!"$%&'()*+,.\/:;<=>?@[\\\]^`{|}~]/g, "\\$&")
+  }
+</script>
+
+  
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
+
+  <script type="text/javascript" id="motion.global">
+  $(document).ready(function () {
+    var body = $('body');
+    var isSidebarVisible = false;
+    var sidebarToggle = $('.sidebar-toggle');
+    var sidebarToggleLine1st = $('.sidebar-toggle-line-first')
+    var sidebarToggleLine2nd = $('.sidebar-toggle-line-middle');
+    var sidebarToggleLine3rd = $('.sidebar-toggle-line-last');
+    var sidebar = $('.sidebar');
+
+    var SIDEBAR_WIDTH = '320px';
+    var SIDEBAR_DISPLAY_DURATION = 300;
+
+    var sidebarToogleLineStatusInit = {width: '100%', opacity: 1, left: 0, rotateZ: 0, top: 0};
+
+    var sidebarToggleLine1stStatusInit = sidebarToogleLineStatusInit;
+    var sidebarToggleLine1stStatusArrow = {width: '50%', rotateZ: '-45deg', top: '2px'};
+    var sidebarToogleLine1stStatusClose = {width: '100%', rotateZ: '-45deg', top: '5px'};
+
+    var sidebarToggleLine2ndStatusInit = sidebarToogleLineStatusInit;
+    var sidebarToggleLine2ndStatusArrow = {width: '90%'};
+    var sidebarToogleLine2ndStatusClose = {opacity: 0};
+
+    var sidebarToggleLine3rdStatusInit = sidebarToogleLineStatusInit;
+    var sidebarToggleLine3rdStatusArrow = {width: '50%', rotateZ: '45deg', top: '-2px'};
+    var sidebarToogleLine3rdStatusClose = {width: '100%', rotateZ: '45deg', top: '-5px'};
+
+    LogoAndMenuMotion();
+    sidebatToggleMotion();
+    postsListMotion();
+    backToTopMotion();
+
+
+    $(document)
+      .on('sidebar.isShowing', function () {
+        isDesktop() && body.velocity(
+          {paddingRight: SIDEBAR_WIDTH},
+          SIDEBAR_DISPLAY_DURATION
+        );
+        sidebarContentMotion();
+      })
+      .on('sidebar.isHiding', function () {});
+
+    function LogoAndMenuMotion() {
+      $.Velocity.RunSequence([
+        { e: $('.brand'), p: { opacity: 1 }, o: { duration: 100 } },
+        { e: $('.logo'), p: { opacity: 1, top: 0 }, o: { duration: 50} },
+        
+        { e: $('.logo-line-before i'), p: { translateX: "100%" }, o: { duration: 500, sequenceQueue: false } },
+        { e: $('.logo-line-after i'), p: { translateX: "-100%" }, o: { duration: 500, sequenceQueue: false } },
+        
+        { e: $('.site-title'), p: { opacity: 1, top: 0 }, o: { duration: 200 } }
+      ]);
+      $('.menu-item').velocity('transition.slideDownIn', {display: null});
+    }
+
+
+    function backToTopMotion () {
+      var b2top = $('.back-to-top');
+      b2top.on('click', function () {
+        body.velocity('scroll');
+      });
+    }
+
+    function sidebarShowMotion () {
+
+      sidebarToggleLine1st.velocity(sidebarToogleLine1stStatusClose);
+      sidebarToggleLine2nd.velocity(sidebarToogleLine2ndStatusClose);
+      sidebarToggleLine3rd.velocity(sidebarToogleLine3rdStatusClose);
+
+      sidebar.velocity({width: SIDEBAR_WIDTH}, {
+        display: 'block',
+        duration: SIDEBAR_DISPLAY_DURATION,
+        complete: function () {
+          sidebar.addClass('sidebar-active');
+          sidebar.trigger('sidebar.didShow');
+        }
+      });
+      sidebar.trigger('sidebar.isShowing');
+    }
+
+    function sidebarHideMotion () {
+      isDesktop() && body.velocity({paddingRight: 0});
+      sidebar.velocity('reverse');
+
+      sidebarToggleLine1st.velocity(sidebarToggleLine1stStatusInit);
+      sidebarToggleLine2nd.velocity(sidebarToggleLine2ndStatusInit);
+      sidebarToggleLine3rd.velocity(sidebarToggleLine3rdStatusInit);
+
+      sidebar.removeClass('sidebar-active');
+      sidebar.trigger('sidebar.isHiding');
+    };
+
+    function sidebarContentMotion () {
+      $('.sidebar .motion-element').velocity(
+        'transition.slideRightIn',
+        {stagger: 50, drag: true}
+      );
+    }
+
+    function postsListMotion () {
+      var postMotionOptions = window.postMotionOptions || {stagger: 300, drag: true};
+      $('.post').velocity('transition.slideDownIn', postMotionOptions);
+    }
+
+    function sidebatToggleMotion () {
+      sidebarToggle.on('click', function () {
+        isSidebarVisible ? sidebarHideMotion() : sidebarShowMotion();
+        isSidebarVisible = !isSidebarVisible;
+      });
+
+      sidebarToggle.hover(function () {
+        if (isSidebarVisible) {return}
+        sidebarToggleLine1st.velocity('stop').velocity(sidebarToggleLine1stStatusArrow);
+        sidebarToggleLine2nd.velocity('stop').velocity(sidebarToggleLine2ndStatusArrow);
+        sidebarToggleLine3rd.velocity('stop').velocity(sidebarToggleLine3rdStatusArrow);
+      }, function () {
+        if (isSidebarVisible) {return}
+        sidebarToggleLine1st.velocity('stop').velocity(sidebarToggleLine1stStatusInit);
+        sidebarToggleLine2nd.velocity('stop').velocity(sidebarToggleLine2ndStatusInit);
+        sidebarToggleLine3rd.velocity('stop').velocity(sidebarToggleLine3rdStatusInit);
+      });
+    }
+  });
+
+</script>
+
+
+
+
+
+  
+  
+<script type="text/javascript" id="bootstrap.scrollspy.custom">
+  /* ========================================================================
+  * Bootstrap: scrollspy.js v3.3.2
+  * http://getbootstrap.com/javascript/#scrollspy
+  * ========================================================================
+  * Copyright 2011-2015 Twitter, Inc.
+  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
+  * ======================================================================== */
+
+  /**
+   * Custom by iissnan
+   *
+   * - Add a `clear.bs.scrollspy` event.
+   * - Esacpe targets selector.
+   */
+
+
+  +function ($) {
+    'use strict';
+
+    // SCROLLSPY CLASS DEFINITION
+    // ==========================
+
+    function ScrollSpy(element, options) {
+      this.$body          = $(document.body)
+      this.$scrollElement = $(element).is(document.body) ? $(window) : $(element)
+      this.options        = $.extend({}, ScrollSpy.DEFAULTS, options)
+      this.selector       = (this.options.target || '') + ' .nav li > a'
+      this.offsets        = []
+      this.targets        = []
+      this.activeTarget   = null
+      this.scrollHeight   = 0
+
+      this.$scrollElement.on('scroll.bs.scrollspy', $.proxy(this.process, this))
+      this.refresh()
+      this.process()
+    }
+
+    ScrollSpy.VERSION  = '3.3.2'
+
+    ScrollSpy.DEFAULTS = {
+      offset: 10
+    }
+
+    ScrollSpy.prototype.getScrollHeight = function () {
+      return this.$scrollElement[0].scrollHeight || Math.max(this.$body[0].scrollHeight, document.documentElement.scrollHeight)
+    }
+
+    ScrollSpy.prototype.refresh = function () {
+      var that          = this
+      var offsetMethod  = 'offset'
+      var offsetBase    = 0
+
+      this.offsets      = []
+      this.targets      = []
+      this.scrollHeight = this.getScrollHeight()
+
+      if (!$.isWindow(this.$scrollElement[0])) {
+        offsetMethod = 'position'
+        offsetBase   = this.$scrollElement.scrollTop()
+      }
+
+      this.$body
+        .find(this.selector)
+        .map(function () {
+          var $el   = $(this)
+          var href  = $el.data('target') || $el.attr('href')
+          var $href = /^#./.test(href) && $(escapeSelector(href)) // Need to escape selector.
+
+          return ($href
+            && $href.length
+            && $href.is(':visible')
+            && [[$href[offsetMethod]().top + offsetBase, href]]) || null
+        })
+        .sort(function (a, b) { return a[0] - b[0] })
+        .each(function () {
+          that.offsets.push(this[0])
+          that.targets.push(this[1])
+        })
+
+
+    }
+
+    ScrollSpy.prototype.process = function () {
+      var scrollTop    = this.$scrollElement.scrollTop() + this.options.offset
+      var scrollHeight = this.getScrollHeight()
+      var maxScroll    = this.options.offset + scrollHeight - this.$scrollElement.height()
+      var offsets      = this.offsets
+      var targets      = this.targets
+      var activeTarget = this.activeTarget
+      var i
+
+      if (this.scrollHeight != scrollHeight) {
+        this.refresh()
+      }
+
+      if (scrollTop >= maxScroll) {
+        return activeTarget != (i = targets[targets.length - 1]) && this.activate(i)
+      }
+
+      if (activeTarget && scrollTop < offsets[0]) {
+        $(this.selector).trigger('clear.bs.scrollspy')  // Add a custom event.
+        this.activeTarget = null
+        return this.clear()
+      }
+
+      for (i = offsets.length; i--;) {
+        activeTarget != targets[i]
+          && scrollTop >= offsets[i]
+          && (!offsets[i + 1] || scrollTop <= offsets[i + 1])
+          && this.activate(targets[i])
+      }
+    }
+
+    ScrollSpy.prototype.activate = function (target) {
+      this.activeTarget = target
+
+      this.clear()
+
+      var selector = this.selector +
+        '[data-target="' + target + '"],' +
+        this.selector + '[href="' + target + '"]'
+
+      var active = $(selector)
+        .parents('li')
+        .addClass('active')
+
+      if (active.parent('.dropdown-menu').length) {
+        active = active
+          .closest('li.dropdown')
+          .addClass('active')
+      }
+
+      active.trigger('activate.bs.scrollspy')
+    }
+
+    ScrollSpy.prototype.clear = function () {
+      $(this.selector)
+        .parentsUntil(this.options.target, '.active')
+        .removeClass('active')
+    }
+
+
+    // SCROLLSPY PLUGIN DEFINITION
+    // ===========================
+
+    function Plugin(option) {
+      return this.each(function () {
+        var $this   = $(this)
+        var data    = $this.data('bs.scrollspy')
+        var options = typeof option == 'object' && option
+
+        if (!data) $this.data('bs.scrollspy', (data = new ScrollSpy(this, options)))
+        if (typeof option == 'string') data[option]()
+      })
+    }
+
+    var old = $.fn.scrollspy
+
+    $.fn.scrollspy             = Plugin
+    $.fn.scrollspy.Constructor = ScrollSpy
+
+
+    // SCROLLSPY NO CONFLICT
+    // =====================
+
+    $.fn.scrollspy.noConflict = function () {
+      $.fn.scrollspy = old
+      return this
+    }
+
+
+    // SCROLLSPY DATA-API
+    // ==================
+
+    $(window).on('load.bs.scrollspy.data-api', function () {
+      $('[data-spy="scroll"]').each(function () {
+        var $spy = $(this)
+        Plugin.call($spy, $spy.data())
+      })
+    })
+
+  }(jQuery);
+</script>
+
+
+<script type="text/javascript" id="sidebar.toc.highlight">
+  $(document).ready(function () {
+    var tocSelector = '.post-toc';
+    var $tocSelector = $(tocSelector);
+    var activeCurrentSelector = '.active-current';
+
+    $tocSelector
+      .on('activate.bs.scrollspy', function () {
+        var $currentActiveElement = $(tocSelector + ' .active').last();
+
+        removeCurrentActiveClass();
+        $currentActiveElement.addClass('active-current');
+
+        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
+      })
+      .on('clear.bs.scrollspy', function () {
+        removeCurrentActiveClass();
+      });
+
+    function removeCurrentActiveClass () {
+      $(tocSelector + ' ' + activeCurrentSelector)
+        .removeClass(activeCurrentSelector.substring(1));
+    }
+
+    function processTOC () {
+      getTOCMaxHeight();
+      toggleTOCOverflowIndicators();
+    }
+
+    function getTOCMaxHeight () {
+      var $sidebarInner = $('.sidebar-inner');
+      var height = $('.sidebar').height() -
+                   $tocSelector.position().top -
+                   $('.post-toc-indicator-bottom').height();
+
+      $tocSelector.css('height', height);
+
+      return height;
+    }
+
+    function toggleTOCOverflowIndicators () {
+      tocOverflowIndicator(
+        '.post-toc-indicator-top',
+        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
+      );
+
+      tocOverflowIndicator(
+        '.post-toc-indicator-bottom',
+        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
+      )
+    }
+
+    $(document).on('sidebar.didShow', function () {
+      processTOC();
+    });
+
+    $('body').scrollspy({ target: tocSelector });
+    $(window).on('resize', function () {
+      if ( $('.sidebar').hasClass('sidebar-active') ) {
+        processTOC();
+      }
+    });
+
+    onScroll($tocSelector);
+
+    function onScroll (element) {
+      element.on('mousewheel DOMMouseScroll', function (event) {
+          var oe = event.originalEvent;
+          var delta = oe.wheelDelta || -oe.detail;
+          var self = this;
+
+          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+          event.preventDefault();
+
+          toggleTOCOverflowIndicators();
+      });
+    }
+
+    function tocOverflowIndicator (indicator, action) {
+      $(indicator).velocity('stop').velocity({
+        opacity: action === 'show' ? 0.4 : 0
+      }, { duration: 100 });
+    }
+
+  });
+</script>
+
+
+  <script type="text/javascript" id="sidebar.nav">
+    $(document).ready(function () {
+      var html = $('html');
+
+      $('.sidebar-nav li').on('click', function () {
+        var item = $(this);
+        var activeTabClassName = 'sidebar-nav-active';
+        var activePanelClassName = 'sidebar-panel-active';
+        if (item.hasClass(activeTabClassName)) {
+          return;
+        }
+
+        var currentTarget = $('.' + activePanelClassName);
+        var target = $('.' + item.data('target'));
+
+        currentTarget.velocity('transition.slideUpOut', 200, function () {
+          target
+            .velocity('stop')
+            .velocity('transition.slideDownIn', 200)
+            .addClass(activePanelClassName);
+        });
+
+        item.siblings().removeClass(activeTabClassName);
+        item.addClass(activeTabClassName);
+      });
+
+      $('.post-toc a').on('click', function (e) {
+        e.preventDefault();
+        var offset = $(escapeSelector(this.getAttribute('href'))).offset().top;
+        html.velocity('stop').velocity('scroll', {
+          offset: offset  + 'px',
+          mobileHA: false
+        });
+      });
+
+      // Expand sidebar on post detail page by default, when post has a toc.
+      var $tocContent = $('.post-toc-content');
+      if ($tocContent.length > 0 && $tocContent.html().trim().length > 0 && isDesktop()) {
+        setTimeout(function () {
+          $('.sidebar-toggle').trigger('click');
+        }, 800);
+      }
+    });
+  </script>
+
+
+
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"16"},"slide":{"type":"slide","bdImg":"2","bdPos":"left","bdTop":"195.5"},"image":{"viewList":["qzone","tsina","tqq","renren","weixin"],"viewText":"分享到：","viewSize":"16"},"selectShare":{"bdContainerClass":null,"bdSelectMiniList":["qzone","tsina","tqq","renren","weixin"]}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+
+
+  
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for (i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"songlee24"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+  
+</body>
+</html>
