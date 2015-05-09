@@ -4,7 +4,7 @@
   <subtitle><![CDATA[李松]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://yoursite.com/"/>
-  <updated>2015-05-09T17:55:21.142Z</updated>
+  <updated>2015-05-09T17:58:56.994Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,11 +15,59 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title><![CDATA[C++学习之虚函数与纯虚函数]]></title>
+    <link href="http://yoursite.com/2014/07/17/cpp-virtual-function/"/>
+    <id>http://yoursite.com/2014/07/17/cpp-virtual-function/</id>
+    <published>2014-07-16T16:15:07.000Z</published>
+    <updated>2015-05-09T17:58:56.994Z</updated>
+    <content type="html"><![CDATA[<p>面向对象程序设计（object-oriented programming）的核心思想是<strong><em>数据抽象、继承、动态绑定。</em></strong>通过数据抽象，可以使类的接口与实现分离，使用继承，可以更容易地定义与其他类相似但不完全相同的新类，使用动态绑定，可以在一定程度上忽略相似类的区别，而以统一的方式使用它们的对象。</p>
+<p><strong>虚函数</strong>的作用是实现<strong>多态性（Polymorphism）</strong>，多态性是将接口与实现进行分离，采用共同的方法，但因个体差异而采用不同的策略。<strong>纯虚函数</strong>则是一种特殊的虚函数。<em>虚函数联系到多态，多态联系到继承。所以本文中都是在继承层次上做文章。没了继承，什么都没得谈。</em><br><a id="more"></a></p>
+<h3 id="虚函数">虚函数</h3><p>1 . <strong>定义</strong></p>
+<p>在C++中，基类必须将它的两种成员函数区分开来：一种是基类希望其派生类进行覆盖的函数；另一种是基类希望派生类直接继承而不要改变的函数。对于前者，基类通过在函数之前加上virtual关键字将其定义为<strong>虚函数（virtual）</strong>。<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> Base&#123;  <span class="comment">// 基类</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="function"><span class="keyword">virtual</span> <span class="keyword">int</span> <span class="title">func</span><span class="params">(<span class="keyword">int</span> n)</span> <span class="keyword">const</span></span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> Derive_Class : <span class="keyword">public</span> Base&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="function"><span class="keyword">int</span> <span class="title">func</span><span class="params">(<span class="keyword">int</span> n)</span> <span class="keyword">const</span></span>;  <span class="comment">// 默认也为虚函数</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<p>当我们在派生类中覆盖某个函数时，可以在函数前加virtual关键字。然而这不是必须的，<strong>因为一旦某个函数被声明成虚函数，则所有派生类中它都是虚函数</strong>。任何构造函数之外的非静态函数都可以是虚函数。派生类经常（但不总是）覆盖它继承的虚函数，如果派生类没有覆盖其基类中某个虚函数，则该虚函数的行为类似于其他的普通成员，派生类会直接继承其在基类中的版本。</p>
+<p>2 . <strong>动态绑定</strong></p>
+<p> 当我们使用基类的引用（或指针）调用一个虚函数时将发生<strong>动态绑定（dynamic binding）</strong>。因为我们直到运行时才能知道到底调用了哪个版本的虚函数，可能是基类中的版本也可能是派生类中的版本，判断的依据是引用（或指针）所绑定的对象的真实类型。与非虚函数在编译时绑定不同，虚函数是在运行时选择函数的版本，所以动态绑定也叫<strong>运行时绑定（run-time binding）</strong>。</p>
+<p>3 . <strong>静态类型与动态类型</strong></p>
+<p> <strong>静态类型</strong>指的是变量声明时的类型或表达式生成的类型，它在编译时总是已知的；<strong>动态类型</strong>指的是变量或表达式表示的内存中的对象的类型，它直到运行时才可知。当且仅当通过基类的指针或引用调用虚函数时，才会在运行时解析该调用，<strong>也只有在这种情况下对象的动态类型才有可能与静态类型不同</strong>。如果表达式既不是引用也不是指针，则它的动态类型永远与静态类型一致。</p>
+<p>4 . <strong>final和override</strong></p>
+<p> 派生类中如果定义了一个函数与基类中虚函数同名但形参列表不同，编译器会认为这是派生类新定义的函数。如果我们的意图本是覆盖虚函数，则这种错误很难发现。通过在派生类中的虚函数最后加<strong>override关键字</strong>使得意图更加清晰。如果我们使用override标记了某个函数，但该函数并没有覆盖已存在的虚函数，编译器将报错。<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> Base&#123;  <span class="comment">// 基类</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="function"><span class="keyword">virtual</span> <span class="keyword">int</span> <span class="title">func</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span> <span class="keyword">const</span></span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> Derive_Class : <span class="keyword">public</span> Base&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="function"><span class="keyword">int</span> <span class="title">func</span><span class="params">(<span class="keyword">int</span> a)</span> <span class="keyword">const</span> override</span>;  <span class="comment">// 报错，没有覆盖虚函数</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<p>如果我们定义一个类，并不希望它被继承。或者希望某个函数不被覆盖，则可以把类或者函数指定为<strong>final</strong>，则之后任何尝试继承该类或覆盖该函数的操作将引发错误。<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> Base final &#123; <span class="comment">/*   */</span> &#125;;     <span class="comment">// 基类不能被继承</span></span><br><span class="line"><span class="keyword">class</span> Derive_Class : <span class="keyword">public</span> Base &#123; <span class="comment">/*  */</span> &#125;;     <span class="comment">// 报错</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">func</span><span class="params">(<span class="keyword">int</span>)</span> <span class="keyword">const</span> final</span>;   <span class="comment">// 不允许后续的其他类覆盖func(int)</span></span><br></pre></td></tr></table></figure></p>
+<p>5 . <strong>回避虚函数的机制</strong></p>
+<p>在某些情况下，我们希望对虚函数的调用不要进行动态绑定，而是强迫其执行虚函数的某个特定版本。可以使用<strong>作用域运算符</strong>实现这一目的。<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 强行调用基类中定义的函数版本而不管baseP的动态类型是什么</span></span><br><span class="line"><span class="keyword">int</span> a = baseP-&gt;Base::func(<span class="number">42</span>);</span><br></pre></td></tr></table></figure></p>
+<p> 如果一个派生类虚函数需要调用它的基类版本，但是没有使用作用域运算符，则在运行时该调用将被解析为对派生类版本自身的调用，从而导致无限递归。</p>
+<h3 id="纯虚函数">纯虚函数</h3><p>1 . <strong>定义</strong></p>
+<p>为了方便使用多态特性，我们常常需要在基类中定义虚函数。在许多情况下，在基类中不能对虚函数给出有意义的实现。为了让虚函数在基类什么也不做，引进了“纯虚函数”的概念，使函数无须定义。<em>我们通过在函数体的位置（即在声明语句的分号之前）书写=0就可以将一个虚函数说明为<strong>纯虚函数（pure virtual）</strong>。</em>其中，=0只能出现在类内部的虚函数声明语句处：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> Base&#123;  <span class="comment">// 抽象基类</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="function"><span class="keyword">virtual</span> <span class="keyword">int</span> <span class="title">func</span><span class="params">(<span class="keyword">int</span> n)</span> <span class="keyword">const</span> </span>=<span class="number">0</span>;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<p>需要注意的是，我们也可以为纯虚函数提供定义，不过函数体必须定义在类的外部。</p>
+<p>2 . <strong>抽象基类</strong></p>
+<p>含有（或者未经覆盖直接继承）纯虚函数的类叫<strong>抽象基类（abstract base class）</strong>。抽象基类负责定义接口，而后续的其他类可以覆盖该接口。如果派生类中没有重新定义纯虚函数，而只是继承基类的纯虚函数，则这个派生类仍然还是一个抽象基类。因为抽象基类含有纯虚函数（没有定义），所以<strong>我们不能创建一个抽象基类的对象</strong>，但可以声明指向抽象基类的指针或引用。<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Base base;   <span class="comment">// 错误，不能实例化抽象基类</span></span><br></pre></td></tr></table></figure></p>
+<p><br><br></p>
+<h3 id="总结：">总结：</h3><ol>
+<li>虚函数必须实现，不实现编译器会报错。</li>
+<li>父类和子类都有各自的虚函数版本。由多态方式在运行时动态绑定。</li>
+<li>通过作用域运算符可以强行调用指定的虚函数版本。</li>
+<li>纯虚函数声明如下：<code>virtual void funtion()=0;</code> 纯虚函数无需定义。包含纯虚函数的类是抽象基类，抽象基类不能创建对象，但可以声明指向抽象基类的指针或引用。</li>
+<li>派生类实现了纯虚函数以后，该纯虚函数在派生类中就变成了虚函数，其子类可以再对该函数进行覆盖。</li>
+<li>析构函数通常应该是虚函数，这样就能确保在析构时调用正确的析构函数版本。</li>
+</ol>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>面向对象程序设计（object-oriented programming）的核心思想是<strong><em>数据抽象、继承、动态绑定。</em></strong>通过数据抽象，可以使类的接口与实现分离，使用继承，可以更容易地定义与其他类相似但不完全相同的新类，使用动态绑定，可以在一定程度上忽略相似类的区别，而以统一的方式使用它们的对象。</p>
+<p><strong>虚函数</strong>的作用是实现<strong>多态性（Polymorphism）</strong>，多态性是将接口与实现进行分离，采用共同的方法，但因个体差异而采用不同的策略。<strong>纯虚函数</strong>则是一种特殊的虚函数。<em>虚函数联系到多态，多态联系到继承。所以本文中都是在继承层次上做文章。没了继承，什么都没得谈。</em><br>]]>
+    
+    </summary>
+    
+      <category term="C++" scheme="http://yoursite.com/tags/C/"/>
+    
+      <category term="Lang.-C++" scheme="http://yoursite.com/categories/Lang-C/"/>
+    
+  </entry>
+  
+  <entry>
     <title><![CDATA[C++学习之继承中的访问控制]]></title>
     <link href="http://yoursite.com/2014/07/16/cpp-access-control/"/>
     <id>http://yoursite.com/2014/07/16/cpp-access-control/</id>
     <published>2014-07-16T05:16:59.000Z</published>
-    <updated>2015-05-09T17:55:21.142Z</updated>
+    <updated>2015-05-09T17:57:02.013Z</updated>
     <content type="html"><![CDATA[<p>我们通常认为一个类有两种不同的用户：<strong>普通用户</strong> 和 <strong>类的实现者</strong>。其中，普通用户编写的代码使用类的对象，这部分代码只能访问类的公有（接口）成员；实现者则负责编写类的成员和友元的代码，成员和友元既能访问类的公有部分，也能访问类的私有部分。如果进一步考虑继承的话就会出现第三种用户，即<strong>派生类</strong>。派生类可以访问基类的公有（public）成员和受保护（protected）成员，但不能访问基类的私有（private）成员。<br><a id="more"></a><br>继承相关点：</p>
 <ul>
 <li>大多数类都只继承自一个类，这种形式的继承叫做<strong>“单继承”</strong>。本文主要讲的是单继承。</li>
@@ -28,9 +76,9 @@
 <li>派生类向基类的自动类型转换只对指针或引用有效，对象之间不存在类型转换。</li>
 <li>如果基类定义了静态成员，则不论派生出多少个派生类，每个静态成员都只存在唯一实例。</li>
 <li>防止一个类被继承可以使用关键字final，这时C++11新标准中提供的。</li>
-<li>继承中的<a href="http://songlee24.github.io/blog/2014/07/16/c-plus-plus-xue-xi-zhi-xu-han-shu-yu-chun-xu-han-shu/" target="_blank" rel="external">虚函数与纯虚函数</a>（见文章）。<br><br><br><h3 id="公有、私有和受保护成员">公有、私有和受保护成员</h3></li>
+<li>继承中的<a href="http://songlee24.github.io/blog/2014/07/16/c-plus-plus-xue-xi-zhi-xu-han-shu-yu-chun-xu-han-shu/" target="_blank" rel="external">虚函数与纯虚函数</a>（见文章）。<br><br><br></li>
 </ul>
-<p><strong>1 . 访问说明符</strong></p>
+<h3 id="公有、私有和受保护成员">公有、私有和受保护成员</h3><p><strong>1 . 访问说明符</strong></p>
 <p>在C++中通过使用访问说明符<strong>public、protected、private</strong>来对类的成员进行访问控制，控制成员对于普通用户或派生类来说是否可访问：</p>
 <ul>
 <li><p><strong>public</strong>：定义为public的成员对普通用户、类的实现者、派生类都是可访问的。public通常用于定义类的外部接口。</p>

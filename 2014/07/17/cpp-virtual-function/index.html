@@ -22,9 +22,9 @@
 
 
 
-	<meta name="keywords" content="Bitmap," />
+	<meta name="keywords" content="C++," />
 
-  <title> 位图排序 // Code Man </title>
+  <title> C++学习之虚函数与纯虚函数 // Code Man </title>
 </head>
 
 <body>
@@ -113,7 +113,7 @@
           
           
             
-              位图排序
+              C++学习之虚函数与纯虚函数
             
           
         </h1>
@@ -122,7 +122,7 @@
       <div class="post-meta">
         <span class="post-time">
           
-            发表于 2014-04-06
+            发表于 2014-07-16
           
         </span>
 
@@ -131,7 +131,7 @@
             <span class="post-category">
               &nbsp; | &nbsp; 分类于
               
-                <a href="/categories/Basic-算法与数据结构/">Basic-算法与数据结构</a>
+                <a href="/categories/Lang-C/">Lang.-C++</a>
 
                 
                 
@@ -145,8 +145,8 @@
           
             <span class="post-comments-count">
             &nbsp; | &nbsp;
-            <a href="/2014/04/06/bitmap-sorting/#comments" >
-              <span class="post-comments-count ds-thread-count" data-thread-key="2014/04/06/bitmap-sorting/"></span>
+            <a href="/2014/07/17/cpp-virtual-function/#comments" >
+              <span class="post-comments-count ds-thread-count" data-thread-key="2014/07/17/cpp-virtual-function/"></span>
             </a>
           </span>
           
@@ -161,29 +161,35 @@
         
 
         
-          <p>《编程珠玑》里面讲到了一种算法导论里没有提到过的位图排序方法，这种排序方法是<strong>通过牺牲空间效率来追求时间效率（线性时间）以达到时间-空间折中与双赢</strong>的目的。下面简单讲一下我对位图排序思想的理解。</p>
-<h3 id="问题描述">问题描述</h3><p>1 . 输入：一个至多包含1千万个非负整数的文件<a id="more"></a></p>
-<p>2 . 特征：①每个数都是小于10000000的非负整数；②没有重复的数字；③数据之间不存在关联关系。</p>
-<p>3 . 约束：①最多1MB的内存空间可用；②磁盘空间充足；③运行时间最多几分钟，最好是线性时间。</p>
-<p>4 .  输出：按升序排列的整数序列。</p>
-<h3 id="位图排序思想">位图排序思想</h3><p>由于待排序的数据记录较多，我们单纯地使用常见的排序方法时间效率较低，运行时间会很长。而且内存空间有限（限制为1MB左右），所以我们不能同时把所有整数读入内存（如果每个整数使用7个字节来存储，那么1MB内存空间只能存大约143000个数字）。当然我们可以多次读取输入文件，多次排序，但是更好的方案是使用位图排序，可以使用有限的1MB内存空间并只进行一趟排序。</p>
-<p>1 . 根据待排序集合中最大的数，开辟一个位数组，用来表示待排序集合中的整数；</p>
-<p>2 . 待排序集合中的数字在位数组中的对应位置置1，其他的置0；</p>
-<p><strong>例如，待排序集合{1,2,3,5,8,13}可以表示为：0-1-1-1-0-1-0-0-1-0-0-0-0-1</strong></p>
-<p>这样排序过程自然可以分为三步：</p>
-<pre><code>第一步：将所有的位都置为0；
-
-第二步：通过读入文件中的每个整数，将每个对应的位都置为1；
-
-第三步：检验每一位，如果该位为1，输出对应的整数。
-</code></pre><p><strong>注意</strong>：位图排序是使用一个<strong>二进制位</strong>而不是一个整数来表示0或1，这样可以大大地减少所需要的内存空间。使用位图排序的前提是要知道待排序序列中的最大数。<strong>位图排序的缺点</strong>是有些数没有出现过，仍要为其保留一个位。故位图排序比较适合关键字密集的序列，例如一个城市的电话号码。</p>
-<p>伪代码：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*Phase 1: initialize set to empty*/</span></span><br><span class="line">	<span class="keyword">for</span> i = [<span class="number">0</span>, n)</span><br><span class="line">		bit[i] = <span class="number">0</span></span><br><span class="line"><span class="comment">/*Phase 2: insert present elements into the set*/</span></span><br><span class="line">	<span class="keyword">for</span> each i in the input file</span><br><span class="line">		bit[i] = <span class="number">1</span></span><br><span class="line"><span class="comment">/*Phase 3: write sorted output*/</span></span><br><span class="line">	<span class="keyword">for</span> i = [<span class="number">0</span>, n)</span><br><span class="line">		<span class="keyword">if</span> bit[i] == <span class="number">1</span></span><br><span class="line">			write i on the output file</span><br></pre></td></tr></table></figure></p>
-<p><strong>性能</strong>：时间复杂度可达O(n)，1MB包含8<em>1024</em>1024个位，所需内存10000000/(8<em>1024</em>1024)=1.20MB，如果不是严格限制的话可以看做基本符合要求。</p>
-<h3 id="位图排序实现">位图排序实现</h3><p>位图排序时，我们需要考虑：给出一个数，如何找到其对应位图的位置，方法就是首先找到该数对应的字节，然后在找到该数对应的位。例如：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">unsigned</span> <span class="keyword">char</span> bitmap[<span class="number">2</span>];</span><br><span class="line"><span class="comment">/* 可以表示16个数，即0～15 */</span></span><br></pre></td></tr></table></figure></p>
-<p>一个字节有八位，5表示第0个字节的第5位上；14表示第1个字节的第6个位上。</p>
-<p>在这里<strong>为了简化位处理，我们使用C++标准库的bitset容器。bitset是C++提供的一种位集合的数据结构，它让我们可以像使用数组一样使用位，可以访问指定下标的bit位。和其他容器一样，bitset也是一个模板类。</strong>具体的bitset方法可以查看<a href="http://zh.cppreference.com/w/cpp/utility/bitset" target="_blank" rel="external">std::bitset reference</a>。</p>
-<p>下面我们使用bitset容器进行位图排序：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*************************************************************************</span><br><span class="line">    &gt; File Name: BitSort.cpp</span><br><span class="line">    &gt; Author: SongLee</span><br><span class="line">    &gt; E-mail: lisong.shine@qq.com</span><br><span class="line">    &gt; Created Time: 2014年06月01日 星期日 23时46分32秒</span><br><span class="line">    &gt; Personal Blog: http://songlee24.github.io</span><br><span class="line"> ************************************************************************/</span></span><br><span class="line"><span class="preprocessor">#<span class="keyword">include</span>&lt;bitset&gt;</span></span><br><span class="line"><span class="preprocessor">#<span class="keyword">include</span>&lt;iostream&gt;</span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="preprocessor">#<span class="keyword">define</span> MAX 20</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span><br><span class="line"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> arr[<span class="number">10</span>] = &#123;<span class="number">5</span>,<span class="number">1</span>,<span class="number">2</span>,<span class="number">13</span>,<span class="number">7</span>,<span class="number">10</span>,<span class="number">0</span>,<span class="number">20</span>,<span class="number">16</span>,<span class="number">9</span>&#125;;</span><br><span class="line"></span><br><span class="line">	<span class="built_in">bitset</span>&lt;MAX+1&gt; bit;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">/* 将对应位置置1 */</span></span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;<span class="number">10</span>; ++i)</span><br><span class="line">	&#123;</span><br><span class="line">		bit.<span class="built_in">set</span>(arr[i]);</span><br><span class="line">		<span class="comment">/* bit.set(n)表示将第n位置1 */</span></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">/* 输出排序结果 */</span></span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;MAX+<span class="number">1</span>; ++i)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="comment">/* bit.test(n)判断第n位是否为1 */</span></span><br><span class="line">		<span class="keyword">if</span>(bit.test(i))</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="built_in">cout</span> &lt;&lt; i &lt;&lt; <span class="string">" "</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>输出结果：0 1 2 5 7 9 10 13 16 20</p>
+          <p>面向对象程序设计（object-oriented programming）的核心思想是<strong><em>数据抽象、继承、动态绑定。</em></strong>通过数据抽象，可以使类的接口与实现分离，使用继承，可以更容易地定义与其他类相似但不完全相同的新类，使用动态绑定，可以在一定程度上忽略相似类的区别，而以统一的方式使用它们的对象。</p>
+<p><strong>虚函数</strong>的作用是实现<strong>多态性（Polymorphism）</strong>，多态性是将接口与实现进行分离，采用共同的方法，但因个体差异而采用不同的策略。<strong>纯虚函数</strong>则是一种特殊的虚函数。<em>虚函数联系到多态，多态联系到继承。所以本文中都是在继承层次上做文章。没了继承，什么都没得谈。</em><br><a id="more"></a></p>
+<h3 id="虚函数">虚函数</h3><p>1 . <strong>定义</strong></p>
+<p>在C++中，基类必须将它的两种成员函数区分开来：一种是基类希望其派生类进行覆盖的函数；另一种是基类希望派生类直接继承而不要改变的函数。对于前者，基类通过在函数之前加上virtual关键字将其定义为<strong>虚函数（virtual）</strong>。<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> Base&#123;  <span class="comment">// 基类</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="function"><span class="keyword">virtual</span> <span class="keyword">int</span> <span class="title">func</span><span class="params">(<span class="keyword">int</span> n)</span> <span class="keyword">const</span></span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> Derive_Class : <span class="keyword">public</span> Base&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="function"><span class="keyword">int</span> <span class="title">func</span><span class="params">(<span class="keyword">int</span> n)</span> <span class="keyword">const</span></span>;  <span class="comment">// 默认也为虚函数</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<p>当我们在派生类中覆盖某个函数时，可以在函数前加virtual关键字。然而这不是必须的，<strong>因为一旦某个函数被声明成虚函数，则所有派生类中它都是虚函数</strong>。任何构造函数之外的非静态函数都可以是虚函数。派生类经常（但不总是）覆盖它继承的虚函数，如果派生类没有覆盖其基类中某个虚函数，则该虚函数的行为类似于其他的普通成员，派生类会直接继承其在基类中的版本。</p>
+<p>2 . <strong>动态绑定</strong></p>
+<p> 当我们使用基类的引用（或指针）调用一个虚函数时将发生<strong>动态绑定（dynamic binding）</strong>。因为我们直到运行时才能知道到底调用了哪个版本的虚函数，可能是基类中的版本也可能是派生类中的版本，判断的依据是引用（或指针）所绑定的对象的真实类型。与非虚函数在编译时绑定不同，虚函数是在运行时选择函数的版本，所以动态绑定也叫<strong>运行时绑定（run-time binding）</strong>。</p>
+<p>3 . <strong>静态类型与动态类型</strong></p>
+<p> <strong>静态类型</strong>指的是变量声明时的类型或表达式生成的类型，它在编译时总是已知的；<strong>动态类型</strong>指的是变量或表达式表示的内存中的对象的类型，它直到运行时才可知。当且仅当通过基类的指针或引用调用虚函数时，才会在运行时解析该调用，<strong>也只有在这种情况下对象的动态类型才有可能与静态类型不同</strong>。如果表达式既不是引用也不是指针，则它的动态类型永远与静态类型一致。</p>
+<p>4 . <strong>final和override</strong></p>
+<p> 派生类中如果定义了一个函数与基类中虚函数同名但形参列表不同，编译器会认为这是派生类新定义的函数。如果我们的意图本是覆盖虚函数，则这种错误很难发现。通过在派生类中的虚函数最后加<strong>override关键字</strong>使得意图更加清晰。如果我们使用override标记了某个函数，但该函数并没有覆盖已存在的虚函数，编译器将报错。<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> Base&#123;  <span class="comment">// 基类</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="function"><span class="keyword">virtual</span> <span class="keyword">int</span> <span class="title">func</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span> <span class="keyword">const</span></span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> Derive_Class : <span class="keyword">public</span> Base&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="function"><span class="keyword">int</span> <span class="title">func</span><span class="params">(<span class="keyword">int</span> a)</span> <span class="keyword">const</span> override</span>;  <span class="comment">// 报错，没有覆盖虚函数</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<p>如果我们定义一个类，并不希望它被继承。或者希望某个函数不被覆盖，则可以把类或者函数指定为<strong>final</strong>，则之后任何尝试继承该类或覆盖该函数的操作将引发错误。<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> Base final &#123; <span class="comment">/*   */</span> &#125;;     <span class="comment">// 基类不能被继承</span></span><br><span class="line"><span class="keyword">class</span> Derive_Class : <span class="keyword">public</span> Base &#123; <span class="comment">/*  */</span> &#125;;     <span class="comment">// 报错</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">func</span><span class="params">(<span class="keyword">int</span>)</span> <span class="keyword">const</span> final</span>;   <span class="comment">// 不允许后续的其他类覆盖func(int)</span></span><br></pre></td></tr></table></figure></p>
+<p>5 . <strong>回避虚函数的机制</strong></p>
+<p>在某些情况下，我们希望对虚函数的调用不要进行动态绑定，而是强迫其执行虚函数的某个特定版本。可以使用<strong>作用域运算符</strong>实现这一目的。<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 强行调用基类中定义的函数版本而不管baseP的动态类型是什么</span></span><br><span class="line"><span class="keyword">int</span> a = baseP-&gt;Base::func(<span class="number">42</span>);</span><br></pre></td></tr></table></figure></p>
+<p> 如果一个派生类虚函数需要调用它的基类版本，但是没有使用作用域运算符，则在运行时该调用将被解析为对派生类版本自身的调用，从而导致无限递归。</p>
+<h3 id="纯虚函数">纯虚函数</h3><p>1 . <strong>定义</strong></p>
+<p>为了方便使用多态特性，我们常常需要在基类中定义虚函数。在许多情况下，在基类中不能对虚函数给出有意义的实现。为了让虚函数在基类什么也不做，引进了“纯虚函数”的概念，使函数无须定义。<em>我们通过在函数体的位置（即在声明语句的分号之前）书写=0就可以将一个虚函数说明为<strong>纯虚函数（pure virtual）</strong>。</em>其中，=0只能出现在类内部的虚函数声明语句处：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> Base&#123;  <span class="comment">// 抽象基类</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="function"><span class="keyword">virtual</span> <span class="keyword">int</span> <span class="title">func</span><span class="params">(<span class="keyword">int</span> n)</span> <span class="keyword">const</span> </span>=<span class="number">0</span>;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<p>需要注意的是，我们也可以为纯虚函数提供定义，不过函数体必须定义在类的外部。</p>
+<p>2 . <strong>抽象基类</strong></p>
+<p>含有（或者未经覆盖直接继承）纯虚函数的类叫<strong>抽象基类（abstract base class）</strong>。抽象基类负责定义接口，而后续的其他类可以覆盖该接口。如果派生类中没有重新定义纯虚函数，而只是继承基类的纯虚函数，则这个派生类仍然还是一个抽象基类。因为抽象基类含有纯虚函数（没有定义），所以<strong>我们不能创建一个抽象基类的对象</strong>，但可以声明指向抽象基类的指针或引用。<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Base base;   <span class="comment">// 错误，不能实例化抽象基类</span></span><br></pre></td></tr></table></figure></p>
+<p><br><br></p>
+<h3 id="总结：">总结：</h3><ol>
+<li>虚函数必须实现，不实现编译器会报错。</li>
+<li>父类和子类都有各自的虚函数版本。由多态方式在运行时动态绑定。</li>
+<li>通过作用域运算符可以强行调用指定的虚函数版本。</li>
+<li>纯虚函数声明如下：<code>virtual void funtion()=0;</code> 纯虚函数无需定义。包含纯虚函数的类是抽象基类，抽象基类不能创建对象，但可以声明指向抽象基类的指针或引用。</li>
+<li>派生类实现了纯虚函数以后，该纯虚函数在派生类中就变成了虚函数，其子类可以再对该函数进行覆盖。</li>
+<li>析构函数通常应该是虚函数，这样就能确保在析构时调用正确的析构函数版本。</li>
+</ol>
 
         
       </div>
@@ -194,8 +200,8 @@
         
           <div class="post-tags">
             
-              <a href="/tags/Bitmap/">
-                #Bitmap
+              <a href="/tags/C/">
+                #C++
               </a>
             
           </div>
@@ -205,13 +211,11 @@
           <div class="post-nav">
             <div class="post-nav-prev post-nav-item">
               
-                <a href="/2014/04/07/vector-rotation/">一维向量旋转算法</a>
-              
             </div>
 
             <div class="post-nav-next post-nav-item">
               
-                <a href="/2014/04/03/implementation-of-internal-sortings/">各种内部排序算法的实现</a>
+                <a href="/2014/07/16/cpp-access-control/">C++学习之继承中的访问控制</a>
               
             </div>
           </div>
@@ -228,8 +232,8 @@
   
     <div class="comments" id="comments">
       
-        <div class="ds-thread" data-thread-key="2014/04/06/bitmap-sorting/"
-             data-title="位图排序" data-url="http://yoursite.com/2014/04/06/bitmap-sorting/">
+        <div class="ds-thread" data-thread-key="2014/07/17/cpp-virtual-function/"
+             data-title="C++学习之虚函数与纯虚函数" data-url="http://yoursite.com/2014/07/17/cpp-virtual-function/">
         </div>
 
       
@@ -337,7 +341,7 @@
         <div class="post-toc">
           
           
-            <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#问题描述"><span class="nav-number">1.</span> <span class="nav-text">问题描述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#位图排序思想"><span class="nav-number">2.</span> <span class="nav-text">位图排序思想</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#位图排序实现"><span class="nav-number">3.</span> <span class="nav-text">位图排序实现</span></a></li></ol></div>
+            <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#虚函数"><span class="nav-number">1.</span> <span class="nav-text">虚函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#纯虚函数"><span class="nav-number">2.</span> <span class="nav-text">纯虚函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结："><span class="nav-number">3.</span> <span class="nav-text">总结：</span></a></li></ol></div>
           
         </div>
         <div class="post-toc-indicator-bottom post-toc-indicator"></div>
