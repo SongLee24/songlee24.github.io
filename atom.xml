@@ -4,7 +4,7 @@
   <subtitle><![CDATA[李松]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://yoursite.com/"/>
-  <updated>2015-05-09T16:39:03.146Z</updated>
+  <updated>2015-05-09T16:40:43.567Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -19,15 +19,13 @@
     <link href="http://yoursite.com/2014/04/06/bitmap-sorting/"/>
     <id>http://yoursite.com/2014/04/06/bitmap-sorting/</id>
     <published>2014-04-06T12:22:42.000Z</published>
-    <updated>2015-05-09T16:39:03.146Z</updated>
+    <updated>2015-05-09T16:40:43.567Z</updated>
     <content type="html"><![CDATA[<p>《编程珠玑》里面讲到了一种算法导论里没有提到过的位图排序方法，这种排序方法是<strong>通过牺牲空间效率来追求时间效率（线性时间）以达到时间-空间折中与双赢</strong>的目的。下面简单讲一下我对位图排序思想的理解。</p>
-<h3 id="问题描述">问题描述</h3><hr>
-<p>1 . 输入：一个至多包含1千万个非负整数的文件<a id="more"></a></p>
+<h3 id="问题描述">问题描述</h3><p>1 . 输入：一个至多包含1千万个非负整数的文件<a id="more"></a></p>
 <p>2 . 特征：①每个数都是小于10000000的非负整数；②没有重复的数字；③数据之间不存在关联关系。</p>
 <p>3 . 约束：①最多1MB的内存空间可用；②磁盘空间充足；③运行时间最多几分钟，最好是线性时间。</p>
 <p>4 .  输出：按升序排列的整数序列。</p>
-<h3 id="位图排序思想">位图排序思想</h3><hr>
-<p>由于待排序的数据记录较多，我们单纯地使用常见的排序方法时间效率较低，运行时间会很长。而且内存空间有限（限制为1MB左右），所以我们不能同时把所有整数读入内存（如果每个整数使用7个字节来存储，那么1MB内存空间只能存大约143000个数字）。当然我们可以多次读取输入文件，多次排序，但是更好的方案是使用位图排序，可以使用有限的1MB内存空间并只进行一趟排序。</p>
+<h3 id="位图排序思想">位图排序思想</h3><p>由于待排序的数据记录较多，我们单纯地使用常见的排序方法时间效率较低，运行时间会很长。而且内存空间有限（限制为1MB左右），所以我们不能同时把所有整数读入内存（如果每个整数使用7个字节来存储，那么1MB内存空间只能存大约143000个数字）。当然我们可以多次读取输入文件，多次排序，但是更好的方案是使用位图排序，可以使用有限的1MB内存空间并只进行一趟排序。</p>
 <p>1 . 根据待排序集合中最大的数，开辟一个位数组，用来表示待排序集合中的整数；</p>
 <p>2 . 待排序集合中的数字在位数组中的对应位置置1，其他的置0；</p>
 <p><strong>例如，待排序集合{1,2,3,5,8,13}可以表示为：0-1-1-1-0-1-0-0-1-0-0-0-0-1</strong></p>
@@ -40,8 +38,7 @@
 </code></pre><p><strong>注意</strong>：位图排序是使用一个<strong>二进制位</strong>而不是一个整数来表示0或1，这样可以大大地减少所需要的内存空间。使用位图排序的前提是要知道待排序序列中的最大数。<strong>位图排序的缺点</strong>是有些数没有出现过，仍要为其保留一个位。故位图排序比较适合关键字密集的序列，例如一个城市的电话号码。</p>
 <p>伪代码：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*Phase 1: initialize set to empty*/</span></span><br><span class="line">	<span class="keyword">for</span> i = [<span class="number">0</span>, n)</span><br><span class="line">		bit[i] = <span class="number">0</span></span><br><span class="line"><span class="comment">/*Phase 2: insert present elements into the set*/</span></span><br><span class="line">	<span class="keyword">for</span> each i in the input file</span><br><span class="line">		bit[i] = <span class="number">1</span></span><br><span class="line"><span class="comment">/*Phase 3: write sorted output*/</span></span><br><span class="line">	<span class="keyword">for</span> i = [<span class="number">0</span>, n)</span><br><span class="line">		<span class="keyword">if</span> bit[i] == <span class="number">1</span></span><br><span class="line">			write i on the output file</span><br></pre></td></tr></table></figure></p>
 <p><strong>性能</strong>：时间复杂度可达O(n)，1MB包含8<em>1024</em>1024个位，所需内存10000000/(8<em>1024</em>1024)=1.20MB，如果不是严格限制的话可以看做基本符合要求。</p>
-<h3 id="位图排序实现">位图排序实现</h3><hr>
-<p>位图排序时，我们需要考虑：给出一个数，如何找到其对应位图的位置，方法就是首先找到该数对应的字节，然后在找到该数对应的位。例如：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">unsigned</span> <span class="keyword">char</span> bitmap[<span class="number">2</span>];</span><br><span class="line"><span class="comment">/* 可以表示16个数，即0～15 */</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="位图排序实现">位图排序实现</h3><p>位图排序时，我们需要考虑：给出一个数，如何找到其对应位图的位置，方法就是首先找到该数对应的字节，然后在找到该数对应的位。例如：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">unsigned</span> <span class="keyword">char</span> bitmap[<span class="number">2</span>];</span><br><span class="line"><span class="comment">/* 可以表示16个数，即0～15 */</span></span><br></pre></td></tr></table></figure></p>
 <p>一个字节有八位，5表示第0个字节的第5位上；14表示第1个字节的第6个位上。</p>
 <p>在这里<strong>为了简化位处理，我们使用C++标准库的bitset容器。bitset是C++提供的一种位集合的数据结构，它让我们可以像使用数组一样使用位，可以访问指定下标的bit位。和其他容器一样，bitset也是一个模板类。</strong>具体的bitset方法可以查看<a href="http://zh.cppreference.com/w/cpp/utility/bitset" target="_blank" rel="external">std::bitset reference</a>。</p>
 <p>下面我们使用bitset容器进行位图排序：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*************************************************************************</span><br><span class="line">    &gt; File Name: BitSort.cpp</span><br><span class="line">    &gt; Author: SongLee</span><br><span class="line">    &gt; E-mail: lisong.shine@qq.com</span><br><span class="line">    &gt; Created Time: 2014年06月01日 星期日 23时46分32秒</span><br><span class="line">    &gt; Personal Blog: http://songlee24.github.io</span><br><span class="line"> ************************************************************************/</span></span><br><span class="line"><span class="preprocessor">#<span class="keyword">include</span>&lt;bitset&gt;</span></span><br><span class="line"><span class="preprocessor">#<span class="keyword">include</span>&lt;iostream&gt;</span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="preprocessor">#<span class="keyword">define</span> MAX 20</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span><br><span class="line"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> arr[<span class="number">10</span>] = &#123;<span class="number">5</span>,<span class="number">1</span>,<span class="number">2</span>,<span class="number">13</span>,<span class="number">7</span>,<span class="number">10</span>,<span class="number">0</span>,<span class="number">20</span>,<span class="number">16</span>,<span class="number">9</span>&#125;;</span><br><span class="line"></span><br><span class="line">	<span class="built_in">bitset</span>&lt;MAX+1&gt; bit;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">/* 将对应位置置1 */</span></span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;<span class="number">10</span>; ++i)</span><br><span class="line">	&#123;</span><br><span class="line">		bit.<span class="built_in">set</span>(arr[i]);</span><br><span class="line">		<span class="comment">/* bit.set(n)表示将第n位置1 */</span></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">/* 输出排序结果 */</span></span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;MAX+<span class="number">1</span>; ++i)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="comment">/* bit.test(n)判断第n位是否为1 */</span></span><br><span class="line">		<span class="keyword">if</span>(bit.test(i))</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="built_in">cout</span> &lt;&lt; i &lt;&lt; <span class="string">" "</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
@@ -49,8 +46,7 @@
 ]]></content>
     <summary type="html">
     <![CDATA[<p>《编程珠玑》里面讲到了一种算法导论里没有提到过的位图排序方法，这种排序方法是<strong>通过牺牲空间效率来追求时间效率（线性时间）以达到时间-空间折中与双赢</strong>的目的。下面简单讲一下我对位图排序思想的理解。</p>
-<h3 id="问题描述">问题描述</h3><hr>
-<p>1 . 输入：一个至多包含1千万个非负整数的文件]]>
+<h3 id="问题描述">问题描述</h3><p>1 . 输入：一个至多包含1千万个非负整数的文件]]>
     
     </summary>
     
