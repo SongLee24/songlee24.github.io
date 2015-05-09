@@ -22,9 +22,9 @@
 
 
 
-	<meta name="keywords" content="设计模式," />
+	<meta name="keywords" content="堆排序," />
 
-  <title> 单例模式 // Code Man </title>
+  <title> 堆排序的算法实现 // Code Man </title>
 </head>
 
 <body>
@@ -113,7 +113,7 @@
           
           
             
-              单例模式
+              堆排序的算法实现
             
           
         </h1>
@@ -122,7 +122,7 @@
       <div class="post-meta">
         <span class="post-time">
           
-            发表于 2014-03-11
+            发表于 2014-04-02
           
         </span>
 
@@ -131,7 +131,7 @@
             <span class="post-category">
               &nbsp; | &nbsp; 分类于
               
-                <a href="/categories/Basic-设计模式/">Basic-设计模式</a>
+                <a href="/categories/Basic-算法与数据结构/">Basic-算法与数据结构</a>
 
                 
                 
@@ -145,8 +145,8 @@
           
             <span class="post-comments-count">
             &nbsp; | &nbsp;
-            <a href="/2014/03/11/singleton-pattern/#comments" >
-              <span class="post-comments-count ds-thread-count" data-thread-key="2014/03/11/singleton-pattern/"></span>
+            <a href="/2014/04/02/heap-sort-implementation/#comments" >
+              <span class="post-comments-count ds-thread-count" data-thread-key="2014/04/02/heap-sort-implementation/"></span>
             </a>
           </span>
           
@@ -161,22 +161,24 @@
         
 
         
-          <h2 id="什么是单例模式">什么是单例模式</h2><p>单件模式（SingletonPattern）：确保一个类只有一个实例，并提供一个全局访问点。和全局变量一样方便，又没有全局变量的缺点，即不需要从一开始就创建对象，而是在需要时才创建它。</p>
-<p><strong><em>那么要如何保证一个类只能被实例化一次呢？</em></strong>一般情况下，如果存在一个类，我们都是可以多次地实例化它的。那么如果这样呢：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> MyClass&#123;</span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">MyClass</span><span class="params">()</span></span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<a id="more"></a>
-<p>咦？构造函数私有？含有私有的构造器的类应该是不能被其他类实例化的，因为只有MyClass内部的代码才能调用这个私有的构造函数。虽然只有MyClass类的实例才能调用MyClass构造器，但在这之前，必须有一个MyClass实例。然而这个类又不能被实例化，这样就产生了矛盾！</p>
-<p>看下面这段代码：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> MyClass&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> MyClass <span class="title">getInstance</span><span class="params">()</span></span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>上面的代码表示MyClass有一个静态方法，我们可以这样调用这个方法：MyClass.getInstance(); 因为getInstance()是一个静态方法，换句话说，是一个“类”方法。引用一个静态方法，你需要使用类名，而不是对象名。</p>
-<p>那么把上面两段代码合在一起，是否就可以使MyClass只产生一个实例了呢？</p>
-<p><strong>看下面的代码：</strong></p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyClass</span></span>&#123;</span><br><span class="line">       <span class="comment">//利用一个静态变量来记录MyClass类的唯一实例</span></span><br><span class="line">       <span class="keyword">private</span> <span class="keyword">static</span> MyClass uniqueInstance;</span><br><span class="line">       <span class="comment">//私有构造函数，只有自MyClass类内才可以调用</span></span><br><span class="line">       <span class="function"><span class="keyword">private</span> <span class="title">MyClass</span><span class="params">()</span> </span>&#123;&#125;</span><br><span class="line">       <span class="comment">//用getInstance静态方法实例化对象，并返回</span></span><br><span class="line">       <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> MyClass <span class="title">getInstance</span><span class="params">()</span></span>&#123;</span><br><span class="line">                <span class="keyword">if</span>(uniqueInstance == NULL)</span><br><span class="line">                &#123;</span><br><span class="line">                      uniqueInstance = <span class="keyword">new</span> MyClass();</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">return</span> uniqueInstance;</span><br><span class="line">       &#125;</span><br><span class="line">       <span class="comment">//当然，单件类也是一个正常的类，具有其他的变量和方法</span></span><br><span class="line">       <span class="comment">//...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>这就是一个经典的单件模式的实现！之所以实例唯一，是因为单件类没有公开的构造器，其他类不能自行将其实例化得到一个实例，而必须通过它的静态方法getInstance()去创建一个实例。</p>
-<p><img src="http://img.blog.csdn.net/20140312224101968?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvbGlzb25nbGlzb25nbGlzb25n/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt=""></p>
-<h2 id="C++代码实现：">C++代码实现：</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#<span class="keyword">pragma</span> once</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> Singleton&#123;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    Singleton();</span><br><span class="line">    ~Singleton();</span><br><span class="line">    <span class="keyword">static</span> Singleton* uniqueInstance;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="keyword">static</span> Singleton* getInstance();</span><br><span class="line">    <span class="comment">// other methods...</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#<span class="keyword">include</span>"Singleton.h"</span></span><br><span class="line"><span class="preprocessor">#<span class="keyword">include</span>&lt;iostream&gt;</span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line">Singleton::Singleton()&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Singleton::~Singleton()&#123;</span><br><span class="line">    <span class="keyword">if</span>(uniqueInstance == NULL)&#123;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">delete</span> uniqueInstance;</span><br><span class="line">    uniqueInstance = <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Singleton* Singleton::getInstance()&#123;</span><br><span class="line">    <span class="keyword">if</span>(uniqueInstance == NULL)&#123;</span><br><span class="line">        uniqueInstance = <span class="keyword">new</span> Singleton;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> uniqueInstance;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#<span class="keyword">include</span>&lt;iostream&gt;</span></span><br><span class="line"><span class="preprocessor">#<span class="keyword">include</span>"Singleton.h"</span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line">Singleton* Singleton::uniqueInstance = NULL;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    Singleton* singleton1 = Singleton::getInstance();</span><br><span class="line">    Singleton* singleton2 = Singleton::getInstance();</span><br><span class="line">    <span class="keyword">if</span>(singleton1 == singleton2)&#123;</span><br><span class="line">        <span class="built_in">cout</span>&lt;&lt;<span class="string">"Got same singleton!!"</span>&lt;&lt;endl;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span>&#123;</span><br><span class="line">        <span class="built_in">cout</span>&lt;&lt;<span class="string">"Oh,no!got a different singleton!!"</span>&lt;&lt;endl;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+          <p>由于堆排序算法说起来比较长，所以在这里单独讲一下。堆排序是一种树形选择排序方法，它的特点是：在排序过程中，将L[n]看成是一棵完全二叉树的顺序存储结构，利用完全二叉树中双亲节点和孩子节点之间的内在关系，在当前无序区中选择关键字最大（或最小）的元素。 </p>
+<h3 id="堆的定义">堆的定义</h3><p><strong>堆的定义</strong>如下：n个关键字序列L[n]成为堆，当且仅当该序列满足：①L(i) &lt;= L(2i)且L(i) &lt;= L(2i+1)  或者  ②L(i) &gt;= L(2i)且L(i) &gt;= L(2i+1)   其中i属于[1, n/2]。<a id="more"></a></p>
+<p>满足第①种情况的堆称为<strong>小根堆</strong>（小顶堆），满足第②种情况的堆称为<strong>大根堆</strong>（大顶堆）。在大根堆中，最大元素存放在根结点中，且对任一非根结点，它的值小于或等于其双亲结点值。小根堆则恰恰相反，小根堆的根结点存放的是最小元素。例如{16, 14, 10, 8, 7, 9, 3, 2}表示的大根堆： </p>
+<p><img src="http://img.blog.csdn.net/20140501182414140?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvbGlzb25nbGlzb25nbGlzb25n/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt=""></p>
+<h3 id="构造初始堆">构造初始堆</h3><p>堆排序的关键就是构造初始堆。n个结点的完全二叉树中，最后一个结点是第n/2（向下取整）个结点的孩子。所以构造初始堆的流程是：对第n/2（向下取整）个结点为根的子树进行筛选（以大根堆为例，若根结点的关键字小于左右子女中关键字的较大者，则交换），使该子树成为堆。之后向前依次对从n/2-1到1的各结点为根的子树进行筛选，看该结点值是否大于其左右子结点的值，若不是，将左右子结点中较大值与之交换，交换后可能会破坏下一级的堆，于是继续采用上述方法构造下一级的堆，直到以该结点为根的子树构成堆为止。反复利用上述调整堆的方法建堆，直到根结点。 </p>
+<p><strong>由于在数组中下标从0开始，所以在堆中i的左子结点为2<em>i+1，右子结点为2</em>i+2。</strong>下面是将某个结点i向下调整建堆的算法实现：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">AdjustDown</span><span class="params">(ElementType A[], <span class="keyword">int</span> i, <span class="keyword">int</span> len)</span></span><br><span class="line"></span>&#123;</span><br><span class="line">	ElementType temp = A[i];  <span class="comment">// 暂存A[i]</span></span><br><span class="line">    </span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> largest=<span class="number">2</span>*i+<span class="number">1</span>; largest&lt;len; largest=<span class="number">2</span>*largest+<span class="number">1</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span>(largest!=len-<span class="number">1</span> &amp;&amp; A[largest+<span class="number">1</span>]&gt;A[largest])</span><br><span class="line">			++largest;         <span class="comment">// 如果右子结点大</span></span><br><span class="line">		<span class="keyword">if</span>(temp &lt; A[largest])</span><br><span class="line">		&#123;</span><br><span class="line">			A[i] = A[largest];</span><br><span class="line">			i = largest;         <span class="comment">// 记录交换后的位置</span></span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span></span><br><span class="line">			<span class="keyword">break</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	A[i] = temp;    <span class="comment">// 被筛选结点的值放入最终位置</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>建堆，从n/2（向下取整）到1依次对各结点向下调整，当然由于数组下标从0开始，所以：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">BuildMaxHeap</span><span class="params">(ElementType A[], <span class="keyword">int</span> len)</span></span><br><span class="line"></span>&#123;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=len/<span class="number">2</span>-<span class="number">1</span>; i&gt;=<span class="number">0</span>; --i)  <span class="comment">// 从i=n/2-1到0，反复调整堆</span></span><br><span class="line">		AdjustDown(A, i, len);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="堆排序">堆排序</h3><p>构造初始堆成功以后，堆排序的思路就很简单了：首先将存放在L[n]中的n个元素建成初始堆，由于堆本身的特点（以大根堆为例），堆顶元素就是最大值。输出堆顶元素后，通常将堆底元素送入堆顶，此时根结点已不满足大根堆的性质，堆被破坏。这时将堆顶元素向下调整使其继续保持大根堆的性质，再输出堆顶元素。如此重复，直到堆中仅剩下一个元素为止。算法实现如下：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">HeapSort</span><span class="params">(ElementType A[], <span class="keyword">int</span> n)</span></span><br><span class="line"></span>&#123;</span><br><span class="line">	BuildMaxHeap(A, n);       <span class="comment">// 初始建堆</span></span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=n-<span class="number">1</span>; i&gt;<span class="number">0</span>; --i)  <span class="comment">// n-1趟的交换和建堆过程 </span></span><br><span class="line">	&#123;</span><br><span class="line">		<span class="comment">// 输出最大的堆顶元素（和堆底元素交换）</span></span><br><span class="line">		A[<span class="number">0</span>] = A[<span class="number">0</span>]^A[i];</span><br><span class="line">		A[i] = A[<span class="number">0</span>]^A[i];</span><br><span class="line">		A[<span class="number">0</span>] = A[<span class="number">0</span>]^A[i];</span><br><span class="line">		<span class="comment">// 调整，把剩余的n-1个元素整理成堆</span></span><br><span class="line">		AdjustDown(A, <span class="number">0</span>, i);   </span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="性能">性能</h3><ul>
+<li><p><strong>时间复杂度</strong>：向下调整的时间与树高有关，为O(h)。可以证明在元素个数为n的序列上建堆，其时间复杂度为O(n)。之后还有n-1次向下调整操作，每次调整的时间为O(h)，故在最好，最坏和平均情况下，堆排序的时间复杂度为O(nlogn)。</p>
+</li>
+<li><p><strong>空间复杂度</strong>：仅使用了常数个辅助单元，空间复杂度为O(1)。</p>
+</li>
+<li><p><strong>稳定性</strong>：不稳定。</p>
+</li>
+</ul>
 
         
       </div>
@@ -187,8 +189,8 @@
         
           <div class="post-tags">
             
-              <a href="/tags/设计模式/">
-                #设计模式
+              <a href="/tags/堆排序/">
+                #堆排序
               </a>
             
           </div>
@@ -198,11 +200,11 @@
           <div class="post-nav">
             <div class="post-nav-prev post-nav-item">
               
-                <a href="/2014/03/12/observer-pattern/">观察者模式</a>
-              
             </div>
 
             <div class="post-nav-next post-nav-item">
+              
+                <a href="/2014/04/01/binary-tree-sequence/">二叉树遍历序列的求解</a>
               
             </div>
           </div>
@@ -219,8 +221,8 @@
   
     <div class="comments" id="comments">
       
-        <div class="ds-thread" data-thread-key="2014/03/11/singleton-pattern/"
-             data-title="单例模式" data-url="http://yoursite.com/2014/03/11/singleton-pattern/">
+        <div class="ds-thread" data-thread-key="2014/04/02/heap-sort-implementation/"
+             data-title="堆排序的算法实现" data-url="http://yoursite.com/2014/04/02/heap-sort-implementation/">
         </div>
 
       
@@ -328,7 +330,7 @@
         <div class="post-toc">
           
           
-            <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#什么是单例模式"><span class="nav-number">1.</span> <span class="nav-text">什么是单例模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#C++代码实现："><span class="nav-number">2.</span> <span class="nav-text">C++代码实现：</span></a></li></ol></div>
+            <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#堆的定义"><span class="nav-number">1.</span> <span class="nav-text">堆的定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#构造初始堆"><span class="nav-number">2.</span> <span class="nav-text">构造初始堆</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#堆排序"><span class="nav-number">3.</span> <span class="nav-text">堆排序</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#性能"><span class="nav-number">4.</span> <span class="nav-text">性能</span></a></li></ol></div>
           
         </div>
         <div class="post-toc-indicator-bottom post-toc-indicator"></div>
