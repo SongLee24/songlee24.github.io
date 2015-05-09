@@ -22,9 +22,9 @@
 
 
 
-	<meta name="keywords" content="图论," />
+	<meta name="keywords" content="C++," />
 
-  <title> 深度优先搜索的实现 // Code Man </title>
+  <title> C++学习之命名空间 // Code Man </title>
 </head>
 
 <body>
@@ -113,7 +113,7 @@
           
           
             
-              深度优先搜索的实现
+              C++学习之命名空间
             
           
         </h1>
@@ -122,7 +122,7 @@
       <div class="post-meta">
         <span class="post-time">
           
-            发表于 2014-07-04
+            发表于 2014-07-25
           
         </span>
 
@@ -131,7 +131,7 @@
             <span class="post-category">
               &nbsp; | &nbsp; 分类于
               
-                <a href="/categories/Basic-算法与数据结构/">Basic-算法与数据结构</a>
+                <a href="/categories/Lang-C/">Lang.-C++</a>
 
                 
                 
@@ -145,8 +145,8 @@
           
             <span class="post-comments-count">
             &nbsp; | &nbsp;
-            <a href="/2014/07/04/depth-first-search/#comments" >
-              <span class="post-comments-count ds-thread-count" data-thread-key="2014/07/04/depth-first-search/"></span>
+            <a href="/2014/07/25/cpp-namespace/#comments" >
+              <span class="post-comments-count ds-thread-count" data-thread-key="2014/07/25/cpp-namespace/"></span>
             </a>
           </span>
           
@@ -161,25 +161,28 @@
         
 
         
-          <p>图的遍历是指从图中的某一个顶点出发，按照某种搜索方法沿着图中的边对图中的所有顶点访问一次且仅访问一次。注意到树是一种特殊的图，所以树的遍历实际上也可以看作是一种特殊的图的遍历。图的遍历主要有两种算法：广度优先搜索（Breadth-First-Search）和深度优先搜索（Depth-First-Search）。</p>
-<h3 id="深度优先搜索（DFS）的算法思想">深度优先搜索（DFS）的算法思想</h3><a id="more"></a>
-<p>深度优先搜索算法所遵循的搜索策略是尽可能“深”地搜索一个图。它的基本思想就是：首先访问图中某一起始顶点v，然后由v出发，访问与v邻接且未被访问的任一顶点w1，再访问与w1邻接且未被访问的任一顶点w2，……重复上述过程。当不能再继续向下访问时，依次退回到最近被访问的顶点，若它还有邻接顶点未被访问过，则从该点开始继续上述搜索过程，直到图中所有顶点均被访问过为止。</p>
-<p><img src="http://img.blog.csdn.net/20140704111631015?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvbGlzb25nbGlzb25nbGlzb25n/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt=""></p>
-<p>如上图所示，从顶点2开始深度优先遍历图，结果为：2，0，1，3。</p>
-<h3 id="DFS算法实现">DFS算法实现</h3><p>和<a href="http://songlee24.github.io/2014/07/03/breadth-first-search/" target="_blank" rel="external">广度优先搜索</a>一样，为了防止顶点被多次访问，需要使用一个访问标记数组visited[]来标记顶点是否已经被访问过。</p>
-<p>这里使用邻接表表示图。对于一个<strong>有向图</strong>，<strong>假设从给定顶点可以访问到图的所有其他顶点</strong>，则DFS递归算法的C++代码实现：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*************************************************************************</span><br><span class="line">    &gt; File Name: DFS.cpp</span><br><span class="line">    &gt; Author: SongLee</span><br><span class="line">    &gt; E-mail: lisong.shine@qq.com</span><br><span class="line">    &gt; Created Time: 2014年07月04日 星期五 10时38分26秒</span><br><span class="line">    &gt; Personal Blog: http://songlee24.github.io</span><br><span class="line"> ************************************************************************/</span></span><br><span class="line"><span class="preprocessor">#<span class="keyword">include</span>&lt;iostream&gt;</span></span><br><span class="line"><span class="preprocessor">#<span class="keyword">include</span>&lt;list&gt;</span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 图 */</span></span><br><span class="line"><span class="keyword">class</span> Graph</span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">int</span> V;                               <span class="comment">// 顶点数</span></span><br><span class="line">	<span class="built_in">list</span>&lt;<span class="keyword">int</span>&gt; *adj;                      <span class="comment">// 邻接表</span></span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">DFSUtil</span><span class="params">(<span class="keyword">int</span> v, <span class="keyword">bool</span> visited[])</span></span>; <span class="comment">// 从顶点v深度优先遍历</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	Graph(<span class="keyword">int</span> V);                        <span class="comment">// 构造函数</span></span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">addEdge</span><span class="params">(<span class="keyword">int</span> v, <span class="keyword">int</span> w)</span></span>;          <span class="comment">// 向图中添加边</span></span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">DFS</span><span class="params">(<span class="keyword">int</span> v)</span></span>;                     <span class="comment">// 从v开始深度优先遍历图</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 构造函数 */</span></span><br><span class="line">Graph::Graph(<span class="keyword">int</span> V)</span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">this</span>-&gt;V = V;</span><br><span class="line">	adj = <span class="keyword">new</span> <span class="built_in">list</span>&lt;<span class="keyword">int</span>&gt;[V];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 添加边，构造邻接表 */</span></span><br><span class="line"><span class="keyword">void</span> Graph::addEdge(<span class="keyword">int</span> v, <span class="keyword">int</span> w)</span><br><span class="line">&#123;</span><br><span class="line">	adj[v].push_back(w);                 <span class="comment">// 将w添加到v的链表</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 从v开始深度优先遍历 */</span></span><br><span class="line"><span class="keyword">void</span> Graph::DFSUtil(<span class="keyword">int</span> v, <span class="keyword">bool</span> visited[])</span><br><span class="line">&#123;</span><br><span class="line">	<span class="comment">// 访问顶点v并输出</span></span><br><span class="line">	visited[v] = <span class="keyword">true</span>;</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; v &lt;&lt; <span class="string">" "</span>;</span><br><span class="line"></span><br><span class="line">	<span class="built_in">list</span>&lt;<span class="keyword">int</span>&gt;::iterator i;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">for</span>(i=adj[v].begin(); i!=adj[v].end(); ++i)</span><br><span class="line">		<span class="keyword">if</span>(!visited[*i])              <span class="comment">// 若邻接点尚未访问</span></span><br><span class="line">			DFSUtil(*i, visited);     <span class="comment">// 递归</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 对图进行深度优先遍历，调用递归函数DFSUtil() */</span></span><br><span class="line"><span class="keyword">void</span> Graph::DFS(<span class="keyword">int</span> v)</span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">bool</span> *visited = <span class="keyword">new</span> <span class="keyword">bool</span>[V];</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;V; ++i)</span><br><span class="line">		visited[i] = <span class="keyword">false</span>;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 假设从给定顶点v可以到达图的所有顶点</span></span><br><span class="line">	DFSUtil(v, visited);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 测试 */</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span><br><span class="line"></span>&#123;</span><br><span class="line">	<span class="function">Graph <span class="title">g</span><span class="params">(4)</span></span>;</span><br><span class="line">	g.addEdge(<span class="number">0</span>, <span class="number">1</span>);</span><br><span class="line">	g.addEdge(<span class="number">0</span>, <span class="number">2</span>);</span><br><span class="line">	g.addEdge(<span class="number">1</span>, <span class="number">2</span>);</span><br><span class="line">	g.addEdge(<span class="number">2</span>, <span class="number">0</span>);</span><br><span class="line">	g.addEdge(<span class="number">2</span>, <span class="number">3</span>);</span><br><span class="line">	g.addEdge(<span class="number">3</span>, <span class="number">3</span>);</span><br><span class="line"></span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="string">"Depth First Traversal (starting from vertex 2) \n"</span>;</span><br><span class="line">	g.DFS(<span class="number">2</span>);</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; endl;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>上面的代码是假设从给定顶点可以访问到图的所有其他顶点。<strong>如果没有这个假设，为了对图作一个完整的深度优先遍历，我们需要对每个顶点调用DFSUtil()</strong>。当然那之前需要先检查顶点是否已经访问过。所以我们只需要修改<strong>DFS()</strong>函数部分：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">void</span> Graph::DFS()</span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">bool</span> *visited = <span class="keyword">new</span> <span class="keyword">bool</span>[V];</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;V; ++i)</span><br><span class="line">		visited[i] = <span class="keyword">false</span>;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">// 对每个顶点调用DFSUtil()，从0开始</span></span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;V; ++i)</span><br><span class="line">		<span class="keyword">if</span>(!visited[i])</span><br><span class="line">			DFSUtil(i, visited);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>对于<strong>无向图</strong>的深度优先搜索，只是邻接表不一样，其他的都是一样的。我们只需要修改addEdge(v, w)函数：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">void</span> Graph::addEdge(<span class="keyword">int</span> v, <span class="keyword">int</span> w)</span><br><span class="line">&#123;</span><br><span class="line">  adj[v].push_back(w);         <span class="comment">// 将w加到v的list</span></span><br><span class="line">  adj[w].push_back(v);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p><strong>注意</strong>：图的邻接矩阵表示是唯一的，但对于邻接表来说，如果边的输入次序不同，生成的邻接表也不同。因此，对于同一个图，基于邻接矩阵的遍历所得到的DFS序列和BFS序列是唯一的，基于邻接表的遍历所得到的DFS序列和BFS序列是不唯一的。</p>
-<h3 id="DFS算法性能分析">DFS算法性能分析</h3><p>1 . <strong>空间复杂度</strong></p>
-<p>DFS算法是一个递归算法，需要借助一个递归工作栈，故它的空间复杂度为O(|V|)。</p>
-<p>2 . <strong>时间复杂度</strong></p>
-<ul>
-<li><p>当以<strong>邻接表</strong>存储时，时间复杂度为<strong>O(|V|+|E|)</strong>。</p>
-</li>
-<li><p>当以<strong>邻接矩阵</strong>存储时，时间复杂度为<strong>O(|V|^2)</strong>。</p>
-</li>
-</ul>
+          <p>在C++中，<strong>命名空间（namespace）</strong>的目的是为了防止名字冲突。每个命名空间是一个作用域，在所有命名空间之外，还存在一个<strong>全局命名空间（global namespace）</strong>，全局命名空间以隐式的方式声明，它并没有名字。在命名空间机制中，原来的全局变量，就是位于全局命名空间中（可以用<code>::member</code>的形式表示）。</p>
+<h3 id="定义命名空间">定义命名空间</h3><p><strong>1、每个命名空间都是一个作用域</strong><br><a id="more"></a><br>和其他作用域类似，在命名空间中的每个名字必须表示唯一实体，而在不同命名空间中，可以有相同名字的成员。</p>
+<p><strong>2、命名空间可以是不连续的</strong></p>
+<p>命名空间可以定义在几个不同的部分：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">namespace</span> nsp &#123;</span><br><span class="line">    <span class="comment">/* …… */</span></span><br><span class="line">&#125;   <span class="comment">// 命名空间作用域后面无须分号</span></span><br></pre></td></tr></table></figure></p>
+<p>如果之前没有名为nsp的命名空间定义，则上述代码创建一个新的命名空间；否则，上述代码打开已经存在的命名空间添加一些新的成员。</p>
+<p><strong>3、命名空间是可以嵌套的</strong></p>
+<p>嵌套的命名空间是指定义在其他命名空间中的命名空间。嵌套的命名空间是一个嵌套的作用域，内层命名空间声明的名字将隐藏外层命名空间声明的同名成员：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> x = <span class="number">20</span>;</span><br><span class="line"><span class="keyword">namespace</span> outer &#123;</span><br><span class="line">	<span class="keyword">int</span> x = <span class="number">10</span>;</span><br><span class="line">	<span class="keyword">namespace</span> inner &#123;</span><br><span class="line">		<span class="keyword">int</span> z = x;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span><br><span class="line"></span>&#123;</span><br><span class="line">	<span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; outer::inner::z;  <span class="comment">// 输出10</span></span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>注意，通常我们不把#include头文件放在命名空间内部。</p>
+<p><strong>4、未命名的命名空间</strong></p>
+<p><strong>未命名的命名空间（unnamed namespace）</strong>是指关键字namespace后紧跟花括号括起来的一系列声明语句。未命名的命名空间中定义的变量拥有静态生命周期：它们在第一次使用前创建，并且直到程序结束才销毁。在标准C++引入命名空间的概念之前，程序需要将名字声明成<code>static</code>以使其对于整个文件有效，但是，现在在文件中进行静态声明的做法已经被C++标准取消了，取而代之的是使用<strong>未命名的命名空间</strong>。</p>
+<p>一个未命名的命名空间可以在某个给定的文件内不连续，但是不能跨越多个文件。也就是说，未命名的命名空间仅在特定的文件内部有效，其作用范围不会横跨多个不同的文件。<em>另外，由于未命名的命名空间它没有名字，所以其中定义的名字的作用域与该命名空间所在的作用域相同</em>：<br><figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> i;   <span class="comment">// i的全局声明</span></span><br><span class="line"><span class="keyword">namespace</span> &#123;</span><br><span class="line">    <span class="keyword">int</span> i;</span><br><span class="line">&#125;</span><br><span class="line">i = <span class="number">10</span>;  <span class="comment">// 错误，二义性</span></span><br></pre></td></tr></table></figure></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">namespace</span> local &#123;</span><br><span class="line">    <span class="keyword">namespace</span> &#123;</span><br><span class="line">        <span class="keyword">int</span> i;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">local::i = <span class="number">42</span>;  <span class="comment">// 正确</span></span><br></pre></td></tr></table></figure>
+<h3 id="使用命名空间">使用命名空间</h3><p>对命名空间中成员的引用，需要使用命名空间的作用域运算符<strong>(::)</strong>。但是，像<code>namespace_name::member_name</code>这样使用命名空间的成员非常烦琐，我们需要使用一些其他的更简便的方法。</p>
+<p><strong>1、命名空间的别名</strong></p>
+<p>有些命名空间的名字很长或者命名空间嵌套了很多层，我们可以为其设定一个较短的同义词，也就是别名：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">namespace</span> cln = cpluslus_learning_namespace;</span><br><span class="line"><span class="keyword">namespace</span> Qlib = outer::inner::QueryLib;</span><br></pre></td></tr></table></figure></p>
+<p><strong>2、using声明</strong></p>
+<p>一条<strong>using声明（using declaration）</strong>语句一次只引入命名空间的一个成员：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> 命名空间名::[命名空间名::……]成员名;   <span class="comment">// 例如 using OLib::List;</span></span><br></pre></td></tr></table></figure></p>
+<p><strong>3、using指示</strong></p>
+<p><strong>using指示（using directive）</strong>和using声明不同的地方是，我们无法控制哪些名字是可见的，因为using指示会使得某个特定的命名空间中所有的名字都可见：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;   <span class="comment">// 引入命名空间std</span></span><br></pre></td></tr></table></figure></p>
+<p>使用命名空间主要是为了防止名字冲突，如果随意使用using指示注入命名空间的所有名字，将重新引入名字冲突的问题。另外，<strong>using声明和using指示在作用域上有区别</strong>：using声明是将一个成员引入当前命名空间作用域内；using指示是将所有成员引入当前和上一层命名空间作用域内：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">namespace</span> nsp &#123;    <span class="comment">// 命名空间</span></span><br><span class="line">	<span class="keyword">int</span> i=<span class="number">16</span>, j=<span class="number">15</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> j = <span class="number">0</span>;   <span class="comment">// 全局变量</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span><br><span class="line"></span>&#123;</span><br><span class="line">	<span class="keyword">using</span> <span class="keyword">namespace</span> nsp;   <span class="comment">// 如果使用j，将在::j和nsp::j之间产生冲突</span></span><br><span class="line">	<span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; j;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>如果将using指示<code>using namespace nsp;</code>改成using声明<code>using nsp::j;</code>则会正确输出15。</p>
+<p><br><br><br></p>
 
         
       </div>
@@ -190,8 +193,8 @@
         
           <div class="post-tags">
             
-              <a href="/tags/图论/">
-                #图论
+              <a href="/tags/C/">
+                #C++
               </a>
             
           </div>
@@ -201,13 +204,11 @@
           <div class="post-nav">
             <div class="post-nav-prev post-nav-item">
               
-                <a href="/2014/07/05/C-extern-C/">C++学习之extern关键字</a>
-              
             </div>
 
             <div class="post-nav-next post-nav-item">
               
-                <a href="/2014/07/03/breadth-first-search/">广度优先搜索的实现</a>
+                <a href="/2014/07/23/cpp-template-specialization/">C++学习之模板特例化</a>
               
             </div>
           </div>
@@ -224,8 +225,8 @@
   
     <div class="comments" id="comments">
       
-        <div class="ds-thread" data-thread-key="2014/07/04/depth-first-search/"
-             data-title="深度优先搜索的实现" data-url="http://yoursite.com/2014/07/04/depth-first-search/">
+        <div class="ds-thread" data-thread-key="2014/07/25/cpp-namespace/"
+             data-title="C++学习之命名空间" data-url="http://yoursite.com/2014/07/25/cpp-namespace/">
         </div>
 
       
@@ -333,7 +334,7 @@
         <div class="post-toc">
           
           
-            <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#深度优先搜索（DFS）的算法思想"><span class="nav-number">1.</span> <span class="nav-text">深度优先搜索（DFS）的算法思想</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DFS算法实现"><span class="nav-number">2.</span> <span class="nav-text">DFS算法实现</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DFS算法性能分析"><span class="nav-number">3.</span> <span class="nav-text">DFS算法性能分析</span></a></li></ol></div>
+            <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#定义命名空间"><span class="nav-number">1.</span> <span class="nav-text">定义命名空间</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用命名空间"><span class="nav-number">2.</span> <span class="nav-text">使用命名空间</span></a></li></ol></div>
           
         </div>
         <div class="post-toc-indicator-bottom post-toc-indicator"></div>
