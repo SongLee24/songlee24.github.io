@@ -4,7 +4,7 @@
   <subtitle><![CDATA[李松]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://yoursite.com/"/>
-  <updated>2015-05-09T17:13:57.590Z</updated>
+  <updated>2015-05-09T17:17:28.700Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -13,6 +13,60 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[第K顺序统计量的求解]]></title>
+    <link href="http://yoursite.com/2014/06/22/Kth-Order-Statistic/"/>
+    <id>http://yoursite.com/2014/06/22/Kth-Order-Statistic/</id>
+    <published>2014-06-22T14:33:20.000Z</published>
+    <updated>2015-05-09T17:17:28.700Z</updated>
+    <content type="html"><![CDATA[<p>一个n个元素组成的集合中，第K个<strong>顺序统计量（Order Statistic）</strong>指的是该集合中第K小的元素，我们要讨论的是如何在线性时间（linear time）里找出一个数组的第K个顺序统计量。</p>
+<h3 id="问题描述">问题描述</h3><p><strong>问题</strong>：给定一个含有n个元素的无序数组，找出第k小的元素。</p>
+<ul>
+<li>k = 1 ：最小值</li>
+<li>k = n ：最大值</li>
+<li>k = ⌊(n+1)/2⌋ or ⌈(n+1)/2⌉ ：中位数<a id="more"></a></li>
+</ul>
+<p>找最大值或最小值很简单，只需要遍历一次数组并记录下最大值或最小值就可以了。我们在这里要解决的问题是一般性的选择问题。</p>
+<p>一种原始的解决方案是，用堆排序或归并排序将输入数据进行排序，然后返回第k个元素。这样在Θ(nlgn)时间内一定可以解决。但是我们希望有更好的方案，最好是线性时间。</p>
+<h3 id="期望线性时间的解决方案">期望线性时间的解决方案</h3><p>为了在线性时间内解决这个选择问题，我们使用一个随机的分治算法，即RANDOMIZED-SELECT算法。此算法是使用随机化的快速排序中的随机划分子程序，对输入数组进行随机划分操作，然后判断第k小元素在划分后的哪个区域，对所在区域进行递归划分，最后找到第k小元素。</p>
+<p><strong>伪代码</strong>：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">RANDOMIZED-SELECT(A,p,q,i)  <span class="comment">// i-th smallest in A[p..q]</span></span><br><span class="line">	<span class="keyword">if</span> p = q</span><br><span class="line">		then <span class="keyword">return</span> A[p]</span><br><span class="line">	r = RANDOMIZED-PARTITION(A, p, q)</span><br><span class="line">	k = r-p+<span class="number">1</span>   <span class="comment">// A[r] is k-th smallest</span></span><br><span class="line">	<span class="keyword">if</span> i=k</span><br><span class="line">		then <span class="keyword">return</span> A[r]</span><br><span class="line">	<span class="keyword">if</span> i&lt;k</span><br><span class="line">		then <span class="keyword">return</span> RANDOMIZED-SELECT(A, p, r-<span class="number">1</span>, i)</span><br><span class="line">	<span class="keyword">else</span></span><br><span class="line">		then <span class="keyword">return</span> RANDOMIZED-SELECT(A, r+<span class="number">1</span>, q, i-k)</span><br></pre></td></tr></table></figure></p>
+<p>这里的RANDOMIZED-PARTITION()是随机版的划分操作（<a href="http://songlee24.github.io/blog/2014/06/21/kuai-su-pai-xu-de-xing-neng-fen-xi-yu-you-hua/" target="_blank" rel="external">快速排序的分析与优化</a>），可见本算法是一个随机算法，它的<strong>期望时间</strong>是Θ(n)（假设元素的值是不同的）。</p>
+<p><strong>1、Lucky-Case</strong>：最好的情况是在正中划分，划分的右边和右边的元素数量相等，但是1/10和9/10的划分也几乎一样好。可以这么说，任何常数比例的划分都和1/2:1/2的划分一样好。这里以1/10和9/10的划分为例，算法运行时间递归式为<code>T(n) &lt;= T(9n/10) + Θ(n)</code>，根据主定理得到<code>T(n) &lt;= Θ(n)</code>。</p>
+<p><strong>2、Unlucky-Case</strong>：虽然主元的选取是随机的，但是如果你运气足够差，每次都得到0：n-1的划分，这就是最坏的情况。此时递归式为<code>T(n) = T(n-1) + Θ(n)</code>，则时间复杂度为<code>T(n) = Θ(n^2)</code>。</p>
+<p><strong>3、Expected-Time</strong>：期望运行时间为Θ(n)，即线性时间。这里就不证明了，证明需要用到指示器随机变量。</p>
+<p><strong>C++代码</strong>：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*************************************************************************</span><br><span class="line">    &gt; File Name: RandomizedSelect.cpp</span><br><span class="line">    &gt; Author: SongLee</span><br><span class="line">    &gt; E-mail: lisong.shine@qq.com</span><br><span class="line">    &gt; Created Time: 2014年06月22日 星期日 20时20分08秒</span><br><span class="line">    &gt; Personal Blog: http://songlee24.github.com</span><br><span class="line"> ************************************************************************/</span></span><br><span class="line"><span class="preprocessor">#<span class="keyword">include</span>&lt;iostream&gt;</span></span><br><span class="line"><span class="preprocessor">#<span class="keyword">include</span>&lt;cstdlib&gt;  <span class="comment">// srand rand</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">swap</span><span class="params">(<span class="keyword">int</span> &amp;a, <span class="keyword">int</span> &amp;b)</span></span><br><span class="line"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> tmp = a;</span><br><span class="line">	a = b;</span><br><span class="line">	b = tmp;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">Partition</span><span class="params">(<span class="keyword">int</span> A[], <span class="keyword">int</span> low, <span class="keyword">int</span> high)</span></span><br><span class="line"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> pivot = A[low];</span><br><span class="line">	<span class="keyword">int</span> i = low;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> j=low+<span class="number">1</span>; j&lt;=high; ++j)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span>(A[j] &lt;= pivot)</span><br><span class="line">		&#123;</span><br><span class="line">			++i;</span><br><span class="line">			swap(A[i], A[j]);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	swap(A[i], A[low]);</span><br><span class="line">	<span class="keyword">return</span> i;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">Randomized_Partition</span><span class="params">(<span class="keyword">int</span> A[], <span class="keyword">int</span> low, <span class="keyword">int</span> high)</span></span><br><span class="line"></span>&#123;</span><br><span class="line">	srand(time(NULL));</span><br><span class="line">	<span class="keyword">int</span> i = rand() % (high+<span class="number">1</span>);</span><br><span class="line">	swap(A[low], A[i]);</span><br><span class="line">	<span class="keyword">return</span> Partition(A, low, high);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">Randomized_Select</span><span class="params">(<span class="keyword">int</span> A[], <span class="keyword">int</span> p, <span class="keyword">int</span> q, <span class="keyword">int</span> i)</span></span><br><span class="line"></span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(p == q)</span><br><span class="line">		<span class="keyword">return</span> A[p];</span><br><span class="line">	<span class="keyword">int</span> r = Randomized_Partition(A, p, q);</span><br><span class="line">	<span class="keyword">int</span> k = r-p+<span class="number">1</span>;</span><br><span class="line">	<span class="keyword">if</span>(i == k)</span><br><span class="line">		<span class="keyword">return</span> A[r];</span><br><span class="line">	<span class="keyword">if</span>(i &lt; k)</span><br><span class="line">		<span class="keyword">return</span> Randomized_Select(A, p, r-<span class="number">1</span>, i);</span><br><span class="line">	<span class="keyword">else</span></span><br><span class="line">		<span class="keyword">return</span> Randomized_Select(A, r+<span class="number">1</span>, q, i-k);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 测试 */</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span><br><span class="line"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> A[] = &#123;<span class="number">6</span>,<span class="number">10</span>,<span class="number">13</span>,<span class="number">5</span>,<span class="number">8</span>,<span class="number">3</span>,<span class="number">2</span>,<span class="number">11</span>&#125;;</span><br><span class="line">	<span class="keyword">int</span> i = <span class="number">7</span>;</span><br><span class="line">	<span class="keyword">int</span> result = Randomized_Select(A, <span class="number">0</span>, <span class="number">7</span>, i);</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="string">"The "</span> &lt;&lt; i &lt;&lt; <span class="string">"th smallest element is "</span> &lt;&lt; result &lt;&lt; endl;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="最坏情况线性时间的解决方案">最坏情况线性时间的解决方案</h3><p>虽然最坏情况Θ(n^2)出现的概率非常非常小，但是不代表它不会出现。这里就介绍一个非同一般的算法，以保证在最坏情况下也能达到线性时间。</p>
+<p>这个SELECT算法的基本思想就是要保证对数组的划分是一个好的划分，它通过自己的方法选取主元（pivot），然后将pivot作为参数传递给快速排序的确定性划分操作PARTITION。</p>
+<p>基本步骤：</p>
+<ol>
+<li><p>将输入数组的n个元素划分为n/5（上取整）组，每组5个元素，且至多只有一个组有剩下的n%5个元素组成。</p>
+</li>
+<li><p>寻找每个组织中中位数。首先对每组中的元素（至多为5个）进行插入排序，然后从排序后的序列中选择出中位数。</p>
+</li>
+<li><p>对第2步中找出的n/5（上取整）个中位数，递归调用SELECT以找出其中位数x。（如果是偶数取下中位数）</p>
+</li>
+<li><p>调用PARTITION过程，按照中位数x对输入数组进行划分。确定中位数x的位置k。</p>
+</li>
+<li><p>如果i=k，则返回x。否则，如果i &lt; k，则在地区间递归调用SELECT以找出第i小的元素，若干i &gt; k，则在高区找第(i-k)个最小元素。</p>
+</li>
+</ol>
+<p><img src="http://img.blog.csdn.net/20140622221504062?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvbGlzb25nbGlzb25nbGlzb25n/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt=""></p>
+<p><strong>总结</strong>：RANDOMIZED-SELECT和SELECT算法是基于比较的。我们知道，在比较模型中，排序时间不会优于Ω(nlgn)。之所以这里的选择算法达到了线性时间，是因为它们没有使用排序就解决了选择问题。另外，我们没有使用线性时间排序算法（计数排序/桶排序/基数排序），是因为它们要达到线性时间对输入有很高的要求，而这里不需要关于输入的任何假设。</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>一个n个元素组成的集合中，第K个<strong>顺序统计量（Order Statistic）</strong>指的是该集合中第K小的元素，我们要讨论的是如何在线性时间（linear time）里找出一个数组的第K个顺序统计量。</p>
+<h3 id="问题描述">问题描述</h3><p><strong>问题</strong>：给定一个含有n个元素的无序数组，找出第k小的元素。</p>
+<ul>
+<li>k = 1 ：最小值</li>
+<li>k = n ：最大值</li>
+<li>k = ⌊(n+1)/2⌋ or ⌈(n+1)/2⌉ ：中位数]]>
+    
+    </summary>
+    
+      <category term="Basic-算法与数据结构" scheme="http://yoursite.com/categories/Basic-%E7%AE%97%E6%B3%95%E4%B8%8E%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[快速排序的分析与优化]]></title>
