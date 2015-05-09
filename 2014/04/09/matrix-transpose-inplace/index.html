@@ -22,9 +22,31 @@
 
 
 
-	<meta name="keywords" content="Bitmap," />
 
-  <title> 位图排序 // Code Man </title>
+    <meta name="keywords" content="Hexo,next" />
+
+
+
+    <link rel="alternate" href="/atom.xml" title="Code Man" type="application/atom+xml" />
+
+
+
+    <link rel="shorticon icon" type="image/x-icon" href="/favicon.ico?v=0.4.0" />
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?50c15455e37f70aea674ff4a663eef27";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+  <title> 矩阵原地转置 // Code Man </title>
 </head>
 
 <body>
@@ -113,7 +135,7 @@
           
           
             
-              位图排序
+              矩阵原地转置
             
           
         </h1>
@@ -122,7 +144,7 @@
       <div class="post-meta">
         <span class="post-time">
           
-            发表于 2014-04-06
+            发表于 2014-04-09
           
         </span>
 
@@ -145,8 +167,8 @@
           
             <span class="post-comments-count">
             &nbsp; | &nbsp;
-            <a href="/2014/04/06/bitmap-sorting/#comments" >
-              <span class="post-comments-count ds-thread-count" data-thread-key="2014/04/06/bitmap-sorting/"></span>
+            <a href="/2014/04/09/matrix-transpose-inplace/#comments" >
+              <span class="post-comments-count ds-thread-count" data-thread-key="2014/04/09/matrix-transpose-inplace/"></span>
             </a>
           </span>
           
@@ -161,29 +183,18 @@
         
 
         
-          <p>《编程珠玑》里面讲到了一种算法导论里没有提到过的位图排序方法，这种排序方法是<strong>通过牺牲空间效率来追求时间效率（线性时间）以达到时间-空间折中与双赢</strong>的目的。下面简单讲一下我对位图排序思想的理解。</p>
-<h3 id="问题描述">问题描述</h3><p>1 . 输入：一个至多包含1千万个非负整数的文件<a id="more"></a></p>
-<p>2 . 特征：①每个数都是小于10000000的非负整数；②没有重复的数字；③数据之间不存在关联关系。</p>
-<p>3 . 约束：①最多1MB的内存空间可用；②磁盘空间充足；③运行时间最多几分钟，最好是线性时间。</p>
-<p>4 .  输出：按升序排列的整数序列。</p>
-<h3 id="位图排序思想">位图排序思想</h3><p>由于待排序的数据记录较多，我们单纯地使用常见的排序方法时间效率较低，运行时间会很长。而且内存空间有限（限制为1MB左右），所以我们不能同时把所有整数读入内存（如果每个整数使用7个字节来存储，那么1MB内存空间只能存大约143000个数字）。当然我们可以多次读取输入文件，多次排序，但是更好的方案是使用位图排序，可以使用有限的1MB内存空间并只进行一趟排序。</p>
-<p>1 . 根据待排序集合中最大的数，开辟一个位数组，用来表示待排序集合中的整数；</p>
-<p>2 . 待排序集合中的数字在位数组中的对应位置置1，其他的置0；</p>
-<p><strong>例如，待排序集合{1,2,3,5,8,13}可以表示为：0-1-1-1-0-1-0-0-1-0-0-0-0-1</strong></p>
-<p>这样排序过程自然可以分为三步：</p>
-<pre><code>第一步：将所有的位都置为0；
-
-第二步：通过读入文件中的每个整数，将每个对应的位都置为1；
-
-第三步：检验每一位，如果该位为1，输出对应的整数。
-</code></pre><p><strong>注意</strong>：位图排序是使用一个<strong>二进制位</strong>而不是一个整数来表示0或1，这样可以大大地减少所需要的内存空间。使用位图排序的前提是要知道待排序序列中的最大数。<strong>位图排序的缺点</strong>是有些数没有出现过，仍要为其保留一个位。故位图排序比较适合关键字密集的序列，例如一个城市的电话号码。</p>
-<p>伪代码：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*Phase 1: initialize set to empty*/</span></span><br><span class="line">	<span class="keyword">for</span> i = [<span class="number">0</span>, n)</span><br><span class="line">		bit[i] = <span class="number">0</span></span><br><span class="line"><span class="comment">/*Phase 2: insert present elements into the set*/</span></span><br><span class="line">	<span class="keyword">for</span> each i in the input file</span><br><span class="line">		bit[i] = <span class="number">1</span></span><br><span class="line"><span class="comment">/*Phase 3: write sorted output*/</span></span><br><span class="line">	<span class="keyword">for</span> i = [<span class="number">0</span>, n)</span><br><span class="line">		<span class="keyword">if</span> bit[i] == <span class="number">1</span></span><br><span class="line">			write i on the output file</span><br></pre></td></tr></table></figure></p>
-<p><strong>性能</strong>：时间复杂度可达O(n)，1MB包含8<em>1024</em>1024个位，所需内存10000000/(8<em>1024</em>1024)=1.20MB，如果不是严格限制的话可以看做基本符合要求。</p>
-<h3 id="位图排序实现">位图排序实现</h3><p>位图排序时，我们需要考虑：给出一个数，如何找到其对应位图的位置，方法就是首先找到该数对应的字节，然后在找到该数对应的位。例如：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">unsigned</span> <span class="keyword">char</span> bitmap[<span class="number">2</span>];</span><br><span class="line"><span class="comment">/* 可以表示16个数，即0～15 */</span></span><br></pre></td></tr></table></figure></p>
-<p>一个字节有八位，5表示第0个字节的第5位上；14表示第1个字节的第6个位上。</p>
-<p>在这里<strong>为了简化位处理，我们使用C++标准库的bitset容器。bitset是C++提供的一种位集合的数据结构，它让我们可以像使用数组一样使用位，可以访问指定下标的bit位。和其他容器一样，bitset也是一个模板类。</strong>具体的bitset方法可以查看<a href="http://zh.cppreference.com/w/cpp/utility/bitset" target="_blank" rel="external">std::bitset reference</a>。</p>
-<p>下面我们使用bitset容器进行位图排序：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*************************************************************************</span><br><span class="line">    &gt; File Name: BitSort.cpp</span><br><span class="line">    &gt; Author: SongLee</span><br><span class="line">    &gt; E-mail: lisong.shine@qq.com</span><br><span class="line">    &gt; Created Time: 2014年06月01日 星期日 23时46分32秒</span><br><span class="line">    &gt; Personal Blog: http://songlee24.github.io</span><br><span class="line"> ************************************************************************/</span></span><br><span class="line"><span class="preprocessor">#<span class="keyword">include</span>&lt;bitset&gt;</span></span><br><span class="line"><span class="preprocessor">#<span class="keyword">include</span>&lt;iostream&gt;</span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="preprocessor">#<span class="keyword">define</span> MAX 20</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span><br><span class="line"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> arr[<span class="number">10</span>] = &#123;<span class="number">5</span>,<span class="number">1</span>,<span class="number">2</span>,<span class="number">13</span>,<span class="number">7</span>,<span class="number">10</span>,<span class="number">0</span>,<span class="number">20</span>,<span class="number">16</span>,<span class="number">9</span>&#125;;</span><br><span class="line"></span><br><span class="line">	<span class="built_in">bitset</span>&lt;MAX+1&gt; bit;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">/* 将对应位置置1 */</span></span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;<span class="number">10</span>; ++i)</span><br><span class="line">	&#123;</span><br><span class="line">		bit.<span class="built_in">set</span>(arr[i]);</span><br><span class="line">		<span class="comment">/* bit.set(n)表示将第n位置1 */</span></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">/* 输出排序结果 */</span></span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;MAX+<span class="number">1</span>; ++i)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="comment">/* bit.test(n)判断第n位是否为1 */</span></span><br><span class="line">		<span class="keyword">if</span>(bit.test(i))</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="built_in">cout</span> &lt;&lt; i &lt;&lt; <span class="string">" "</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>输出结果：0 1 2 5 7 9 10 13 16 20</p>
+          <h3 id="问题描述">问题描述</h3><p><strong>微软面试题</strong>：将一个MxN的矩阵存储在一个一维数组中，编程实现矩阵的转置。</p>
+<p><strong>要求</strong>：空间复杂度为O(1)<a id="more"></a></p>
+<h3 id="思路分析">思路分析</h3><p>下面以一个4x2的矩阵A={1,2,3,4,5,6,7,8}进行分析，转置过程如下图：</p>
+<p><img src="http://img.blog.csdn.net/20140606173801500?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvbGlzb25nbGlzb25nbGlzb25n/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt=""></p>
+<p>图中右下角的红色数字表示在一维数组中的下标。矩阵的转置其实就是数组中元素的移动，具体的移动过程如下图：</p>
+<p><img src="http://img.blog.csdn.net/20140606173842187?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvbGlzb25nbGlzb25nbGlzb25n/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt=""></p>
+<p>我们发现，这些移动的元素的下标是一个个环，下标1的元素移动到4，下标4的元素移动到2，下标2的元素移动到1。在编写程序的时候，我们需要解决两个问题：第一个是如何判定环是否重复（已处理过）；第二个是如何计算当前元素下标的前驱与后继。</p>
+<p><strong>第一个问题</strong>：如何判断环是重复已处理过的？因为我们遍历整个数组时下标是从小到大的，所以如果是第一次遍历该环，则第一个下标肯定是这个环中最小的。如果一个环被处理过，那么总能找到一个它的后继是小于它的。从上图可以明显看出来。</p>
+<p><strong>第二个问题</strong>：如何计算当前元素下标的前驱与后继？假设转置前某个元素的数组下标为i，则它所在行列为（i/N, i%N），转置后所在行列则为（i%N, i/N），可计算转置后数组下标为<strong>(i%N)*M+i/N</strong>，此为i的<strong>后继</strong>。假设转置后某个元素的数组下标为i，则它所在行列为（i/M, i%M），则转置前所在行列为（i%M, i/M），可计算此时下标为<strong>(i%M)*N+i/M</strong>，此为i的<strong>前驱</strong>。</p>
+<h3 id="代码实现">代码实现</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*************************************************************************</span><br><span class="line">    &gt; File Name: matrix_transpose.cpp</span><br><span class="line">    &gt; Author: SongLee</span><br><span class="line">    &gt; E-mail: lisong.shine@qq.com</span><br><span class="line">    &gt; Created Time: 2014年06月06日 星期五 14时26分15秒</span><br><span class="line">    &gt; Personal Blog: http://songlee24.github.io</span><br><span class="line"> ************************************************************************/</span></span><br><span class="line"><span class="preprocessor">#<span class="keyword">include</span>&lt;iostream&gt;</span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 后继 */</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">getNext</span><span class="params">(<span class="keyword">int</span> i, <span class="keyword">int</span> m, <span class="keyword">int</span> n)</span></span><br><span class="line"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> (i%n)*m + i/n;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 前驱 */</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">getPre</span><span class="params">(<span class="keyword">int</span> i, <span class="keyword">int</span> m, <span class="keyword">int</span> n)</span></span><br><span class="line"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> (i%m)*n + i/m;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 处理以下标i为起点的环 */</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">movedata</span><span class="params">(<span class="keyword">int</span> *mtx, <span class="keyword">int</span> i, <span class="keyword">int</span> m, <span class="keyword">int</span> n)</span></span><br><span class="line"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> temp = mtx[i];  <span class="comment">// 暂存</span></span><br><span class="line">    <span class="keyword">int</span> cur = i;       <span class="comment">// 当前下标</span></span><br><span class="line">    <span class="keyword">int</span> pre = getPre(cur, m, n);</span><br><span class="line">    <span class="keyword">while</span>(pre != i)</span><br><span class="line">    &#123;</span><br><span class="line">        mtx[cur] = mtx[pre];</span><br><span class="line">        cur = pre;</span><br><span class="line">        pre = getPre(cur, m, n);</span><br><span class="line">    &#125;</span><br><span class="line">    mtx[cur] = temp;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 转置，即循环处理所有环 */</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">transpose</span><span class="params">(<span class="keyword">int</span> *mtx, <span class="keyword">int</span> m, <span class="keyword">int</span> n)</span></span><br><span class="line"></span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;m*n; ++i)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">int</span> next = getNext(i, m, n);</span><br><span class="line">        <span class="keyword">while</span>(next &gt; i) <span class="comment">// 若存在后继小于i说明重复</span></span><br><span class="line">            next = getNext(next, m, n);</span><br><span class="line">        <span class="keyword">if</span>(next == i)   <span class="comment">// 处理当前环 </span></span><br><span class="line">            movedata(mtx, i, m, n);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 输出矩阵 */</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">print</span><span class="params">(<span class="keyword">int</span> *mtx, <span class="keyword">int</span> m, <span class="keyword">int</span> n)</span></span><br><span class="line"></span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;m*n; ++i)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span>((i+<span class="number">1</span>)%n == <span class="number">0</span>)</span><br><span class="line">            <span class="built_in">cout</span> &lt;&lt; mtx[i] &lt;&lt; <span class="string">"\n"</span>;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            <span class="built_in">cout</span> &lt;&lt; mtx[i] &lt;&lt; <span class="string">" "</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 测试 */</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span><br><span class="line"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> matrix[<span class="number">4</span>*<span class="number">2</span>] = &#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>,<span class="number">7</span>,<span class="number">8</span>&#125;;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"Before matrix transposition:"</span> &lt;&lt; endl;</span><br><span class="line">    print(matrix, <span class="number">4</span>, <span class="number">2</span>);</span><br><span class="line">    transpose(matrix, <span class="number">4</span>, <span class="number">2</span>);</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"After matrix transposition:"</span> &lt;&lt; endl;</span><br><span class="line">    print(matrix, <span class="number">2</span>, <span class="number">4</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>运行结果：</p>
+<p><img src="http://img.blog.csdn.net/20140606173940156?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvbGlzb25nbGlzb25nbGlzb25n/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt=""></p>
 
         
       </div>
@@ -192,26 +203,16 @@
     
       <div class="post-footer">
         
-          <div class="post-tags">
-            
-              <a href="/tags/Bitmap/">
-                #Bitmap
-              </a>
-            
-          </div>
-        
 
         
           <div class="post-nav">
             <div class="post-nav-prev post-nav-item">
               
-                <a href="/2014/04/07/vector-rotation/">一维向量旋转算法</a>
-              
             </div>
 
             <div class="post-nav-next post-nav-item">
               
-                <a href="/2014/04/03/implementation-of-internal-sortings/">各种内部排序算法的实现</a>
+                <a href="/2014/04/08/brother-word/">变位词问题</a>
               
             </div>
           </div>
@@ -228,8 +229,8 @@
   
     <div class="comments" id="comments">
       
-        <div class="ds-thread" data-thread-key="2014/04/06/bitmap-sorting/"
-             data-title="位图排序" data-url="http://yoursite.com/2014/04/06/bitmap-sorting/">
+        <div class="ds-thread" data-thread-key="2014/04/09/matrix-transpose-inplace/"
+             data-title="矩阵原地转置" data-url="http://yoursite.com/2014/04/09/matrix-transpose-inplace/">
         </div>
 
       
@@ -337,7 +338,7 @@
         <div class="post-toc">
           
           
-            <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#问题描述"><span class="nav-number">1.</span> <span class="nav-text">问题描述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#位图排序思想"><span class="nav-number">2.</span> <span class="nav-text">位图排序思想</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#位图排序实现"><span class="nav-number">3.</span> <span class="nav-text">位图排序实现</span></a></li></ol></div>
+            <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#问题描述"><span class="nav-number">1.</span> <span class="nav-text">问题描述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#思路分析"><span class="nav-number">2.</span> <span class="nav-text">思路分析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#代码实现"><span class="nav-number">3.</span> <span class="nav-text">代码实现</span></a></li></ol></div>
           
         </div>
         <div class="post-toc-indicator-bottom post-toc-indicator"></div>
