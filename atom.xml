@@ -4,7 +4,7 @@
   <subtitle><![CDATA[李松]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://yoursite.com/"/>
-  <updated>2015-05-09T17:52:03.555Z</updated>
+  <updated>2015-05-09T17:55:21.142Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -13,6 +13,70 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[C++学习之继承中的访问控制]]></title>
+    <link href="http://yoursite.com/2014/07/16/cpp-access-control/"/>
+    <id>http://yoursite.com/2014/07/16/cpp-access-control/</id>
+    <published>2014-07-16T05:16:59.000Z</published>
+    <updated>2015-05-09T17:55:21.142Z</updated>
+    <content type="html"><![CDATA[<p>我们通常认为一个类有两种不同的用户：<strong>普通用户</strong> 和 <strong>类的实现者</strong>。其中，普通用户编写的代码使用类的对象，这部分代码只能访问类的公有（接口）成员；实现者则负责编写类的成员和友元的代码，成员和友元既能访问类的公有部分，也能访问类的私有部分。如果进一步考虑继承的话就会出现第三种用户，即<strong>派生类</strong>。派生类可以访问基类的公有（public）成员和受保护（protected）成员，但不能访问基类的私有（private）成员。<br><a id="more"></a><br>继承相关点：</p>
+<ul>
+<li>大多数类都只继承自一个类，这种形式的继承叫做<strong>“单继承”</strong>。本文主要讲的是单继承。</li>
+<li>一个派生类的对象中，包含继承自基类的部分和派生类自定义的部分。正因为派生类含有基类部分，所以可以进行<strong>派生类到基类的类型转换</strong>，这种转换是隐式的。</li>
+<li>不存在从基类向派生类的隐式类型转换。</li>
+<li>派生类向基类的自动类型转换只对指针或引用有效，对象之间不存在类型转换。</li>
+<li>如果基类定义了静态成员，则不论派生出多少个派生类，每个静态成员都只存在唯一实例。</li>
+<li>防止一个类被继承可以使用关键字final，这时C++11新标准中提供的。</li>
+<li>继承中的<a href="http://songlee24.github.io/blog/2014/07/16/c-plus-plus-xue-xi-zhi-xu-han-shu-yu-chun-xu-han-shu/" target="_blank" rel="external">虚函数与纯虚函数</a>（见文章）。<br><br><br><h3 id="公有、私有和受保护成员">公有、私有和受保护成员</h3></li>
+</ul>
+<p><strong>1 . 访问说明符</strong></p>
+<p>在C++中通过使用访问说明符<strong>public、protected、private</strong>来对类的成员进行访问控制，控制成员对于普通用户或派生类来说是否可访问：</p>
+<ul>
+<li><p><strong>public</strong>：定义为public的成员对普通用户、类的实现者、派生类都是可访问的。public通常用于定义类的外部接口。</p>
+</li>
+<li><p><strong>protected</strong>：定义protected成员的目的是让派生类可以访问而禁止其他用户访问。所以类的实现者和派生类可以访问，而普通用户不能访问。</p>
+</li>
+<li><p><strong>private</strong>：定义为private的成员只能被类的实现者（成员和友元）访问。private部分通常用于封装（即隐藏）类的实现细节。</p>
+</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> People&#123;</span><br><span class="line"><span class="keyword">protected</span>:</span><br><span class="line">	<span class="built_in">string</span> name;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> Student : <span class="keyword">public</span> People&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="function"><span class="keyword">friend</span> <span class="keyword">void</span> <span class="title">Print</span><span class="params">(Student &amp;s)</span></span>;</span><br><span class="line">	<span class="function"><span class="keyword">friend</span> <span class="keyword">void</span> <span class="title">Print</span><span class="params">(People &amp;p)</span></span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 正确，可以通过派生类对象访问基类的protected成员</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Print</span><span class="params">(Student &amp;s)</span></span>&#123; s.name=<span class="string">"Songlee"</span>; <span class="built_in">cout</span>&lt;&lt; s.name &lt;&lt; endl; &#125;</span><br><span class="line"><span class="comment">// 错误，不能通过基类对象访问基类的protected成员</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Print</span><span class="params">(People &amp;p)</span></span>&#123; p.name=<span class="string">"Songlee"</span>; <span class="built_in">cout</span>&lt;&lt; p.name &lt;&lt; endl; &#125;</span><br></pre></td></tr></table></figure>
+<p>需要注意的是，派生类的成员或友元只能通过<strong>派生类对象</strong>来访问基类的受保护成员。派生类对于一个基类对象中的受保护成员没有任何访问特权。</p>
+<p><strong>2 . 改变成员的可访问性</strong></p>
+<p>有时我们需要改变派生类继承的某个名字的访问级别，通过使用<strong>using</strong>声明：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> People&#123;</span><br><span class="line"><span class="keyword">protected</span>:</span><br><span class="line">	<span class="built_in">string</span> name;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> Student : <span class="keyword">public</span> People&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="keyword">using</span> People::name;  <span class="comment">// 将继承来的name成员的访问权限改为public</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span><br><span class="line"></span>&#123;</span><br><span class="line">	Student me;</span><br><span class="line">	me.name = <span class="string">"SongLee"</span>;     <span class="comment">// 可以访问name了</span></span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; me.name &lt;&lt; endl;  </span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>通过在类的内部使用using声明语句，我们可以将该类的直接或间接基类中的任何<strong>可访问成员</strong>（非私有成员）标记出来，改变其访问权限。</p>
+<h3 id="公有、私有和受保护继承">公有、私有和受保护继承</h3><p>我们注意到，在类的<strong>派生列表</strong>中用到了访问说明符public、protected和private，它们分别表示不同的继承方式：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> A : <span class="keyword">public</span> B &#123; <span class="comment">/*  */</span> &#125;;     <span class="comment">// 公有继承</span></span><br><span class="line"><span class="keyword">class</span> A : <span class="keyword">private</span> B &#123; <span class="comment">/*  */</span> &#125;;    <span class="comment">// 私有继承</span></span><br><span class="line"><span class="keyword">class</span> A : <span class="keyword">protected</span> B &#123; <span class="comment">/*  */</span> &#125;;  <span class="comment">// 受保护继承</span></span><br></pre></td></tr></table></figure></p>
+<p>派生类的派生列表中的访问说明符<strong>对于派生类的成员（及友元）能否访问其直接基类的成员没什么影响</strong>。派生类的成员（及友元）对基类成员的访问权限只与基类中的访问说明符有关。</p>
+<p>那么派生列表中的访问说明符有什么作用呢？<br><strong>派生列表中访问说明符的作用</strong>是<em>控制派生类<strong>用户</strong>对于基类成员的访问权限</em>，注意是派生类的用户。下面给出不同的继承方式导致的访问权限的变化：</p>
+<ul>
+<li><p><strong>public继承</strong>：如果继承是公有的，则成员将遵循其原有的访问说明符。父类中的public、protected和private属性在子类中不发生改变。</p>
+</li>
+<li><p><strong>protected继承</strong>：比protected级别高的访问权限会变成protected。即父类中的public属性在子类中变为protected，父类中的protected和private属性在子类中不变。</p>
+</li>
+<li><p><strong>private继承</strong>：比private级别高的访问权限会变成private。即父类中的三种访问属性在子类中都会变成private。</p>
+</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> A &#123;   <span class="comment">// 基类</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="built_in">string</span> A_public;      <span class="comment">// 公有成员</span></span><br><span class="line"><span class="keyword">protected</span>:</span><br><span class="line">	<span class="built_in">string</span> A_protected;   <span class="comment">// 受保护成员</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> B : <span class="keyword">private</span> A &#123;    <span class="comment">// 私有继承</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	B()&#123; A_public=<span class="string">"public"</span>; A_protected=<span class="string">"protected"</span>; &#125;;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span><br><span class="line"></span>&#123;</span><br><span class="line">	B b;   <span class="comment">// 通过B的对象访问</span></span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; b.A_public &lt;&lt;<span class="string">" "</span>&lt;&lt; b.A_protected &lt;&lt; endl;  </span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>如果我们在派生列表中不使用访问说明符，则struct关键字默认的是公有继承，class关键字默认的是私有继承。不过建议在继承时最好显式地将访问说明符写出来。<br><br><br><br>另外，不同的继承方式也会影响派生类向基类的转换，假定Derive继承自Base：</p>
+<ul>
+<li><p>只有当Derive公有地继承自Base时，用户代码才能使用派生类向基类的转换；如果Derive继承Base的方式是受保护的或者私有的，则用户代码不能使用该转换。</p>
+</li>
+<li><p>不论Derive以什么方式继承Base，Derive的成员函数和友元都能使用派生类向基类的转换；派生类向其直接基类的类型转换对于派生类的成员和友元来说永远是可访问的。</p>
+</li>
+<li><p>如果Derive继承Base的方式是公有的或者受保护的，则Derive的派生类的成员和友元可以使用Derive向Base的类型转换；反之，如果Derive继承Base的方式是私有的，则不能使用。<br><br><br></p>
+</li>
+</ul>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>我们通常认为一个类有两种不同的用户：<strong>普通用户</strong> 和 <strong>类的实现者</strong>。其中，普通用户编写的代码使用类的对象，这部分代码只能访问类的公有（接口）成员；实现者则负责编写类的成员和友元的代码，成员和友元既能访问类的公有部分，也能访问类的私有部分。如果进一步考虑继承的话就会出现第三种用户，即<strong>派生类</strong>。派生类可以访问基类的公有（public）成员和受保护（protected）成员，但不能访问基类的私有（private）成员。<br>]]>
+    
+    </summary>
+    
+      <category term="C++" scheme="http://yoursite.com/tags/C/"/>
+    
+      <category term="Lang.-C++" scheme="http://yoursite.com/categories/Lang-C/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[C++与C的那些差异]]></title>
