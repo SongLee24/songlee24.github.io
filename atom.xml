@@ -4,7 +4,7 @@
   <subtitle><![CDATA[李松]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://yoursite.com/"/>
-  <updated>2015-05-09T17:41:24.830Z</updated>
+  <updated>2015-05-09T17:45:24.885Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -13,6 +13,36 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[C++学习之extern关键字]]></title>
+    <link href="http://yoursite.com/2014/07/05/C-extern-C/"/>
+    <id>http://yoursite.com/2014/07/05/C-extern-C/</id>
+    <published>2014-07-05T14:08:05.000Z</published>
+    <updated>2015-05-09T17:45:24.885Z</updated>
+    <content type="html"><![CDATA[<p>我们知道，extern关键字可以置于变量或者函数前，以标示变量或者函数的定义在别的文件中，提示编译器遇到此变量和函数时在其他模块中寻找其定义。这里起到的是声明作用范围的用处。另外，extern还可以与”C”连用，作为链接指示。</p>
+<h3 id="C++名字修饰（Name_Mangling）">C++名字修饰（Name Mangling）</h3><a id="more"></a>
+<p>这就要从C++的重载说起了，在C++中<strong>函数重载</strong>指的是几个函数的函数名相同，参数列表不同。那么当生成obj中间文件/目标文件的时候，C++编译器如何区分这几个重载函数呢？——<strong>通过把原函数名与参数信息结合，产生一个独特的内部名字</strong>，这种技术叫做<a href="http://zh.wikipedia.org/zh/%E5%90%8D%E5%AD%97%E4%BF%AE%E9%A5%B0" target="_blank" rel="external">名字修饰</a>（Name Mangling）。名字修饰规则没有一个标准，所以不同的编译器的名字修饰规则也不一样。</p>
+<p>下面是一组函数，其中f()函数重载了：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span>  <span class="title">f</span> <span class="params">(<span class="keyword">void</span>)</span> </span>&#123; <span class="keyword">return</span> <span class="number">1</span>; &#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span>  <span class="title">f</span> <span class="params">(<span class="keyword">int</span>)</span>  </span>&#123; <span class="keyword">return</span> <span class="number">0</span>; &#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">g</span> <span class="params">(<span class="keyword">void</span>)</span> </span>&#123; <span class="keyword">int</span> i = f(), j = f(<span class="number">0</span>); &#125;</span><br></pre></td></tr></table></figure></p>
+<p>f(void)和f(int)是不同的函数，除了函数名相同以外没有任何关系。当生成obj目标文件时，为了区分它们，C++编译器根据参数信息进行了名字修饰：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span>  __f_v (<span class="keyword">void</span>) &#123; <span class="keyword">return</span> <span class="number">1</span>; &#125;</span><br><span class="line"><span class="keyword">int</span>  __f_i (<span class="keyword">int</span>)  &#123; <span class="keyword">return</span> <span class="number">0</span>; &#125;</span><br><span class="line"><span class="keyword">void</span> __g_v (<span class="keyword">void</span>) &#123; <span class="keyword">int</span> i = __f_v(), j = __f_i(<span class="number">0</span>); &#125;</span><br></pre></td></tr></table></figure></p>
+<p>注意g()也被名字修饰了，虽然没有任何名字冲突。名字修饰应用于C++的任何符号。</p>
+<h3 id="为什么要使用extern_“C”？">为什么要使用extern “C”？</h3><p>C语言中没有名字修饰，因为C语言不支持函数重载。但是如果C++中含有C代码，在编译时C++编译器对C代码的函数也会进行名字修饰，函数名变了以后，将导致在C运行库中找不到对应函数，发生链接错误。<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 将下面的代码保存为.cpp文件，并用C++编译器编译</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">printf</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span> *format,...)</span></span>;</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span><br><span class="line"></span>&#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"GeeksforGeeks"</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>输出：<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">/tmp/ccQBO9Im.o：在函数‘main’中：</span><br><span class="line">test<span class="class">.cpp</span>:(.text+<span class="number">0</span>xf)：对‘<span class="function"><span class="title">printf</span><span class="params">(char const*, ...)</span></span>’未定义的引用</span><br><span class="line">collect2: 错误：ld 返回 <span class="number">1</span></span><br></pre></td></tr></table></figure></p>
+<p>为了防止C++编译器对C代码进行名字修饰，我们将C代码用<strong>extern “C”</strong>进行链接指定，<strong>告诉编译器，在生成中间文件时，不要对这部分代码进行名字修饰，而是生成符合C规则的中间符号名。</strong><br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">extern</span> <span class="string">"C"</span></span><br><span class="line">&#123;</span><br><span class="line">	<span class="function"><span class="keyword">int</span> <span class="title">printf</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span> *format,...)</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span><br><span class="line"></span>&#123;</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"Hello!"</span>);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>添加了extern “C”链接指示后，上面的代码就能够正常运行了。<br><br><br><br><br><strong>附</strong>：所有的C风格的头文件（stdio.h, string.h, … 等等）都有在extern “C”下声明，形式如下：<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#ifdef __cplusplus </span></span><br><span class="line"><span class="keyword">extern</span> <span class="string">"C"</span> &#123;</span><br><span class="line"><span class="preprocessor">#<span class="keyword">endif</span></span></span><br><span class="line">    <span class="comment">/* Declarations of this file */</span></span><br><span class="line"><span class="preprocessor">#ifdef __cplusplus</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="preprocessor">#<span class="keyword">endif</span></span></span><br></pre></td></tr></table></figure></p>
+<p><br><br></p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>我们知道，extern关键字可以置于变量或者函数前，以标示变量或者函数的定义在别的文件中，提示编译器遇到此变量和函数时在其他模块中寻找其定义。这里起到的是声明作用范围的用处。另外，extern还可以与”C”连用，作为链接指示。</p>
+<h3 id="C++名字修饰（Name_Mangling）">C++名字修饰（Name Mangling）</h3>]]>
+    
+    </summary>
+    
+      <category term="C++" scheme="http://yoursite.com/tags/C/"/>
+    
+      <category term="Lang.-C++" scheme="http://yoursite.com/categories/Lang-C/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[深度优先搜索的实现]]></title>
