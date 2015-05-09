@@ -189,7 +189,7 @@
 
         
           
-            <p>单件模式（SingletonPattern）：确保一个类只有一个实例，并提供一个全局访问点。和全局变量一样方便，又没有全局变量的缺点，即不需要从一开始就创建对象，而是在需要时才创建它。</p>
+            <h2 id="一、什么是单例模式">一、什么是单例模式</h2><p>单件模式（SingletonPattern）：确保一个类只有一个实例，并提供一个全局访问点。和全局变量一样方便，又没有全局变量的缺点，即不需要从一开始就创建对象，而是在需要时才创建它。</p>
 <p><strong><em>那么要如何保证一个类只能被实例化一次呢？</em></strong>一般情况下，如果存在一个类，我们都是可以多次地实例化它的。那么如果这样呢：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> MyClass&#123;</span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">MyClass</span><span class="params">()</span></span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
             <div class="post-more-link text-center">
