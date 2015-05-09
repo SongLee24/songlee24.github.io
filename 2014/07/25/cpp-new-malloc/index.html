@@ -24,7 +24,7 @@
 
 	<meta name="keywords" content="C++," />
 
-  <title> C++学习之命名空间 // Code Man </title>
+  <title> C++学习之new与delete、malloc与free // Code Man </title>
 </head>
 
 <body>
@@ -113,7 +113,7 @@
           
           
             
-              C++学习之命名空间
+              C++学习之new与delete、malloc与free
             
           
         </h1>
@@ -145,8 +145,8 @@
           
             <span class="post-comments-count">
             &nbsp; | &nbsp;
-            <a href="/2014/07/25/cpp-namespace/#comments" >
-              <span class="post-comments-count ds-thread-count" data-thread-key="2014/07/25/cpp-namespace/"></span>
+            <a href="/2014/07/25/cpp-new-malloc/#comments" >
+              <span class="post-comments-count ds-thread-count" data-thread-key="2014/07/25/cpp-new-malloc/"></span>
             </a>
           </span>
           
@@ -161,27 +161,52 @@
         
 
         
-          <p>在C++中，<strong>命名空间（namespace）</strong>的目的是为了防止名字冲突。每个命名空间是一个作用域，在所有命名空间之外，还存在一个<strong>全局命名空间（global namespace）</strong>，全局命名空间以隐式的方式声明，它并没有名字。在命名空间机制中，原来的全局变量，就是位于全局命名空间中（可以用<code>::member</code>的形式表示）。</p>
-<h3 id="定义命名空间">定义命名空间</h3><p><strong>1、每个命名空间都是一个作用域</strong><br><a id="more"></a><br>和其他作用域类似，在命名空间中的每个名字必须表示唯一实体，而在不同命名空间中，可以有相同名字的成员。</p>
-<p><strong>2、命名空间可以是不连续的</strong></p>
-<p>命名空间可以定义在几个不同的部分：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">namespace</span> nsp &#123;</span><br><span class="line">    <span class="comment">/* …… */</span></span><br><span class="line">&#125;   <span class="comment">// 命名空间作用域后面无须分号</span></span><br></pre></td></tr></table></figure></p>
-<p>如果之前没有名为nsp的命名空间定义，则上述代码创建一个新的命名空间；否则，上述代码打开已经存在的命名空间添加一些新的成员。</p>
-<p><strong>3、命名空间是可以嵌套的</strong></p>
-<p>嵌套的命名空间是指定义在其他命名空间中的命名空间。嵌套的命名空间是一个嵌套的作用域，内层命名空间声明的名字将隐藏外层命名空间声明的同名成员：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> x = <span class="number">20</span>;</span><br><span class="line"><span class="keyword">namespace</span> outer &#123;</span><br><span class="line">	<span class="keyword">int</span> x = <span class="number">10</span>;</span><br><span class="line">	<span class="keyword">namespace</span> inner &#123;</span><br><span class="line">		<span class="keyword">int</span> z = x;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span><br><span class="line"></span>&#123;</span><br><span class="line">	<span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; outer::inner::z;  <span class="comment">// 输出10</span></span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>注意，通常我们不把#include头文件放在命名空间内部。</p>
-<p><strong>4、未命名的命名空间</strong></p>
-<p><strong>未命名的命名空间（unnamed namespace）</strong>是指关键字namespace后紧跟花括号括起来的一系列声明语句。未命名的命名空间中定义的变量拥有静态生命周期：它们在第一次使用前创建，并且直到程序结束才销毁。在标准C++引入命名空间的概念之前，程序需要将名字声明成<code>static</code>以使其对于整个文件有效，但是，现在在文件中进行静态声明的做法已经被C++标准取消了，取而代之的是使用<strong>未命名的命名空间</strong>。</p>
-<p>一个未命名的命名空间可以在某个给定的文件内不连续，但是不能跨越多个文件。也就是说，未命名的命名空间仅在特定的文件内部有效，其作用范围不会横跨多个不同的文件。<em>另外，由于未命名的命名空间它没有名字，所以其中定义的名字的作用域与该命名空间所在的作用域相同</em>：<br><figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> i;   <span class="comment">// i的全局声明</span></span><br><span class="line"><span class="keyword">namespace</span> &#123;</span><br><span class="line">    <span class="keyword">int</span> i;</span><br><span class="line">&#125;</span><br><span class="line">i = <span class="number">10</span>;  <span class="comment">// 错误，二义性</span></span><br></pre></td></tr></table></figure></p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">namespace</span> local &#123;</span><br><span class="line">    <span class="keyword">namespace</span> &#123;</span><br><span class="line">        <span class="keyword">int</span> i;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">local::i = <span class="number">42</span>;  <span class="comment">// 正确</span></span><br></pre></td></tr></table></figure>
-<h3 id="使用命名空间">使用命名空间</h3><p>对命名空间中成员的引用，需要使用命名空间的作用域运算符<strong>(::)</strong>。但是，像<code>namespace_name::member_name</code>这样使用命名空间的成员非常烦琐，我们需要使用一些其他的更简便的方法。</p>
-<p><strong>1、命名空间的别名</strong></p>
-<p>有些命名空间的名字很长或者命名空间嵌套了很多层，我们可以为其设定一个较短的同义词，也就是别名：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">namespace</span> cln = cpluslus_learning_namespace;</span><br><span class="line"><span class="keyword">namespace</span> Qlib = outer::inner::QueryLib;</span><br></pre></td></tr></table></figure></p>
-<p><strong>2、using声明</strong></p>
-<p>一条<strong>using声明（using declaration）</strong>语句一次只引入命名空间的一个成员：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> 命名空间名::[命名空间名::……]成员名;   <span class="comment">// 例如 using OLib::List;</span></span><br></pre></td></tr></table></figure></p>
-<p><strong>3、using指示</strong></p>
-<p><strong>using指示（using directive）</strong>和using声明不同的地方是，我们无法控制哪些名字是可见的，因为using指示会使得某个特定的命名空间中所有的名字都可见：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;   <span class="comment">// 引入命名空间std</span></span><br></pre></td></tr></table></figure></p>
-<p>使用命名空间主要是为了防止名字冲突，如果随意使用using指示注入命名空间的所有名字，将重新引入名字冲突的问题。另外，<strong>using声明和using指示在作用域上有区别</strong>：using声明是将一个成员引入当前命名空间作用域内；using指示是将所有成员引入当前和上一层命名空间作用域内：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">namespace</span> nsp &#123;    <span class="comment">// 命名空间</span></span><br><span class="line">	<span class="keyword">int</span> i=<span class="number">16</span>, j=<span class="number">15</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> j = <span class="number">0</span>;   <span class="comment">// 全局变量</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span><br><span class="line"></span>&#123;</span><br><span class="line">	<span class="keyword">using</span> <span class="keyword">namespace</span> nsp;   <span class="comment">// 如果使用j，将在::j和nsp::j之间产生冲突</span></span><br><span class="line">	<span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; j;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>如果将using指示<code>using namespace nsp;</code>改成using声明<code>using nsp::j;</code>则会正确输出15。</p>
+          <p>在C/C++的面试时，对于new/delete和malloc/free这两对的使用和区别经常被考查到，如果这种基础的问题都答不上来，估计很难过面试了。这篇文章仅仅是浅显的讲一下，仅供参考。</p>
+<h3 id="new和delete">new和delete</h3><p>new和delete是C++的<strong>运算符</strong>，用于动态分配内存和释放内存。</p>
+<p><strong>new表达式</strong><br><a id="more"></a><br>标准库定义了operator new函数的几个重载版本，没有使用<code>noexcept</code>说明的版本在内存分配失败时可能会抛出bad_alloc异常，而使用了的不会抛出异常。<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">void</span>* <span class="function"><span class="keyword">operator</span> <span class="title">new</span>  <span class="params">( size_t )</span></span>;</span><br><span class="line"><span class="keyword">void</span>* <span class="keyword">operator</span> <span class="keyword">new</span>[]( size_t );	</span><br><span class="line"><span class="keyword">void</span>* <span class="function"><span class="keyword">operator</span> <span class="title">new</span>  <span class="params">( size_t , <span class="keyword">const</span> nothrow_t&amp; )</span> <span class="keyword">noexcept</span></span>;</span><br><span class="line"><span class="keyword">void</span>* <span class="keyword">operator</span> <span class="keyword">new</span>[]( size_t , <span class="keyword">const</span> nothrow_t&amp; ) <span class="keyword">noexcept</span>;</span><br></pre></td></tr></table></figure></p>
+<p>当我们使用new表达式时，实际执行了三步操作：</p>
+<ul>
+<li>new表达式调用上面的<strong>operator new</strong>（或者<strong>operator new[]</strong>）的标准库函数，函数分配一块足够大的、原始的、未命名的内存空间以便存储特定类型的对象（或者对象的数组）。</li>
+<li>编译器运行相应的<strong>构造函数</strong>以构造这些对象，并为其传入初始值。</li>
+<li>对象被分配了空间并构造完成，返回一个指向该对象的指针。</li>
+</ul>
+<p>对于operator new函数或者operator new[]函数来说，它的返回类型必须是void*，第一个形参的类型必须是size_t且该形参不能含有默认实参。当编译器调用operator new或者operator new[]函数时，会把存储指定对象或者指定对象的数组所需的字节数传给size_t形参。</p>
+<p><strong>delete表达式</strong></p>
+<p>标准库也定义了operator delete函数的几个重载版本，<code>noexcept</code>说明符表示在内存分配失败时返回空指针而不是抛出bad_alloc异常。<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="keyword">operator</span> <span class="title">delete</span>  <span class="params">( <span class="keyword">void</span>* )</span> <span class="keyword">noexcept</span></span>;</span><br><span class="line"><span class="keyword">void</span> <span class="keyword">operator</span> <span class="keyword">delete</span>[]( <span class="keyword">void</span>* ) <span class="keyword">noexcept</span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="keyword">operator</span> <span class="title">delete</span>  <span class="params">( <span class="keyword">void</span>* , <span class="keyword">const</span> nothrow_t&amp; )</span> <span class="keyword">noexcept</span></span>;</span><br><span class="line"><span class="keyword">void</span> <span class="keyword">operator</span> <span class="keyword">delete</span>[]( <span class="keyword">void</span>* , <span class="keyword">const</span> nothrow_t&amp; ) <span class="keyword">noexcept</span>;</span><br></pre></td></tr></table></figure></p>
+<p>当我们使用delete表达式时，实际执行了两步操作：</p>
+<ul>
+<li>对指针所指的对象或者所指的数组中的元素执行对应的<strong>析构函数</strong>。</li>
+<li>编译器调用<strong>operator delete</strong>（或者<strong>operator delete[]</strong>）的标准库函数释放内存空间。</li>
+</ul>
+<p>对于operator delete函数或者operator delete[]函数来说，它们的返回类型必须是void，第一个形参的类型必须是void*。执行一条delete表达式将调用相应的operator函数，并用指向待释放内存的指针来初始化void*形参。<br><br></p>
+<h3 id="malloc和free">malloc和free</h3><p>malloc和free是C/C++中的<strong>标准库函数</strong>，也是用于申请动态内存和释放内存。<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">void</span>* <span class="built_in">malloc</span>( size_t size );</span><br><span class="line"><span class="function"><span class="keyword">void</span>  <span class="title">free</span><span class="params">( <span class="keyword">void</span>* ptr )</span></span>;</span><br></pre></td></tr></table></figure></p>
+<p><strong>malloc函数</strong>接受一个表示待分配字节数的size_t，返回指向分配空间的指针；如果分配失败，则返回空指针。<strong>free函数</strong>接受一个void<em>，它是malloc返回的指针的副本，free将相关内存返还给系统。<em>*注意</em></em>：malloc函数并不会调用构造函数来初始化内存，free函数也不会自动调用析构函数。<br><br></p>
+<h3 id="new和malloc、delete和free的区别">new和malloc、delete和free的区别</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> *p1 = <span class="keyword">new</span> <span class="keyword">int</span>;     <span class="comment">// 没有初始化列表， 所以没有初始化</span></span><br><span class="line"><span class="keyword">int</span> *p2 = <span class="keyword">new</span> <span class="keyword">int</span>();   <span class="comment">// 空初始化列表， 执行zero初始化,  所以初始化为0</span></span><br><span class="line"><span class="keyword">int</span> *p3 = <span class="keyword">new</span> <span class="keyword">int</span>(<span class="number">3</span>);  <span class="comment">// 非空初始化列表， 执行值初始化， 所以初始化为3</span></span><br><span class="line"><span class="comment">// 注：对于没有构造函数的内置类型，new会不会初始化在于有没有初始列表（空列表“()”也算）</span></span><br><span class="line"><span class="keyword">int</span> *p4 = <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">100</span>];     <span class="comment">// 分配大小为sizeof(int)*100;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> *p5 = (<span class="keyword">int</span>*)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(<span class="keyword">int</span>)*<span class="number">128</span>);</span><br><span class="line"><span class="keyword">double</span> *p6 = (<span class="keyword">double</span>*)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(<span class="keyword">double</span>)*<span class="number">12</span>);</span><br></pre></td></tr></table></figure>
+<p><strong>new和malloc的区别：</strong></p>
+<ol>
+<li><p>new是一个运算符，malloc()是一个库函数。</p>
+</li>
+<li><p>new会调用构造函数，而malloc()不会。</p>
+</li>
+<li><p>new返回指定类型的指针，而malloc()返回void*。</p>
+</li>
+<li><p>new会自动计算需要分配的空间，而malloc()需要手工计算字节数。</p>
+</li>
+<li><p>new可以被重载，而malloc()不能。<br><br></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">delete</span> p1;</span><br><span class="line"><span class="keyword">delete</span> [] p2;</span><br><span class="line"><span class="built_in">free</span>(p3);</span><br><span class="line"><span class="built_in">free</span>(p4);</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p><strong>delete和free的区别：</strong></p>
+<ol>
+<li><p>delete是一个运算符，free()是一个库函数。</p>
+</li>
+<li><p>delete会调用析构函数，而free()不会。</p>
+</li>
+<li><p>delete可以被重载，而free()不能。</p>
+</li>
+</ol>
+<p><br><br><br><br></p>
+<h3 id="总结：">总结：</h3><p>malloc和free是C/C++中的标准库函数，new和delete是C++的运算符。对于非内置数据类型的对象而言，光用maloc/free 无法满足动态对象的要求。对象在创建的同时要自动执行构造函数， 对象消亡之前要自动执行析构函数。由于malloc/free 是库函数而不是运算符，不在编译器控制权限之内，不能够把执行构造函数和析构函数的任务强加malloc/free。</p>
 <p><br><br><br></p>
 
         
@@ -204,13 +229,11 @@
           <div class="post-nav">
             <div class="post-nav-prev post-nav-item">
               
-                <a href="/2014/07/25/cpp-new-malloc/">C++学习之new与delete、malloc与free</a>
-              
             </div>
 
             <div class="post-nav-next post-nav-item">
               
-                <a href="/2014/07/23/cpp-template-specialization/">C++学习之模板特例化</a>
+                <a href="/2014/07/25/cpp-namespace/">C++学习之命名空间</a>
               
             </div>
           </div>
@@ -227,8 +250,8 @@
   
     <div class="comments" id="comments">
       
-        <div class="ds-thread" data-thread-key="2014/07/25/cpp-namespace/"
-             data-title="C++学习之命名空间" data-url="http://yoursite.com/2014/07/25/cpp-namespace/">
+        <div class="ds-thread" data-thread-key="2014/07/25/cpp-new-malloc/"
+             data-title="C++学习之new与delete、malloc与free" data-url="http://yoursite.com/2014/07/25/cpp-new-malloc/">
         </div>
 
       
@@ -336,7 +359,7 @@
         <div class="post-toc">
           
           
-            <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#定义命名空间"><span class="nav-number">1.</span> <span class="nav-text">定义命名空间</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用命名空间"><span class="nav-number">2.</span> <span class="nav-text">使用命名空间</span></a></li></ol></div>
+            <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#new和delete"><span class="nav-number">1.</span> <span class="nav-text">new和delete</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#malloc和free"><span class="nav-number">2.</span> <span class="nav-text">malloc和free</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#new和malloc、delete和free的区别"><span class="nav-number">3.</span> <span class="nav-text">new和malloc、delete和free的区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结："><span class="nav-number">4.</span> <span class="nav-text">总结：</span></a></li></ol></div>
           
         </div>
         <div class="post-toc-indicator-bottom post-toc-indicator"></div>
