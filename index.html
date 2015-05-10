@@ -395,7 +395,7 @@
 
         
           
-            <p>C++通过<a href="http://songlee24.github.io/blog/2014/07/17/c-plus-plus-xue-xi-zhi-duo-zhong-ji-cheng-yu-xu-ji-cheng/">继承（inheritance）</a>和<a href="http://songlee24.github.io/blog/2014/07/16/c-plus-plus-xue-xi-zhi-xu-han-shu-yu-chun-xu-han-shu/">虚函数（virtual function）</a>来实现多态性。所谓多态，简单地说就是，将基类的指针或引用绑定到子类的实例，然后通过基类的指针或引用调用实际子类的成员函数（虚函数）。本文将介绍单继承、多重继承下虚函数的实现机制。</p>
+            <p>C++通过<a href="http://songlee24.github.io/2014/07/17/cpp-inheritance/">继承（inheritance）</a>和<a href="http://songlee24.github.io/2014/07/17/cpp-virtual-function/">虚函数（virtual function）</a>来实现多态性。所谓多态，简单地说就是，将基类的指针或引用绑定到子类的实例，然后通过基类的指针或引用调用实际子类的成员函数（虚函数）。本文将介绍单继承、多重继承下虚函数的实现机制。</p>
 <p><br></p>
 <h3 id="一、虚函数表">一、虚函数表</h3><p>为了支持虚函数机制，编译器为每一个拥有虚函数的类的实例创建了一个<strong>虚函数表（virtual table）</strong>，这个表中有许多的<strong>槽（slot）</strong>，每个槽中存放的是虚函数的地址。虚函数表解决了继承、覆盖、添加虚函数的问题，保证其真实反应实际的函数。
             <div class="post-more-link text-center">
@@ -1164,7 +1164,7 @@
           <span class="site-state-item-name">日志</span>
         </div>
         <div class="site-state-item site-state-tags">
-            <span class="site-state-item-count">12</span>
+            <span class="site-state-item-count">13</span>
             <span class="site-state-item-name">标签</span>
         </div>
         <div class="site-state-item site-state-pages">
