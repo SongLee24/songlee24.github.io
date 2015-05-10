@@ -4,7 +4,7 @@
   <subtitle><![CDATA[李松]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://yoursite.com/"/>
-  <updated>2015-05-10T08:20:57.120Z</updated>
+  <updated>2015-05-10T08:27:21.010Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -19,7 +19,7 @@
     <link href="http://yoursite.com/2014/09/02/cpp-virtual-table/"/>
     <id>http://yoursite.com/2014/09/02/cpp-virtual-table/</id>
     <published>2014-09-02T02:41:56.000Z</published>
-    <updated>2015-05-10T08:20:57.120Z</updated>
+    <updated>2015-05-10T08:27:21.010Z</updated>
     <content type="html"><![CDATA[<p>C++通过<a href="http://songlee24.github.io/blog/2014/07/17/c-plus-plus-xue-xi-zhi-duo-zhong-ji-cheng-yu-xu-ji-cheng/" target="_blank" rel="external">继承（inheritance）</a>和<a href="http://songlee24.github.io/blog/2014/07/16/c-plus-plus-xue-xi-zhi-xu-han-shu-yu-chun-xu-han-shu/" target="_blank" rel="external">虚函数（virtual function）</a>来实现多态性。所谓多态，简单地说就是，将基类的指针或引用绑定到子类的实例，然后通过基类的指针或引用调用实际子类的成员函数（虚函数）。本文将介绍单继承、多重继承下虚函数的实现机制。</p>
 <p><br></p>
 <h3 id="一、虚函数表">一、虚函数表</h3><p>为了支持虚函数机制，编译器为每一个拥有虚函数的类的实例创建了一个<strong>虚函数表（virtual table）</strong>，这个表中有许多的<strong>槽（slot）</strong>，每个槽中存放的是虚函数的地址。虚函数表解决了继承、覆盖、添加虚函数的问题，保证其真实反应实际的函数。<a id="more"></a></p>
@@ -80,9 +80,9 @@
     
     </summary>
     
-      <category term="C++" scheme="http://yoursite.com/tags/C/"/>
+      <category term="Cpp" scheme="http://yoursite.com/tags/Cpp/"/>
     
-      <category term="Lang.-C++" scheme="http://yoursite.com/categories/Lang-C/"/>
+      <category term="Lang.-Cpp" scheme="http://yoursite.com/categories/Lang-Cpp/"/>
     
   </entry>
   
@@ -1411,7 +1411,7 @@
     <link href="http://yoursite.com/2014/08/01/cpp-function-pointer/"/>
     <id>http://yoursite.com/2014/08/01/cpp-function-pointer/</id>
     <published>2014-08-01T11:43:55.000Z</published>
-    <updated>2015-05-09T18:27:27.205Z</updated>
+    <updated>2015-05-10T08:28:22.325Z</updated>
     <content type="html"><![CDATA[<p><strong>函数指针（function pointer）</strong>是通过指向函数的指针间接调用函数。相信很多人对指向一般函数的函数指针使用的比较多，而对指向类成员函数的函数指针则比较陌生。我最近也被问到了这方面的问题，心中却也没有清晰的答案。故决定去查阅资料，并按照自己的思路写下这篇学习总结。<br><br></p>
 <h3 id="普通函数指针">普通函数指针</h3><p>通常我们所说的<strong>函数指针</strong>指的是指向一般普通函数的指针。和其他指针一样，函数指针指向某种特定类型，<strong>所有被同一指针运用的函数必须具有相同的形参类型和返回类型。</strong><a id="more"></a><br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> (*pf)(<span class="keyword">int</span>, <span class="keyword">int</span>);   <span class="comment">// 声明函数指针</span></span><br></pre></td></tr></table></figure></p>
 <p>这里，pf指向的函数类型是<code>int (int, int)</code>，即函数的参数是两个int型，返回值也是int型。注：<strong>*pf两端的括号必不可少，如果不写这对括号，则pf是一个返回值为int指针的函数。</strong><br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#<span class="keyword">include</span>&lt;iostream&gt;</span></span><br><span class="line"><span class="preprocessor">#<span class="keyword">include</span>&lt;string&gt;</span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">typedef</span> <span class="title">int</span> <span class="params">(*pFun)</span><span class="params">(<span class="keyword">int</span>, <span class="keyword">int</span>)</span></span>;  <span class="comment">// typedef一个类型</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">add</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span></span>&#123;</span><br><span class="line">	<span class="keyword">return</span> a+b;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">mns</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span></span>&#123;</span><br><span class="line">	<span class="keyword">return</span> a-b;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="built_in">string</span> <span class="title">merge</span><span class="params">(<span class="keyword">const</span> <span class="built_in">string</span>&amp; s1, <span class="keyword">const</span> <span class="built_in">string</span>&amp; s2)</span></span>&#123;</span><br><span class="line">	<span class="keyword">return</span> s1+s2;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span><br><span class="line"></span>&#123;</span><br><span class="line">	pFun pf1 = add;  </span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; (*pf1)(<span class="number">2</span>,<span class="number">3</span>) &lt;&lt; endl;  <span class="comment">// 调用add函数</span></span><br><span class="line">	pf1 = mns;</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; (*pf1)(<span class="number">8</span>,<span class="number">1</span>) &lt;&lt; endl;  <span class="comment">// 调用mns函数</span></span><br><span class="line">	<span class="built_in">string</span> (*pf2)(<span class="keyword">const</span> <span class="built_in">string</span>&amp;, <span class="keyword">const</span> <span class="built_in">string</span>&amp;) = merge;</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; (*pf2)(<span class="string">"hello "</span>, <span class="string">"world"</span>) &lt;&lt; endl;  <span class="comment">// 调用merge函数</span></span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
@@ -1432,9 +1432,9 @@
     
     </summary>
     
-      <category term="C++" scheme="http://yoursite.com/tags/C/"/>
+      <category term="Cpp" scheme="http://yoursite.com/tags/Cpp/"/>
     
-      <category term="Lang.-C++" scheme="http://yoursite.com/categories/Lang-C/"/>
+      <category term="Lang.-Cpp" scheme="http://yoursite.com/categories/Lang-Cpp/"/>
     
   </entry>
   
@@ -1443,7 +1443,7 @@
     <link href="http://yoursite.com/2014/07/28/cpp-dynamic-array/"/>
     <id>http://yoursite.com/2014/07/28/cpp-dynamic-array/</id>
     <published>2014-07-27T17:52:34.000Z</published>
-    <updated>2015-05-09T18:24:03.618Z</updated>
+    <updated>2015-05-10T08:28:08.158Z</updated>
     <content type="html"><![CDATA[<p><strong>动态数组（Dynamic Array）</strong>是指动态分配的、可以根据需求动态增长占用内存的数组。为了实现一个动态数组类的封装，我们需要考虑几个问题：<strong><a href="http://songlee24.github.io/blog/2014/07/25/c-plus-plus-xue-xi-zhi-new-delete-malloc-free/" target="_blank" rel="external">new/delete的使用</a>、内存分配策略、类的四大函数（构造函数、拷贝构造函数、拷贝赋值运算符、析构函数）、运算符的重载</strong>。涉及到的知识点很多，鉴于本人水平有限，在这里只做简单的介绍。</p>
 <h3 id="内存分配策略">内存分配策略</h3><a id="more"></a>
 <p>当用new为一个动态数组申请一块内存时，数组中的元素是<strong>连续存储</strong>的，例如 vector和string。当向一个动态数组添加元素时，如果没有空间容纳新元素，不可能简单地将新元素添加到内存中的其他位置——因为元素必须连续存储。所以<strong>必须重新分配一块更大的内存空间，将原来的元素从旧位置移动到新空间中，然后添加新元素，释放旧的内存空间</strong>。如果我们每添加一个新元素，就执行一次这样的内存分配和释放操作，效率将会慢到不行。</p>
@@ -1490,9 +1490,9 @@
     
     </summary>
     
-      <category term="C++" scheme="http://yoursite.com/tags/C/"/>
+      <category term="Cpp" scheme="http://yoursite.com/tags/Cpp/"/>
     
-      <category term="Lang.-C++" scheme="http://yoursite.com/categories/Lang-C/"/>
+      <category term="Lang.-Cpp" scheme="http://yoursite.com/categories/Lang-Cpp/"/>
     
   </entry>
   
