@@ -115,7 +115,7 @@
     <link href="http://yoursite.com/2014/08/08/python-basic-03/"/>
     <id>http://yoursite.com/2014/08/08/python-basic-03/</id>
     <published>2014-08-08T12:13:46.000Z</published>
-    <updated>2015-05-10T07:19:47.838Z</updated>
+    <updated>2015-05-10T07:24:58.749Z</updated>
     <content type="html"><![CDATA[<p>Python中的运算符大部分与C语言的类似，但也有很多不同的地方。这里就大概地罗列一下Python 3中的运算符。</p>
 <h3 id="算术运算符">算术运算符</h3><a id="more"></a>
 <table>
@@ -303,8 +303,7 @@
 </thead>
 <tbody>
 <tr>
-<td>x \</td>
-<td>y</td>
+<td>x &#124; y</td>
 <td>按位或运算符</td>
 </tr>
 <tr>
@@ -326,6 +325,70 @@
 <tr>
 <td>~x</td>
 <td>按位取反运算符</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<h3 id="赋值运算符">赋值运算符</h3><p>复合赋值运算符与算术运算符是一一对应的：</p>
+<table>
+<thead>
+<tr>
+<th>运算符</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>=</td>
+<td>简单的赋值运算符</td>
+</tr>
+<tr>
+<td>+=</td>
+<td>加法赋值运算符</td>
+</tr>
+<tr>
+<td>-=</td>
+<td>减法赋值运算符</td>
+</tr>
+<tr>
+<td>*=</td>
+<td>乘法赋值运算符</td>
+</tr>
+<tr>
+<td>/=</td>
+<td>除法赋值运算符</td>
+</tr>
+<tr>
+<td>%=</td>
+<td>取模赋值运算符</td>
+</tr>
+<tr>
+<td>**=</td>
+<td>幂赋值运算符</td>
+</tr>
+<tr>
+<td>//=</td>
+<td>取整除法运算符</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<h3 id="成员运算符">成员运算符</h3><p>Python提供了成员运算符，测试一个元素是否在一个序列（Sequence）中。</p>
+<table>
+<thead>
+<tr>
+<th>运算符</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>in</td>
+<td>如果在指定的序列中找到值返回True，否则返回False。</td>
+</tr>
+<tr>
+<td>not in</td>
+<td>如果在指定的序列中没有找到值返回True，否则返回False。</td>
 </tr>
 </tbody>
 </table>
