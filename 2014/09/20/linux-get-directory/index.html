@@ -22,9 +22,9 @@
 
 
 
-	<meta name="keywords" content="Python," />
+	<meta name="keywords" content="Linux," />
 
-  <title> Python3基础（一） Hello World // SongLee's Blog </title>
+  <title> 【Linux编程】C/C++获取目录下文件或目录 // SongLee's Blog </title>
 </head>
 
 <body>
@@ -113,7 +113,7 @@
           
           
             
-              Python3基础（一） Hello World
+              【Linux编程】C/C++获取目录下文件或目录
             
           
         </h1>
@@ -122,7 +122,7 @@
       <div class="post-meta">
         <span class="post-time">
           
-            发表于 2014-08-08
+            发表于 2014-09-20
           
         </span>
 
@@ -131,7 +131,7 @@
             <span class="post-category">
               &nbsp; | &nbsp; 分类于
               
-                <a href="/categories/Lang-Python/">Lang.-Python</a>
+                <a href="/categories/System-Linux/">System-Linux</a>
 
                 
                 
@@ -145,8 +145,8 @@
           
             <span class="post-comments-count">
             &nbsp; | &nbsp;
-            <a href="/2014/08/08/python-basic-01/#comments" >
-              <span class="post-comments-count ds-thread-count" data-thread-key="2014/08/08/python-basic-01/"></span>
+            <a href="/2014/09/20/linux-get-directory/#comments" >
+              <span class="post-comments-count ds-thread-count" data-thread-key="2014/09/20/linux-get-directory/"></span>
             </a>
           </span>
           
@@ -161,43 +161,17 @@
         
 
         
-          <p>对于新手一般会遇到一个问题：<strong>学习Python 2还是Python 3呢？</strong>  对于我个人而言，我是个完全的新手，没有历史包袱，所以我直接学习Python 3。我相信在未来几年，Python 3会逐步取代Python 2成为主流。</p>
-<p>Python是一门解释型、面向对象、动态数据类型的高级程序设计语言，更多的介绍看<a href="https://docs.python.org/3.4/tutorial/appetite.html" target="_blank" rel="external">官方文档</a>。Python让程序更加的紧凑、可读性更强，用 Python 写的程序通常比同样的C、C++或Java程序要短得多，这是因为以下几个原因：<br><a id="more"></a></p>
-<ul>
-<li>高级数据结构使你能够在单条的语句中表达复杂的操作。</li>
-<li>代码块的组织依赖于缩进而不是开始/结束符，例如{ }。</li>
-<li>参数或变量不需要声明。</li>
-</ul>
-<p>OK！下面开始让我们进入Python的世界吧！</p>
-<h3 id="第一个HelloWorld程序">第一个HelloWorld程序</h3><p><strong>1、交互模式</strong></p>
-<p>交互模式即命令行模式，在Linux终端输入<code>$python</code>即可进入Python交互模式，主提示符&gt;&gt;&gt;提示你输入命令：<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$ </span>python</span><br><span class="line"><span class="constant">Python</span> <span class="number">3.3</span>.<span class="number">2</span> (default, <span class="constant">Jun</span> <span class="number">30</span> <span class="number">2014</span>, <span class="number">17</span><span class="symbol">:</span><span class="number">20</span><span class="symbol">:</span><span class="number">03</span>) </span><br><span class="line">[<span class="constant">GCC</span> <span class="number">4.8</span>.<span class="number">3</span> <span class="number">20140624</span> (<span class="constant">Red</span> <span class="constant">Hat</span> <span class="number">4.8</span>.<span class="number">3</span>-<span class="number">1</span>)] on linux</span><br><span class="line"><span class="constant">Type</span> <span class="string">"help"</span>, <span class="string">"copyright"</span>, <span class="string">"credits"</span> <span class="keyword">or</span> <span class="string">"license"</span> <span class="keyword">for</span> more information.</span><br><span class="line"><span class="prompt">&gt;&gt;</span>&gt;</span><br></pre></td></tr></table></figure></p>
-<p>输入多行结构时就需要从属提示符了，例如下面这个if语句：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="prompt">&gt;&gt;&gt; </span>flag=<span class="keyword">True</span></span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span><span class="keyword">if</span> flag:</span><br><span class="line"><span class="prompt">... </span>    print(<span class="string">"Hello World!"</span>)</span><br><span class="line"><span class="prompt">... </span></span><br><span class="line">Hello World!</span><br><span class="line">&gt;&gt;&gt;</span><br></pre></td></tr></table></figure></p>
-<p>注：在Python 3.x中，print是一个函数，所以必须使用括号输出。</p>
-<p><strong>2、脚本文件</strong></p>
-<p>我们也可以将代码写到一个.py文件中：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">print</span> (<span class="string">"Hello World!"</span>)</span><br></pre></td></tr></table></figure></p>
-<p>然后用python命令执行该脚本文件：<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ python hello<span class="class">.py</span> </span><br><span class="line">Hello World!</span><br></pre></td></tr></table></figure></p>
-<p><strong>3、可执行脚本</strong></p>
-<p>在类Unix系统中，Python脚本可以像Shell脚本那样直接执行，通过在脚本文件开头添加一行：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#! /usr/bin/env python</span></span><br></pre></td></tr></table></figure></p>
-<p>然后通过chmod命令修改权限为可执行：<br><figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$ </span>chmod +x hello.py</span><br></pre></td></tr></table></figure></p>
-<p>执行：<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ ./hello<span class="class">.py</span> </span><br><span class="line">Hello World!</span><br></pre></td></tr></table></figure></p>
-<p><br></p>
-<h3 id="基础语法">基础语法</h3><p><strong>1、编码</strong></p>
-<p>默认情况下，Python 3源码文件以 UTF-8 编码，所有字符串都是 unicode 字符串。当然你也可以为源码文件指定不同的编码：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*- coding: cp-1252 -*-</span></span><br></pre></td></tr></table></figure></p>
-<p><strong>2、标识符</strong></p>
-<p>在Python 3中，非-ASCII 标识符也是允许的了。但最好还是只使用英文、数字、下划线作为标识符，并且不能以数字开头。（区分大小写）</p>
-<p><strong>3、python保留字</strong></p>
-<p>保留字即关键字，我们不能把它们用作任何标识符名称。Python的标准库提供了一个<a href="https://docs.python.org/2/library/keyword.html" target="_blank" rel="external">keyword</a> module，可以输出当前版本的所有关键字：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="prompt">&gt;&gt;&gt; </span><span class="keyword">import</span> keyword</span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>keyword.kwlist</span><br><span class="line">[<span class="string">'False'</span>, <span class="string">'None'</span>, <span class="string">'True'</span>, <span class="string">'and'</span>, <span class="string">'as'</span>, <span class="string">'assert'</span>, <span class="string">'break'</span>, <span class="string">'class'</span>, <span class="string">'continue'</span>, <span class="string">'def'</span>, <span class="string">'del'</span>, <span class="string">'elif'</span>, <span class="string">'else'</span>, <span class="string">'except'</span>, <span class="string">'finally'</span>, <span class="string">'for'</span>, <span class="string">'from'</span>, <span class="string">'global'</span>, <span class="string">'if'</span>, <span class="string">'import'</span>, <span class="string">'in'</span>, <span class="string">'is'</span>, <span class="string">'lambda'</span>, <span class="string">'nonlocal'</span>, <span class="string">'not'</span>, <span class="string">'or'</span>, <span class="string">'pass'</span>, <span class="string">'raise'</span>, <span class="string">'return'</span>, <span class="string">'try'</span>, <span class="string">'while'</span>, <span class="string">'with'</span>, <span class="string">'yield'</span>]</span><br></pre></td></tr></table></figure></p>
-<p><strong>4、注释</strong></p>
-<p>Python中单行注释以#开头，多行注释用三个单引号（’’’）或者三个双引号（”””）将注释括起来。</p>
-<p><strong>5、行与缩进</strong></p>
-<p>python最具特色的就是使用缩进来表示代码块。缩进的空格数是可变的，但是同一个代码块的语句必须包含相同的缩进空格数。</p>
-<p><br><br><br><br><br></p>
-<h3 id="附：">附：</h3><p>在现在的Unix/Linux系统中都会内置Python解释器，在我的Fedora20系统中就同时装了python2和python3。在终端输入<code>$python</code>会使用python 2.x的解释器，输入<code>$python3</code>会使用python 3.x的解释器。现在我想修改一下<strong>软链接</strong>，让<code>$python</code>命令默认使用python 3.x解释器，<code>$python2</code>命令使用python 2.x解释器。怎么做？</p>
-<p><strong>软链接：</strong> 一种特殊的文件，该文件的内容是指向另一个文件的位置或路径。它不占用磁盘空间，类似于Windows操作系统中的快捷方式。<br><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">硬链接：<span class="tag">ln</span> <span class="attr_selector">[参数]</span> 源文件 目标文件</span><br><span class="line">软链接：<span class="tag">ln</span> <span class="tag">-s</span> <span class="attr_selector">[源文件或目录]</span> <span class="attr_selector">[目标文件或目录]</span></span><br></pre></td></tr></table></figure></p>
-<p><strong>ln命令</strong>的功能是为某一个文件在另外一个位置建立一个同步的链接（软链接或者硬链接），现在我要修改python的软链接：<br><figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ sudo ln -s <span class="regexp">/usr/</span>bin<span class="regexp">/python2.7 /</span>usr<span class="regexp">/bin/</span>python2  <span class="comment">// 创建python2软链接</span></span><br><span class="line">$ sudo rm <span class="regexp">/usr/</span>bin<span class="regexp">/python  /</span>/ 删除原来的python软链接</span><br><span class="line">$ sudo ln -s <span class="regexp">/usr/</span>bin<span class="regexp">/python3.3 /</span>usr<span class="regexp">/bin/</span>python  <span class="comment">// 创建新的python软链接</span></span><br></pre></td></tr></table></figure></p>
-<p>修改了软链接以后的一个伴随的问题是：有些用python写的命令不能执行了，因为python2和python3的语法不兼容。比如<strong>yum命令</strong>，它是python写的，从yum文件开头的<code>#!/usr/bin/python</code>可以看出来。因为python软链接被修改为指向python 3.x解释器，所以执行yum命令时会报语法错误。</p>
-<p>我们可以通过修改yum文件来修复这个问题，既然之前我们已经创建了python2软链接指向python 2.x解释器，所以我们修改yum文件开头为<code>#!/usr/bin/python2</code>就可以了，这样在执行yum命令时就会使用python 2.x解释器而不是python 3.x的解释器了。</p>
-<p><br><br><br></p>
+          <p>在Unix/Linux系统中，要获取一个指定目录下所有的文件或文件夹，一般用<code>dirent.h</code>（POSIX标准定义的目录操作头文件）。</p>
+<h3 id="一、数据类型">一、数据类型</h3><p>在头文件<code>&lt;dirent.h&gt;</code>中定义了两种主要的数据类型。</p>
+<p><strong>DIR</strong>：代表一个目录流的结构。<a id="more"></a><br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> __dirstream</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">void</span> *__fd;              <span class="comment">/* 'struct hurd_fd' pointer for descriptor.*/</span></span><br><span class="line">    <span class="keyword">char</span> *__data;            <span class="comment">/* Directory block.  */</span></span><br><span class="line">    <span class="keyword">int</span> __entry_data;        <span class="comment">/* Entry number `__data' corresponds to.*/</span></span><br><span class="line">    <span class="keyword">char</span> *__ptr;             <span class="comment">/* Current pointer into the block.*/</span></span><br><span class="line">    <span class="keyword">int</span> __entry_ptr;         <span class="comment">/* Entry number `__ptr' corresponds to.*/</span></span><br><span class="line">    size_t __allocation;          <span class="comment">/* Space allocated for the block.*/</span></span><br><span class="line">    size_t __size;                <span class="comment">/* Total valid data in the block.*/</span></span><br><span class="line">    __libc_lock_define (, __lock) <span class="comment">/* Mutex lock for this structure.*/</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">struct</span> __dirstream DIR;</span><br></pre></td></tr></table></figure></p>
+<p><strong>struct dirent</strong>：包含一个文件或目录信息的结构体。<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> dirent</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">long</span> d_ino;                 <span class="comment">/* inode number 索引节点号 */</span></span><br><span class="line">    off_t d_off;                <span class="comment">/* offset to this dirent 在目录文件中的偏移 */</span></span><br><span class="line">    <span class="keyword">unsigned</span> <span class="keyword">short</span> d_reclen;    <span class="comment">/* length of this d_name 文件名长 */</span></span><br><span class="line">    <span class="keyword">unsigned</span> <span class="keyword">char</span> d_type;       <span class="comment">/* the type of d_name 文件类型 */</span>    </span><br><span class="line">    <span class="keyword">char</span> d_name [NAME_MAX+<span class="number">1</span>];   <span class="comment">/* file name 文件名，最长255字符 */</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="二、函数原型">二、函数原型</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">DIR* opendir(<span class="keyword">const</span> <span class="keyword">char</span>* dirname);</span><br><span class="line"><span class="comment">/* 打开一个目录：</span><br><span class="line">        成功 - 返回指向DIR类型对象的指针。</span><br><span class="line">        失败 - 返回NULL    */</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">closedir</span><span class="params">(DIR *dirp)</span></span>;</span><br><span class="line"><span class="comment">/* 关闭目录流：</span><br><span class="line">        成功 - 返回0</span><br><span class="line">        失败 - 返回-1    */</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">struct</span> dirent *readdir(DIR *dirp);</span><br><span class="line"><span class="comment">/* 读取目录流：</span><br><span class="line">        成功 - 返回指向struct dirent对象的指针。</span><br><span class="line">        失败 - 返回NULL（出错或流末尾）  */</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">readdir_r</span><span class="params">(DIR *dirp, <span class="keyword">struct</span> dirent *entry, <span class="keyword">struct</span> dirent **result)</span></span>;</span><br><span class="line"><span class="comment">/* 读取目录流：用 dirp 当前位置的目录初始化entry，并让 result 指向 entry。</span><br><span class="line">        成功 - 返回0</span><br><span class="line">        失败 - 返回error number   */</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">rewinddir</span><span class="params">(DIR *dirp)</span></span>;</span><br><span class="line"><span class="comment">/* 重置目录流的位置到开头 */</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">seekdir</span><span class="params">(DIR *dirp, <span class="keyword">long</span> <span class="keyword">int</span> loc)</span></span>;</span><br><span class="line"><span class="comment">/* 设置目录流的位置，设置以后readdir()会读取到loc位置的目录。 */</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">long</span> <span class="keyword">int</span> <span class="title">telldir</span><span class="params">(DIR *dirp)</span></span>;</span><br><span class="line"><span class="comment">/* 返回目录流的当前位置 */</span></span><br></pre></td></tr></table></figure>
+<h3 id="三、示例代码">三、示例代码</h3><p>下面是一段 C 代码，输出指定目录下的所有文件或目录名：<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#<span class="keyword">include</span>&lt;stdio.h&gt;</span></span><br><span class="line"><span class="preprocessor">#<span class="keyword">include</span>&lt;dirent.h&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span><br><span class="line"></span>&#123;</span><br><span class="line">	DIR *dp;</span><br><span class="line">	<span class="keyword">struct</span> dirent *dirp;</span><br><span class="line">	<span class="keyword">char</span> dirname[<span class="number">256</span>];</span><br><span class="line"></span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"Please input a directory: "</span>);</span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">"%s"</span>,dirname);</span><br><span class="line">	<span class="keyword">if</span>((dp = opendir(dirname)) == NULL)</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"Can't open %s\n"</span>, dirname);</span><br><span class="line"></span><br><span class="line">	<span class="keyword">while</span>((dirp = readdir(dp)) != NULL)</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"%s\n"</span>, dirp-&gt;d_name);</span><br><span class="line"></span><br><span class="line">	closedir(dp);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>C++代码：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#<span class="keyword">include</span>&lt;iostream&gt;</span></span><br><span class="line"><span class="preprocessor">#<span class="keyword">include</span>&lt;string&gt;</span></span><br><span class="line"><span class="preprocessor">#<span class="keyword">include</span>&lt;dirent.h&gt;</span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span><br><span class="line"></span>&#123;</span><br><span class="line">	<span class="built_in">string</span> dirname;</span><br><span class="line">	DIR *dp;</span><br><span class="line">	<span class="keyword">struct</span> dirent *dirp;</span><br><span class="line"></span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="string">"Please input a directory: "</span>;</span><br><span class="line">	<span class="built_in">cin</span> &gt;&gt; dirname;</span><br><span class="line">	<span class="keyword">if</span>((dp = opendir(dirname.c_str())) == NULL)</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; <span class="string">"Can't open "</span> &lt;&lt; dirname &lt;&lt; endl;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">while</span>((dirp = readdir(dp)) != NULL)</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; dirp-&gt;d_name &lt;&lt; endl;</span><br><span class="line"></span><br><span class="line">	closedir(dp);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>有些情况下，我们只要输出文件而不需要文件夹（目录），这时可以通过<code>dirent</code>结构体中的<code>d_type</code>进行过滤。<code>d_type</code>表示类型，4表示目录，8表示普通文件，0表示未知设备。<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span>((dirp = readdir(dp)) != NULL)</span><br><span class="line">	<span class="keyword">if</span>(dirp-&gt;d_type == <span class="number">8</span>)  <span class="comment">// 只输出文件名，不输出目录名</span></span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; dirp-&gt;d_name &lt;&lt; endl;</span><br></pre></td></tr></table></figure></p>
+<p>如果需要查找指定类型（特定后缀）的文件，可以使用<strong>C++11</strong>的正则表达式进行匹配：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// #include&lt;regex&gt;</span></span><br><span class="line"><span class="function">regex <span class="title">reg_obj</span><span class="params">(".*\.doc", regex::icase)</span></span>;</span><br><span class="line"><span class="keyword">while</span>((dirp = readdir(dp)) != NULL)</span><br><span class="line">	<span class="keyword">if</span>(regex_match(dirp-&gt;d_name, reg_obj))  <span class="comment">// regex_match()匹配</span></span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; dirp-&gt;d_name &lt;&lt; endl;</span><br></pre></td></tr></table></figure></p>
+<p>另外，Unix/linux下提供了POSIX标准的正则库<a href="http://pubs.opengroup.org/onlinepubs/7908799/xsh/regex.h.html" target="_blank" rel="external"> regex.h </a> 。</p>
+<p><br><br><br><br></p>
 
         
       </div>
@@ -208,8 +182,8 @@
         
           <div class="post-tags">
             
-              <a href="/tags/Python/">
-                #Python
+              <a href="/tags/Linux/">
+                #Linux
               </a>
             
           </div>
@@ -219,13 +193,11 @@
           <div class="post-nav">
             <div class="post-nav-prev post-nav-item">
               
-                <a href="/2014/08/08/python-basic-02/">Python3基础（二） 基本数据类型</a>
-              
             </div>
 
             <div class="post-nav-next post-nav-item">
               
-                <a href="/2014/08/06/Obfuscated-C-Code-Contest/">1987年国际C语言混乱代码大赛获奖的一行代码</a>
+                <a href="/2014/09/20/memory-alignment/">C/C++内存对齐</a>
               
             </div>
           </div>
@@ -242,8 +214,8 @@
   
     <div class="comments" id="comments">
       
-        <div class="ds-thread" data-thread-key="2014/08/08/python-basic-01/"
-             data-title="Python3基础（一） Hello World" data-url="http://yoursite.com/2014/08/08/python-basic-01/">
+        <div class="ds-thread" data-thread-key="2014/09/20/linux-get-directory/"
+             data-title="【Linux编程】C/C++获取目录下文件或目录" data-url="http://yoursite.com/2014/09/20/linux-get-directory/">
         </div>
 
       
@@ -351,7 +323,7 @@
         <div class="post-toc">
           
           
-            <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#第一个HelloWorld程序"><span class="nav-number">1.</span> <span class="nav-text">第一个HelloWorld程序</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#基础语法"><span class="nav-number">2.</span> <span class="nav-text">基础语法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#附："><span class="nav-number">3.</span> <span class="nav-text">附：</span></a></li></ol></div>
+            <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#一、数据类型"><span class="nav-number">1.</span> <span class="nav-text">一、数据类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二、函数原型"><span class="nav-number">2.</span> <span class="nav-text">二、函数原型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#三、示例代码"><span class="nav-number">3.</span> <span class="nav-text">三、示例代码</span></a></li></ol></div>
           
         </div>
         <div class="post-toc-indicator-bottom post-toc-indicator"></div>
