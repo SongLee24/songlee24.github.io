@@ -1,0 +1,981 @@
+<!doctype html>
+<html class="theme-next use-motion theme-next-next">
+<head>
+  
+
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+  <meta name="google-site-verification" content="VvyjvVXcJQa0QklHipu6pwm2PJGnnchIqX7s5JbbT_0" />
+
+
+
+  <link rel="stylesheet" type="text/css" href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5"/>
+
+
+<link rel="stylesheet" type="text/css" href="/css/main.css?v=0.4.0"/>
+
+
+    <meta name="description" content="放宽心，多努力" />
+
+
+
+	<meta name="keywords" content="Python," />
+
+  <title> Python3基础（七） 输入和输出 // SongLee's Blog </title>
+</head>
+
+<body>
+  <div class="container one-column page-post-detail">
+    <div class="headband"></div>
+
+    <div id="header" class="header">
+      <div class="header-inner">
+        <h1 class="site-meta">
+  <span class="logo-line-before"><i></i></span>
+  <a href="/" class="brand">
+      <span class="logo">
+        <i class="icon-logo"></i>
+      </span>
+      <span class="site-title">SongLee's Blog</span>
+  </a>
+  <span class="logo-line-after"><i></i></span>
+</h1>
+
+
+  <ul id="menu" class="menu">
+    
+      
+      <li class="menu-item menu-item-home">
+        <a href="/">
+          <i class="menu-item-icon icon-home"></i> <br />
+          首页
+        </a>
+      </li>
+    
+      
+      <li class="menu-item menu-item-categories">
+        <a href="/categories">
+          <i class="menu-item-icon icon-categories"></i> <br />
+          分类
+        </a>
+      </li>
+    
+      
+      <li class="menu-item menu-item-archives">
+        <a href="/archives">
+          <i class="menu-item-icon icon-archives"></i> <br />
+          归档
+        </a>
+      </li>
+    
+      
+      <li class="menu-item menu-item-tags">
+        <a href="/tags">
+          <i class="menu-item-icon icon-tags"></i> <br />
+          标签
+        </a>
+      </li>
+    
+      
+      <li class="menu-item menu-item-about">
+        <a href="/about">
+          <i class="menu-item-icon icon-about"></i> <br />
+          关于
+        </a>
+      </li>
+    
+  </ul>
+
+
+      </div>
+    </div>
+
+    <div id="main" class="main">
+      <div class="main-inner">
+        <div id="content" class="content">
+          
+            
+          
+
+          <div id="posts" class="posts-expand">
+            
+  
+
+  <div class="post post-type-normal ">
+    <div class="post-header">
+
+      
+      
+        <h1 class="post-title">
+          
+          
+            
+              Python3基础（七） 输入和输出
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          
+            发表于 2014-08-14
+          
+        </span>
+
+        
+          
+            <span class="post-category">
+              &nbsp; | &nbsp; 分类于
+              
+                <a href="/categories/Lang-Python/">Lang.-Python</a>
+
+                
+                
+
+              
+            </span>
+          
+        
+
+        
+          
+            <span class="post-comments-count">
+            &nbsp; | &nbsp;
+            <a href="/2014/08/14/python-basic-07/#comments" >
+              <span class="post-comments-count ds-thread-count" data-thread-key="2014/08/14/python-basic-07/"></span>
+            </a>
+          </span>
+          
+        
+      </div>
+    </div>
+
+    
+      <div class="post-body">
+
+        
+        
+
+        
+          <p>一个程序可以从键盘读取输入，也可以从文件读取输入；而程序的结果可以输出到屏幕上，也可以保存到文件中便于以后使用。本文介绍Python中最基本的I/O函数。</p>
+<p><br></p>
+<h3 id="一、控制台I/O">一、控制台I/O</h3><p><strong>读取键盘输入</strong></p>
+<p>内置函数<code>input([prompt])</code>，用于从标准输入读取一个行，并返回一个字符串（去掉结尾的换行符）：<a id="more"></a><br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">s = input(<span class="string">"Enter your input:"</span>)</span><br></pre></td></tr></table></figure></p>
+<p>注：在Python 3.x版本中取消了 raw_input() 函数。</p>
+<p><strong>打印到屏幕</strong></p>
+<p>最简单的输出方法是用print语句，你可以给它传递零个或多个用逗号隔开的表达式：<br><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">print([<span class="link_label">object, ...</span>][<span class="link_reference">, sep=' '</span>][<span class="link_label">, end='endline_character_here'</span>][<span class="link_reference">, file=redirect_to_here</span>])</span><br></pre></td></tr></table></figure></p>
+<p>方括号内是可选的，sep表示分割符，end表示结束符，file表示重定向文件。如果要给sep、end、file指定值必须使用关键字参数。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">print</span>(<span class="string">'hello'</span>, <span class="string">'world'</span>, sep=<span class="string">'%'</span>)    <span class="comment"># 输出hello%world</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">'hello'</span>, <span class="string">'world'</span>, end=<span class="string">'*'</span>)    <span class="comment"># 输出hello world*，并且不换行</span></span><br></pre></td></tr></table></figure></p>
+<p><br></p>
+<h3 id="二、文件I/O">二、文件I/O</h3><p>读写文件之前，先用open()函数打开一个文件，它会返回一个文件对象（file object）：<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">f = <span class="function"><span class="title">open</span><span class="params">(filename，mode)</span></span></span><br></pre></td></tr></table></figure></p>
+<p>如果不指定mode参数，文件将默认以<strong>‘r’</strong>模式打开。模式中的字符有：</p>
+<ul>
+<li><strong>r</strong>：只读</li>
+<li><strong>w</strong>：只写，如果文件已存在则将其覆盖。如果该文件不存在，创建新文件</li>
+<li><strong>+</strong>：读写（<strong>不能单独使用</strong>）</li>
+<li><strong>a</strong>：打开文件用于追加，只写，不存在则创建新文件</li>
+<li><strong>b</strong>：以二进制模式打开（<strong>不能单独使用</strong>）</li>
+</ul>
+<p>所以可能的模式大概有<strong>r、w、r+、w+、rb、wb、rb+、wb+、a、a+、ab、ab+</strong>，注意只有w和a可以创建文件。</p>
+<p>通常情况下，文件都是以文本模式（text mode）打开的，也就是说，从文件中读写的是以一种特定的编码格式进行编码（默认的是 UTF-8）的<strong>字符串</strong>。如果文件以二进制模式（binary mode）打开，数据将以<strong>字节对象</strong>的形式进行读写：<br><figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">f = <span class="built_in">open</span>(<span class="string">'a.txt'</span>,<span class="string">'wb+'</span>)</span><br><span class="line">f.<span class="built_in">write</span>(<span class="string">'I like apple!'</span>)   <span class="comment"># 报错</span></span><br><span class="line">f.<span class="built_in">write</span>(b<span class="string">'I like apple!'</span>)  <span class="comment"># 以bytes对象的形式进行读写</span></span><br></pre></td></tr></table></figure></p>
+<p><a href="https://docs.python.org/3.4/library/stdtypes.html#bytes" target="_blank" rel="external"><strong>Bytes对象</strong></a>是0到127的不可修改的整数序列，或纯粹的 ASCII 字符，它的用途是存储二进制数据。  </p>
+<ol>
+<li>可以通过<strong>在一个字符串前面加上’b’</strong>来创建一个bytes literal；</li>
+<li>也可以通过<strong>bytes() 函数</strong>创建一个 bytes 对象。</li>
+</ol>
+<p>注意：如果bytes() 函数的初始化器是一个字符串，那么必须提供一种编码。<br><figure class="highlight vhdl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">b1 = b<span class="attribute">'This</span> <span class="keyword">is</span> <span class="typename">string</span>'</span><br><span class="line">b2 = bytes(<span class="attribute">'This</span> <span class="keyword">is</span> <span class="typename">string</span>', <span class="attribute">'UTF</span>-<span class="number">8</span>')   # 必须指定编码格式</span><br></pre></td></tr></table></figure></p>
+<p>字符串对象与字节对象是不兼容的，要将 bytes 转变为 str， bytes 对象必须要进行解码，使用<strong>decode()</strong> 方法：<br><figure class="highlight vala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">b = bytes(<span class="string">'This is string'</span>, <span class="string">'UTF-8'</span>)</span><br><span class="line">print(b, b.decode(), sep=<span class="string">'\n'</span>)</span><br><span class="line"><span class="preprocessor"># 输出：</span></span><br><span class="line"><span class="preprocessor"># b'This is string'</span></span><br><span class="line"><span class="preprocessor"># This is string</span></span><br></pre></td></tr></table></figure></p>
+<p><strong>文件对象的方法</strong>（假设f是一个文件对象）：</p>
+<ul>
+<li><strong>f.read(size) ：</strong>读取size个字节的数据，然后作为字符串或 bytes 对象返回。size是一个可选参数，如果不指定size，则读取文件的所有内容。</li>
+<li><strong>f.readline() ：</strong>读取一行。在字符串末尾会留下换行符 (\n)，如果到文件尾，返回空字符串。</li>
+<li><strong>f.readlines() ：</strong>读取所有行，储存在列表中，每个元素是一行，相当于<code>list(f)</code>。</li>
+<li><strong>f.write(string) ：</strong>将 string 写入到文件中，返回写入的字符数。如果以二进制模式写文件，需要将string转换为 bytes 对象。</li>
+<li><strong>f.tell() ：</strong>返回文件对象当前所处的位置，它是从文件开头开始算起的字节数。 </li>
+<li><strong>f.seek(offset, from_what) ：</strong>改变文件对象所处的位置。offset是相对参考位置的偏移量，from_what 取值 0（文件头, 默认）、1（当前位置）、2（文件尾）表示参考位置。</li>
+<li><strong>f.close() ：</strong>关闭文件对象。</li>
+</ul>
+<p>这些都是很常用的方法，当然文件对象不止这些方法。根据打开的模式不同，open() 返回的文件对象类型也不同：</p>
+<ul>
+<li><strong>TextIOWrapper</strong>：文本模式，返回TextIOWrapper对象。</li>
+<li><strong>BufferedReader</strong>：读二进制，即rb，返回BufferedReader对象。</li>
+<li><strong>BufferedWriter</strong>：写和追加二进制，即wb、ab，返回BufferedWriter对象。</li>
+<li><strong>BufferedRandom</strong>：读/写模式，即含有+的模式，返回BufferedRandom对象。</li>
+</ul>
+<p>可以在这些文件对象上运行 dir() 或 help()，查看它们所有的方法。</p>
+<p><strong>补充</strong>：</p>
+<p>1、在文本模式下，seek()方法只会相对于文件起始位置进行定位。（除了定位文件尾可以用 <code>seek(0, 2)</code>之外）<br>2、可以循环迭代一个文件对象一行一行读取：<br><figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> <span class="built_in">line</span> <span class="operator">in</span> f:</span><br><span class="line">print(<span class="built_in">line</span>, <span class="function"><span class="keyword">end</span>='')</span></span><br></pre></td></tr></table></figure></p>
+<p><br></p>
+<h3 id="三、格式化输出">三、格式化输出</h3><p>一般来说，我们希望更多的控制输出格式，而不是简单的以空格分割。这里有两种方式：</p>
+<ul>
+<li>第一种是由你自己控制。使用字符串切片、连接操作以及 <a href="https://docs.python.org/3.4/library/stdtypes.html#str.center" target="_blank" rel="external">string</a> 包含的一些有用的操作。</li>
+<li>第二种是使用<a href="https://docs.python.org/3.4/library/stdtypes.html#str.format" target="_blank" rel="external">str.format()</a>方法。</li>
+</ul>
+<p>下面给一个示例：<br><figure class="highlight vala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor"># 第一种方式：自己控制</span></span><br><span class="line"><span class="keyword">for</span> x in range(<span class="number">1</span>, <span class="number">11</span>):</span><br><span class="line">	print(str(x).rjust(<span class="number">2</span>), str(x*x).rjust(<span class="number">3</span>), end=<span class="string">' '</span>)</span><br><span class="line">	print(str(x*x*x).rjust(<span class="number">4</span>))</span><br><span class="line"></span><br><span class="line"><span class="preprocessor"># 第二种方式：str.format()</span></span><br><span class="line"><span class="keyword">for</span> x in range(<span class="number">1</span>, <span class="number">11</span>):</span><br><span class="line">	print(<span class="string">'&#123;0:2d&#125; &#123;1:3d&#125; &#123;2:4d&#125;'</span>.format(x, x*x, x*x*x))</span><br><span class="line"></span><br><span class="line"><span class="preprocessor"># 输出都是：</span></span><br><span class="line"><span class="preprocessor">#  1   1    1</span></span><br><span class="line"><span class="preprocessor">#  2   4    8</span></span><br><span class="line"><span class="preprocessor">#  3   9   27</span></span><br><span class="line"><span class="preprocessor">#  4  16   64</span></span><br><span class="line"><span class="preprocessor">#  5  25  125</span></span><br><span class="line"><span class="preprocessor">#  6  36  216</span></span><br><span class="line"><span class="preprocessor">#  7  49  343</span></span><br><span class="line"><span class="preprocessor">#  8  64  512</span></span><br><span class="line"><span class="preprocessor">#  9  81  729</span></span><br><span class="line"><span class="preprocessor"># 10 100 1000</span></span><br></pre></td></tr></table></figure></p>
+<p>第一种方式中，字符串对象的 <strong>str.rjust()</strong> 方法的作用是将字符串靠右，并默认在左边填充空格，类似的方法还有 <strong>str.ljust()</strong> 和 <strong>str.center()</strong> 。这些方法并不会写任何东西，它们仅仅返回新的字符串，如果输入很长，它们并不会截断字符串。<strong>我们注意到，</strong>同样是输出一个平方与立方表，使用str.format()会方便很多。</p>
+<p>str.format()的基本用法如下：<br><figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; print<span class="list">(<span class="quoted">'We</span> are the &#123;&#125; who say <span class="string">"&#123;&#125;!"</span>'.format<span class="list">(<span class="quoted">'knights</span>', <span class="quoted">'Ni</span>')</span>)</span></span><br><span class="line">We are the knights who say <span class="string">"Ni!"</span></span><br></pre></td></tr></table></figure></p>
+<p>括号及括号里的字符将会被 format() 中的参数替换.。括号中的数字用于指定传入对象的位置：<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="prompt">&gt;&gt;</span>&gt; print(<span class="string">'&#123;0&#125; and &#123;1&#125;'</span>.format(<span class="string">'Kobe'</span>, <span class="string">'James'</span>))</span><br><span class="line"><span class="constant">Kobe</span> <span class="keyword">and</span> <span class="constant">James</span></span><br><span class="line"><span class="prompt">&gt;&gt;</span>&gt; print(<span class="string">'&#123;1&#125; and &#123;0&#125;'</span>.format(<span class="string">'Kobe'</span>, <span class="string">'James'</span>))</span><br><span class="line"><span class="constant">James</span> <span class="keyword">and</span> <span class="constant">Kobe</span></span><br></pre></td></tr></table></figure></p>
+<p>如果在 format() 中使用了<strong>关键字参数</strong>，那么它们的值会指向使用该名字的参数：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="prompt">&gt;&gt;&gt; </span>print(<span class="string">'The &#123;thing&#125; is &#123;adj&#125;.'</span>.format(thing=<span class="string">'flower'</span>, adj=<span class="string">'beautiful'</span>))</span><br><span class="line">The flower <span class="keyword">is</span> beautiful.</span><br></pre></td></tr></table></figure></p>
+<p>可选项<code>&#39;:&#39;</code>和格式标识符可以跟着 field name，这样可以进行更好的格式化：<br><figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; import math</span><br><span class="line">&gt;&gt;&gt; print(<span class="string">'The value of PI is &#123;0:.3f&#125;.'</span>.<span class="built_in">format</span>(math.<span class="constant">pi</span>))</span><br><span class="line">The <span class="built_in">value</span> <span class="operator">of</span> <span class="constant">PI</span> is <span class="number">3.142</span>.</span><br></pre></td></tr></table></figure></p>
+<p>在<code>&#39;:&#39;</code>后传入一个整数，可以保证该域至少有这么多的宽度，用于美化表格时很有用：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="prompt">&gt;&gt;&gt; </span>table = &#123;<span class="string">'Jack'</span>:<span class="number">4127</span>, <span class="string">'Rose'</span>:<span class="number">4098</span>, <span class="string">'Peter'</span>:<span class="number">7678</span>&#125;</span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span><span class="keyword">for</span> name, phone <span class="keyword">in</span> table.items():</span><br><span class="line"><span class="prompt">... </span>    print(<span class="string">'&#123;0:10&#125; ==&gt; &#123;1:10d&#125;'</span>.format(name, phone))</span><br><span class="line"><span class="prompt">... </span></span><br><span class="line">Peter      ==&gt;       <span class="number">7678</span></span><br><span class="line">Rose       ==&gt;       <span class="number">4098</span></span><br><span class="line">Jack       ==&gt;       <span class="number">4127</span></span><br></pre></td></tr></table></figure></p>
+<p>我们还可以将<a href="http://songlee24.github.io/blog/2014/08/09/python3ji-chu-wu-han-shu/" target="_blank" rel="external">参数解包</a>进行格式化输出。例如，将table解包为关键字参数：<br><figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">table = &#123;<span class="string">'Jack'</span>:<span class="number">4127</span>, <span class="string">'Rose'</span>:<span class="number">4098</span>, <span class="string">'Peter'</span>:<span class="number">7678</span>&#125;</span><br><span class="line"><span class="built_in">print</span>(<span class="string">'Jack is &#123;Jack&#125;, Rose is &#123;Rose&#125;, Peter is &#123;Peter&#125;.'</span>.format(**table))</span><br><span class="line"># 输出：Jack <span class="keyword">is</span> <span class="number">4127</span>, Rose <span class="keyword">is</span> <span class="number">4098</span>, Peter <span class="keyword">is</span> <span class="number">7678.</span></span><br></pre></td></tr></table></figure></p>
+<p><strong>补充：</strong>  </p>
+<p>% 操作符也可以实现字符串格式化。它将左边的参数作为类似 sprintf() 式的格式化字符串，而将右边的代入：<br><figure class="highlight vhdl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">import math</span><br><span class="line">print(<span class="attribute">'The</span> value <span class="keyword">of</span> PI <span class="keyword">is</span> %<span class="number">10.3</span>f.' %math.pi)</span><br><span class="line"># 输出：The value <span class="keyword">of</span> PI <span class="keyword">is</span>      <span class="number">3.142</span>.</span><br></pre></td></tr></table></figure></p>
+<p>因为这种旧式的格式化最终会从Python语言中移除，应该更多的使用 str.format() 。</p>
+<p><br><br><br><br></p>
+<h3 id="附：文本模式与二进制模式">附：文本模式与二进制模式</h3><p>1、在Windows系统中，文本模式下，默认是将Windows平台的行末标识符 \r\n 在读时转为 \n ，而在写时将 \n 转为 \r\n 。 这种隐藏的行为对于文本文件是没有问题的，但是对于二进制数据像 JPEG 或 EXE 是会出问题的。在使用这些文件时请小心使用二进制模式。</p>
+<p>2、在类Unix/Linux系统中，行末标识符为 \n，即文件以 \n 代表换行。所以Unix/Linux系统中在文本模式和二进制模式下并无区别。</p>
+<p><br><br><br><br></p>
+
+        
+      </div>
+    
+
+    
+      <div class="post-footer">
+        
+          <div class="post-tags">
+            
+              <a href="/tags/Python/">
+                #Python
+              </a>
+            
+          </div>
+        
+
+        
+          <div class="post-nav">
+            <div class="post-nav-prev post-nav-item">
+              
+                <a href="/2014/08/15/python-FAQ-02/">Python FAQ2：赋值、浅拷贝、深拷贝的区别？</a>
+              
+            </div>
+
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/2014/08/13/python-basic-06/">Python3基础（六） 深入list列表</a>
+              
+            </div>
+          </div>
+        
+
+        
+        
+      </div>
+    
+  </div>
+
+
+
+  
+    <div class="comments" id="comments">
+      
+        <div class="ds-thread" data-thread-key="2014/08/14/python-basic-07/"
+             data-title="Python3基础（七） 输入和输出" data-url="http://yoursite.com/2014/08/14/python-basic-07/">
+        </div>
+
+      
+    </div>
+  
+
+          </div>
+
+          
+        </div>
+
+        
+<div class="sidebar-toggle">
+  <div class="sidebar-toggle-line-wrap">
+    <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+    <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+    <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+  </div>
+</div>
+
+<div id="sidebar" class="sidebar">
+  <div class="sidebar-inner">
+
+    
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview" data-target="site-overview">
+          站点概览
+        </li>
+      </ul>
+    
+
+    <div class="site-overview">
+      <div class="site-author motion-element">
+        <img class="site-author-image" src="https://avatars0.githubusercontent.com/u/6904366?v=3&s=140" alt="Song Lee" />
+        <p class="site-author-name">Song Lee</p>
+      </div>
+      <p class="site-description motion-element">放宽心，多努力</p>
+      <div class="site-state motion-element">
+        <div class="site-state-item site-state-posts">
+          <span class="site-state-item-count">39</span>
+          <span class="site-state-item-name">日志</span>
+        </div>
+        <div class="site-state-item site-state-tags">
+            <span class="site-state-item-count">11</span>
+            <span class="site-state-item-name">标签</span>
+        </div>
+        <div class="site-state-item site-state-pages">
+            <span class="site-state-item-count">4</span>
+            <span class="site-state-item-name">页面</span>
+        </div>
+      </div>
+
+      
+        <div class="feed-link motion-element">
+          <a href="/atom.xml">
+            <i class="menu-item-icon icon-feed"></i>
+            RSS
+          </a>
+        </div>
+      
+
+      <div class="links-of-author motion-element">
+        
+          
+            <span class="links-of-author-item">
+              <a href="https://github.com/SongLee24">GitHub</a>
+            </span>
+          
+            <span class="links-of-author-item">
+              <a href="http://blog.csdn.net/lisonglisonglisong">CSDN</a>
+            </span>
+          
+            <span class="links-of-author-item">
+              <a href="http://weibo.com/lisonglisong">Weibo</a>
+            </span>
+          
+            <span class="links-of-author-item">
+              <a href="http://www.douban.com/people/122455925/">DouBan</a>
+            </span>
+          
+            <span class="links-of-author-item">
+              <a href="http://www.zhihu.com/people/shen-yi-59">ZhiHu</a>
+            </span>
+          
+        
+      </div>
+
+      
+      
+        <div class="cc-license motion-element">
+          <a href="http://creativecommons.org/licenses/by-nc-sa/4.0" class="cc-opacity" target="_blank">
+            <img src="/images/cc-by-nc-sa.svg" alt="Creative Commons" />
+          </a>
+        </div>
+      
+
+    </div>
+
+    
+      <div class="post-toc-wrap sidebar-panel-active">
+        <div class="post-toc-indicator-top post-toc-indicator"></div>
+        <div class="post-toc">
+          
+          
+            <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#一、控制台I/O"><span class="nav-number">1.</span> <span class="nav-text">一、控制台I/O</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二、文件I/O"><span class="nav-number">2.</span> <span class="nav-text">二、文件I/O</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#三、格式化输出"><span class="nav-number">3.</span> <span class="nav-text">三、格式化输出</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#附：文本模式与二进制模式"><span class="nav-number">4.</span> <span class="nav-text">附：文本模式与二进制模式</span></a></li></ol></div>
+          
+        </div>
+        <div class="post-toc-indicator-bottom post-toc-indicator"></div>
+      </div>
+    
+
+  </div>
+</div>
+
+
+      </div>
+    </div>
+
+    <div id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy; &nbsp;  2014 - 
+  2015
+  <span class="with-love">
+    <i class="icon-heart"></i>
+  </span>
+  <span class="author">Song Lee</span>
+</div>
+
+<div class="powered-by">
+  <div style="float:left;margin-top:7px;margin-right:10px;">
+	<script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1254974724'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s11.cnzz.com/z_stat.php%3Fid%3D1254974724%26show%3Dpic' type='text/javascript'%3E%3C/script%3E"));</script>
+  </div>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+
+      </div>
+    </div>
+
+    <div class="back-to-top"></div>
+  </div>
+
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript">
+    $(document).ready(function() {
+      $(".fancybox").fancybox();
+    });
+  </script>
+
+  <script type="text/javascript">
+  function hasMobileUA () {
+    var nav = window.navigator;
+    var ua = nav.userAgent;
+    var pa = /iPad|iPhone|Android|Opera Mini|BlackBerry|webOS|UCWEB|Blazer|PSP|IEMobile|Symbian/g;
+
+    return pa.test(ua);
+  }
+
+  function isDesktop () {
+    return screen.width > 991 && !hasMobileUA();
+  }
+
+  function isTablet () {
+    return screen.width < 992 && screen.width > 767 && hasMobileUA();
+  }
+
+  function isMobile () {
+    return screen.width < 767 && hasMobileUA();
+  }
+
+  function escapeSelector (selector) {
+    return selector.replace(/[!"$%&'()*+,.\/:;<=>?@[\\\]^`{|}~]/g, "\\$&")
+  }
+</script>
+
+  
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
+
+  <script type="text/javascript" id="motion.global">
+  $(document).ready(function () {
+    var body = $('body');
+    var isSidebarVisible = false;
+    var sidebarToggle = $('.sidebar-toggle');
+    var sidebarToggleLine1st = $('.sidebar-toggle-line-first')
+    var sidebarToggleLine2nd = $('.sidebar-toggle-line-middle');
+    var sidebarToggleLine3rd = $('.sidebar-toggle-line-last');
+    var sidebar = $('.sidebar');
+
+    var SIDEBAR_WIDTH = '320px';
+    var SIDEBAR_DISPLAY_DURATION = 300;
+
+    var sidebarToogleLineStatusInit = {width: '100%', opacity: 1, left: 0, rotateZ: 0, top: 0};
+
+    var sidebarToggleLine1stStatusInit = sidebarToogleLineStatusInit;
+    var sidebarToggleLine1stStatusArrow = {width: '50%', rotateZ: '-45deg', top: '2px'};
+    var sidebarToogleLine1stStatusClose = {width: '100%', rotateZ: '-45deg', top: '5px'};
+
+    var sidebarToggleLine2ndStatusInit = sidebarToogleLineStatusInit;
+    var sidebarToggleLine2ndStatusArrow = {width: '90%'};
+    var sidebarToogleLine2ndStatusClose = {opacity: 0};
+
+    var sidebarToggleLine3rdStatusInit = sidebarToogleLineStatusInit;
+    var sidebarToggleLine3rdStatusArrow = {width: '50%', rotateZ: '45deg', top: '-2px'};
+    var sidebarToogleLine3rdStatusClose = {width: '100%', rotateZ: '45deg', top: '-5px'};
+
+    LogoAndMenuMotion();
+    sidebatToggleMotion();
+    postsListMotion();
+    backToTopMotion();
+
+
+    $(document)
+      .on('sidebar.isShowing', function () {
+        isDesktop() && body.velocity(
+          {paddingRight: SIDEBAR_WIDTH},
+          SIDEBAR_DISPLAY_DURATION
+        );
+        sidebarContentMotion();
+      })
+      .on('sidebar.isHiding', function () {});
+
+    function LogoAndMenuMotion() {
+      $.Velocity.RunSequence([
+        { e: $('.brand'), p: { opacity: 1 }, o: { duration: 100 } },
+        { e: $('.logo'), p: { opacity: 1, top: 0 }, o: { duration: 50} },
+        
+        { e: $('.logo-line-before i'), p: { translateX: "100%" }, o: { duration: 500, sequenceQueue: false } },
+        { e: $('.logo-line-after i'), p: { translateX: "-100%" }, o: { duration: 500, sequenceQueue: false } },
+        
+        { e: $('.site-title'), p: { opacity: 1, top: 0 }, o: { duration: 200 } }
+      ]);
+      $('.menu-item').velocity('transition.slideDownIn', {display: null});
+    }
+
+
+    function backToTopMotion () {
+      var b2top = $('.back-to-top');
+      b2top.on('click', function () {
+        body.velocity('scroll');
+      });
+    }
+
+    function sidebarShowMotion () {
+
+      sidebarToggleLine1st.velocity(sidebarToogleLine1stStatusClose);
+      sidebarToggleLine2nd.velocity(sidebarToogleLine2ndStatusClose);
+      sidebarToggleLine3rd.velocity(sidebarToogleLine3rdStatusClose);
+
+      sidebar.velocity({width: SIDEBAR_WIDTH}, {
+        display: 'block',
+        duration: SIDEBAR_DISPLAY_DURATION,
+        complete: function () {
+          sidebar.addClass('sidebar-active');
+          sidebar.trigger('sidebar.didShow');
+        }
+      });
+      sidebar.trigger('sidebar.isShowing');
+    }
+
+    function sidebarHideMotion () {
+      isDesktop() && body.velocity({paddingRight: 0});
+      sidebar.velocity('reverse');
+
+      sidebarToggleLine1st.velocity(sidebarToggleLine1stStatusInit);
+      sidebarToggleLine2nd.velocity(sidebarToggleLine2ndStatusInit);
+      sidebarToggleLine3rd.velocity(sidebarToggleLine3rdStatusInit);
+
+      sidebar.removeClass('sidebar-active');
+      sidebar.trigger('sidebar.isHiding');
+    };
+
+    function sidebarContentMotion () {
+      $('.sidebar .motion-element').velocity(
+        'transition.slideRightIn',
+        {stagger: 50, drag: true}
+      );
+    }
+
+    function postsListMotion () {
+      var postMotionOptions = window.postMotionOptions || {stagger: 300, drag: true};
+      $('.post').velocity('transition.slideDownIn', postMotionOptions);
+    }
+
+    function sidebatToggleMotion () {
+      sidebarToggle.on('click', function () {
+        isSidebarVisible ? sidebarHideMotion() : sidebarShowMotion();
+        isSidebarVisible = !isSidebarVisible;
+      });
+
+      sidebarToggle.hover(function () {
+        if (isSidebarVisible) {return}
+        sidebarToggleLine1st.velocity('stop').velocity(sidebarToggleLine1stStatusArrow);
+        sidebarToggleLine2nd.velocity('stop').velocity(sidebarToggleLine2ndStatusArrow);
+        sidebarToggleLine3rd.velocity('stop').velocity(sidebarToggleLine3rdStatusArrow);
+      }, function () {
+        if (isSidebarVisible) {return}
+        sidebarToggleLine1st.velocity('stop').velocity(sidebarToggleLine1stStatusInit);
+        sidebarToggleLine2nd.velocity('stop').velocity(sidebarToggleLine2ndStatusInit);
+        sidebarToggleLine3rd.velocity('stop').velocity(sidebarToggleLine3rdStatusInit);
+      });
+    }
+  });
+
+</script>
+
+
+
+
+
+  
+  
+<script type="text/javascript" id="bootstrap.scrollspy.custom">
+  /* ========================================================================
+  * Bootstrap: scrollspy.js v3.3.2
+  * http://getbootstrap.com/javascript/#scrollspy
+  * ========================================================================
+  * Copyright 2011-2015 Twitter, Inc.
+  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
+  * ======================================================================== */
+
+  /**
+   * Custom by iissnan
+   *
+   * - Add a `clear.bs.scrollspy` event.
+   * - Esacpe targets selector.
+   */
+
+
+  +function ($) {
+    'use strict';
+
+    // SCROLLSPY CLASS DEFINITION
+    // ==========================
+
+    function ScrollSpy(element, options) {
+      this.$body          = $(document.body)
+      this.$scrollElement = $(element).is(document.body) ? $(window) : $(element)
+      this.options        = $.extend({}, ScrollSpy.DEFAULTS, options)
+      this.selector       = (this.options.target || '') + ' .nav li > a'
+      this.offsets        = []
+      this.targets        = []
+      this.activeTarget   = null
+      this.scrollHeight   = 0
+
+      this.$scrollElement.on('scroll.bs.scrollspy', $.proxy(this.process, this))
+      this.refresh()
+      this.process()
+    }
+
+    ScrollSpy.VERSION  = '3.3.2'
+
+    ScrollSpy.DEFAULTS = {
+      offset: 10
+    }
+
+    ScrollSpy.prototype.getScrollHeight = function () {
+      return this.$scrollElement[0].scrollHeight || Math.max(this.$body[0].scrollHeight, document.documentElement.scrollHeight)
+    }
+
+    ScrollSpy.prototype.refresh = function () {
+      var that          = this
+      var offsetMethod  = 'offset'
+      var offsetBase    = 0
+
+      this.offsets      = []
+      this.targets      = []
+      this.scrollHeight = this.getScrollHeight()
+
+      if (!$.isWindow(this.$scrollElement[0])) {
+        offsetMethod = 'position'
+        offsetBase   = this.$scrollElement.scrollTop()
+      }
+
+      this.$body
+        .find(this.selector)
+        .map(function () {
+          var $el   = $(this)
+          var href  = $el.data('target') || $el.attr('href')
+          var $href = /^#./.test(href) && $(escapeSelector(href)) // Need to escape selector.
+
+          return ($href
+            && $href.length
+            && $href.is(':visible')
+            && [[$href[offsetMethod]().top + offsetBase, href]]) || null
+        })
+        .sort(function (a, b) { return a[0] - b[0] })
+        .each(function () {
+          that.offsets.push(this[0])
+          that.targets.push(this[1])
+        })
+
+
+    }
+
+    ScrollSpy.prototype.process = function () {
+      var scrollTop    = this.$scrollElement.scrollTop() + this.options.offset
+      var scrollHeight = this.getScrollHeight()
+      var maxScroll    = this.options.offset + scrollHeight - this.$scrollElement.height()
+      var offsets      = this.offsets
+      var targets      = this.targets
+      var activeTarget = this.activeTarget
+      var i
+
+      if (this.scrollHeight != scrollHeight) {
+        this.refresh()
+      }
+
+      if (scrollTop >= maxScroll) {
+        return activeTarget != (i = targets[targets.length - 1]) && this.activate(i)
+      }
+
+      if (activeTarget && scrollTop < offsets[0]) {
+        $(this.selector).trigger('clear.bs.scrollspy')  // Add a custom event.
+        this.activeTarget = null
+        return this.clear()
+      }
+
+      for (i = offsets.length; i--;) {
+        activeTarget != targets[i]
+          && scrollTop >= offsets[i]
+          && (!offsets[i + 1] || scrollTop <= offsets[i + 1])
+          && this.activate(targets[i])
+      }
+    }
+
+    ScrollSpy.prototype.activate = function (target) {
+      this.activeTarget = target
+
+      this.clear()
+
+      var selector = this.selector +
+        '[data-target="' + target + '"],' +
+        this.selector + '[href="' + target + '"]'
+
+      var active = $(selector)
+        .parents('li')
+        .addClass('active')
+
+      if (active.parent('.dropdown-menu').length) {
+        active = active
+          .closest('li.dropdown')
+          .addClass('active')
+      }
+
+      active.trigger('activate.bs.scrollspy')
+    }
+
+    ScrollSpy.prototype.clear = function () {
+      $(this.selector)
+        .parentsUntil(this.options.target, '.active')
+        .removeClass('active')
+    }
+
+
+    // SCROLLSPY PLUGIN DEFINITION
+    // ===========================
+
+    function Plugin(option) {
+      return this.each(function () {
+        var $this   = $(this)
+        var data    = $this.data('bs.scrollspy')
+        var options = typeof option == 'object' && option
+
+        if (!data) $this.data('bs.scrollspy', (data = new ScrollSpy(this, options)))
+        if (typeof option == 'string') data[option]()
+      })
+    }
+
+    var old = $.fn.scrollspy
+
+    $.fn.scrollspy             = Plugin
+    $.fn.scrollspy.Constructor = ScrollSpy
+
+
+    // SCROLLSPY NO CONFLICT
+    // =====================
+
+    $.fn.scrollspy.noConflict = function () {
+      $.fn.scrollspy = old
+      return this
+    }
+
+
+    // SCROLLSPY DATA-API
+    // ==================
+
+    $(window).on('load.bs.scrollspy.data-api', function () {
+      $('[data-spy="scroll"]').each(function () {
+        var $spy = $(this)
+        Plugin.call($spy, $spy.data())
+      })
+    })
+
+  }(jQuery);
+</script>
+
+
+<script type="text/javascript" id="sidebar.toc.highlight">
+  $(document).ready(function () {
+    var tocSelector = '.post-toc';
+    var $tocSelector = $(tocSelector);
+    var activeCurrentSelector = '.active-current';
+
+    $tocSelector
+      .on('activate.bs.scrollspy', function () {
+        var $currentActiveElement = $(tocSelector + ' .active').last();
+
+        removeCurrentActiveClass();
+        $currentActiveElement.addClass('active-current');
+
+        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
+      })
+      .on('clear.bs.scrollspy', function () {
+        removeCurrentActiveClass();
+      });
+
+    function removeCurrentActiveClass () {
+      $(tocSelector + ' ' + activeCurrentSelector)
+        .removeClass(activeCurrentSelector.substring(1));
+    }
+
+    function processTOC () {
+      getTOCMaxHeight();
+      toggleTOCOverflowIndicators();
+    }
+
+    function getTOCMaxHeight () {
+      var $sidebarInner = $('.sidebar-inner');
+      var height = $('.sidebar').height() -
+                   $tocSelector.position().top -
+                   $('.post-toc-indicator-bottom').height();
+
+      $tocSelector.css('height', height);
+
+      return height;
+    }
+
+    function toggleTOCOverflowIndicators () {
+      tocOverflowIndicator(
+        '.post-toc-indicator-top',
+        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
+      );
+
+      tocOverflowIndicator(
+        '.post-toc-indicator-bottom',
+        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
+      )
+    }
+
+    $(document).on('sidebar.didShow', function () {
+      processTOC();
+    });
+
+    $('body').scrollspy({ target: tocSelector });
+    $(window).on('resize', function () {
+      if ( $('.sidebar').hasClass('sidebar-active') ) {
+        processTOC();
+      }
+    });
+
+    onScroll($tocSelector);
+
+    function onScroll (element) {
+      element.on('mousewheel DOMMouseScroll', function (event) {
+          var oe = event.originalEvent;
+          var delta = oe.wheelDelta || -oe.detail;
+          var self = this;
+
+          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+          event.preventDefault();
+
+          toggleTOCOverflowIndicators();
+      });
+    }
+
+    function tocOverflowIndicator (indicator, action) {
+      $(indicator).velocity('stop').velocity({
+        opacity: action === 'show' ? 0.4 : 0
+      }, { duration: 100 });
+    }
+
+  });
+</script>
+
+
+  <script type="text/javascript" id="sidebar.nav">
+    $(document).ready(function () {
+      var html = $('html');
+
+      $('.sidebar-nav li').on('click', function () {
+        var item = $(this);
+        var activeTabClassName = 'sidebar-nav-active';
+        var activePanelClassName = 'sidebar-panel-active';
+        if (item.hasClass(activeTabClassName)) {
+          return;
+        }
+
+        var currentTarget = $('.' + activePanelClassName);
+        var target = $('.' + item.data('target'));
+
+        currentTarget.velocity('transition.slideUpOut', 200, function () {
+          target
+            .velocity('stop')
+            .velocity('transition.slideDownIn', 200)
+            .addClass(activePanelClassName);
+        });
+
+        item.siblings().removeClass(activeTabClassName);
+        item.addClass(activeTabClassName);
+      });
+
+      $('.post-toc a').on('click', function (e) {
+        e.preventDefault();
+        var offset = $(escapeSelector(this.getAttribute('href'))).offset().top;
+        html.velocity('stop').velocity('scroll', {
+          offset: offset  + 'px',
+          mobileHA: false
+        });
+      });
+
+      // Expand sidebar on post detail page by default, when post has a toc.
+      var $tocContent = $('.post-toc-content');
+      if ($tocContent.length > 0 && $tocContent.html().trim().length > 0 && isDesktop()) {
+        setTimeout(function () {
+          $('.sidebar-toggle').trigger('click');
+        }, 800);
+      }
+    });
+  </script>
+
+
+
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"16"},"slide":{"type":"slide","bdImg":"2","bdPos":"left","bdTop":"195.5"},"image":{"viewList":["qzone","tsina","tqq","renren","weixin"],"viewText":"分享到：","viewSize":"16"},"selectShare":{"bdContainerClass":null,"bdSelectMiniList":["qzone","tsina","tqq","renren","weixin"]}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+
+
+  
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for (i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"songlee24"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+  
+</body>
+</html>
