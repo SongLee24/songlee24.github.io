@@ -138,6 +138,105 @@
           
           
             
+              <a class="post-title-link" href="/2015/04/30/linux-three-syn-problems/">
+                【Linux多线程】三个经典同步问题
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          
+            发表于 2015-04-30
+          
+        </span>
+
+        
+          
+            <span class="post-category">
+              &nbsp; | &nbsp; 分类于
+              
+                <a href="/categories/System-Linux/">System-Linux</a>
+
+                
+                
+
+              
+            </span>
+          
+        
+
+        
+          
+            <span class="post-comments-count">
+            &nbsp; | &nbsp;
+            <a href="/2015/04/30/linux-three-syn-problems/#comments" >
+              <span class="post-comments-count ds-thread-count" data-thread-key="2015/04/30/linux-three-syn-problems/"></span>
+            </a>
+          </span>
+          
+        
+      </div>
+    </div>
+
+    
+      <div class="post-body">
+
+        
+        
+
+        
+          
+            <p>在了解了《<a href="http://songlee24.github.io/blog/2015/04/29/syn-mut-differ/">同步与互斥的区别 </a>》之后，我们来看看几个经典的线程同步的例子。相信通过具体场景可以让我们学会分析和解决这类线程同步的问题，以便以后应用在实际的项目中。</p>
+<h3 id="一、生产者-消费者问题">一、生产者-消费者问题</h3><p><strong>问题描述：</strong></p>
+<p>一组生产者进程和一组消费者进程共享一个初始为空、大小为 n 的缓冲区，只有缓冲区没满时，生产者才能把消息放入到缓冲区，否则必须等待；只有缓冲区不空时，消费者才能从中取出消息，否则必须等待。由于缓冲区是临界资源，它只允许一个生产者放入消息，或者一个消费者从中取出消息。
+            <div class="post-more-link text-center">
+              <a class="btn" href="/2015/04/30/linux-three-syn-problems/#more">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+        
+      </div>
+    
+
+    
+      <div class="post-footer">
+        
+          <div class="post-tags">
+            
+              <a href="/tags/Linux/">
+                #Linux
+              </a>
+            
+          </div>
+        
+
+        
+
+        
+        
+          <div class="post-eof"></div>
+        
+      </div>
+    
+  </div>
+
+
+  
+    
+
+  <div class="post post-type-normal ">
+    <div class="post-header">
+
+      
+      
+        <h1 class="post-title">
+          
+          
+            
               <a class="post-title-link" href="/2015/04/29/linux-syn-mut-difference/">
                 【Linux多线程】同步与互斥的区别
               </a>
@@ -1024,104 +1123,6 @@
 
 
   
-    
-
-  <div class="post post-type-normal ">
-    <div class="post-header">
-
-      
-      
-        <h1 class="post-title">
-          
-          
-            
-              <a class="post-title-link" href="/2015/03/15/string-operating-function/">
-                面试题之strcpy/strlen/strcat/strcmp的实现
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          
-            发表于 2015-03-15
-          
-        </span>
-
-        
-          
-            <span class="post-category">
-              &nbsp; | &nbsp; 分类于
-              
-                <a href="/categories/试题-笔试面试/">试题-笔试面试</a>
-
-                
-                
-
-              
-            </span>
-          
-        
-
-        
-          
-            <span class="post-comments-count">
-            &nbsp; | &nbsp;
-            <a href="/2015/03/15/string-operating-function/#comments" >
-              <span class="post-comments-count ds-thread-count" data-thread-key="2015/03/15/string-operating-function/"></span>
-            </a>
-          </span>
-          
-        
-      </div>
-    </div>
-
-    
-      <div class="post-body">
-
-        
-        
-
-        
-          
-            <p>阿里的电面要我用C/C++实现一个字符串拷贝的函数，虽然以前写过 strcpy 的函数实现，但时间过去很久了，再加上有点紧张，突然就措手不及了。最后写是写出来了，但没考虑异常的情况，面试官好像很不满意。(T_T)，写篇文章记录一下，以免日后重蹈覆辙。</p>
-<h3 id="一、字符串拷贝strcpy">一、字符串拷贝strcpy</h3><p>函数<code>strcpy</code>的原型是<code>char* strcpy(char* des , const char* src)</code>，des 和 src 所指内存区域不可以重叠且 des 必须有足够的空间来容纳 src 的字符串。
-            <div class="post-more-link text-center">
-              <a class="btn" href="/2015/03/15/string-operating-function/#more">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          
-        
-      </div>
-    
-
-    
-      <div class="post-footer">
-        
-          <div class="post-tags">
-            
-              <a href="/tags/Interview/">
-                #Interview
-              </a>
-            
-          </div>
-        
-
-        
-
-        
-        
-          <div class="post-eof"></div>
-        
-      </div>
-    
-  </div>
-
-
-  
 
           </div>
 
@@ -1154,7 +1155,7 @@
       <p class="site-description motion-element">放宽心，多努力</p>
       <div class="site-state motion-element">
         <div class="site-state-item site-state-posts">
-          <span class="site-state-item-count">67</span>
+          <span class="site-state-item-count">68</span>
           <span class="site-state-item-name">日志</span>
         </div>
         <div class="site-state-item site-state-tags">
