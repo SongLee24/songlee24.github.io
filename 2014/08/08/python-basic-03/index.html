@@ -161,8 +161,104 @@
         
 
         
-          <p><br>    Python中的运算符大部分与C语言的类似，但也有很多不同的地方。这里就大概地罗列一下Python 3中的运算符。<br></p><br><h2><br>    一、算术运算符<br></h2><br><p><br>    <table border="1"><br>        <thead><br>            <tr><br>                <th><br>                    运算符<br>                </th><br>                <th><br>                    描述<br>                </th><br>                <th><br>                    示例<br>                </th><br>            </tr><br>        </thead><br>        <tbody><br>            <tr><br>                <td><br>                    x + y<br>                </td><br>                <td><br>                    加<br>                </td><br>                <td><br>                    10 + 20 = 30<br>                </td><br>            </tr><br>            <tr><br>                <td><br>                    x - y<br>                </td><br>                <td><br>                    减<br>                </td><br>                <td><br>                    10 - 5 = 5<br>                </td><br>            </tr><br>            <tr><br>                <td><br>                    x <em> y<br>                </em></td><br>                <td><br>                    乘<br>                </td><br>                <td><br>                    3  6 = 18<br>                </td><br>            </tr><br>            <tr><br>                <td><br>                    x / y<br>                </td><br>                <td><br>                    除-返回浮点数<br>                </td><br>                <td><br>                    2 / 4 = 0.5<br>                </td><br>            </tr><br>            <tr><br>                <td><br>                    x // y<br>                </td><br>                <td><br>                    取整除 - 返回商的整数部分<br>                </td><br>                <td><br>                    2 // 4 = 0<br>                </td><br>            </tr><br>            <tr><br>                <td><br>                    x % y<br>                </td><br>                <td><br>                    取余<br>                </td><br>                <td><br>                    15 % 4 = 3<br>                </td><br>            </tr><br>            <tr><br>                <td><br>                    -x<br>                </td><br>                <td><br>                    异号<br>                </td><br>                <td><br>                    -(-5) = 5<br>                </td><br>            </tr><br>            <tr><br>                <td><br>                    +x<br>                </td><br>                <td><br>                    不变号<br>                </td><br>                <td><br>                    +5 = 5<br>                </td><br>            </tr><br>            <tr><br>                <td><br>                    abs(x)<br>                </td><br>                <td><br>                    取绝对值<br>                </td><br>                <td><br>                    abs(-0.4) = 0.4<br>                </td><br>            </tr><br>            <tr><br>                <td><br>                    int(x)<br>                </td><br>                <td><br>                    x转换为整数<br>                </td><br>                <td><br>                    int(5.9) = 5<br>                </td><br>            </tr><br>            <tr><br>                <td><br>                    float(x)<br>                </td><br>                <td><br>                    x转换为浮点数<br>                </td><br>                <td><br>                    float(5) = 5.0<br>                </td><br>            </tr><br>            <tr><br>                <td><br>                    complex(re, im)<br>                </td><br>                <td><br>                    返回复数 - re为实数部分 im为虚数部分<br>                </td><br>                <td><br>                    complex(4,3) = 4+3j<br>                </td><br>            </tr><br>            <tr><br>                <td><br>                    c.conjugate()<br>                </td><br>                <td><br>                    返回c的共轭复数<br>                </td><br>                <td><br>                    c=4+3j; c.conjugate() = 4-3j<br>                </td><br>            </tr><br>            <tr><br>                <td><br>                    divmod(x, y)<br>                </td><br>                <td><br>                    返回一个数值对(x//y, x%y)<br>                </td><br>                <td><br>                    divmod(8, 3) = (2, 2)<br>                </td><br>            </tr><br>            <tr><br>                <td><br>                    pow(x, y)<br>                </td><br>                <td><br>                    x的y次幂<br>                </td><br>                <td><br>                    pow(2, 5) = 32<br>                </td><br>            </tr><br>            <tr><br>                <td><br>                    x <strong> y<br>                </strong></td><br>                <td><br>                    x的y次幂<br>                </td><br>                <td><br>                    2  5 = 32<br>                </td><br>            </tr><br>        </tbody><br>    </table><a id="more"></a><br></p><br><p><br>    <strong>Note</strong>：<br></p><br><ol><br>    <li><br>        双斜杠 // 除法总是向下取整。&nbsp;<br>    </li><br>    <li><br>        从符点数到整数的转换可能会舍入也可能截断，建议使用<a target="_blank" href="https://docs.python.org/3.4/library/math.html#math.floor">math.floor()</a>和<a target="_blank" href="https://docs.python.org/3.4/library/math.html#math.ceil">math.ceil()</a>明确定义的转换。<br>    </li><br>    <li><br>        Python定义<code>pow(0, 0)</code>和<code>0 <strong> 0</strong></code>等于1。<br>    </li><br></ol><br><p><br>    <br><br><br></p><br><h2><br>    二、比较运算符<br></h2><br><p><br>    <table border="1"><br>        <thead><br>            <tr><br>                <th><br>                    运算符<br>                </th><br>                <th><br>                    描述<br>                </th><br>            </tr><br>        </thead><br>        <tbody><br>            <tr><br>                <td><br>                    &lt;<br>                </td><br>                <td><br>                    小于<br>                </td><br>            </tr><br>            <tr><br>                <td><br>                    &lt;=<br>                </td><br>                <td><br>                    小于或等于<br>                </td><br>            </tr><br>            <tr><br>                <td><br>                    &gt;<br>                </td><br>                <td><br>                    大于<br>                </td><br>            </tr><br>            <tr><br>                <td><br>                    &gt;=<br>                </td><br>                <td><br>                    大于或等于<br>                </td><br>            </tr><br>            <tr><br>                <td><br>                    ==<br>                </td><br>                <td><br>                    等于<br>                </td><br>            </tr><br>            <tr><br>                <td><br>                    !=<br>                </td><br>                <td><br>                    不等于<br>                </td><br>            </tr><br>            <tr><br>                <td><br>                    is<br>                </td><br>                <td><br>                    判断两个标识符是不是引用自一个对象<br>                </td><br>            </tr><br>            <tr><br>                <td><br>                    is not<br>                </td><br>                <td><br>                    判断两个标识符是不是引用自不同对象<br>                </td><br>            </tr><br>        </tbody><br>    </table><br></p><br><strong>Note</strong>： <br><br><br><ol><br>    <li><br>        八个比较运算符优先级相同。<br>    </li><br>    <li><br>        Python允许<span style="color:#FF0000;"><code>x &lt; y &lt;= z</code></span>这样的链式比较，它相当于<code>x &lt; y and y &lt;= z</code>。&nbsp;<br>    </li><br>    <li><br>        复数不能进行大小比较，只能比较是否相等。<br>    </li><br></ol><br><p><br>    <br><br><br></p><br><p><br></p><br><p><br></p><br><h2><br>    三、逻辑运算符<br></h2><br><p><br>    <table border="1"><br>        <thead><br>            <tr><br>                <th><br>                    运算符<br>                </th><br>                <th><br>                    描述<br>                </th><br>            </tr><br>        </thead><br>        <tbody><br>            <tr><br>                <td><br>                    x or y<br>                </td><br>                <td><br>                    if x is false, then y, else x<br>                </td><br>            </tr><br>            <tr><br>                <td><br>                    x and y<br>                </td><br>                <td><br>                    if x is false, then x, else y<br>                </td><br>            </tr><br>            <tr><br>                <td><br>                    not x<br>                </td><br>                <td><br>                    if x is false, then True, else False<br>                </td><br>            </tr><br>        </tbody><br>    </table><br></p><br><p><br>    <strong>Note</strong>： <br><br><br></p><br><ol><br>    <li><br>        <span style="color:#FF0000;">or</span>是个短路运算符，它只有在第一个运算数为False时才会计算第二个运算数的值。<br>    </li><br>    <li><br>        <span style="color:#FF0000;">and</span>也是个短路运算符，它只有在第一个运算数为True时才会计算第二个运算数的值。<br>    </li><br>    <li><br>        <span style="color:#FF0000;">not</span>的优先级比其他类型的运算符低，所以not a == b相当于not (a == b)，而 a == not b是错误的。<br>    </li><br></ol><br><p><br>    <br><br><br></p><br><h2><br>    四、位运算符<br></h2><br><p><br>    <table border="1"><br>        <thead><br>            <tr><br>                <th><br>                    运算符<br>                </th><br>                <th><br>                    描述<br>                </th><br>            </tr><br>        </thead><br>        <tbody><br>            <tr><br>                <td><br>                    x | y<br>                </td><br>                <td><br>                    按位或运算符<br>                </td><br>            </tr><br>            <tr><br>                <td><br>                    x &amp; y<br>                </td><br>                <td><br>                    按位与运算符<br>                </td><br>            </tr><br>            <tr><br>                <td><br>                    x ^ y<br>                </td><br>                <td><br>                    按位异或运算符<br>                </td><br>            </tr><br>            <tr><br>                <td><br>                    x &lt;&lt; n<br>                </td><br>                <td><br>                    左移动运算符<br>                </td><br>            </tr><br>            <tr><br>                <td><br>                    x &gt;&gt; n<br>                </td><br>                <td><br>                    右移动运算符<br>                </td><br>            </tr><br>            <tr><br>                <td><br>                    ~x<br>                </td><br>                <td><br>                    按位取反运算符<br>                </td><br>            </tr><br>        </tbody><br>    </table><br></p><br><p><br>    <br><br><br></p><br><h2><br>    五、赋值运算符<br></h2><br><p><br>    复合赋值运算符与算术运算符是一一对应的：<br><br><br></p><br><p><br>    <table border="1"><br>        <thead><br>            <tr><br>                <th><br>                    运算符<br>                </th><br>                <th><br>                    描述<br>                </th><br>            </tr><br>        </thead><br>        <tbody><br>            <tr><br>                <td><br>                    =<br>                </td><br>                <td><br>                    简单的赋值运算符<br>                </td><br>            </tr><br>            <tr><br>                <td><br>                    +=<br>                </td><br>                <td><br>                    加法赋值运算符<br>                </td><br>            </tr><br>            <tr><br>                <td><br>                    -=<br>                </td><br>                <td><br>                    减法赋值运算符<br>                </td><br>            </tr><br>            <tr><br>                <td><br>                    *=<br>                </td><br>                <td><br>                    乘法赋值运算符<br>                </td><br>            </tr><br>            <tr><br>                <td><br>                    /=<br>                </td><br>                <td><br>                    除法赋值运算符<br>                </td><br>            </tr><br>            <tr><br>                <td><br>                    %=<br>                </td><br>                <td><br>                    取模赋值运算符<br>                </td><br>            </tr><br>            <tr><br>                <td>
-                    =<br>                </td><br>                <td><br>                    幂赋值运算符<br>                </td><br>            </tr><br>            <tr><br>                <td><br>                    //=<br>                </td><br>                <td><br>                    取整除法运算符<br>                </td><br>            </tr><br>        </tbody><br>    </table><br></p><br><p><br>    <br><br><br></p><br><h2><br>    六、成员运算符<br></h2><br><p><br>    Python提供了成员运算符，测试一个元素是否在一个序列（Sequence）中。<br></p><br><p><br>    <table border="1"><br>        <thead><br>            <tr><br>                <th><br>                    运算符<br>                </th><br>                <th><br>                    描述<br>                </th><br>            </tr><br>        </thead><br>        <tbody><br>            <tr><br>                <td><br>                    in<br>                </td><br>                <td><br>                    如果在指定的序列中找到值返回True，否则返回False。<br>                </td><br>            </tr><br>            <tr><br>                <td><br>                    not in<br>                </td><br>                <td><br>                    如果在指定的序列中没有找到值返回True，否则返回False。<br>                </td><br>            </tr><br>        </tbody><br>    </table><br>    <br><br><br></p><br><p><br>    <br><br><br></p><br><p><br>    <br><br><br></p><br><p><br>    <br><br><br></p><br><p><br>    <br><br><br></p><br><p><br>    <br><br><br></p><br><p><br>    <br><br><br></p><br><p><br></p>
+          <p>Python中的运算符大部分与C语言的类似，但也有很多不同的地方。这里就大概地罗列一下Python 3中的运算符。</p>
+<h3 id="算术运算符">算术运算符</h3><table>
+<thead>
+<tr>
+<th>运算符</th>
+<th>描述</th>
+<th>示例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>x + y</td>
+<td>加</td>
+<td>10+20=30</td>
+</tr>
+<tr>
+<td>x - y</td>
+<td>减</td>
+<td>10-5=5</td>
+</tr>
+<tr>
+<td>x * y</td>
+<td>乘</td>
+<td>3*6=18</td>
+</tr>
+<tr>
+<td>x / y</td>
+<td>除-返回浮点数</td>
+<td>2/4 = 0.5</td>
+</tr>
+<tr>
+<td>x // y</td>
+<td>取整除 - 返回商的整数部分</td>
+<td>2//4 = 0</td>
+</tr>
+<tr>
+<td>x % y</td>
+<td>取余</td>
+<td>15 % 4 = 3</td>
+</tr>
+<tr>
+<td>-x</td>
+<td>异号</td>
+<td>-(-5) = 5</td>
+</tr>
+<tr>
+<td>+x</td>
+<td>不变号</td>
+<td>+5 = 5</td>
+</tr>
+<tr>
+<td>abs(x)</td>
+<td>取绝对值</td>
+<td>abs(-0.4) = 0.4</td>
+</tr>
+<tr>
+<td>int(x)</td>
+<td>x转换为整数</td>
+<td>int(5.9) = 5</td>
+</tr>
+<tr>
+<td>float(x)</td>
+<td>x转换为浮点数</td>
+<td>float(5) = 5.0</td>
+</tr>
+<tr>
+<td>complex(re, im)</td>
+<td>返回复数 - re为实数部分 im为虚数部分</td>
+<td>complex(4,3) = 4+3j</td>
+</tr>
+<tr>
+<td>c.conjugate()</td>
+<td>返回c的共轭复数</td>
+<td>c=4+3j; c.conjugate() = 4-3j</td>
+</tr>
+<tr>
+<td>divmod(x, y)</td>
+<td>返回一个数值对(x//y, x%y)</td>
+<td>divmod(8, 3) = (2, 2)</td>
+</tr>
+<tr>
+<td>pow(x, y)</td>
+<td>x的y次幂</td>
+<td>pow(2, 5) = 32</td>
+</tr>
+<tr>
+<td>x**y</td>
+<td>x的y次幂</td>
+<td>2 ** 5 = 32</td>
+</tr>
+</tbody>
+</table>
+<p>Note：</p>
+<ol>
+<li>双斜杠 // 除法总是向下取整。 </li>
+<li>从符点数到整数的转换可能会舍入也可能截断，建议使用math.floor()和math.ceil()明确定义的转换。</li>
+<li>Python定义<code>pow(0, 0)</code>和<code>0 ** 0</code>等于1。</li>
+</ol>
 
         
       </div>
@@ -316,7 +412,7 @@
         <div class="post-toc">
           
           
-            <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">1.</span> <span class="nav-text">    一、算术运算符</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">2.</span> <span class="nav-text">    二、比较运算符</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">3.</span> <span class="nav-text">    三、逻辑运算符</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">4.</span> <span class="nav-text">    四、位运算符</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">5.</span> <span class="nav-text">    五、赋值运算符</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">6.</span> <span class="nav-text">    六、成员运算符</span></a></li></ol></div>
+            <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#算术运算符"><span class="nav-number">1.</span> <span class="nav-text">算术运算符</span></a></li></ol></div>
           
         </div>
         <div class="post-toc-indicator-bottom post-toc-indicator"></div>
