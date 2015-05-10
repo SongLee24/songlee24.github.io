@@ -22,9 +22,31 @@
 
 
 
-	<meta name="keywords" content="设计模式," />
 
-  <title> 单例模式 // SongLee's Blog </title>
+    <meta name="keywords" content="Hexo,next" />
+
+
+
+    <link rel="alternate" href="/atom.xml" title="SongLee's Blog" type="application/atom+xml" />
+
+
+
+    <link rel="shorticon icon" type="image/x-icon" href="/favicon.ico?v=0.4.0" />
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?50c15455e37f70aea674ff4a663eef27";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+  <title> 理解公钥与私钥 // SongLee's Blog </title>
 </head>
 
 <body>
@@ -113,7 +135,7 @@
           
           
             
-              单例模式
+              理解公钥与私钥
             
           
         </h1>
@@ -122,7 +144,7 @@
       <div class="post-meta">
         <span class="post-time">
           
-            发表于 2014-03-11
+            发表于 2015-05-03
           
         </span>
 
@@ -131,7 +153,7 @@
             <span class="post-category">
               &nbsp; | &nbsp; 分类于
               
-                <a href="/categories/Basic-设计模式/">Basic-设计模式</a>
+                <a href="/categories/Basic-信息安全/">Basic-信息安全</a>
 
                 
                 
@@ -145,8 +167,8 @@
           
             <span class="post-comments-count">
             &nbsp; | &nbsp;
-            <a href="/2014/03/11/singleton-pattern/#comments" >
-              <span class="post-comments-count ds-thread-count" data-thread-key="2014/03/11/singleton-pattern/"></span>
+            <a href="/2015/05/03/public-key-and-private-key/#comments" >
+              <span class="post-comments-count ds-thread-count" data-thread-key="2015/05/03/public-key-and-private-key/"></span>
             </a>
           </span>
           
@@ -161,22 +183,67 @@
         
 
         
-          <h2 id="什么是单例模式">什么是单例模式</h2><p>单件模式（SingletonPattern）：确保一个类只有一个实例，并提供一个全局访问点。和全局变量一样方便，又没有全局变量的缺点，即不需要从一开始就创建对象，而是在需要时才创建它。</p>
-<p><strong><em>那么要如何保证一个类只能被实例化一次呢？</em></strong>一般情况下，如果存在一个类，我们都是可以多次地实例化它的。那么如果这样呢：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> MyClass&#123;</span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">MyClass</span><span class="params">()</span></span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<a id="more"></a>
-<p>咦？构造函数私有？含有私有的构造器的类应该是不能被其他类实例化的，因为只有MyClass内部的代码才能调用这个私有的构造函数。虽然只有MyClass类的实例才能调用MyClass构造器，但在这之前，必须有一个MyClass实例。然而这个类又不能被实例化，这样就产生了矛盾！</p>
-<p>看下面这段代码：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> MyClass&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> MyClass <span class="title">getInstance</span><span class="params">()</span></span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>上面的代码表示MyClass有一个静态方法，我们可以这样调用这个方法：MyClass.getInstance(); 因为getInstance()是一个静态方法，换句话说，是一个“类”方法。引用一个静态方法，你需要使用类名，而不是对象名。</p>
-<p>那么把上面两段代码合在一起，是否就可以使MyClass只产生一个实例了呢？</p>
-<p><strong>看下面的代码：</strong></p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyClass</span></span>&#123;</span><br><span class="line">       <span class="comment">//利用一个静态变量来记录MyClass类的唯一实例</span></span><br><span class="line">       <span class="keyword">private</span> <span class="keyword">static</span> MyClass uniqueInstance;</span><br><span class="line">       <span class="comment">//私有构造函数，只有自MyClass类内才可以调用</span></span><br><span class="line">       <span class="function"><span class="keyword">private</span> <span class="title">MyClass</span><span class="params">()</span> </span>&#123;&#125;</span><br><span class="line">       <span class="comment">//用getInstance静态方法实例化对象，并返回</span></span><br><span class="line">       <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> MyClass <span class="title">getInstance</span><span class="params">()</span></span>&#123;</span><br><span class="line">                <span class="keyword">if</span>(uniqueInstance == NULL)</span><br><span class="line">                &#123;</span><br><span class="line">                      uniqueInstance = <span class="keyword">new</span> MyClass();</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">return</span> uniqueInstance;</span><br><span class="line">       &#125;</span><br><span class="line">       <span class="comment">//当然，单件类也是一个正常的类，具有其他的变量和方法</span></span><br><span class="line">       <span class="comment">//...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>这就是一个经典的单件模式的实现！之所以实例唯一，是因为单件类没有公开的构造器，其他类不能自行将其实例化得到一个实例，而必须通过它的静态方法getInstance()去创建一个实例。</p>
-<p><img src="http://img.blog.csdn.net/20140312224101968?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvbGlzb25nbGlzb25nbGlzb25n/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt=""></p>
-<h2 id="C++代码实现：">C++代码实现：</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#<span class="keyword">pragma</span> once</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> Singleton&#123;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    Singleton();</span><br><span class="line">    ~Singleton();</span><br><span class="line">    <span class="keyword">static</span> Singleton* uniqueInstance;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="keyword">static</span> Singleton* getInstance();</span><br><span class="line">    <span class="comment">// other methods...</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#<span class="keyword">include</span>"Singleton.h"</span></span><br><span class="line"><span class="preprocessor">#<span class="keyword">include</span>&lt;iostream&gt;</span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line">Singleton::Singleton()&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Singleton::~Singleton()&#123;</span><br><span class="line">    <span class="keyword">if</span>(uniqueInstance == NULL)&#123;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">delete</span> uniqueInstance;</span><br><span class="line">    uniqueInstance = <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Singleton* Singleton::getInstance()&#123;</span><br><span class="line">    <span class="keyword">if</span>(uniqueInstance == NULL)&#123;</span><br><span class="line">        uniqueInstance = <span class="keyword">new</span> Singleton;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> uniqueInstance;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#<span class="keyword">include</span>&lt;iostream&gt;</span></span><br><span class="line"><span class="preprocessor">#<span class="keyword">include</span>"Singleton.h"</span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line">Singleton* Singleton::uniqueInstance = NULL;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    Singleton* singleton1 = Singleton::getInstance();</span><br><span class="line">    Singleton* singleton2 = Singleton::getInstance();</span><br><span class="line">    <span class="keyword">if</span>(singleton1 == singleton2)&#123;</span><br><span class="line">        <span class="built_in">cout</span>&lt;&lt;<span class="string">"Got same singleton!!"</span>&lt;&lt;endl;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span>&#123;</span><br><span class="line">        <span class="built_in">cout</span>&lt;&lt;<span class="string">"Oh,no!got a different singleton!!"</span>&lt;&lt;endl;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+          <p>一直都对公钥和私钥的概念不清不楚，以至于在 腾讯面试 被问到“如何在一个不安全的环境中实现安全的数据通信？”时，并没有答上来。今天查阅了一些资料，决定写一篇总结文章来加深自己的理解。</p>
+<h3 id="一、公钥算法与私钥算法">一、公钥算法与私钥算法</h3><p><strong>1、私钥算法</strong></p>
+<p><strong>私钥加密算法</strong>，又称 <strong>对称加密算法</strong>，因为这种算法解密密钥和加密密钥是相同的。也正因为同一密钥既用于加密又用于解密，所以这个密钥是不能公开的。常见的有《<a href="http://songlee24.github.io/2014/12/06/des-encrypt/" target="_blank" rel="external">DES加密算法</a>》、《<a href="http://songlee24.github.io/2014/12/13/aes-encrypt/" target="_blank" rel="external">AES加密算法</a>》。<a id="more"></a></p>
+<p><strong>2、公钥算法</strong></p>
+<p><strong>公钥加密算法</strong>，也就是 <strong>非对称加密算法</strong>，这种算法加密和解密的密码不一样，一个是公钥，另一个是私钥：</p>
+<ul>
+<li>公钥和私钥成对出现</li>
+<li>公开的密钥叫公钥，只有自己知道的叫私钥</li>
+<li>用公钥加密的数据只有对应的私钥可以解密</li>
+<li>用私钥加密的数据只有对应的公钥可以解密</li>
+<li>如果可以用公钥解密，则必然是对应的私钥加的密</li>
+<li>如果可以用私钥解密，则必然是对应的公钥加的密</li>
+</ul>
+<p>公钥和私钥是相对的，两者本身并没有规定哪一个必须是公钥或私钥。</p>
+<p><br></p>
+<h3 id="二、实现数据的安全传输">二、实现数据的安全传输</h3><p>要实现数据的安全传输，当然就要对数据进行加密了。</p>
+<p>如果使用对称加密算法，加解密使用同一个密钥，除了自己保存外，对方也要知道这个密钥，才能对数据进行解密。如果你把密钥也一起传过去，就存在密码泄漏的可能。所以我们使用<strong>非对称算法</strong>，过程如下：</p>
+<ol>
+<li>首先 接收方 生成一对密钥，即私钥和公钥；</li>
+<li>然后，接收方 将公钥发送给 发送方；</li>
+<li>发送方用收到的公钥对数据加密，再发送给接收方；</li>
+<li>接收方收到数据后，使用自己的私钥解密。</li>
+</ol>
+<p>由于在非对称算法中，公钥加密的数据必须用对应的私钥才能解密，而私钥又只有接收方自己知道，这样就保证了数据传输的安全性。</p>
+<p><img src="http://img.blog.csdn.net/20150502122610368" alt=""></p>
+<p><br></p>
+<h3 id="三、对信息进行数字签名">三、对信息进行数字签名</h3><p>除了保证数据的安全传输之外，公钥体系的另一个用途就是对数据进行签名。通常<strong>“数字签名”</strong>是用来验证发送方的身份并帮助保护数据的完整性。</p>
+<p>例如：一个发送者 A 想要传些资料给大家，用自己的私钥对资料加密，即签名。这样一来，所有收到资料的人都可以用发送者的公钥进行验证，便可确认资料是由 A 发出来的了。（因为只有Ａ使用私钥签名得到的信息，才能用这个公钥来解） 采用数字签名，可以确认两点：</p>
+<ol>
+<li>保证信息是由签名者自己签名发送的，签名者不能否认或难以否认。</li>
+<li>保证信息自签发后到收到为止未曾作过任何修改。</li>
+</ol>
+<p>之所以可以确认这两点，是因为用公钥可以解密的必然是用对应的私钥加的密，而私钥只有签名者持有。</p>
+<p><br></p>
+<h3 id="四、公钥算法的缺点">四、公钥算法的缺点</h3><p>现实中，公钥机制也有它的缺点，那就是<strong>效率非常低</strong>，比常用的私钥算法（如 DES 和 AES）慢上一两个数量级都有可能。所以它不适合为大量的原始信息进行加密。为了同时兼顾安全和效率，我们通常结合使用公钥算法和私钥算法：</p>
+<ol>
+<li>首先，发送方使用对称算法对原始信息进行加密。</li>
+<li>接收方通过公钥机制生成一对密钥，一个公钥，一个私钥。</li>
+<li>接收方 将公钥发送给 发送方。</li>
+<li>发送方用公钥对对称算法的密钥进行加密，并发送给接收方。</li>
+<li>接收方用私钥进行解密得到对称算法的密钥。</li>
+<li>发送方再把已加密的原始信息发送给接收方。</li>
+<li>接收方使用对称算法的密钥进行解密。</li>
+</ol>
+<p><img src="http://img.blog.csdn.net/20150502122733376" alt=""></p>
+<p><br><br><br><br><br><strong>总结：</strong></p>
+<ol>
+<li><p>每个用户都有一对私钥和公钥。  </p>
+<ul>
+<li>私钥用来进行解密和签名，是给自己用的。</li>
+<li>公钥由本人公开，用于加密和验证签名，是给别人用的。</li>
+</ul>
+</li>
+<li><p>当该用户发送文件时，用私钥签名，别人用他给的公钥解密，可以保证该信息是由他发送的。即数字签名。  </p>
+</li>
+<li><p>当该用户接受文件时，别人用他的公钥加密，他用私钥解密，可以保证该信息只能由他看到。即安全传输。</p>
+</li>
+</ol>
+<p><br><br><br><br><br><br></p>
+<p>个人站点：<a href="http://songlee24.github.io/" target="_blank" rel="external">http://songlee24.github.com</a></p>
+<p>图片来源：www.cnblogs.com/chnking/archive/2007/08/30/875947.html</p>
 
         
       </div>
@@ -185,24 +252,16 @@
     
       <div class="post-footer">
         
-          <div class="post-tags">
-            
-              <a href="/tags/设计模式/">
-                #设计模式
-              </a>
-            
-          </div>
-        
 
         
           <div class="post-nav">
             <div class="post-nav-prev post-nav-item">
               
-                <a href="/2014/03/12/observer-pattern/">观察者模式</a>
-              
             </div>
 
             <div class="post-nav-next post-nav-item">
+              
+                <a href="/2015/05/02/endianess/">字节序：Big Endian 和 Little Endian</a>
               
             </div>
           </div>
@@ -219,8 +278,8 @@
   
     <div class="comments" id="comments">
       
-        <div class="ds-thread" data-thread-key="2014/03/11/singleton-pattern/"
-             data-title="单例模式" data-url="http://yoursite.com/2014/03/11/singleton-pattern/">
+        <div class="ds-thread" data-thread-key="2015/05/03/public-key-and-private-key/"
+             data-title="理解公钥与私钥" data-url="http://yoursite.com/2015/05/03/public-key-and-private-key/">
         </div>
 
       
@@ -328,7 +387,7 @@
         <div class="post-toc">
           
           
-            <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#什么是单例模式"><span class="nav-number">1.</span> <span class="nav-text">什么是单例模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#C++代码实现："><span class="nav-number">2.</span> <span class="nav-text">C++代码实现：</span></a></li></ol></div>
+            <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#一、公钥算法与私钥算法"><span class="nav-number">1.</span> <span class="nav-text">一、公钥算法与私钥算法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二、实现数据的安全传输"><span class="nav-number">2.</span> <span class="nav-text">二、实现数据的安全传输</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#三、对信息进行数字签名"><span class="nav-number">3.</span> <span class="nav-text">三、对信息进行数字签名</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#四、公钥算法的缺点"><span class="nav-number">4.</span> <span class="nav-text">四、公钥算法的缺点</span></a></li></ol></div>
           
         </div>
         <div class="post-toc-indicator-bottom post-toc-indicator"></div>
