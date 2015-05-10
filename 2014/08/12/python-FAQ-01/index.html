@@ -22,9 +22,9 @@
 
 
 
-	<meta name="keywords" content="C++," />
+	<meta name="keywords" content="Python," />
 
-  <title> C++学习之模板特例化 // SongLee's Blog </title>
+  <title> Python FAQ1：传值，还是传引用？ // SongLee's Blog </title>
 </head>
 
 <body>
@@ -113,7 +113,7 @@
           
           
             
-              C++学习之模板特例化
+              Python FAQ1：传值，还是传引用？
             
           
         </h1>
@@ -122,7 +122,7 @@
       <div class="post-meta">
         <span class="post-time">
           
-            发表于 2014-07-22
+            发表于 2014-08-11
           
         </span>
 
@@ -131,7 +131,7 @@
             <span class="post-category">
               &nbsp; | &nbsp; 分类于
               
-                <a href="/categories/Lang-C/">Lang.-C++</a>
+                <a href="/categories/Lang-Python/">Lang.-Python</a>
 
                 
                 
@@ -145,8 +145,8 @@
           
             <span class="post-comments-count">
             &nbsp; | &nbsp;
-            <a href="/2014/07/23/cpp-template-specialization/#comments" >
-              <span class="post-comments-count ds-thread-count" data-thread-key="2014/07/23/cpp-template-specialization/"></span>
+            <a href="/2014/08/12/python-FAQ-01/#comments" >
+              <span class="post-comments-count ds-thread-count" data-thread-key="2014/08/12/python-FAQ-01/"></span>
             </a>
           </span>
           
@@ -161,16 +161,35 @@
         
 
         
-          <p><a href="http://songlee24.github.io/blog/2014/07/18/c-plus-plus-xue-xi-zhi-han-shu-mo-ban-yu-lei-mo-ban/" target="_blank" rel="external">模板</a>是C++中一个很重要的特性，写一份代码能用于多种数据类型（包括用户自定义类型）。例如，STL的sort()函数可以用于多种数据类型的排序，类stack可以用作多种数据类型的栈。但是，<strong>如果我们想对特定的数据类型执行不同的代码（而不是通用模板）呢？</strong>这种情况下就可以使用<strong>模板特例化（template specialization）</strong>。</p>
-<h3 id="函数模板特例化">函数模板特例化</h3><a id="more"></a>
-<p>当特例化一个函数模板时，必须为原模板中的每个模板参数都提供实参。使用关键字template后跟一个空尖括号&lt;&gt;，即<code>template &lt;&gt;</code>，以指出我们正在特例化一个模板。<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">fun</span><span class="params">(T a)</span></span><br><span class="line"></span>&#123;</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="string">"The main template fun(): "</span> &lt;&lt; a &lt;&lt; endl;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span> &lt;&gt;   <span class="comment">// 对int型特例化</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">fun</span><span class="params">(<span class="keyword">int</span> a)</span></span><br><span class="line"></span>&#123;</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="string">"Specialized template for int type: "</span> &lt;&lt; a &lt;&lt; endl;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span><br><span class="line"></span>&#123;</span><br><span class="line">	fun&lt;<span class="keyword">char</span>&gt;(<span class="string">'a'</span>);</span><br><span class="line">	fun&lt;<span class="keyword">int</span>&gt;(<span class="number">10</span>);</span><br><span class="line">	fun&lt;<span class="keyword">float</span>&gt;(<span class="number">9.15</span>);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>输出结果：<br><figure class="highlight nimrod"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">The</span> main <span class="keyword">template</span> fun(): a</span><br><span class="line"><span class="type">Specialized</span> <span class="keyword">template</span> <span class="keyword">for</span> <span class="type">int</span> <span class="keyword">type</span>: <span class="number">10</span></span><br><span class="line"><span class="type">The</span> main <span class="keyword">template</span> fun(): <span class="number">9</span>.<span class="number">15</span></span><br></pre></td></tr></table></figure></p>
-<p>对于除int型外的其他数据类型，都会调用通用版本的函数模板<code>fun(T a)</code>；对于int型，则会调用特例化版本的<code>fun(int a)</code>。注意，<strong>一个特例化版本的本质是一个实例</strong>，而非函数的重载。因此，特例化不影响函数匹配。</p>
-<h3 id="类模板特例化">类模板特例化</h3><p>除了特例化函数模板，我们还可以<strong>特例化类模板</strong>。下面是一个简单的例子：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</span><br><span class="line"><span class="keyword">class</span> Test&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">print</span><span class="params">()</span></span>&#123;</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; <span class="string">"General template object"</span> &lt;&lt; endl;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span>&lt;&gt;   <span class="comment">// 对int型特例化</span></span><br><span class="line"><span class="keyword">class</span> Test&lt;<span class="keyword">int</span>&gt;&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">print</span><span class="params">()</span></span>&#123;</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; <span class="string">"Specialized template object"</span> &lt;&lt; endl;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span><br><span class="line"></span>&#123;</span><br><span class="line">	Test&lt;<span class="keyword">int</span>&gt; a;</span><br><span class="line">	Test&lt;<span class="keyword">char</span>&gt; b;</span><br><span class="line">	Test&lt;<span class="keyword">float</span>&gt; c;</span><br><span class="line">	a.print();</span><br><span class="line">	b.print();</span><br><span class="line">	c.print();</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>输出结果：<br><figure class="highlight nimrod"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Specialized</span> <span class="keyword">template</span> <span class="keyword">object</span></span><br><span class="line"><span class="type">General</span> <span class="keyword">template</span> <span class="keyword">object</span></span><br><span class="line"><span class="type">General</span> <span class="keyword">template</span> <span class="keyword">object</span></span><br></pre></td></tr></table></figure></p>
-<p>另外，与函数模板不同，类模板的特例化不必为所有模板参数提供实参。我们可以只指定一部分而非所有模板参数，这种叫做类模板的<strong>偏特化</strong> 或 <strong>部分特例化（partial specialization）</strong>。例如，C++标准库中的类vector的定义：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T, <span class="keyword">typename</span> Allocator&gt;</span><br><span class="line"><span class="keyword">class</span> <span class="built_in">vector</span></span><br><span class="line">&#123;</span><br><span class="line">	<span class="comment">/*......*/</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 部分特例化</span></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> Allocator&gt;</span><br><span class="line"><span class="keyword">class</span> <span class="built_in">vector</span>&lt;<span class="keyword">bool</span>, Allocator&gt;</span><br><span class="line">&#123;</span><br><span class="line">	<span class="comment">/*......*/</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
-<p>在vector这个例子中，一个参数被绑定到bool类型，而另一个参数仍未绑定需要由用户指定。注意，一个类模板的部分特例化版本仍然是一个模板，因为使用它时用户还必须为那些在特例化版本中未指定的模板参数提供实参。</p>
-<p><br><br><br></p>
+          <p>在C/C++中，传值和传引用是函数参数传递的两种方式。由于思维定式，从C/C++转过来的Python初学者也经常会感到疑惑：<strong>在Python中，<a href="http://songlee24.github.io/2014/08/09/python-basic-05/" target="_blank" rel="external">函数</a>参数传递是传值，还是传引用呢？</strong></p>
+<p>看下面两段代码：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">foo</span><span class="params">(arg)</span>:</span></span><br><span class="line">	arg = <span class="number">5</span></span><br><span class="line">	print(arg)</span><br><span class="line"></span><br><span class="line">x = <span class="number">1</span></span><br><span class="line">foo(x)    <span class="comment"># 输出5</span></span><br><span class="line">print(x)  <span class="comment"># 输出1</span></span><br></pre></td></tr></table></figure></p>
+<a id="more"></a>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">foo</span><span class="params">(arg)</span>:</span></span><br><span class="line">	arg.append(<span class="number">3</span>)</span><br><span class="line"></span><br><span class="line">x = [<span class="number">1</span>, <span class="number">2</span>]</span><br><span class="line">print(x)   <span class="comment"># 输出[1, 2]</span></span><br><span class="line">foo(x)</span><br><span class="line">print(x)   <span class="comment"># 输出[1, 2, 3]</span></span><br></pre></td></tr></table></figure>
+<p>看完第一段代码，会有人说这是<strong>值传递</strong>，因为函数并没有改变x的值；看完第二段代码，又会有人说这是<strong>传引用</strong>，因为函数改变了x的内容。</p>
+<p>那么，Python中的函数到底是传值还是传引用呢？看下面的解释。</p>
+<p><br></p>
+<h3 id="一、变量和对象">一、变量和对象</h3><p>我们需要先知道Python中的“变量”与C/C++中“变量”是不同的。</p>
+<p><strong>在C/C++中</strong>，当你初始化一个变量时，就是声明一块存储空间并写入值。相当于<strong>把一个值放入一个盒子里</strong>：<br><code>int a = 1;</code><br><img src="http://img.blog.csdn.net/20140811213617169?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvbGlzb25nbGlzb25nbGlzb25n/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt=""><br>现在”a”盒子里放了一个整数1，当给变量a赋另外一个值时会替换盒子a里面的内容：<br><code>a = 2;</code><br><img src="http://img.blog.csdn.net/20140811214003681?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvbGlzb25nbGlzb25nbGlzb25n/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt=""><br>当你把变量a赋给另外一个变量时，会拷贝a盒子中的值并放入一个新的“盒子”里：<br><code>int b = a;</code><br><img src="http://img.blog.csdn.net/20140811214347058?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvbGlzb25nbGlzb25nbGlzb25n/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt=""><br><img src="http://img.blog.csdn.net/20140811214003681?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvbGlzb25nbGlzb25nbGlzb25n/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt=""></p>
+<p><strong>在Python中</strong>，一个变量可以说是<strong>内存中的一个对象的“标签”或“引用”</strong>：<br><code>a = 1</code><br><img src="http://img.blog.csdn.net/20140811215128273?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvbGlzb25nbGlzb25nbGlzb25n/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt=""><br>现在变量a指向了内存中的一个int型的对象（a相当于对象的标签）。如果给a重新赋值，那么标签a将会移动并指向另一个对象：<br><code>a = 2</code><br><img src="http://img.blog.csdn.net/20140811215650741?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvbGlzb25nbGlzb25nbGlzb25n/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt=""><br>原来的值为1的int型对象仍然存在，但我们不能再通过a这个标识符去访问它了（<strong>当一个对象没有任何标签或引用指向它时，它就会被自动释放</strong>）。如果我们把变量a赋给另一个变量，我们只是给当前内存中对象增加一个“标签”而已：<br><code>b = a</code><br><img src="http://img.blog.csdn.net/20140811220515281?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvbGlzb25nbGlzb25nbGlzb25n/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt=""></p>
+<p>综上所述，在Python中变量只是一个标签一个标识符，它指向内存中的对象。故<strong>变量并没有类型，类型是属于对象的</strong>，这也是Python中的变量可以被任何类型赋值的原因。</p>
+<p><br></p>
+<h3 id="二、可变对象与不可变对象">二、可变对象与不可变对象</h3><p>在<a href="http://songlee24.github.io/blog/2014/08/08/python3ji-chu-er/" target="_blank" rel="external"><strong>Python的基本数据类型</strong></a>中，我们知道numbers、strings和tuples是不可更改的对象，而list、dict是可以修改的对象。那么可变与不可变有什么区别呢？看下面示例：<br><figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="operator">a</span> = <span class="number">1</span>     <span class="comment"># a指向内存中一个int型对象</span></span><br><span class="line"><span class="operator">a</span> = <span class="number">2</span>     <span class="comment"># 重新赋值</span></span><br></pre></td></tr></table></figure></p>
+<p>当将a重新赋值时，因为原来值为1的对象是不能改变的，所以a会指向一个新的int对象，其值为2。（如上面的图示）<br><figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="title">lst</span> = [<span class="number">1</span>, <span class="number">2</span>]   <span class="comment"># lst指向内存中一个list类型的对象</span></span><br><span class="line">lst[<span class="number">0</span>] = <span class="number">2</span>     <span class="comment"># 重新赋值lst中第一个元素</span></span><br></pre></td></tr></table></figure></p>
+<p>因为list类型是可以改变的，所以第一个元素变更为2。更确切的说，lst的第一个元素是int型，重新赋值时一个新的int对象被指定给第一个元素，但是对于lst来说，它所指的列表型对象没有变，只是列表的内容（其中一个元素）改变了。</p>
+<p>好了，到这里我们就很容易解释本文开头的两段代码了：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">foo</span><span class="params">(arg)</span>:</span></span><br><span class="line">	arg = <span class="number">5</span></span><br><span class="line">	print(arg)</span><br><span class="line"></span><br><span class="line">x = <span class="number">1</span></span><br><span class="line">foo(x)    <span class="comment"># 输出5</span></span><br><span class="line">print(x)  <span class="comment"># 输出1</span></span><br></pre></td></tr></table></figure></p>
+<p>上面这段代码把x作为参数传递给函数，这时x和arg都指向内存中值为1的对象。然后在函数中arg = 5时，因为int对象不可改变，于是创建一个新的int对象（值为5）并且令arg指向它。而x仍然指向原来的值为1的int对象，所以函数没有改变x变量。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">foo</span><span class="params">(arg)</span>:</span></span><br><span class="line">	arg.append(<span class="number">3</span>)</span><br><span class="line"></span><br><span class="line">x = [<span class="number">1</span>, <span class="number">2</span>]</span><br><span class="line">print(x)   <span class="comment"># 输出[1, 2]</span></span><br><span class="line">foo(x)</span><br><span class="line">print(x)   <span class="comment"># 输出[1, 2, 3]</span></span><br></pre></td></tr></table></figure></p>
+<p>这段代码同样把x传递给函数foo，那么x和arg都会指向同一个list类型的对象。因为list对象是可以改变的，函数中使用append在其末尾添加了一个元素，list对象的内容发生了改变，但是x和arg仍然是指向这一个list对象，所以变量x的内容发生了改变。</p>
+<p>那么Python中参数传递是传值，还是传引用呢？准确的回答：<strong>都不是</strong>。之所以不是传值，因为没有产生复制，而且函数拥有与调用者同样的对象。而似乎更像是C++的传引用？但是有时却不能改变实参的值。只能这样说：<strong>对于不可变的对象，它看起来像C++中的传值方式；对于可变对象，它看起来像C++中的按引用传递。</strong></p>
+<p><br><br></p>
+<h3 id="附：_Everything_is_Object_in_Python">附：  <strong>Everything is Object in Python</strong></h3><p>Python使用对象模型来储存数据，任何类型的值都是一个对象。所有的python对象都有3个特征：身份、类型和值。</p>
+<ul>
+<li><strong>身份</strong>：每一个对象都有自己的唯一的标识，可以使用内建函数<strong>id()</strong>来得到它。这个值可以被认为是该对象的内存地址。</li>
+<li><strong>类型</strong>：对象的类型决定了该对象可以保存的什么类型的值，可以进行什么操作，以及遵循什么样的规则。<strong>type()</strong>函数来查看python 对象的类型。</li>
+<li><strong>值</strong>：对象表示的数据项。</li>
+</ul>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; <span class="tag">a</span> = <span class="number">1</span></span><br><span class="line">&gt;&gt;&gt; <span class="function"><span class="title">id</span><span class="params">(a)</span></span></span><br><span class="line"><span class="number">140068196051520</span></span><br><span class="line">&gt;&gt;&gt; <span class="tag">b</span> = <span class="number">2</span></span><br><span class="line">&gt;&gt;&gt; <span class="function"><span class="title">id</span><span class="params">(b)</span></span></span><br><span class="line"><span class="number">140068196051552</span></span><br><span class="line">&gt;&gt;&gt; c = <span class="tag">a</span></span><br><span class="line">&gt;&gt;&gt; <span class="function"><span class="title">id</span><span class="params">(c)</span></span></span><br><span class="line"><span class="number">140068196051520</span></span><br><span class="line">&gt;&gt;&gt; c is <span class="tag">a</span></span><br><span class="line">True</span><br><span class="line">&gt;&gt;&gt; c is not <span class="tag">b</span></span><br><span class="line">True</span><br></pre></td></tr></table></figure>
+<p>运算符<code>is</code>、<code>is not</code>就是通过id()的返回值（即身份）来判定的，也就是看它们是不是同一个对象的“标签”。</p>
+<p>（全文完）<br><br><br><br><br></p>
 
         
       </div>
@@ -181,8 +200,8 @@
         
           <div class="post-tags">
             
-              <a href="/tags/C/">
-                #C++
+              <a href="/tags/Python/">
+                #Python
               </a>
             
           </div>
@@ -192,13 +211,11 @@
           <div class="post-nav">
             <div class="post-nav-prev post-nav-item">
               
-                <a href="/2014/07/25/cpp-namespace/">C++学习之命名空间</a>
-              
             </div>
 
             <div class="post-nav-next post-nav-item">
               
-                <a href="/2014/07/22/cpp-changeable-parameter/">C++学习之可变参数的函数与模板</a>
+                <a href="/2014/08/09/python-basic-05/">Python3基础（五） 函数</a>
               
             </div>
           </div>
@@ -215,8 +232,8 @@
   
     <div class="comments" id="comments">
       
-        <div class="ds-thread" data-thread-key="2014/07/23/cpp-template-specialization/"
-             data-title="C++学习之模板特例化" data-url="http://yoursite.com/2014/07/23/cpp-template-specialization/">
+        <div class="ds-thread" data-thread-key="2014/08/12/python-FAQ-01/"
+             data-title="Python FAQ1：传值，还是传引用？" data-url="http://yoursite.com/2014/08/12/python-FAQ-01/">
         </div>
 
       
@@ -324,7 +341,7 @@
         <div class="post-toc">
           
           
-            <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#函数模板特例化"><span class="nav-number">1.</span> <span class="nav-text">函数模板特例化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#类模板特例化"><span class="nav-number">2.</span> <span class="nav-text">类模板特例化</span></a></li></ol></div>
+            <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#一、变量和对象"><span class="nav-number">1.</span> <span class="nav-text">一、变量和对象</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二、可变对象与不可变对象"><span class="nav-number">2.</span> <span class="nav-text">二、可变对象与不可变对象</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#附：_Everything_is_Object_in_Python"><span class="nav-number">3.</span> <span class="nav-text">附：  Everything is Object in Python</span></a></li></ol></div>
           
         </div>
         <div class="post-toc-indicator-bottom post-toc-indicator"></div>
