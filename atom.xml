@@ -4,7 +4,7 @@
   <subtitle><![CDATA[李松]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://yoursite.com/"/>
-  <updated>2015-05-10T11:02:28.213Z</updated>
+  <updated>2015-05-10T11:10:12.904Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -13,6 +13,71 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[面试题之strcpy/strlen/strcat/strcmp的实现]]></title>
+    <link href="http://yoursite.com/2015/03/15/string-operating-function/"/>
+    <id>http://yoursite.com/2015/03/15/string-operating-function/</id>
+    <published>2015-03-15T09:15:22.000Z</published>
+    <updated>2015-05-10T11:10:12.904Z</updated>
+    <content type="html"><![CDATA[<p>阿里的电面要我用C/C++实现一个字符串拷贝的函数，虽然以前写过 strcpy 的函数实现，但时间过去很久了，再加上有点紧张，突然就措手不及了。最后写是写出来了，但没考虑异常的情况，面试官好像很不满意。(T_T)，写篇文章记录一下，以免日后重蹈覆辙。</p>
+<h3 id="一、字符串拷贝strcpy">一、字符串拷贝strcpy</h3><p>函数<code>strcpy</code>的原型是<code>char* strcpy(char* des , const char* src)</code>，des 和 src 所指内存区域不可以重叠且 des 必须有足够的空间来容纳 src 的字符串。<a id="more"></a><br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#<span class="keyword">include</span> &lt;assert.h&gt;</span></span><br><span class="line"><span class="preprocessor">#<span class="keyword">include</span> &lt;stdio.h&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">char</span>* <span class="built_in">strcpy</span>(<span class="keyword">char</span>* des, <span class="keyword">const</span> <span class="keyword">char</span>* src)</span><br><span class="line">&#123;</span><br><span class="line">	assert((des!=NULL) &amp;&amp; (src!=NULL)); </span><br><span class="line">	<span class="keyword">char</span> *address = des;  </span><br><span class="line">	<span class="keyword">while</span>((*des++ = *src++) != <span class="string">'\0'</span>)  </span><br><span class="line">		;  </span><br><span class="line">	<span class="keyword">return</span> address;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>注意：</p>
+<ul>
+<li><p>源指针所指的字符串内容是不能修改的，因此应该声明为 const 类型。</p>
+</li>
+<li><p>要判断源指针和目的指针为空的情况，思维要严谨，这里使用<code>assert</code>（见文末）。</p>
+</li>
+<li><p>要用一个临时变量保存目的串的首地址，最后返回这个首地址。</p>
+</li>
+<li><p>函数返回 char* 的目的是为了支持链式表达式，即strcpy可以作为其他函数的实参。</p>
+</li>
+</ul>
+<p><br></p>
+<h3 id="二、字符串长度strlen">二、字符串长度strlen</h3><p>函数<code>strlen</code>的原型是<code>size_t strlen(const char *s)</code>，其中 size_t 就是 unsigned int。<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#<span class="keyword">include</span> &lt;assert.h&gt;</span></span><br><span class="line"><span class="preprocessor">#<span class="keyword">include</span> &lt;stdio.h&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">strlen</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span>* str)</span></span><br><span class="line"></span>&#123;</span><br><span class="line">	assert(str != NULL);</span><br><span class="line">	<span class="keyword">int</span> len = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">while</span>((*str++) != <span class="string">'\0'</span>)</span><br><span class="line">		++len;</span><br><span class="line">	<span class="keyword">return</span> len;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>strlen 与 sizeof 的区别：</p>
+<ul>
+<li><p>sizeof是运算符，strlen是库函数。</p>
+</li>
+<li><p>sizeof可以用类型、变量做参数，而strlen只能用 char* 变量做参数，且必须以<code>\0</code>结尾。</p>
+</li>
+<li><p>sizeof是在编译的时候计算类型或变量所占内存的大小，而strlen的结果要在运行的时候才能计算出来，用来计算字符串的长度。</p>
+</li>
+<li><p>数组做sizeof的参数不退化，传递给strlen就退化为指针了。</p>
+</li>
+</ul>
+<p><br></p>
+<h3 id="三、字符串连接strcat">三、字符串连接strcat</h3><p>函数<code>strcat</code>的原型是<code>char* strcat(char* des, char* src)</code>，des 和 src 所指内存区域不可以重叠且 des 必须有足够的空间来容纳 src 的字符串。<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#<span class="keyword">include</span> &lt;assert.h&gt;</span></span><br><span class="line"><span class="preprocessor">#<span class="keyword">include</span> &lt;stdio.h&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">char</span>* <span class="built_in">strcat</span>(<span class="keyword">char</span>* des, <span class="keyword">const</span> <span class="keyword">char</span>* src)   <span class="comment">// const表明为输入参数 </span></span><br><span class="line">&#123;  </span><br><span class="line">	assert((des!=NULL) &amp;&amp; (src!=NULL));</span><br><span class="line">	<span class="keyword">char</span>* address = des;</span><br><span class="line">	<span class="keyword">while</span>(*des != <span class="string">'\0'</span>)  <span class="comment">// 移动到字符串末尾</span></span><br><span class="line">		++des;</span><br><span class="line">	<span class="keyword">while</span>(*des++ = *src++)</span><br><span class="line">		;</span><br><span class="line">	<span class="keyword">return</span> address;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><br></p>
+<h3 id="四、字符串比较strcmp">四、字符串比较strcmp</h3><p>函数<code>strcmp</code>的原型是<code>int strcmp(const char *s1,const char *s2)</code>。  </p>
+<ul>
+<li>若s1==s2，返回零；</li>
+<li>若s1&gt;s2，返回正数；</li>
+<li>若s1&lt;s2，返回负数。</li>
+</ul>
+<p>即：两个字符串自左向右逐个字符相比（按ASCII值大小相比较），直到出现不同的字符或遇<code>\0</code>为止。<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#<span class="keyword">include</span> &lt;assert.h&gt;</span></span><br><span class="line"><span class="preprocessor">#<span class="keyword">include</span> &lt;stdio.h&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">strcmp</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span> *s1,<span class="keyword">const</span> <span class="keyword">char</span> *s2)</span></span><br><span class="line"></span>&#123;</span><br><span class="line">	assert((s1!=NULL) &amp;&amp; (s2!=NULL));</span><br><span class="line">    <span class="keyword">while</span>(*s1 == *s2)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span>(*s1 == <span class="string">'\0'</span>)</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">         </span><br><span class="line">        ++s1;</span><br><span class="line">        ++s2;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> *s1 - *s2;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><br><br><br><br><br></p>
+<h3 id="附：assert()断言">附：assert()断言</h3><p><code>assert</code>是宏，而不是函数。它的原型定义在头文件 assert.h 中：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">assert</span><span class="params">( <span class="keyword">int</span> expression )</span></span>;</span><br></pre></td></tr></table></figure></p>
+<p>宏 assert 经常用于在函数开始处检验传入参数的合法性，可以将其看作是异常处理的一种高级形式。<strong>assert 的作用是</strong>先计算表达式expression，然后判断：</p>
+<ul>
+<li><p>如果表达式值为假，那么它先向stderr打印错误信息，然后通过调用 abort 来终止程序运行。</p>
+</li>
+<li><p>如果表达式值为真，继续运行后面的程序。</p>
+</li>
+</ul>
+<p>注意：<code>assert</code>只在 DEBUG 下生效，在调试结束后，可以通过在<code>#include &lt;assert.h&gt;</code>语句之前插入<code>#define NDEBUG</code>来禁用assert调用。</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>阿里的电面要我用C/C++实现一个字符串拷贝的函数，虽然以前写过 strcpy 的函数实现，但时间过去很久了，再加上有点紧张，突然就措手不及了。最后写是写出来了，但没考虑异常的情况，面试官好像很不满意。(T_T)，写篇文章记录一下，以免日后重蹈覆辙。</p>
+<h3 id="一、字符串拷贝strcpy">一、字符串拷贝strcpy</h3><p>函数<code>strcpy</code>的原型是<code>char* strcpy(char* des , const char* src)</code>，des 和 src 所指内存区域不可以重叠且 des 必须有足够的空间来容纳 src 的字符串。]]>
+    
+    </summary>
+    
+      <category term="Interview" scheme="http://yoursite.com/tags/Interview/"/>
+    
+      <category term="试题-笔试面试" scheme="http://yoursite.com/categories/%E8%AF%95%E9%A2%98-%E7%AC%94%E8%AF%95%E9%9D%A2%E8%AF%95/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[二叉查找树（BST）]]></title>
@@ -1361,57 +1426,6 @@
 <h3 id="一、定义">一、定义</h3><p>常见的两种错误：语法错误 和 异常。</p>
 <p><strong>1、语法错误（Syntax Errors）</strong></p>
 <p>语法错误，也就是解析时错误。当我们写出不符合python语法的代码时，在解析时会报SyntaxError，并且会显示出错的那一行，并用小箭头指明最早探测到错误的位置。比如：]]>
-    
-    </summary>
-    
-      <category term="Python" scheme="http://yoursite.com/tags/Python/"/>
-    
-      <category term="Lang.-Python" scheme="http://yoursite.com/categories/Lang-Python/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[Python3基础（八） 模块]]></title>
-    <link href="http://yoursite.com/2014/08/18/python-basic-08/"/>
-    <id>http://yoursite.com/2014/08/18/python-basic-08/</id>
-    <published>2014-08-18T13:45:54.000Z</published>
-    <updated>2015-05-10T07:52:11.121Z</updated>
-    <content type="html"><![CDATA[<p>在程序中定义<a href="http://songlee24.github.io/2014/08/09/python-basic-05/" target="_blank" rel="external">函数</a>可以实现代码重用。但当你的代码逐渐变得庞大时，你可能想要把它分割成几个文件，以便能够更简单地维护。同时，你希望在一个文件中写的代码能够被其他文件所重用，这时我们应该使用<strong>模块（module）</strong>。</p>
-<h3 id="一、导入模块">一、导入模块</h3><p>在Python中，一个<code>.py</code>文件就构成一个模块。一个模块中的定义可以<strong>导入（import）</strong>到另一个模块或主模块。</p>
-<p>比如你可以通过内置模块platform来查看你当前的操作平台信息：<a id="more"></a><br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> platform</span><br><span class="line">s = platform.platform()</span><br><span class="line">print(s)</span><br><span class="line"><span class="comment"># 我的输出：Linux-3.15.8-200.fc20.x86_64-x86_64-with-fedora-20-Heisenbug</span></span><br></pre></td></tr></table></figure></p>
-<p>又比如你可以通过内置模块time获取当前的时间：<br><figure class="highlight monkey"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor"><span class="keyword">import</span> time</span></span><br><span class="line">s = time.ctime()</span><br><span class="line"><span class="built_in">print</span>(s)<span class="preprocessor"></span><br><span class="line"># 输出：Mon Aug 18 16:04:57 2014</span></span><br></pre></td></tr></table></figure></p>
-<p>每个模块有其私有的符号表，在该模块内部当成全局符号表来使用。 当我们将一个模块导入到当前模块时，只有被导入模块的名称被放入当前模块的全局符号表里，所以我们不用担心变量名发生冲突。</p>
-<p><strong>其他几种导入方式：</strong></p>
-<p>1、<code>import a as b</code>：导入模块a，并将模块a重命名为b。<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">import <span class="tag">time</span> as x   </span><br><span class="line">s = x.<span class="function"><span class="title">ctime</span><span class="params">()</span></span></span><br><span class="line"><span class="function"><span class="title">print</span><span class="params">(s)</span></span></span><br></pre></td></tr></table></figure></p>
-<p>2、<code>from a import func</code>：直接把模块内的函数或变量的名称导入当前模块符号表里。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> time <span class="keyword">import</span> ctime</span><br><span class="line">s = ctime()   <span class="comment"># 这时可以直接调用函数，而不用再使用time.ctime()</span></span><br><span class="line">print(s)</span><br></pre></td></tr></table></figure></p>
-<p>3、<code>from a import *</code>：导入模块中所有的名字（以下划线开头的名字除外）到当前模块符号表里。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> time <span class="keyword">import</span> *</span><br><span class="line">s = ctime()   </span><br><span class="line">print(s)</span><br></pre></td></tr></table></figure></p>
-<p>注意：导入 * 是不好的，因为它常常产生难以阅读的代码，并且会容易产生名字冲突。</p>
-<p><br></p>
-<h3 id="二、模块搜索路径">二、模块搜索路径</h3><p>当导入名为 a 的模块时, 解释器会先从内建模块尝试匹配，如果没找到，则将在 <code>sys.path</code> 记录的所有目录中搜索 a.py 文件，而<code>sys.path</code>则包括：</p>
-<ul>
-<li>当前程序所在目录</li>
-<li>标准库的安装目录</li>
-<li>操作系统环境变量PYTHONPATH所包含的目录</li>
-</ul>
-<p>变量 sys.path 是一个字符串列表，它为解释器指定了模块的搜索路径。它通过环境变量 PATHONPATH 初始化为一个默认路径，当没有设置 PYTHONPATH 时, 就使用内建默认值来初始化。你可以通过标准 list 操作来修改它：<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="prompt">&gt;&gt;</span>&gt; import sys</span><br><span class="line"><span class="prompt">&gt;&gt;</span>&gt; sys.path.append(<span class="string">'/ufs/guido/lib/python'</span>)</span><br></pre></td></tr></table></figure></p>
-<p><br></p>
-<h3 id="三、模块的__name__">三、模块的__name__</h3><p>对于任何一个模块，模块的名字都可以通过全局变量 <code>__name__</code>得到：<br><figure class="highlight dos"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">import <span class="built_in">time</span></span><br><span class="line">s = <span class="built_in">time</span>.__name__</span><br><span class="line"><span class="built_in">print</span>(s)    # 输出<span class="built_in">time</span></span><br></pre></td></tr></table></figure></p>
-<p>一个模块既可以在其它模块中导入使用，也可以当作脚本直接运行。不同的是，当导入到其他模块时，__name__的值是被导入模块的名字；而当作为脚本运行时，__name__的值被设为<strong>“__main__“</strong>：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># test.py</span></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">	<span class="built_in">print</span>(<span class="string">'This program is being run by itself'</span>)</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">	<span class="built_in">print</span>(<span class="string">'I am being imported into another module'</span>)</span><br></pre></td></tr></table></figure></p>
-<p>当作脚本执行：<br><figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ python <span class="keyword">test</span>.py </span><br><span class="line">This <span class="keyword">program</span> is being <span class="keyword">run</span> <span class="keyword">by</span> itself</span><br></pre></td></tr></table></figure></p>
-<p>当作导入模块使用：<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="prompt">&gt;&gt;</span>&gt; import test</span><br><span class="line"><span class="constant">I</span> am being imported into another <span class="class"><span class="keyword">module</span></span></span><br><span class="line"><span class="prompt">&gt;&gt;</span>&gt;</span><br></pre></td></tr></table></figure></p>
-<p><br></p>
-<h3 id="四、dir()_函数">四、dir() 函数</h3><p>在<a href="http://songlee24.github.io/2014/08/13/python-basic-06/" target="_blank" rel="external">Python3基础六</a>中我们提到，可以通过内置dir()函数查询一个类或者对象的所有属性。除此之外，我们还可以用它列出一个模块里定义的所有名字，它返回一个有序字串列表：<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="prompt">&gt;&gt;</span>&gt; import builtins</span><br><span class="line"><span class="prompt">&gt;&gt;</span>&gt; dir(builtins)</span><br></pre></td></tr></table></figure></p>
-<p><br></p>
-<h3 id="五、包">五、包</h3><p>可以把多个模块，即多个.py文件，放在同一个文件夹中，构成一个<strong>包（Package）</strong>。例如：<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">sound/                          顶级包</span><br><span class="line">      __init__<span class="class">.py</span>               初始化这个声音包</span><br><span class="line">      formats/                  格式转换子包</span><br><span class="line">              __init__<span class="class">.py</span></span><br><span class="line">              wavread<span class="class">.py</span></span><br><span class="line">              wavwrite<span class="class">.py</span></span><br><span class="line">              aiffread<span class="class">.py</span></span><br><span class="line">              aiffwrite<span class="class">.py</span></span><br><span class="line">              auread<span class="class">.py</span></span><br><span class="line">              auwrite<span class="class">.py</span></span><br><span class="line">              ...</span><br><span class="line">      effects/                  音效子包</span><br><span class="line">              __init__<span class="class">.py</span></span><br><span class="line">              echo<span class="class">.py</span></span><br><span class="line">              surround<span class="class">.py</span></span><br><span class="line">              reverse<span class="class">.py</span></span><br><span class="line">              ...</span><br><span class="line">      filters/                  过滤器子包</span><br><span class="line">              __init__<span class="class">.py</span></span><br><span class="line">              equalizer<span class="class">.py</span></span><br><span class="line">              vocoder<span class="class">.py</span></span><br><span class="line">              karaoke<span class="class">.py</span></span><br><span class="line">              ...</span><br></pre></td></tr></table></figure></p>
-<p>注意：在每个包文件夹里都必须包含一个 __init__.py 的文件，告诉Python，该文件夹是一个包。__init__.py 可以是一个空文件。</p>
-<p>我们可以通过<code>import 包名.模块名</code>导入包中的子模块，例如：<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">import sound<span class="class">.effects</span><span class="class">.echo</span></span><br></pre></td></tr></table></figure></p>
-<p>当然，也可以使用<code>from... import...</code>句式导入包中的模块：<br><figure class="highlight capnproto"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sound.effects <span class="keyword">import</span> echo               <span class="comment"># 导入echo子模块</span></span><br><span class="line"><span class="keyword">from</span> sound.effects.echo <span class="keyword">import</span> echofilter    <span class="comment"># 导入echo子模块中的函数或变量</span></span><br><span class="line"><span class="keyword">from</span> sound.effects <span class="keyword">import</span> *                  <span class="comment"># 导入__all__变量中所有的子模块</span></span><br></pre></td></tr></table></figure></p>
-<p><br><br><br><br></p>
-]]></content>
-    <summary type="html">
-    <![CDATA[<p>在程序中定义<a href="http://songlee24.github.io/2014/08/09/python-basic-05/">函数</a>可以实现代码重用。但当你的代码逐渐变得庞大时，你可能想要把它分割成几个文件，以便能够更简单地维护。同时，你希望在一个文件中写的代码能够被其他文件所重用，这时我们应该使用<strong>模块（module）</strong>。</p>
-<h3 id="一、导入模块">一、导入模块</h3><p>在Python中，一个<code>.py</code>文件就构成一个模块。一个模块中的定义可以<strong>导入（import）</strong>到另一个模块或主模块。</p>
-<p>比如你可以通过内置模块platform来查看你当前的操作平台信息：]]>
     
     </summary>
     
