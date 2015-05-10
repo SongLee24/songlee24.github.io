@@ -166,8 +166,8 @@
 <p>常常会有频繁申请、释放内存的需求，比如在发送网络报文时，每次都要分配内存以存储报文，等报文发送完成后又需要删除报文。<br><a id="more"></a><br>为了避免频繁的new/delete对系统带来的开销，需要实现一个通用的FreeList机制。使用者总是从free list中分配内存，如果存在没有使用的内存块就直接摘出来使用，如果没有的话再从系统中分配。使用完毕后并不去直接delete该内存块，而是交给FreeList保管。</p>
 <p>要求：</p>
 <ol>
-<li><em>实现一个对固定大小内存块进行管理的通用FreeList类，给出定义和实现。要求不能使用STL中的容器类。定义类的接口和实现时注意通用性、健壮性和可测试性。</em></li>
-<li><em>如果该类的对象可能会被多个thread同时访问，请描述如何怎样保证线程安全。有没有办法在保证线程安全的同时尽可能增大并发度？如果有也请描述你的思路。</em></li>
+<li>实现一个对固定大小内存块进行管理的通用FreeList类，给出定义和实现。要求不能使用STL中的容器类。定义类的接口和实现时注意通用性、健壮性和可测试性。</li>
+<li>如果该类的对象可能会被多个thread同时访问，请描述如何怎样保证线程安全。有没有办法在保证线程安全的同时尽可能增大并发度？如果有也请描述你的思路。</li>
 </ol>
 </blockquote>
 <p><br></p>
@@ -223,6 +223,8 @@
         
           <div class="post-nav">
             <div class="post-nav-prev post-nav-item">
+              
+                <a href="/2015/04/21/linux-IPC/">【Linux编程】进程间通信（IPC）</a>
               
             </div>
 
@@ -289,7 +291,7 @@
       <p class="site-description motion-element">放宽心，多努力</p>
       <div class="site-state motion-element">
         <div class="site-state-item site-state-posts">
-          <span class="site-state-item-count">65</span>
+          <span class="site-state-item-count">66</span>
           <span class="site-state-item-name">日志</span>
         </div>
         <div class="site-state-item site-state-tags">
