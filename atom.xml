@@ -4,7 +4,7 @@
   <subtitle><![CDATA[李松]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://yoursite.com/"/>
-  <updated>2015-05-10T12:36:04.686Z</updated>
+  <updated>2015-05-10T12:43:40.916Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -19,14 +19,14 @@
     <link href="http://yoursite.com/2015/05/10/design-LRU-Cache/"/>
     <id>http://yoursite.com/2015/05/10/design-LRU-Cache/</id>
     <published>2015-05-10T12:33:13.000Z</published>
-    <updated>2015-05-10T12:36:04.686Z</updated>
+    <updated>2015-05-10T12:43:40.916Z</updated>
     <content type="html"><![CDATA[<h3 id="一、什么是Cache">一、什么是Cache</h3><h4 id="1_概念">1 概念</h4><p><strong>Cache</strong>，即<strong>高速缓存</strong>，是介于CPU和内存之间的高速小容量存储器。在金字塔式存储体系中它位于自顶向下的第二层，仅次于CPU寄存器。其容量远小于内存，但速度却可以接近CPU的频率。</p>
 <p>当CPU发出内存访问请求时，会先查看 Cache 内是否有请求数据。</p>
 <ul>
 <li>如果存在（命中），则直接返回该数据；</li>
-<li>如果不存在（失效），再去访问内存 —— 先把内存中的相应数据载入缓存，再将其返回处理器。</li>
+<li>如果不存在（失效），再去访问内存 —— 先把内存中的相应数据载入缓存，再将其返回处理器。<a id="more"></a>
+提供“高速缓存”的<strong>目的</strong>是让数据访问的速度适应CPU的处理速度，通过减少访问内存的次数来提高数据存取的速度。</li>
 </ul>
-<p>提供“高速缓存”的<strong>目的</strong>是让数据访问的速度适应CPU的处理速度，通过减少访问内存的次数来提高数据存取的速度。<a id="more"></a></p>
 <h4 id="2_原理">2 原理</h4><p>Cache 技术所依赖的原理是”程序执行与数据访问的<strong>局部性原理</strong>“，这种局部性表现在两个方面：</p>
 <ol>
 <li><strong>时间局部性</strong>：如果程序中的某条指令一旦执行，不久以后该指令可能再次执行，如果某数据被访问过，不久以后该数据可能再次被访问。</li>
@@ -72,9 +72,7 @@
 <p>当CPU发出内存访问请求时，会先查看 Cache 内是否有请求数据。</p>
 <ul>
 <li>如果存在（命中），则直接返回该数据；</li>
-<li>如果不存在（失效），再去访问内存 —— 先把内存中的相应数据载入缓存，再将其返回处理器。</li>
-</ul>
-<p>提供“高速缓存”的<strong>目的</strong>是让数据访问的速度适应CPU的处理速度，通过减少访问内存的次数来提高数据存取的速度。]]>
+<li>如果不存在（失效），再去访问内存 —— 先把内存中的相应数据载入缓存，再将其返回处理器。]]>
     
     </summary>
     
