@@ -260,6 +260,54 @@
 <li>从符点数到整数的转换可能会舍入也可能截断，建议使用math.floor()和math.ceil()明确定义的转换。</li>
 <li>Python定义<code>pow(0, 0)</code>和<code>0 ** 0</code>等于1。</li>
 </ol>
+<h3 id="比较运算符">比较运算符</h3><table>
+<thead>
+<tr>
+<th>运算符</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>&lt;</td>
+<td>小于</td>
+</tr>
+<tr>
+<td>&lt;=</td>
+<td>小于或等于</td>
+</tr>
+<tr>
+<td>&gt;</td>
+<td>大于</td>
+</tr>
+<tr>
+<td>&gt;=</td>
+<td>大于或等于</td>
+</tr>
+<tr>
+<td>==</td>
+<td>等于</td>
+</tr>
+<tr>
+<td>!=</td>
+<td>不等于</td>
+</tr>
+<tr>
+<td>is</td>
+<td>判断两个标识符是不是引用自一个对象</td>
+</tr>
+<tr>
+<td>is not</td>
+<td>判断两个标识符是不是引用自不同对象</td>
+</tr>
+</tbody>
+</table>
+<p>Note： </p>
+<ol>
+<li>八个比较运算符优先级相同。</li>
+<li>Python允许<code>x &lt; y &lt;= z</code>这样的链式比较，它相当于<code>x &lt; y and y &lt;= z</code>。 </li>
+<li>复数不能进行大小比较，只能比较是否相等。</li>
+</ol>
 
         
       </div>
@@ -413,7 +461,7 @@
         <div class="post-toc">
           
           
-            <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#算术运算符"><span class="nav-number">1.</span> <span class="nav-text">算术运算符</span></a></li></ol></div>
+            <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#算术运算符"><span class="nav-number">1.</span> <span class="nav-text">算术运算符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#比较运算符"><span class="nav-number">2.</span> <span class="nav-text">比较运算符</span></a></li></ol></div>
           
         </div>
         <div class="post-toc-indicator-bottom post-toc-indicator"></div>
