@@ -138,6 +138,529 @@
           
           
             
+              <a class="post-title-link" href="/2014/08/09/python-basic-05/">
+                Python3基础（五） 函数
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          
+            发表于 2014-08-09
+          
+        </span>
+
+        
+          
+            <span class="post-category">
+              &nbsp; | &nbsp; 分类于
+              
+                <a href="/categories/Lang-Python/">Lang.-Python</a>
+
+                
+                
+
+              
+            </span>
+          
+        
+
+        
+          
+            <span class="post-comments-count">
+            &nbsp; | &nbsp;
+            <a href="/2014/08/09/python-basic-05/#comments" >
+              <span class="post-comments-count ds-thread-count" data-thread-key="2014/08/09/python-basic-05/"></span>
+            </a>
+          </span>
+          
+        
+      </div>
+    </div>
+
+    
+      <div class="post-body">
+
+        
+        
+
+        
+          
+            <p><strong>函数（function）</strong>是组织好的、可重复使用的、具有一定功能的代码段。函数能提高应用的模块性和代码的重复利用率，Python中已经提供了很多内建函数，比如print()，同时Python还允许用户自定义函数。</p>
+<h3 id="定义">定义</h3><p>定义函数使用关键字<code>def</code>，后接函数名和放在圆括号( )中的可选参数列表，函数内容以<strong>冒号</strong>起始并且<strong>缩进</strong>。一般格式如下：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">def 函数名(参数列表):</span><br><span class="line">	"""文档字符串"""</span><br><span class="line">	函数体</span><br><span class="line">	return [expression]</span><br><span class="line">```&lt;!-- more --&gt;</span><br><span class="line">注意：参数列表可选，文档字符串可选，return语句可选。</span><br><span class="line"></span><br><span class="line">示例：</span><br></pre></td></tr></table></figure></p>
+<p>def fib(n):<br>    “””Print a Fibonacci series”””<br>    a, b = 0, 1<br>    while b &lt; n:<br>        print(b, end=’ ‘)<br>        a, b = b, a+b<br>    print()</p>
+<p>fib(2000)  # call<br>f = fib    # assignment<br>f(2000)<br><figure class="highlight pf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">函数名的值是一种用户自定义的函数类型。函数名的值可以被赋予另一个名字，使其也能作为函数使用。</span><br><span class="line"></span><br><span class="line"><span class="variable">&lt;br&gt;</span></span><br><span class="line"><span class="comment">###函数变量作用域</span></span><br><span class="line"></span><br><span class="line">在函数内部定义的变量拥有一个局部作用域，在函数外定义的拥有全局作用域。注意：在函数内部可以引用全局变量，但无法对其赋值（除非用`<span class="keyword">global</span>`进行声明）。</span><br></pre></td></tr></table></figure></p>
+<p>a = 5         # 全局变量a</p>
+<p>def func1():<br>    print(‘func1() print a =’, a)</p>
+<p>def func2():<br>    a = 21    # 局部变量a<br>    print(‘func2() print a =’, a) </p>
+<p>def func3():<br>    global a<br>    a = 10    # 修改全局变量a<br>    print(‘func3() print a =’, a)</p>
+<p>func1()<br>func2()<br>func3()<br>print(‘the global a =’, a)<br><figure class="highlight gherkin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">&lt;br&gt;</span></span><br><span class="line"><span class="comment">###函数调用</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">*</span><span class="keyword">*</span>1、普通调用<span class="keyword">*</span><span class="keyword">*</span></span><br><span class="line"></span><br><span class="line">与其他语言中函数调用一样，Python中在调用函数时，需要给定和形参相同个数的实参并按顺序一一对应。</span><br></pre></td></tr></table></figure></p>
+<p>def fun(name, age, gender):<br>    print(‘Name:’,name,’Age:’,age,’Gender:’,gender,end=’ ‘)<br>    print()</p>
+<p>fun(‘Jack’, 20, ‘man’) # call<br><figure class="highlight gherkin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">*</span><span class="keyword">*</span>2、使用关键字参数调用函数<span class="keyword">*</span><span class="keyword">*</span></span><br><span class="line"></span><br><span class="line">函数也可以通过`keyword=value` 形式的关键字参数来调用，因为我们明确指出了对应关系，所以参数的顺序也就无关紧要了。</span><br></pre></td></tr></table></figure></p>
+<p>def fun(name, age, gender):<br>    print(‘Name:’,name,’Age:’,age,’Gender:’,gender,end=’ ‘)<br>    print()</p>
+<p>fun(gender=’man’, name=’Jack’, age=20) # using keyword arguments<br><figure class="highlight gherkin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">*</span><span class="keyword">*</span>3、调用具有默认实参的函数<span class="keyword">*</span><span class="keyword">*</span></span><br><span class="line"></span><br><span class="line">Python中的函数也可以给一个或多个参数指定默认值，这样在调用时可以选择性地省略该参数：</span><br></pre></td></tr></table></figure></p>
+<p>def fun(a, b, c=5):<br>    print(a+b+c)</p>
+<p>fun(1,2)<br>fun(1,2,3)<br><figure class="highlight gherkin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">*</span>注意<span class="keyword">*</span>：通常情况下默认值只被计算一次，但如果默认值是一个<span class="keyword">*</span><span class="keyword">*</span>可变对象<span class="keyword">*</span><span class="keyword">*</span>时会有所不同, 如列表, 字典, 或大多类的对象时。例如，下面的函数在随后的调用中会累积参数值：</span><br></pre></td></tr></table></figure></p>
+<p>def fun(a, L=[]):<br>    L.append(a)<br>    print(L)</p>
+<p>fun(1)  # 输出[1]<br>fun(2)  # 输出[1, 2]<br>fun(3)  # 输出[1, 2, 3]<br><figure class="highlight gherkin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">*</span><span class="keyword">*</span>4、调用可变参数函数<span class="keyword">*</span><span class="keyword">*</span></span><br><span class="line"></span><br><span class="line">通过在形参前加一个星号（\<span class="keyword">*</span>）或两个星号（<span class="keyword">*</span><span class="keyword">*</span>）来指定函数可以接收任意数量的实参。</span><br></pre></td></tr></table></figure></p>
+<p>def fun(*args):<br>    print(type(args))<br>    print(args)</p>
+<p>fun(1,2,3,4,5,6)</p>
+<h1 id="输出：">输出：</h1><h1 id=""><class 'tuple'=""></class></h1><h1 id="(1,_2,_3,_4,_5,_6)">(1, 2, 3, 4, 5, 6)</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">```</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">fun</span><span class="params">(**args)</span>:</span></span><br><span class="line">	print(type(args))</span><br><span class="line">	print(args)</span><br><span class="line"></span><br><span class="line">fun(a=<span class="number">1</span>,b=<span class="number">2</span>,c=<span class="number">3</span>,d=<span class="number">4</span>,e=<span class="number">5</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 输出：</span></span><br><span class="line"><span class="comment"># &lt;class 'dict'&gt;</span></span><br><span class="line"><span class="comment"># &#123;'d': 4, 'e': 5, 'b': 2, 'c': 3, 'a': 1&#125;</span></span><br></pre></td></tr></table></figure>
+<p>从两个示例的输出可以看出：当参数形如<code>*args</code>时，传递给函数的任意个实参会按位置被包装进一个元组（tuple）；当参数形如<code>**args</code>时，传递给函数的任意个<code>key=value</code>实参会被包装进一个字典（dict）。</p>
+<p><strong>5、通过解包参数调用函数</strong></p>
+<p>上一点说到传递任意数量的实参时会将它们打包进一个元组或字典，当然有打包也就有<strong>解包（unpacking）</strong>。通过 单星号和双星号对List、Tuple和Dictionary进行解包：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">fun</span><span class="params">(a=<span class="number">1</span>, b=<span class="number">2</span>, c=<span class="number">3</span>)</span>:</span></span><br><span class="line">	print(a+b+c)</span><br><span class="line"></span><br><span class="line">fun()   <span class="comment"># 正常调用</span></span><br><span class="line">list1 = [<span class="number">11</span>, <span class="number">22</span>, <span class="number">33</span>]</span><br><span class="line">dict1 = &#123;<span class="string">'a'</span>:<span class="number">40</span>, <span class="string">'b'</span>:<span class="number">50</span>, <span class="string">'c'</span>:<span class="number">60</span>&#125;</span><br><span class="line">fun(*list1)   <span class="comment"># 解包列表</span></span><br><span class="line">fun(**dict1)  <span class="comment"># 解包字典</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 输出：</span></span><br><span class="line"><span class="comment"># 6</span></span><br><span class="line"><span class="comment"># 66</span></span><br><span class="line"><span class="comment"># 150</span></span><br></pre></td></tr></table></figure></p>
+<p>注：*用于解包Sequence，**用于解包字典。解包字典会得到一系列的<code>key=value</code>，故本质上就是使用<strong>关键字参数</strong>调用函数。</p>
+<p><br></p>
+<h3 id="lambda表达式">lambda表达式</h3><p>lambda关键词能创建小型匿名函数。lambda函数能接收任何数量的参数但只能返回一个表达式的值，它的一般形式如下：<br><figure class="highlight prolog"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="atom">lambda</span> [<span class="atom">arg1</span> [,<span class="atom">arg2</span>,.....<span class="atom">argn</span>]] : <span class="atom">expression</span></span><br></pre></td></tr></table></figure></p>
+<p>lambda表达式可以在任何需要函数对象的地方使用，它们在语法上被限制为单一的表达式：<br><figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">f = lambda x, y: x+<span class="literal">y</span></span><br><span class="line"><span class="keyword">print</span>(<span class="literal">f</span>(10, 20))</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">make_fun</span><span class="params">(n)</span>:</span></span><br><span class="line">	<span class="keyword">return</span> <span class="keyword">lambda</span> x: x+n</span><br><span class="line"></span><br><span class="line">f = make_fun(<span class="number">15</span>)</span><br><span class="line">print(f(<span class="number">5</span>))</span><br></pre></td></tr></table></figure>
+<p><br></p>
+<h3 id="文档字符串">文档字符串</h3><p>函式体的第一个语句可以是三引号括起来的字符串， 这个字符串就是函数的<strong>文档字符串</strong>，或称为docstring 。我们可以使用<code>print(function.__doc__)</code>输出文档：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">fun</span><span class="params">()</span>:</span></span><br><span class="line">	<span class="string">"""Some information of this function.</span><br><span class="line">	This is documentation string."""</span></span><br><span class="line">	<span class="keyword">return</span></span><br><span class="line"></span><br><span class="line">print(fun.__doc__)</span><br></pre></td></tr></table></figure></p>
+<p>文档字符串主要用于描述一些关于函数的信息，让用户交互地浏览和输出。建议养成在代码中添加文档字符串的好习惯。</p>
+<p><br><br><br></p>
+
+          
+        
+      </div>
+    
+
+    
+      <div class="post-footer">
+        
+          <div class="post-tags">
+            
+              <a href="/tags/Python/">
+                #Python
+              </a>
+            
+          </div>
+        
+
+        
+
+        
+        
+          <div class="post-eof"></div>
+        
+      </div>
+    
+  </div>
+
+
+  
+    
+
+  <div class="post post-type-normal ">
+    <div class="post-header">
+
+      
+      
+        <h1 class="post-title">
+          
+          
+            
+              <a class="post-title-link" href="/2014/08/09/python-basic-04/">
+                Python3基础（四） 条件与循环控制
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          
+            发表于 2014-08-09
+          
+        </span>
+
+        
+          
+            <span class="post-category">
+              &nbsp; | &nbsp; 分类于
+              
+                <a href="/categories/Lang-Python/">Lang.-Python</a>
+
+                
+                
+
+              
+            </span>
+          
+        
+
+        
+          
+            <span class="post-comments-count">
+            &nbsp; | &nbsp;
+            <a href="/2014/08/09/python-basic-04/#comments" >
+              <span class="post-comments-count ds-thread-count" data-thread-key="2014/08/09/python-basic-04/"></span>
+            </a>
+          </span>
+          
+        
+      </div>
+    </div>
+
+    
+      <div class="post-body">
+
+        
+        
+
+        
+          
+            <p>Python的流程控制语句包括：if条件语句、while循环语句、for循环语句、range函数以及break、continue、pass控制语句。这些语句在Python中的语义和在其他语言中是一样的，所以这里就只说它们的写法。</p>
+<h3 id="if语句">if语句</h3><p>if语句是最常用的条件控制语句，Python中的一般形式为：
+            <div class="post-more-link text-center">
+              <a class="btn" href="/2014/08/09/python-basic-04/#more">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+        
+      </div>
+    
+
+    
+      <div class="post-footer">
+        
+          <div class="post-tags">
+            
+              <a href="/tags/Python/">
+                #Python
+              </a>
+            
+          </div>
+        
+
+        
+
+        
+        
+          <div class="post-eof"></div>
+        
+      </div>
+    
+  </div>
+
+
+  
+    
+
+  <div class="post post-type-normal ">
+    <div class="post-header">
+
+      
+      
+        <h1 class="post-title">
+          
+          
+            
+              <a class="post-title-link" href="/2014/08/08/python-basic-03/">
+                Python3基础（三） 运算符
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          
+            发表于 2014-08-08
+          
+        </span>
+
+        
+          
+            <span class="post-category">
+              &nbsp; | &nbsp; 分类于
+              
+                <a href="/categories/Lang-Python/">Lang.-Python</a>
+
+                
+                
+
+              
+            </span>
+          
+        
+
+        
+          
+            <span class="post-comments-count">
+            &nbsp; | &nbsp;
+            <a href="/2014/08/08/python-basic-03/#comments" >
+              <span class="post-comments-count ds-thread-count" data-thread-key="2014/08/08/python-basic-03/"></span>
+            </a>
+          </span>
+          
+        
+      </div>
+    </div>
+
+    
+      <div class="post-body">
+
+        
+        
+
+        
+          
+            <p><br>    Python中的运算符大部分与C语言的类似，但也有很多不同的地方。这里就大概地罗列一下Python 3中的运算符。<br></p><br><h2><br>    一、算术运算符<br></h2><br><p><br>    <table border="1"><br>        <thead><br>            <tr><br>                <th><br>                    运算符<br>                </th><br>                <th><br>                    描述<br>                </th><br>                <th><br>                    示例<br>                </th><br>            </tr><br>        </thead><br>        <tbody><br>            <tr><br>                <td><br>                    x + y<br>                </td><br>                <td><br>                    加<br>                </td><br>                <td><br>                    10 + 20 = 30<br>                </td><br>            </tr><br>            <tr><br>                <td><br>                    x - y<br>                </td><br>                <td><br>                    减<br>                </td><br>                <td><br>                    10 - 5 = 5<br>                </td><br>            </tr><br>            <tr><br>                <td><br>                    x <em> y<br>                </td><br>                <td><br>                    乘<br>                </td><br>                <td><br>                    3 </em> 6 = 18<br>                </td><br>            </tr><br>            <tr><br>                <td><br>                    x / y<br>                </td><br>                <td><br>                    除-返回浮点数<br>                </td><br>                <td><br>                    2 / 4 = 0.5<br>                </td><br>            </tr><br>            <tr><br>                <td><br>                    x // y<br>                </td><br>                <td><br>                    取整除 - 返回商的整数部分<br>                </td><br>                <td><br>                    2 // 4 = 0<br>                </td><br>            </tr><br>            <tr><br>                <td><br>                    x % y<br>                </td><br>                <td><br>                    取余<br>                </td><br>                <td><br>                    15 % 4 = 3<br>                </td><br>            </tr><br>            <tr><br>                <td><br>                    -x<br>                </td><br>                <td><br>                    异号<br>                </td><br>                <td><br>                    -(-5) = 5<br>                </td><br>            </tr><br>            <tr><br>                <td><br>                    +x<br>                </td><br>                <td><br>                    不变号<br>                </td><br>                <td><br>                    +5 = 5<br>                </td><br>            </tr><br>            <tr><br>                <td><br>                    abs(x)<br>                </td><br>                <td><br>                    取绝对值<br>                </td><br>                <td><br>                    abs(-0.4) = 0.4<br>                </td><br>            </tr><br>            <tr><br>                <td><br>                    int(x)<br>                </td><br>                <td><br>                    x转换为整数<br>                </td><br>                <td><br>                    int(5.9) = 5<br>                </td><br>            </tr><br>            <tr><br>                <td><br>                    float(x)<br>                </td><br>                <td><br>                    x转换为浮点数<br>                </td><br>                <td><br>                    float(5) = 5.0<br>                </td><br>            </tr><br>            <tr><br>                <td><br>                    complex(re, im)<br>                </td><br>                <td><br>                    返回复数 - re为实数部分 im为虚数部分<br>                </td><br>                <td><br>                    complex(4,3) = 4+3j<br>                </td><br>            </tr><br>            <tr><br>                <td><br>                    c.conjugate()<br>                </td><br>                <td><br>                    返回c的共轭复数<br>                </td><br>                <td><br>                    c=4+3j; c.conjugate() = 4-3j<br>                </td><br>            </tr><br>            <tr><br>                <td><br>                    divmod(x, y)<br>                </td><br>                <td><br>                    返回一个数值对(x//y, x%y)<br>                </td><br>                <td><br>                    divmod(8, 3) = (2, 2)<br>                </td><br>            </tr><br>            <tr><br>                <td><br>                    pow(x, y)<br>                </td><br>                <td><br>                    x的y次幂<br>                </td><br>                <td><br>                    pow(2, 5) = 32<br>                </td><br>            </tr><br>            <tr><br>                <td><br>                    x <strong> y<br>                </td><br>                <td><br>                    x的y次幂<br>                </td><br>                <td><br>                    2 </strong> 5 = 32<br>                </td><br>            </tr><br>        </tbody><br>    </table>
+            <div class="post-more-link text-center">
+              <a class="btn" href="/2014/08/08/python-basic-03/#more">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+        
+      </div>
+    
+
+    
+      <div class="post-footer">
+        
+          <div class="post-tags">
+            
+              <a href="/tags/Python/">
+                #Python
+              </a>
+            
+          </div>
+        
+
+        
+
+        
+        
+          <div class="post-eof"></div>
+        
+      </div>
+    
+  </div>
+
+
+  
+    
+
+  <div class="post post-type-normal ">
+    <div class="post-header">
+
+      
+      
+        <h1 class="post-title">
+          
+          
+            
+              <a class="post-title-link" href="/2014/08/08/python-basic-02/">
+                Python3基础（二） 基本数据类型
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          
+            发表于 2014-08-08
+          
+        </span>
+
+        
+          
+            <span class="post-category">
+              &nbsp; | &nbsp; 分类于
+              
+                <a href="/categories/Lang-Python/">Lang.-Python</a>
+
+                
+                
+
+              
+            </span>
+          
+        
+
+        
+          
+            <span class="post-comments-count">
+            &nbsp; | &nbsp;
+            <a href="/2014/08/08/python-basic-02/#comments" >
+              <span class="post-comments-count ds-thread-count" data-thread-key="2014/08/08/python-basic-02/"></span>
+            </a>
+          </span>
+          
+        
+      </div>
+    </div>
+
+    
+      <div class="post-body">
+
+        
+        
+
+        
+          
+            <p>Python中的变量<strong>不需要声明</strong>。每个变量在使用前都必须赋值，变量赋值以后该变量才会被创建。在Python中，变量就是变量，它没有类型，<strong>我们所说的“类型”是变量所指的内存中对象的类型</strong>。Python 3中有六个标准的数据类型：</p>
+<ul>
+<li>Numbers（数字）</li>
+<li>String（字符串）</li>
+<li>List（列表）</li>
+<li>Tuple（元组）</li>
+<li>Sets（集合）</li>
+<li>Dictionaries（字典）</li>
+</ul>
+<p>本文主要先介绍这几种数据类型的定义和它们之间的联系与区别。<br>
+            <div class="post-more-link text-center">
+              <a class="btn" href="/2014/08/08/python-basic-02/#more">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+        
+      </div>
+    
+
+    
+      <div class="post-footer">
+        
+          <div class="post-tags">
+            
+              <a href="/tags/Python/">
+                #Python
+              </a>
+            
+          </div>
+        
+
+        
+
+        
+        
+          <div class="post-eof"></div>
+        
+      </div>
+    
+  </div>
+
+
+  
+    
+
+  <div class="post post-type-normal ">
+    <div class="post-header">
+
+      
+      
+        <h1 class="post-title">
+          
+          
+            
+              <a class="post-title-link" href="/2014/08/08/python-basic-01/">
+                Python3基础（一） Hello World
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          
+            发表于 2014-08-08
+          
+        </span>
+
+        
+          
+            <span class="post-category">
+              &nbsp; | &nbsp; 分类于
+              
+                <a href="/categories/Lang-Python/">Lang.-Python</a>
+
+                
+                
+
+              
+            </span>
+          
+        
+
+        
+          
+            <span class="post-comments-count">
+            &nbsp; | &nbsp;
+            <a href="/2014/08/08/python-basic-01/#comments" >
+              <span class="post-comments-count ds-thread-count" data-thread-key="2014/08/08/python-basic-01/"></span>
+            </a>
+          </span>
+          
+        
+      </div>
+    </div>
+
+    
+      <div class="post-body">
+
+        
+        
+
+        
+          
+            <p>对于新手一般会遇到一个问题：<strong>学习Python 2还是Python 3呢？</strong>  对于我个人而言，我是个完全的新手，没有历史包袱，所以我直接学习Python 3。我相信在未来几年，Python 3会逐步取代Python 2成为主流。</p>
+<p>Python是一门解释型、面向对象、动态数据类型的高级程序设计语言，更多的介绍看<a href="https://docs.python.org/3.4/tutorial/appetite.html">官方文档</a>。Python让程序更加的紧凑、可读性更强，用 Python 写的程序通常比同样的C、C++或Java程序要短得多，这是因为以下几个原因：<br>
+            <div class="post-more-link text-center">
+              <a class="btn" href="/2014/08/08/python-basic-01/#more">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+        
+      </div>
+    
+
+    
+      <div class="post-footer">
+        
+          <div class="post-tags">
+            
+              <a href="/tags/Python/">
+                #Python
+              </a>
+            
+          </div>
+        
+
+        
+
+        
+        
+          <div class="post-eof"></div>
+        
+      </div>
+    
+  </div>
+
+
+  
+    
+
+  <div class="post post-type-normal ">
+    <div class="post-header">
+
+      
+      
+        <h1 class="post-title">
+          
+          
+            
               <a class="post-title-link" href="/2014/08/06/Obfuscated-C-Code-Contest/">
                 1987年国际C语言混乱代码大赛获奖的一行代码
               </a>
@@ -618,502 +1141,12 @@
 
 
   
-    
-
-  <div class="post post-type-normal ">
-    <div class="post-header">
-
-      
-      
-        <h1 class="post-title">
-          
-          
-            
-              <a class="post-title-link" href="/2014/07/23/cpp-template-specialization/">
-                C++学习之模板特例化
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          
-            发表于 2014-07-22
-          
-        </span>
-
-        
-          
-            <span class="post-category">
-              &nbsp; | &nbsp; 分类于
-              
-                <a href="/categories/Lang-C/">Lang.-C++</a>
-
-                
-                
-
-              
-            </span>
-          
-        
-
-        
-          
-            <span class="post-comments-count">
-            &nbsp; | &nbsp;
-            <a href="/2014/07/23/cpp-template-specialization/#comments" >
-              <span class="post-comments-count ds-thread-count" data-thread-key="2014/07/23/cpp-template-specialization/"></span>
-            </a>
-          </span>
-          
-        
-      </div>
-    </div>
-
-    
-      <div class="post-body">
-
-        
-        
-
-        
-          
-            <p><a href="http://songlee24.github.io/blog/2014/07/18/c-plus-plus-xue-xi-zhi-han-shu-mo-ban-yu-lei-mo-ban/">模板</a>是C++中一个很重要的特性，写一份代码能用于多种数据类型（包括用户自定义类型）。例如，STL的sort()函数可以用于多种数据类型的排序，类stack可以用作多种数据类型的栈。但是，<strong>如果我们想对特定的数据类型执行不同的代码（而不是通用模板）呢？</strong>这种情况下就可以使用<strong>模板特例化（template specialization）</strong>。</p>
-<h3 id="函数模板特例化">函数模板特例化</h3>
-            <div class="post-more-link text-center">
-              <a class="btn" href="/2014/07/23/cpp-template-specialization/#more">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          
-        
-      </div>
-    
-
-    
-      <div class="post-footer">
-        
-          <div class="post-tags">
-            
-              <a href="/tags/C/">
-                #C++
-              </a>
-            
-          </div>
-        
-
-        
-
-        
-        
-          <div class="post-eof"></div>
-        
-      </div>
-    
-  </div>
-
-
-  
-    
-
-  <div class="post post-type-normal ">
-    <div class="post-header">
-
-      
-      
-        <h1 class="post-title">
-          
-          
-            
-              <a class="post-title-link" href="/2014/07/22/cpp-changeable-parameter/">
-                C++学习之可变参数的函数与模板
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          
-            发表于 2014-07-22
-          
-        </span>
-
-        
-          
-            <span class="post-category">
-              &nbsp; | &nbsp; 分类于
-              
-                <a href="/categories/Lang-C/">Lang.-C++</a>
-
-                
-                
-
-              
-            </span>
-          
-        
-
-        
-          
-            <span class="post-comments-count">
-            &nbsp; | &nbsp;
-            <a href="/2014/07/22/cpp-changeable-parameter/#comments" >
-              <span class="post-comments-count ds-thread-count" data-thread-key="2014/07/22/cpp-changeable-parameter/"></span>
-            </a>
-          </span>
-          
-        
-      </div>
-    </div>
-
-    
-      <div class="post-body">
-
-        
-        
-
-        
-          
-            <p>所谓<strong>可变参数</strong>指的是函数的参数个数可变，参数类型不定的函数。为了编写能处理不同数量实参的函数，C++11提供了两种主要的方法：如果所有的实参类型相同，可以传递一个名为<strong>initializer_list</strong>的标准库类型；如果实参的类型不同，我们可以编写<strong>可变参数模板</strong>。另外，C++还有一种特殊的<strong>省略符形参</strong>，可以用它传递可变数量的实参，不过这种一般只用于与C函数交互的接口程序。</p>
-<h3 id="可变参数函数">可变参数函数</h3>
-            <div class="post-more-link text-center">
-              <a class="btn" href="/2014/07/22/cpp-changeable-parameter/#more">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          
-        
-      </div>
-    
-
-    
-      <div class="post-footer">
-        
-          <div class="post-tags">
-            
-              <a href="/tags/C/">
-                #C++
-              </a>
-            
-          </div>
-        
-
-        
-
-        
-        
-          <div class="post-eof"></div>
-        
-      </div>
-    
-  </div>
-
-
-  
-    
-
-  <div class="post post-type-normal ">
-    <div class="post-header">
-
-      
-      
-        <h1 class="post-title">
-          
-          
-            
-              <a class="post-title-link" href="/2014/07/18/cpp-template/">
-                C++学习之函数模板与类模板
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          
-            发表于 2014-07-18
-          
-        </span>
-
-        
-          
-            <span class="post-category">
-              &nbsp; | &nbsp; 分类于
-              
-                <a href="/categories/Lang-C/">Lang.-C++</a>
-
-                
-                
-
-              
-            </span>
-          
-        
-
-        
-          
-            <span class="post-comments-count">
-            &nbsp; | &nbsp;
-            <a href="/2014/07/18/cpp-template/#comments" >
-              <span class="post-comments-count ds-thread-count" data-thread-key="2014/07/18/cpp-template/"></span>
-            </a>
-          </span>
-          
-        
-      </div>
-    </div>
-
-    
-      <div class="post-body">
-
-        
-        
-
-        
-          
-            <p><strong>泛型编程（Generic Programming）</strong>是一种编程范式，通过将类型参数化来实现在同一份代码上操作多种数据类型，泛型是一般化并可重复使用的意思。泛型编程最初诞生于C++中，目的是为了实现C++的STL（标准模板库）。</p>
-<p><strong>模板（template）</strong>是泛型编程的基础，一个模板就是一个创建类或函数的蓝图或公式。例如，当使用一个vector这样的泛型类型或者find这样的泛型函数时，我们提供足够的信息，将蓝图转换为特定的类或函数。<br>
-            <div class="post-more-link text-center">
-              <a class="btn" href="/2014/07/18/cpp-template/#more">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          
-        
-      </div>
-    
-
-    
-      <div class="post-footer">
-        
-          <div class="post-tags">
-            
-              <a href="/tags/C/">
-                #C++
-              </a>
-            
-          </div>
-        
-
-        
-
-        
-        
-          <div class="post-eof"></div>
-        
-      </div>
-    
-  </div>
-
-
-  
-    
-
-  <div class="post post-type-normal ">
-    <div class="post-header">
-
-      
-      
-        <h1 class="post-title">
-          
-          
-            
-              <a class="post-title-link" href="/2014/07/17/cpp-inheritance/">
-                C++学习之多重继承与虚继承
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          
-            发表于 2014-07-17
-          
-        </span>
-
-        
-          
-            <span class="post-category">
-              &nbsp; | &nbsp; 分类于
-              
-                <a href="/categories/Lang-C/">Lang.-C++</a>
-
-                
-                
-
-              
-            </span>
-          
-        
-
-        
-          
-            <span class="post-comments-count">
-            &nbsp; | &nbsp;
-            <a href="/2014/07/17/cpp-inheritance/#comments" >
-              <span class="post-comments-count ds-thread-count" data-thread-key="2014/07/17/cpp-inheritance/"></span>
-            </a>
-          </span>
-          
-        
-      </div>
-    </div>
-
-    
-      <div class="post-body">
-
-        
-        
-
-        
-          
-            <h3 id="多重继承">多重继承</h3><p>我们知道，在单继承中，派生类的对象中包含了<strong>基类部分</strong> 和 <strong>派生类自定义部分</strong>。同样的，在<strong>多重继承（multiple inheritance）</strong>关系中，派生类的对象包含了每个基类的子对象和自定义成员的子对象。下面是一个多重继承关系：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> A&#123; <span class="comment">/*  */</span> &#125;;</span><br><span class="line"><span class="keyword">class</span> B&#123; <span class="comment">/*  */</span> &#125;; </span><br><span class="line"><span class="keyword">class</span> C : <span class="keyword">public</span> A &#123; <span class="comment">/*  */</span> &#125;;</span><br><span class="line"><span class="keyword">class</span> D : <span class="keyword">public</span> B, <span class="keyword">public</span> C &#123; <span class="comment">/*  */</span> &#125;;</span><br></pre></td></tr></table></figure></p>
-<p>C继承了A，派生类D又继承了B和C，如图所示，一个D对象中含有一个B部分、一个C部分（其中又含有一个A部分）以及在D中声明的非静态数据成员：
-            <div class="post-more-link text-center">
-              <a class="btn" href="/2014/07/17/cpp-inheritance/#more">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          
-        
-      </div>
-    
-
-    
-      <div class="post-footer">
-        
-          <div class="post-tags">
-            
-              <a href="/tags/C/">
-                #C++
-              </a>
-            
-          </div>
-        
-
-        
-
-        
-        
-          <div class="post-eof"></div>
-        
-      </div>
-    
-  </div>
-
-
-  
-    
-
-  <div class="post post-type-normal ">
-    <div class="post-header">
-
-      
-      
-        <h1 class="post-title">
-          
-          
-            
-              <a class="post-title-link" href="/2014/07/17/cpp-virtual-function/">
-                C++学习之虚函数与纯虚函数
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          
-            发表于 2014-07-16
-          
-        </span>
-
-        
-          
-            <span class="post-category">
-              &nbsp; | &nbsp; 分类于
-              
-                <a href="/categories/Lang-C/">Lang.-C++</a>
-
-                
-                
-
-              
-            </span>
-          
-        
-
-        
-          
-            <span class="post-comments-count">
-            &nbsp; | &nbsp;
-            <a href="/2014/07/17/cpp-virtual-function/#comments" >
-              <span class="post-comments-count ds-thread-count" data-thread-key="2014/07/17/cpp-virtual-function/"></span>
-            </a>
-          </span>
-          
-        
-      </div>
-    </div>
-
-    
-      <div class="post-body">
-
-        
-        
-
-        
-          
-            <p>面向对象程序设计（object-oriented programming）的核心思想是<strong><em>数据抽象、继承、动态绑定。</em></strong>通过数据抽象，可以使类的接口与实现分离，使用继承，可以更容易地定义与其他类相似但不完全相同的新类，使用动态绑定，可以在一定程度上忽略相似类的区别，而以统一的方式使用它们的对象。</p>
-<p><strong>虚函数</strong>的作用是实现<strong>多态性（Polymorphism）</strong>，多态性是将接口与实现进行分离，采用共同的方法，但因个体差异而采用不同的策略。<strong>纯虚函数</strong>则是一种特殊的虚函数。<em>虚函数联系到多态，多态联系到继承。所以本文中都是在继承层次上做文章。没了继承，什么都没得谈。</em><br>
-            <div class="post-more-link text-center">
-              <a class="btn" href="/2014/07/17/cpp-virtual-function/#more">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          
-        
-      </div>
-    
-
-    
-      <div class="post-footer">
-        
-          <div class="post-tags">
-            
-              <a href="/tags/C/">
-                #C++
-              </a>
-            
-          </div>
-        
-
-        
-
-        
-        
-          <div class="post-eof"></div>
-        
-      </div>
-    
-  </div>
-
-
-  
 
           </div>
 
           
             <div class="pagination">
-              <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/">&raquo;</a>
+              <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/2/">&raquo;</a>
             </div>
           
         </div>
@@ -1140,11 +1173,11 @@
       <p class="site-description motion-element">放宽心，多努力</p>
       <div class="site-state motion-element">
         <div class="site-state-item site-state-posts">
-          <span class="site-state-item-count">28</span>
+          <span class="site-state-item-count">33</span>
           <span class="site-state-item-name">日志</span>
         </div>
         <div class="site-state-item site-state-tags">
-            <span class="site-state-item-count">10</span>
+            <span class="site-state-item-count">11</span>
             <span class="site-state-item-name">标签</span>
         </div>
         <div class="site-state-item site-state-pages">

@@ -1,0 +1,915 @@
+<!doctype html>
+<html class="theme-next use-motion theme-next-next">
+<head>
+  
+
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+  <meta name="google-site-verification" content="VvyjvVXcJQa0QklHipu6pwm2PJGnnchIqX7s5JbbT_0" />
+
+
+
+  <link rel="stylesheet" type="text/css" href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5"/>
+
+
+<link rel="stylesheet" type="text/css" href="/css/main.css?v=0.4.0"/>
+
+
+    <meta name="description" content="放宽心，多努力" />
+
+
+
+	<meta name="keywords" content="Python," />
+
+  <title> Python3基础（三） 运算符 // SongLee's Blog </title>
+</head>
+
+<body>
+  <div class="container one-column page-post-detail">
+    <div class="headband"></div>
+
+    <div id="header" class="header">
+      <div class="header-inner">
+        <h1 class="site-meta">
+  <span class="logo-line-before"><i></i></span>
+  <a href="/" class="brand">
+      <span class="logo">
+        <i class="icon-logo"></i>
+      </span>
+      <span class="site-title">SongLee's Blog</span>
+  </a>
+  <span class="logo-line-after"><i></i></span>
+</h1>
+
+
+  <ul id="menu" class="menu">
+    
+      
+      <li class="menu-item menu-item-home">
+        <a href="/">
+          <i class="menu-item-icon icon-home"></i> <br />
+          首页
+        </a>
+      </li>
+    
+      
+      <li class="menu-item menu-item-categories">
+        <a href="/categories">
+          <i class="menu-item-icon icon-categories"></i> <br />
+          分类
+        </a>
+      </li>
+    
+      
+      <li class="menu-item menu-item-archives">
+        <a href="/archives">
+          <i class="menu-item-icon icon-archives"></i> <br />
+          归档
+        </a>
+      </li>
+    
+      
+      <li class="menu-item menu-item-tags">
+        <a href="/tags">
+          <i class="menu-item-icon icon-tags"></i> <br />
+          标签
+        </a>
+      </li>
+    
+      
+      <li class="menu-item menu-item-about">
+        <a href="/about">
+          <i class="menu-item-icon icon-about"></i> <br />
+          关于
+        </a>
+      </li>
+    
+  </ul>
+
+
+      </div>
+    </div>
+
+    <div id="main" class="main">
+      <div class="main-inner">
+        <div id="content" class="content">
+          
+            
+          
+
+          <div id="posts" class="posts-expand">
+            
+  
+
+  <div class="post post-type-normal ">
+    <div class="post-header">
+
+      
+      
+        <h1 class="post-title">
+          
+          
+            
+              Python3基础（三） 运算符
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          
+            发表于 2014-08-08
+          
+        </span>
+
+        
+          
+            <span class="post-category">
+              &nbsp; | &nbsp; 分类于
+              
+                <a href="/categories/Lang-Python/">Lang.-Python</a>
+
+                
+                
+
+              
+            </span>
+          
+        
+
+        
+          
+            <span class="post-comments-count">
+            &nbsp; | &nbsp;
+            <a href="/2014/08/08/python-basic-03/#comments" >
+              <span class="post-comments-count ds-thread-count" data-thread-key="2014/08/08/python-basic-03/"></span>
+            </a>
+          </span>
+          
+        
+      </div>
+    </div>
+
+    
+      <div class="post-body">
+
+        
+        
+
+        
+          <p><br>    Python中的运算符大部分与C语言的类似，但也有很多不同的地方。这里就大概地罗列一下Python 3中的运算符。<br></p><br><h2><br>    一、算术运算符<br></h2><br><p><br>    <table border="1"><br>        <thead><br>            <tr><br>                <th><br>                    运算符<br>                </th><br>                <th><br>                    描述<br>                </th><br>                <th><br>                    示例<br>                </th><br>            </tr><br>        </thead><br>        <tbody><br>            <tr><br>                <td><br>                    x + y<br>                </td><br>                <td><br>                    加<br>                </td><br>                <td><br>                    10 + 20 = 30<br>                </td><br>            </tr><br>            <tr><br>                <td><br>                    x - y<br>                </td><br>                <td><br>                    减<br>                </td><br>                <td><br>                    10 - 5 = 5<br>                </td><br>            </tr><br>            <tr><br>                <td><br>                    x <em> y<br>                </em></td><br>                <td><br>                    乘<br>                </td><br>                <td><br>                    3  6 = 18<br>                </td><br>            </tr><br>            <tr><br>                <td><br>                    x / y<br>                </td><br>                <td><br>                    除-返回浮点数<br>                </td><br>                <td><br>                    2 / 4 = 0.5<br>                </td><br>            </tr><br>            <tr><br>                <td><br>                    x // y<br>                </td><br>                <td><br>                    取整除 - 返回商的整数部分<br>                </td><br>                <td><br>                    2 // 4 = 0<br>                </td><br>            </tr><br>            <tr><br>                <td><br>                    x % y<br>                </td><br>                <td><br>                    取余<br>                </td><br>                <td><br>                    15 % 4 = 3<br>                </td><br>            </tr><br>            <tr><br>                <td><br>                    -x<br>                </td><br>                <td><br>                    异号<br>                </td><br>                <td><br>                    -(-5) = 5<br>                </td><br>            </tr><br>            <tr><br>                <td><br>                    +x<br>                </td><br>                <td><br>                    不变号<br>                </td><br>                <td><br>                    +5 = 5<br>                </td><br>            </tr><br>            <tr><br>                <td><br>                    abs(x)<br>                </td><br>                <td><br>                    取绝对值<br>                </td><br>                <td><br>                    abs(-0.4) = 0.4<br>                </td><br>            </tr><br>            <tr><br>                <td><br>                    int(x)<br>                </td><br>                <td><br>                    x转换为整数<br>                </td><br>                <td><br>                    int(5.9) = 5<br>                </td><br>            </tr><br>            <tr><br>                <td><br>                    float(x)<br>                </td><br>                <td><br>                    x转换为浮点数<br>                </td><br>                <td><br>                    float(5) = 5.0<br>                </td><br>            </tr><br>            <tr><br>                <td><br>                    complex(re, im)<br>                </td><br>                <td><br>                    返回复数 - re为实数部分 im为虚数部分<br>                </td><br>                <td><br>                    complex(4,3) = 4+3j<br>                </td><br>            </tr><br>            <tr><br>                <td><br>                    c.conjugate()<br>                </td><br>                <td><br>                    返回c的共轭复数<br>                </td><br>                <td><br>                    c=4+3j; c.conjugate() = 4-3j<br>                </td><br>            </tr><br>            <tr><br>                <td><br>                    divmod(x, y)<br>                </td><br>                <td><br>                    返回一个数值对(x//y, x%y)<br>                </td><br>                <td><br>                    divmod(8, 3) = (2, 2)<br>                </td><br>            </tr><br>            <tr><br>                <td><br>                    pow(x, y)<br>                </td><br>                <td><br>                    x的y次幂<br>                </td><br>                <td><br>                    pow(2, 5) = 32<br>                </td><br>            </tr><br>            <tr><br>                <td><br>                    x <strong> y<br>                </strong></td><br>                <td><br>                    x的y次幂<br>                </td><br>                <td><br>                    2  5 = 32<br>                </td><br>            </tr><br>        </tbody><br>    </table><a id="more"></a><br></p><br><p><br>    <strong>Note</strong>：<br></p><br><ol><br>    <li><br>        双斜杠 // 除法总是向下取整。&nbsp;<br>    </li><br>    <li><br>        从符点数到整数的转换可能会舍入也可能截断，建议使用<a target="_blank" href="https://docs.python.org/3.4/library/math.html#math.floor">math.floor()</a>和<a target="_blank" href="https://docs.python.org/3.4/library/math.html#math.ceil">math.ceil()</a>明确定义的转换。<br>    </li><br>    <li><br>        Python定义<code>pow(0, 0)</code>和<code>0 <strong> 0</strong></code>等于1。<br>    </li><br></ol><br><p><br>    <br><br><br></p><br><h2><br>    二、比较运算符<br></h2><br><p><br>    <table border="1"><br>        <thead><br>            <tr><br>                <th><br>                    运算符<br>                </th><br>                <th><br>                    描述<br>                </th><br>            </tr><br>        </thead><br>        <tbody><br>            <tr><br>                <td><br>                    &lt;<br>                </td><br>                <td><br>                    小于<br>                </td><br>            </tr><br>            <tr><br>                <td><br>                    &lt;=<br>                </td><br>                <td><br>                    小于或等于<br>                </td><br>            </tr><br>            <tr><br>                <td><br>                    &gt;<br>                </td><br>                <td><br>                    大于<br>                </td><br>            </tr><br>            <tr><br>                <td><br>                    &gt;=<br>                </td><br>                <td><br>                    大于或等于<br>                </td><br>            </tr><br>            <tr><br>                <td><br>                    ==<br>                </td><br>                <td><br>                    等于<br>                </td><br>            </tr><br>            <tr><br>                <td><br>                    !=<br>                </td><br>                <td><br>                    不等于<br>                </td><br>            </tr><br>            <tr><br>                <td><br>                    is<br>                </td><br>                <td><br>                    判断两个标识符是不是引用自一个对象<br>                </td><br>            </tr><br>            <tr><br>                <td><br>                    is not<br>                </td><br>                <td><br>                    判断两个标识符是不是引用自不同对象<br>                </td><br>            </tr><br>        </tbody><br>    </table><br></p><br><strong>Note</strong>： <br><br><br><ol><br>    <li><br>        八个比较运算符优先级相同。<br>    </li><br>    <li><br>        Python允许<span style="color:#FF0000;"><code>x &lt; y &lt;= z</code></span>这样的链式比较，它相当于<code>x &lt; y and y &lt;= z</code>。&nbsp;<br>    </li><br>    <li><br>        复数不能进行大小比较，只能比较是否相等。<br>    </li><br></ol><br><p><br>    <br><br><br></p><br><p><br></p><br><p><br></p><br><h2><br>    三、逻辑运算符<br></h2><br><p><br>    <table border="1"><br>        <thead><br>            <tr><br>                <th><br>                    运算符<br>                </th><br>                <th><br>                    描述<br>                </th><br>            </tr><br>        </thead><br>        <tbody><br>            <tr><br>                <td><br>                    x or y<br>                </td><br>                <td><br>                    if x is false, then y, else x<br>                </td><br>            </tr><br>            <tr><br>                <td><br>                    x and y<br>                </td><br>                <td><br>                    if x is false, then x, else y<br>                </td><br>            </tr><br>            <tr><br>                <td><br>                    not x<br>                </td><br>                <td><br>                    if x is false, then True, else False<br>                </td><br>            </tr><br>        </tbody><br>    </table><br></p><br><p><br>    <strong>Note</strong>： <br><br><br></p><br><ol><br>    <li><br>        <span style="color:#FF0000;">or</span>是个短路运算符，它只有在第一个运算数为False时才会计算第二个运算数的值。<br>    </li><br>    <li><br>        <span style="color:#FF0000;">and</span>也是个短路运算符，它只有在第一个运算数为True时才会计算第二个运算数的值。<br>    </li><br>    <li><br>        <span style="color:#FF0000;">not</span>的优先级比其他类型的运算符低，所以not a == b相当于not (a == b)，而 a == not b是错误的。<br>    </li><br></ol><br><p><br>    <br><br><br></p><br><h2><br>    四、位运算符<br></h2><br><p><br>    <table border="1"><br>        <thead><br>            <tr><br>                <th><br>                    运算符<br>                </th><br>                <th><br>                    描述<br>                </th><br>            </tr><br>        </thead><br>        <tbody><br>            <tr><br>                <td><br>                    x | y<br>                </td><br>                <td><br>                    按位或运算符<br>                </td><br>            </tr><br>            <tr><br>                <td><br>                    x &amp; y<br>                </td><br>                <td><br>                    按位与运算符<br>                </td><br>            </tr><br>            <tr><br>                <td><br>                    x ^ y<br>                </td><br>                <td><br>                    按位异或运算符<br>                </td><br>            </tr><br>            <tr><br>                <td><br>                    x &lt;&lt; n<br>                </td><br>                <td><br>                    左移动运算符<br>                </td><br>            </tr><br>            <tr><br>                <td><br>                    x &gt;&gt; n<br>                </td><br>                <td><br>                    右移动运算符<br>                </td><br>            </tr><br>            <tr><br>                <td><br>                    ~x<br>                </td><br>                <td><br>                    按位取反运算符<br>                </td><br>            </tr><br>        </tbody><br>    </table><br></p><br><p><br>    <br><br><br></p><br><h2><br>    五、赋值运算符<br></h2><br><p><br>    复合赋值运算符与算术运算符是一一对应的：<br><br><br></p><br><p><br>    <table border="1"><br>        <thead><br>            <tr><br>                <th><br>                    运算符<br>                </th><br>                <th><br>                    描述<br>                </th><br>            </tr><br>        </thead><br>        <tbody><br>            <tr><br>                <td><br>                    =<br>                </td><br>                <td><br>                    简单的赋值运算符<br>                </td><br>            </tr><br>            <tr><br>                <td><br>                    +=<br>                </td><br>                <td><br>                    加法赋值运算符<br>                </td><br>            </tr><br>            <tr><br>                <td><br>                    -=<br>                </td><br>                <td><br>                    减法赋值运算符<br>                </td><br>            </tr><br>            <tr><br>                <td><br>                    *=<br>                </td><br>                <td><br>                    乘法赋值运算符<br>                </td><br>            </tr><br>            <tr><br>                <td><br>                    /=<br>                </td><br>                <td><br>                    除法赋值运算符<br>                </td><br>            </tr><br>            <tr><br>                <td><br>                    %=<br>                </td><br>                <td><br>                    取模赋值运算符<br>                </td><br>            </tr><br>            <tr><br>                <td>
+                    =<br>                </td><br>                <td><br>                    幂赋值运算符<br>                </td><br>            </tr><br>            <tr><br>                <td><br>                    //=<br>                </td><br>                <td><br>                    取整除法运算符<br>                </td><br>            </tr><br>        </tbody><br>    </table><br></p><br><p><br>    <br><br><br></p><br><h2><br>    六、成员运算符<br></h2><br><p><br>    Python提供了成员运算符，测试一个元素是否在一个序列（Sequence）中。<br></p><br><p><br>    <table border="1"><br>        <thead><br>            <tr><br>                <th><br>                    运算符<br>                </th><br>                <th><br>                    描述<br>                </th><br>            </tr><br>        </thead><br>        <tbody><br>            <tr><br>                <td><br>                    in<br>                </td><br>                <td><br>                    如果在指定的序列中找到值返回True，否则返回False。<br>                </td><br>            </tr><br>            <tr><br>                <td><br>                    not in<br>                </td><br>                <td><br>                    如果在指定的序列中没有找到值返回True，否则返回False。<br>                </td><br>            </tr><br>        </tbody><br>    </table><br>    <br><br><br></p><br><p><br>    <br><br><br></p><br><p><br>    <br><br><br></p><br><p><br>    <br><br><br></p><br><p><br>    <br><br><br></p><br><p><br>    <br><br><br></p><br><p><br>    <br><br><br></p><br><p><br></p>
+
+        
+      </div>
+    
+
+    
+      <div class="post-footer">
+        
+          <div class="post-tags">
+            
+              <a href="/tags/Python/">
+                #Python
+              </a>
+            
+          </div>
+        
+
+        
+          <div class="post-nav">
+            <div class="post-nav-prev post-nav-item">
+              
+                <a href="/2014/08/09/python-basic-04/">Python3基础（四） 条件与循环控制</a>
+              
+            </div>
+
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/2014/08/08/python-basic-02/">Python3基础（二） 基本数据类型</a>
+              
+            </div>
+          </div>
+        
+
+        
+        
+      </div>
+    
+  </div>
+
+
+
+  
+    <div class="comments" id="comments">
+      
+        <div class="ds-thread" data-thread-key="2014/08/08/python-basic-03/"
+             data-title="Python3基础（三） 运算符" data-url="http://yoursite.com/2014/08/08/python-basic-03/">
+        </div>
+
+      
+    </div>
+  
+
+          </div>
+
+          
+        </div>
+
+        
+<div class="sidebar-toggle">
+  <div class="sidebar-toggle-line-wrap">
+    <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+    <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+    <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+  </div>
+</div>
+
+<div id="sidebar" class="sidebar">
+  <div class="sidebar-inner">
+
+    
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview" data-target="site-overview">
+          站点概览
+        </li>
+      </ul>
+    
+
+    <div class="site-overview">
+      <div class="site-author motion-element">
+        <img class="site-author-image" src="https://avatars0.githubusercontent.com/u/6904366?v=3&s=140" alt="Song Lee" />
+        <p class="site-author-name">Song Lee</p>
+      </div>
+      <p class="site-description motion-element">放宽心，多努力</p>
+      <div class="site-state motion-element">
+        <div class="site-state-item site-state-posts">
+          <span class="site-state-item-count">33</span>
+          <span class="site-state-item-name">日志</span>
+        </div>
+        <div class="site-state-item site-state-tags">
+            <span class="site-state-item-count">11</span>
+            <span class="site-state-item-name">标签</span>
+        </div>
+        <div class="site-state-item site-state-pages">
+            <span class="site-state-item-count">4</span>
+            <span class="site-state-item-name">页面</span>
+        </div>
+      </div>
+
+      
+        <div class="feed-link motion-element">
+          <a href="/atom.xml">
+            <i class="menu-item-icon icon-feed"></i>
+            RSS
+          </a>
+        </div>
+      
+
+      <div class="links-of-author motion-element">
+        
+          
+            <span class="links-of-author-item">
+              <a href="https://github.com/SongLee24">GitHub</a>
+            </span>
+          
+            <span class="links-of-author-item">
+              <a href="http://blog.csdn.net/lisonglisonglisong">CSDN</a>
+            </span>
+          
+            <span class="links-of-author-item">
+              <a href="http://weibo.com/lisonglisong">Weibo</a>
+            </span>
+          
+            <span class="links-of-author-item">
+              <a href="http://www.douban.com/people/122455925/">DouBan</a>
+            </span>
+          
+            <span class="links-of-author-item">
+              <a href="http://www.zhihu.com/people/shen-yi-59">ZhiHu</a>
+            </span>
+          
+        
+      </div>
+
+      
+      
+        <div class="cc-license motion-element">
+          <a href="http://creativecommons.org/licenses/by-nc-sa/4.0" class="cc-opacity" target="_blank">
+            <img src="/images/cc-by-nc-sa.svg" alt="Creative Commons" />
+          </a>
+        </div>
+      
+
+    </div>
+
+    
+      <div class="post-toc-wrap sidebar-panel-active">
+        <div class="post-toc-indicator-top post-toc-indicator"></div>
+        <div class="post-toc">
+          
+          
+            <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">1.</span> <span class="nav-text">    一、算术运算符</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">2.</span> <span class="nav-text">    二、比较运算符</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">3.</span> <span class="nav-text">    三、逻辑运算符</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">4.</span> <span class="nav-text">    四、位运算符</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">5.</span> <span class="nav-text">    五、赋值运算符</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">6.</span> <span class="nav-text">    六、成员运算符</span></a></li></ol></div>
+          
+        </div>
+        <div class="post-toc-indicator-bottom post-toc-indicator"></div>
+      </div>
+    
+
+  </div>
+</div>
+
+
+      </div>
+    </div>
+
+    <div id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy; &nbsp;  2014 - 
+  2015
+  <span class="with-love">
+    <i class="icon-heart"></i>
+  </span>
+  <span class="author">Song Lee</span>
+</div>
+
+<div class="powered-by">
+  <div style="float:left;margin-top:7px;margin-right:10px;">
+	<script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1254974724'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s11.cnzz.com/z_stat.php%3Fid%3D1254974724%26show%3Dpic' type='text/javascript'%3E%3C/script%3E"));</script>
+  </div>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+
+      </div>
+    </div>
+
+    <div class="back-to-top"></div>
+  </div>
+
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript">
+    $(document).ready(function() {
+      $(".fancybox").fancybox();
+    });
+  </script>
+
+  <script type="text/javascript">
+  function hasMobileUA () {
+    var nav = window.navigator;
+    var ua = nav.userAgent;
+    var pa = /iPad|iPhone|Android|Opera Mini|BlackBerry|webOS|UCWEB|Blazer|PSP|IEMobile|Symbian/g;
+
+    return pa.test(ua);
+  }
+
+  function isDesktop () {
+    return screen.width > 991 && !hasMobileUA();
+  }
+
+  function isTablet () {
+    return screen.width < 992 && screen.width > 767 && hasMobileUA();
+  }
+
+  function isMobile () {
+    return screen.width < 767 && hasMobileUA();
+  }
+
+  function escapeSelector (selector) {
+    return selector.replace(/[!"$%&'()*+,.\/:;<=>?@[\\\]^`{|}~]/g, "\\$&")
+  }
+</script>
+
+  
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
+
+  <script type="text/javascript" id="motion.global">
+  $(document).ready(function () {
+    var body = $('body');
+    var isSidebarVisible = false;
+    var sidebarToggle = $('.sidebar-toggle');
+    var sidebarToggleLine1st = $('.sidebar-toggle-line-first')
+    var sidebarToggleLine2nd = $('.sidebar-toggle-line-middle');
+    var sidebarToggleLine3rd = $('.sidebar-toggle-line-last');
+    var sidebar = $('.sidebar');
+
+    var SIDEBAR_WIDTH = '320px';
+    var SIDEBAR_DISPLAY_DURATION = 300;
+
+    var sidebarToogleLineStatusInit = {width: '100%', opacity: 1, left: 0, rotateZ: 0, top: 0};
+
+    var sidebarToggleLine1stStatusInit = sidebarToogleLineStatusInit;
+    var sidebarToggleLine1stStatusArrow = {width: '50%', rotateZ: '-45deg', top: '2px'};
+    var sidebarToogleLine1stStatusClose = {width: '100%', rotateZ: '-45deg', top: '5px'};
+
+    var sidebarToggleLine2ndStatusInit = sidebarToogleLineStatusInit;
+    var sidebarToggleLine2ndStatusArrow = {width: '90%'};
+    var sidebarToogleLine2ndStatusClose = {opacity: 0};
+
+    var sidebarToggleLine3rdStatusInit = sidebarToogleLineStatusInit;
+    var sidebarToggleLine3rdStatusArrow = {width: '50%', rotateZ: '45deg', top: '-2px'};
+    var sidebarToogleLine3rdStatusClose = {width: '100%', rotateZ: '45deg', top: '-5px'};
+
+    LogoAndMenuMotion();
+    sidebatToggleMotion();
+    postsListMotion();
+    backToTopMotion();
+
+
+    $(document)
+      .on('sidebar.isShowing', function () {
+        isDesktop() && body.velocity(
+          {paddingRight: SIDEBAR_WIDTH},
+          SIDEBAR_DISPLAY_DURATION
+        );
+        sidebarContentMotion();
+      })
+      .on('sidebar.isHiding', function () {});
+
+    function LogoAndMenuMotion() {
+      $.Velocity.RunSequence([
+        { e: $('.brand'), p: { opacity: 1 }, o: { duration: 100 } },
+        { e: $('.logo'), p: { opacity: 1, top: 0 }, o: { duration: 50} },
+        
+        { e: $('.logo-line-before i'), p: { translateX: "100%" }, o: { duration: 500, sequenceQueue: false } },
+        { e: $('.logo-line-after i'), p: { translateX: "-100%" }, o: { duration: 500, sequenceQueue: false } },
+        
+        { e: $('.site-title'), p: { opacity: 1, top: 0 }, o: { duration: 200 } }
+      ]);
+      $('.menu-item').velocity('transition.slideDownIn', {display: null});
+    }
+
+
+    function backToTopMotion () {
+      var b2top = $('.back-to-top');
+      b2top.on('click', function () {
+        body.velocity('scroll');
+      });
+    }
+
+    function sidebarShowMotion () {
+
+      sidebarToggleLine1st.velocity(sidebarToogleLine1stStatusClose);
+      sidebarToggleLine2nd.velocity(sidebarToogleLine2ndStatusClose);
+      sidebarToggleLine3rd.velocity(sidebarToogleLine3rdStatusClose);
+
+      sidebar.velocity({width: SIDEBAR_WIDTH}, {
+        display: 'block',
+        duration: SIDEBAR_DISPLAY_DURATION,
+        complete: function () {
+          sidebar.addClass('sidebar-active');
+          sidebar.trigger('sidebar.didShow');
+        }
+      });
+      sidebar.trigger('sidebar.isShowing');
+    }
+
+    function sidebarHideMotion () {
+      isDesktop() && body.velocity({paddingRight: 0});
+      sidebar.velocity('reverse');
+
+      sidebarToggleLine1st.velocity(sidebarToggleLine1stStatusInit);
+      sidebarToggleLine2nd.velocity(sidebarToggleLine2ndStatusInit);
+      sidebarToggleLine3rd.velocity(sidebarToggleLine3rdStatusInit);
+
+      sidebar.removeClass('sidebar-active');
+      sidebar.trigger('sidebar.isHiding');
+    };
+
+    function sidebarContentMotion () {
+      $('.sidebar .motion-element').velocity(
+        'transition.slideRightIn',
+        {stagger: 50, drag: true}
+      );
+    }
+
+    function postsListMotion () {
+      var postMotionOptions = window.postMotionOptions || {stagger: 300, drag: true};
+      $('.post').velocity('transition.slideDownIn', postMotionOptions);
+    }
+
+    function sidebatToggleMotion () {
+      sidebarToggle.on('click', function () {
+        isSidebarVisible ? sidebarHideMotion() : sidebarShowMotion();
+        isSidebarVisible = !isSidebarVisible;
+      });
+
+      sidebarToggle.hover(function () {
+        if (isSidebarVisible) {return}
+        sidebarToggleLine1st.velocity('stop').velocity(sidebarToggleLine1stStatusArrow);
+        sidebarToggleLine2nd.velocity('stop').velocity(sidebarToggleLine2ndStatusArrow);
+        sidebarToggleLine3rd.velocity('stop').velocity(sidebarToggleLine3rdStatusArrow);
+      }, function () {
+        if (isSidebarVisible) {return}
+        sidebarToggleLine1st.velocity('stop').velocity(sidebarToggleLine1stStatusInit);
+        sidebarToggleLine2nd.velocity('stop').velocity(sidebarToggleLine2ndStatusInit);
+        sidebarToggleLine3rd.velocity('stop').velocity(sidebarToggleLine3rdStatusInit);
+      });
+    }
+  });
+
+</script>
+
+
+
+
+
+  
+  
+<script type="text/javascript" id="bootstrap.scrollspy.custom">
+  /* ========================================================================
+  * Bootstrap: scrollspy.js v3.3.2
+  * http://getbootstrap.com/javascript/#scrollspy
+  * ========================================================================
+  * Copyright 2011-2015 Twitter, Inc.
+  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
+  * ======================================================================== */
+
+  /**
+   * Custom by iissnan
+   *
+   * - Add a `clear.bs.scrollspy` event.
+   * - Esacpe targets selector.
+   */
+
+
+  +function ($) {
+    'use strict';
+
+    // SCROLLSPY CLASS DEFINITION
+    // ==========================
+
+    function ScrollSpy(element, options) {
+      this.$body          = $(document.body)
+      this.$scrollElement = $(element).is(document.body) ? $(window) : $(element)
+      this.options        = $.extend({}, ScrollSpy.DEFAULTS, options)
+      this.selector       = (this.options.target || '') + ' .nav li > a'
+      this.offsets        = []
+      this.targets        = []
+      this.activeTarget   = null
+      this.scrollHeight   = 0
+
+      this.$scrollElement.on('scroll.bs.scrollspy', $.proxy(this.process, this))
+      this.refresh()
+      this.process()
+    }
+
+    ScrollSpy.VERSION  = '3.3.2'
+
+    ScrollSpy.DEFAULTS = {
+      offset: 10
+    }
+
+    ScrollSpy.prototype.getScrollHeight = function () {
+      return this.$scrollElement[0].scrollHeight || Math.max(this.$body[0].scrollHeight, document.documentElement.scrollHeight)
+    }
+
+    ScrollSpy.prototype.refresh = function () {
+      var that          = this
+      var offsetMethod  = 'offset'
+      var offsetBase    = 0
+
+      this.offsets      = []
+      this.targets      = []
+      this.scrollHeight = this.getScrollHeight()
+
+      if (!$.isWindow(this.$scrollElement[0])) {
+        offsetMethod = 'position'
+        offsetBase   = this.$scrollElement.scrollTop()
+      }
+
+      this.$body
+        .find(this.selector)
+        .map(function () {
+          var $el   = $(this)
+          var href  = $el.data('target') || $el.attr('href')
+          var $href = /^#./.test(href) && $(escapeSelector(href)) // Need to escape selector.
+
+          return ($href
+            && $href.length
+            && $href.is(':visible')
+            && [[$href[offsetMethod]().top + offsetBase, href]]) || null
+        })
+        .sort(function (a, b) { return a[0] - b[0] })
+        .each(function () {
+          that.offsets.push(this[0])
+          that.targets.push(this[1])
+        })
+
+
+    }
+
+    ScrollSpy.prototype.process = function () {
+      var scrollTop    = this.$scrollElement.scrollTop() + this.options.offset
+      var scrollHeight = this.getScrollHeight()
+      var maxScroll    = this.options.offset + scrollHeight - this.$scrollElement.height()
+      var offsets      = this.offsets
+      var targets      = this.targets
+      var activeTarget = this.activeTarget
+      var i
+
+      if (this.scrollHeight != scrollHeight) {
+        this.refresh()
+      }
+
+      if (scrollTop >= maxScroll) {
+        return activeTarget != (i = targets[targets.length - 1]) && this.activate(i)
+      }
+
+      if (activeTarget && scrollTop < offsets[0]) {
+        $(this.selector).trigger('clear.bs.scrollspy')  // Add a custom event.
+        this.activeTarget = null
+        return this.clear()
+      }
+
+      for (i = offsets.length; i--;) {
+        activeTarget != targets[i]
+          && scrollTop >= offsets[i]
+          && (!offsets[i + 1] || scrollTop <= offsets[i + 1])
+          && this.activate(targets[i])
+      }
+    }
+
+    ScrollSpy.prototype.activate = function (target) {
+      this.activeTarget = target
+
+      this.clear()
+
+      var selector = this.selector +
+        '[data-target="' + target + '"],' +
+        this.selector + '[href="' + target + '"]'
+
+      var active = $(selector)
+        .parents('li')
+        .addClass('active')
+
+      if (active.parent('.dropdown-menu').length) {
+        active = active
+          .closest('li.dropdown')
+          .addClass('active')
+      }
+
+      active.trigger('activate.bs.scrollspy')
+    }
+
+    ScrollSpy.prototype.clear = function () {
+      $(this.selector)
+        .parentsUntil(this.options.target, '.active')
+        .removeClass('active')
+    }
+
+
+    // SCROLLSPY PLUGIN DEFINITION
+    // ===========================
+
+    function Plugin(option) {
+      return this.each(function () {
+        var $this   = $(this)
+        var data    = $this.data('bs.scrollspy')
+        var options = typeof option == 'object' && option
+
+        if (!data) $this.data('bs.scrollspy', (data = new ScrollSpy(this, options)))
+        if (typeof option == 'string') data[option]()
+      })
+    }
+
+    var old = $.fn.scrollspy
+
+    $.fn.scrollspy             = Plugin
+    $.fn.scrollspy.Constructor = ScrollSpy
+
+
+    // SCROLLSPY NO CONFLICT
+    // =====================
+
+    $.fn.scrollspy.noConflict = function () {
+      $.fn.scrollspy = old
+      return this
+    }
+
+
+    // SCROLLSPY DATA-API
+    // ==================
+
+    $(window).on('load.bs.scrollspy.data-api', function () {
+      $('[data-spy="scroll"]').each(function () {
+        var $spy = $(this)
+        Plugin.call($spy, $spy.data())
+      })
+    })
+
+  }(jQuery);
+</script>
+
+
+<script type="text/javascript" id="sidebar.toc.highlight">
+  $(document).ready(function () {
+    var tocSelector = '.post-toc';
+    var $tocSelector = $(tocSelector);
+    var activeCurrentSelector = '.active-current';
+
+    $tocSelector
+      .on('activate.bs.scrollspy', function () {
+        var $currentActiveElement = $(tocSelector + ' .active').last();
+
+        removeCurrentActiveClass();
+        $currentActiveElement.addClass('active-current');
+
+        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
+      })
+      .on('clear.bs.scrollspy', function () {
+        removeCurrentActiveClass();
+      });
+
+    function removeCurrentActiveClass () {
+      $(tocSelector + ' ' + activeCurrentSelector)
+        .removeClass(activeCurrentSelector.substring(1));
+    }
+
+    function processTOC () {
+      getTOCMaxHeight();
+      toggleTOCOverflowIndicators();
+    }
+
+    function getTOCMaxHeight () {
+      var $sidebarInner = $('.sidebar-inner');
+      var height = $('.sidebar').height() -
+                   $tocSelector.position().top -
+                   $('.post-toc-indicator-bottom').height();
+
+      $tocSelector.css('height', height);
+
+      return height;
+    }
+
+    function toggleTOCOverflowIndicators () {
+      tocOverflowIndicator(
+        '.post-toc-indicator-top',
+        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
+      );
+
+      tocOverflowIndicator(
+        '.post-toc-indicator-bottom',
+        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
+      )
+    }
+
+    $(document).on('sidebar.didShow', function () {
+      processTOC();
+    });
+
+    $('body').scrollspy({ target: tocSelector });
+    $(window).on('resize', function () {
+      if ( $('.sidebar').hasClass('sidebar-active') ) {
+        processTOC();
+      }
+    });
+
+    onScroll($tocSelector);
+
+    function onScroll (element) {
+      element.on('mousewheel DOMMouseScroll', function (event) {
+          var oe = event.originalEvent;
+          var delta = oe.wheelDelta || -oe.detail;
+          var self = this;
+
+          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+          event.preventDefault();
+
+          toggleTOCOverflowIndicators();
+      });
+    }
+
+    function tocOverflowIndicator (indicator, action) {
+      $(indicator).velocity('stop').velocity({
+        opacity: action === 'show' ? 0.4 : 0
+      }, { duration: 100 });
+    }
+
+  });
+</script>
+
+
+  <script type="text/javascript" id="sidebar.nav">
+    $(document).ready(function () {
+      var html = $('html');
+
+      $('.sidebar-nav li').on('click', function () {
+        var item = $(this);
+        var activeTabClassName = 'sidebar-nav-active';
+        var activePanelClassName = 'sidebar-panel-active';
+        if (item.hasClass(activeTabClassName)) {
+          return;
+        }
+
+        var currentTarget = $('.' + activePanelClassName);
+        var target = $('.' + item.data('target'));
+
+        currentTarget.velocity('transition.slideUpOut', 200, function () {
+          target
+            .velocity('stop')
+            .velocity('transition.slideDownIn', 200)
+            .addClass(activePanelClassName);
+        });
+
+        item.siblings().removeClass(activeTabClassName);
+        item.addClass(activeTabClassName);
+      });
+
+      $('.post-toc a').on('click', function (e) {
+        e.preventDefault();
+        var offset = $(escapeSelector(this.getAttribute('href'))).offset().top;
+        html.velocity('stop').velocity('scroll', {
+          offset: offset  + 'px',
+          mobileHA: false
+        });
+      });
+
+      // Expand sidebar on post detail page by default, when post has a toc.
+      var $tocContent = $('.post-toc-content');
+      if ($tocContent.length > 0 && $tocContent.html().trim().length > 0 && isDesktop()) {
+        setTimeout(function () {
+          $('.sidebar-toggle').trigger('click');
+        }, 800);
+      }
+    });
+  </script>
+
+
+
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"16"},"slide":{"type":"slide","bdImg":"2","bdPos":"left","bdTop":"195.5"},"image":{"viewList":["qzone","tsina","tqq","renren","weixin"],"viewText":"分享到：","viewSize":"16"},"selectShare":{"bdContainerClass":null,"bdSelectMiniList":["qzone","tsina","tqq","renren","weixin"]}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+
+
+  
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for (i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"songlee24"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+  
+</body>
+</html>
