@@ -260,6 +260,7 @@
 <li>从符点数到整数的转换可能会舍入也可能截断，建议使用math.floor()和math.ceil()明确定义的转换。</li>
 <li>Python定义<code>pow(0, 0)</code>和<code>0 ** 0</code>等于1。</li>
 </ol>
+<p><br></p>
 <h3 id="比较运算符">比较运算符</h3><table>
 <thead>
 <tr>
@@ -308,6 +309,71 @@
 <li>Python允许<code>x &lt; y &lt;= z</code>这样的链式比较，它相当于<code>x &lt; y and y &lt;= z</code>。 </li>
 <li>复数不能进行大小比较，只能比较是否相等。</li>
 </ol>
+<p><br></p>
+<h3 id="逻辑运算符">逻辑运算符</h3><table>
+<thead>
+<tr>
+<th>运算符</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>x or y</td>
+<td>if x is false, then y, else x</td>
+</tr>
+<tr>
+<td>x and y</td>
+<td>if x is false, then x, else y</td>
+</tr>
+<tr>
+<td>not x</td>
+<td>if x is false, then True, else False</td>
+</tr>
+</tbody>
+</table>
+<p>Note： </p>
+<ol>
+<li><code>or</code>是个短路运算符，它只有在第一个运算数为False时才会计算第二个运算数的值。</li>
+<li><code>and</code>也是个短路运算符，它只有在第一个运算数为True时才会计算第二个运算数的值。</li>
+<li><code>not</code>的优先级比其他类型的运算符低，所以not a == b相当于not (a == b)，而 a == not b是错误的。</li>
+</ol>
+<p><br></p>
+<h3 id="位运算符">位运算符</h3><table>
+<thead>
+<tr>
+<th>运算符</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>x</td>
+<td>y</td>
+<td>按位或运算符</td>
+</tr>
+<tr>
+<td>x &amp; y</td>
+<td>按位与运算符</td>
+</tr>
+<tr>
+<td>x ^ y</td>
+<td>按位异或运算符</td>
+</tr>
+<tr>
+<td>x &lt;&lt; n</td>
+<td>左移动运算符</td>
+</tr>
+<tr>
+<td>x &gt;&gt; n</td>
+<td>右移动运算符</td>
+</tr>
+<tr>
+<td>~x</td>
+<td>按位取反运算符</td>
+</tr>
+</tbody>
+</table>
 
         
       </div>
@@ -461,7 +527,7 @@
         <div class="post-toc">
           
           
-            <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#算术运算符"><span class="nav-number">1.</span> <span class="nav-text">算术运算符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#比较运算符"><span class="nav-number">2.</span> <span class="nav-text">比较运算符</span></a></li></ol></div>
+            <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#算术运算符"><span class="nav-number">1.</span> <span class="nav-text">算术运算符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#比较运算符"><span class="nav-number">2.</span> <span class="nav-text">比较运算符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#逻辑运算符"><span class="nav-number">3.</span> <span class="nav-text">逻辑运算符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#位运算符"><span class="nav-number">4.</span> <span class="nav-text">位运算符</span></a></li></ol></div>
           
         </div>
         <div class="post-toc-indicator-bottom post-toc-indicator"></div>
