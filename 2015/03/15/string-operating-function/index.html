@@ -163,7 +163,7 @@
         
           <p>阿里的电面要我用C/C++实现一个字符串拷贝的函数，虽然以前写过 strcpy 的函数实现，但时间过去很久了，再加上有点紧张，突然就措手不及了。最后写是写出来了，但没考虑异常的情况，面试官好像很不满意。(T_T)，写篇文章记录一下，以免日后重蹈覆辙。</p>
 <h3 id="一、字符串拷贝strcpy">一、字符串拷贝strcpy</h3><p>函数<code>strcpy</code>的原型是<code>char* strcpy(char* des , const char* src)</code>，des 和 src 所指内存区域不可以重叠且 des 必须有足够的空间来容纳 src 的字符串。<a id="more"></a><br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#<span class="keyword">include</span> &lt;assert.h&gt;</span></span><br><span class="line"><span class="preprocessor">#<span class="keyword">include</span> &lt;stdio.h&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">char</span>* <span class="built_in">strcpy</span>(<span class="keyword">char</span>* des, <span class="keyword">const</span> <span class="keyword">char</span>* src)</span><br><span class="line">&#123;</span><br><span class="line">	assert((des!=NULL) &amp;&amp; (src!=NULL)); </span><br><span class="line">	<span class="keyword">char</span> *address = des;  </span><br><span class="line">	<span class="keyword">while</span>((*des++ = *src++) != <span class="string">'\0'</span>)  </span><br><span class="line">		;  </span><br><span class="line">	<span class="keyword">return</span> address;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>注意：</p>
+<p>要知道 strcpy 会拷贝’\0’，还有要注意：</p>
 <ul>
 <li><p>源指针所指的字符串内容是不能修改的，因此应该声明为 const 类型。</p>
 </li>
@@ -227,6 +227,8 @@
         
           <div class="post-nav">
             <div class="post-nav-prev post-nav-item">
+              
+                <a href="/2015/03/16/cracking-the-coding-interview-01/">Cracking the Coding Interview 150题（一）</a>
               
             </div>
 
@@ -293,7 +295,7 @@
       <p class="site-description motion-element">放宽心，多努力</p>
       <div class="site-state motion-element">
         <div class="site-state-item site-state-posts">
-          <span class="site-state-item-count">58</span>
+          <span class="site-state-item-count">59</span>
           <span class="site-state-item-name">日志</span>
         </div>
         <div class="site-state-item site-state-tags">

@@ -1,0 +1,1003 @@
+<!doctype html>
+<html class="theme-next use-motion theme-next-next">
+<head>
+  
+
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+  <meta name="google-site-verification" content="VvyjvVXcJQa0QklHipu6pwm2PJGnnchIqX7s5JbbT_0" />
+
+
+
+  <link rel="stylesheet" type="text/css" href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5"/>
+
+
+<link rel="stylesheet" type="text/css" href="/css/main.css?v=0.4.0"/>
+
+
+    <meta name="description" content="放宽心，多努力" />
+
+
+
+	<meta name="keywords" content="Interview," />
+
+  <title> Cracking the Coding Interview 150题（一） // SongLee's Blog </title>
+</head>
+
+<body>
+  <div class="container one-column page-post-detail">
+    <div class="headband"></div>
+
+    <div id="header" class="header">
+      <div class="header-inner">
+        <h1 class="site-meta">
+  <span class="logo-line-before"><i></i></span>
+  <a href="/" class="brand">
+      <span class="logo">
+        <i class="icon-logo"></i>
+      </span>
+      <span class="site-title">SongLee's Blog</span>
+  </a>
+  <span class="logo-line-after"><i></i></span>
+</h1>
+
+
+  <ul id="menu" class="menu">
+    
+      
+      <li class="menu-item menu-item-home">
+        <a href="/">
+          <i class="menu-item-icon icon-home"></i> <br />
+          首页
+        </a>
+      </li>
+    
+      
+      <li class="menu-item menu-item-categories">
+        <a href="/categories">
+          <i class="menu-item-icon icon-categories"></i> <br />
+          分类
+        </a>
+      </li>
+    
+      
+      <li class="menu-item menu-item-archives">
+        <a href="/archives">
+          <i class="menu-item-icon icon-archives"></i> <br />
+          归档
+        </a>
+      </li>
+    
+      
+      <li class="menu-item menu-item-tags">
+        <a href="/tags">
+          <i class="menu-item-icon icon-tags"></i> <br />
+          标签
+        </a>
+      </li>
+    
+      
+      <li class="menu-item menu-item-about">
+        <a href="/about">
+          <i class="menu-item-icon icon-about"></i> <br />
+          关于
+        </a>
+      </li>
+    
+  </ul>
+
+
+      </div>
+    </div>
+
+    <div id="main" class="main">
+      <div class="main-inner">
+        <div id="content" class="content">
+          
+            
+          
+
+          <div id="posts" class="posts-expand">
+            
+  
+
+  <div class="post post-type-normal ">
+    <div class="post-header">
+
+      
+      
+        <h1 class="post-title">
+          
+          
+            
+              Cracking the Coding Interview 150题（一）
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          
+            发表于 2015-03-16
+          
+        </span>
+
+        
+          
+            <span class="post-category">
+              &nbsp; | &nbsp; 分类于
+              
+                <a href="/categories/试题-CareerCup/">试题-CareerCup</a>
+
+                
+                
+
+              
+            </span>
+          
+        
+
+        
+          
+            <span class="post-comments-count">
+            &nbsp; | &nbsp;
+            <a href="/2015/03/16/cracking-the-coding-interview-01/#comments" >
+              <span class="post-comments-count ds-thread-count" data-thread-key="2015/03/16/cracking-the-coding-interview-01/"></span>
+            </a>
+          </span>
+          
+        
+      </div>
+    </div>
+
+    
+      <div class="post-body">
+
+        
+        
+
+        
+          <h3 id="1、数组与字符串">1、数组与字符串</h3><p><strong>1.1</strong> 实现一个算法，确定一个字符串的所有字符是否全都不同。假设不允许使用额外的数据结构，又该如何处理？</p>
+<p><strong>1.2</strong> 用C或C++实现<code>void reverse(char* str)</code>函数，即反转一个null结尾的字符串。</p>
+<p><strong>1.3</strong> 给定两个字符串，请编写程序，确定其中一个字符串的字符重新排列后，能否变成另一个字符串。</p>
+<p><strong>1.4</strong> 编写一个方法，将字符串中的空格全部替换为“%20”。假设该字符串尾部有足够的空间存放新增字符，并且知道字符串的“真实”长度。示例：输入<code>Mr John Smith</code>，输出<code>Mr%20John%20Smith</code>。<a id="more"></a></p>
+<p><strong>1.5</strong> 利用字符重复出现的次数，编写一个方法，实现基本的字符串压缩功能。比如，字符串<code>aabcccccaaa</code>会变为<code>a2b1c5a3</code>。若“压缩”后的字符串没有变短，则返回原先的字符串。</p>
+<p><strong>1.6</strong> 给定一幅由 N x N 矩阵表示的图像，其中每个像素的大小为 4 字节，编写一个方法，将图像旋转90度。不占用额外内存空间能否做到？</p>
+<p><strong>1.7</strong> 编写一个算法，若 M x N 矩阵中某个元素为0，则将其所在的行与列清零。</p>
+<p><strong>1.8</strong> 假定有一个方法<code>isSubstring</code>，可检查一个单词是否为其他字符串的子串。给定两个字符串 s1 和 s2，请编写代码检查 s2 是否为 s1 旋转而成，要求只能调用一次<code>isSubstring</code>。（比如，<code>waterbottle</code>是<code>erbottlewat</code>旋转后的字符串。）</p>
+<p><br><br></p>
+<h3 id="2、链表">2、链表</h3><p><strong>2.1</strong> 编写代码，移除未排序链表中的重复结点。如果不得使用临时缓冲区，又该怎么解决？</p>
+<p><strong>2.2</strong> 实现一个算法，找出单向链表中倒数第 k 个结点。</p>
+<p><strong>2.3</strong> 实现一个算法，删除单向链表中间的某个结点，假定你只能访问该结点。示例：</p>
+<ul>
+<li>输入：单向链表<code>a-&gt;b-&gt;c-&gt;d-&gt;e</code>中的结点c</li>
+<li>结果：不返回任何数据，但该链表变为<code>a-&gt;b-&gt;d-&gt;e</code>。</li>
+</ul>
+<p><strong>2.4</strong> 编写代码，以给定值x为基准将链表分割成两部分，所有小于x的结点排在大于或等于x的结点之前。</p>
+<p><strong>2.5</strong> 给定两个用链表表示的整数，每个结点包含一个数位。这些数位是反向存放的，也就是个位排在链表首部。编写函数对这两个整数求和，并用链表形式返回结果。示例：</p>
+<ul>
+<li>输入：（<code>7-&gt;1-&gt;6</code>）+（<code>5-&gt;9-&gt;2</code>），即 617+295</li>
+<li>输出：<code>2-&gt;1-&gt;9</code>，即 912</li>
+</ul>
+<p>假设这些数位是正向存放的，请再做一遍。示例：</p>
+<ul>
+<li>输入：（<code>6-&gt;1-&gt;7</code>）+（<code>2-&gt;9-&gt;5</code>），即 617+295</li>
+<li>输出：<code>9-&gt;1-&gt;2</code>，即 912</li>
+</ul>
+<p><strong>2.6</strong> 给定一个有环链表，实现一个算法返回环路的开头结点。有环链表的定义：在链表中某个结点的 next 元素指向在它前面出现过的结点，则表明该链表存在环路。示例：</p>
+<ul>
+<li>输入：<code>A-&gt;B-&gt;C-&gt;D-&gt;E-&gt;C</code>（C结点出现了两次）</li>
+<li>输出：C</li>
+</ul>
+<p><strong>2.7</strong> 编写一个函数，检查链表是否为回文。</p>
+<p><br><br><br><br><br><br><br><br><br><br></p>
+<h3 id="参考答案（C++）">参考答案（C++）</h3><hr>
+<p><strong>1.1</strong> 如果允许使用数据结构，我首先想到的是<code>map</code>，下标操作<code>map[&#39;key&#39;]</code>在 key 存在时执行搜索操作，否则执行插入操作。示例代码如下：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">func</span><span class="params">(<span class="keyword">char</span> A[], <span class="keyword">int</span> len)</span></span><br><span class="line"></span>&#123;</span><br><span class="line">	<span class="built_in">map</span>&lt;<span class="keyword">char</span>, <span class="keyword">int</span>&gt; amap;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;len; ++i)</span><br><span class="line">	&#123;</span><br><span class="line">		amap[A[i]] += <span class="number">1</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="built_in">map</span>&lt;<span class="keyword">char</span>, <span class="keyword">int</span>&gt;::iterator beg = amap.begin();</span><br><span class="line">	<span class="keyword">for</span>(;beg!=amap.end(); ++beg)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span>(beg-&gt;second &gt; <span class="number">1</span>)</span><br><span class="line">			<span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>如果不允许使用额外的数据结构，该如何处理呢？假定字符集为 ASCII，那么我们可以创建一个标记数组，索引 i 对应的 bool 值指示该字符串是否含有字母表第 i 个字符。若这个字符第二次出现，则立即返回 false。<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">func</span><span class="params">(<span class="keyword">char</span> A[], <span class="keyword">int</span> len)</span>   <span class="comment">// 假定字符集为 ASCII</span></span><br><span class="line"></span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(len &gt; <span class="number">256</span>)</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">bool</span> char_set[<span class="number">256</span>] = &#123;<span class="keyword">false</span>&#125;;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;len; ++i)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span>(char_set[A[i]]) <span class="comment">// 字符已经出现过</span></span><br><span class="line">			<span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">		char_set[A[i]] = <span class="keyword">true</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><br><br><strong>1.2</strong> 根据函数的原型<code>void reverse(char* str)</code>，我们并不知道字符串的长度，所以需要先求出长度再进行反转：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">reverse</span><span class="params">(<span class="keyword">char</span>* str)</span></span><br><span class="line"></span>&#123;</span><br><span class="line">	<span class="keyword">char</span>* tmp = str;</span><br><span class="line">	<span class="keyword">int</span> len = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">while</span>(*tmp++ != <span class="string">'\0'</span>)  <span class="comment">// 求出字符串的长度</span></span><br><span class="line">		++len;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">int</span> low = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">int</span> high = len - <span class="number">1</span>;</span><br><span class="line">	<span class="keyword">while</span>(low &lt; high)    <span class="comment">// 反转</span></span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">char</span> c = str[low];</span><br><span class="line">		str[low] = str[high];</span><br><span class="line">		str[high] = c;</span><br><span class="line">		++low;</span><br><span class="line">		--high;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><br><br><strong>1.3</strong> 由题意可知，这是一个变位词的问题，可以看我的另一篇文章《<a href="http://blog.csdn.net/lisonglisonglisong/article/details/28705787" target="_blank" rel="external">变位词问题</a>》。通常的做法是把两个字符串按字母表顺序排序，比较排序后的字符串是否相等：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">myfunction</span><span class="params">(<span class="keyword">char</span> i, <span class="keyword">char</span> j)</span></span><br><span class="line"></span>&#123;</span><br><span class="line">	<span class="keyword">return</span> i &gt; j;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">Compare</span><span class="params">(<span class="built_in">string</span> s1, <span class="built_in">string</span> s2)</span></span><br><span class="line"></span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(s1.length() != s2.length())</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 泛型算法 sort() 采用的是快速排序算法</span></span><br><span class="line">	sort(s1.begin(), s1.end(), myfunction);</span><br><span class="line">	sort(s2.begin(), s2.end(), myfunction);</span><br><span class="line">	<span class="keyword">if</span>(!s1.compare(s2))  <span class="comment">// 相等返回0</span></span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">	<span class="keyword">else</span></span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>另外一种方法就是：检查两个字符串的各字符数是否相同。（假定字符集为ASCII）我们只需创建一个大小 256 的整型数组，遍历第一个字符串，给每个字符计数；遍历第二个字符串，递减对应字符的数量。最后判断数组元素是否全部为0。</p>
+<p><br><br><strong>1.4</strong> 本题的思路就是进行两次扫描。第一次扫描记录字符串中有多少空格，从而计算最终字符串的长度；第二次扫描从后往前移动字符并插入20%。代码如下：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">replaceSpace</span><span class="params">(<span class="keyword">char</span> *str, <span class="keyword">int</span> len)</span></span><br><span class="line"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> spaceNum = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;len; ++i)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span>(str[i] == <span class="string">' '</span>)</span><br><span class="line">			++spaceNum;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">int</span> newLen = len + spaceNum*<span class="number">2</span>;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=len-<span class="number">1</span>; i&gt;=<span class="number">0</span>; --i)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span>(str[i] != <span class="string">' '</span>)</span><br><span class="line">		&#123;</span><br><span class="line">			str[newLen - <span class="number">1</span>] = str[i];</span><br><span class="line">			newLen = newLen - <span class="number">1</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span></span><br><span class="line">		&#123;</span><br><span class="line">			str[newLen - <span class="number">1</span>] = <span class="string">'0'</span>;</span><br><span class="line">			str[newLen - <span class="number">2</span>] = <span class="string">'2'</span>;</span><br><span class="line">			str[newLen - <span class="number">3</span>] = <span class="string">'%'</span>;</span><br><span class="line">			newLen = newLen - <span class="number">3</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><br><br><strong>1.5</strong> 本题思路很简单：遍历字符串，将字符和对应的重复次数拷贝到新字符串。<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// int转string</span></span><br><span class="line"><span class="function"><span class="built_in">string</span> <span class="title">int2string</span><span class="params">(<span class="keyword">int</span> n)</span></span><br><span class="line"></span>&#123;</span><br><span class="line">	<span class="built_in">stringstream</span> ss;</span><br><span class="line">	<span class="built_in">string</span> str;</span><br><span class="line">	ss &lt;&lt; n;</span><br><span class="line">	ss &gt;&gt; str;</span><br><span class="line">	<span class="keyword">return</span> str;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="built_in">string</span> <span class="title">compress</span><span class="params">(<span class="built_in">string</span> str)</span></span><br><span class="line"></span>&#123;</span><br><span class="line">	<span class="built_in">string</span> tmp;</span><br><span class="line">	<span class="keyword">char</span> c = str[<span class="number">0</span>];</span><br><span class="line">	<span class="keyword">int</span> count = <span class="number">1</span>;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>; i&lt;str.length(); ++i)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span>(str[i] == c)</span><br><span class="line">			++count;</span><br><span class="line">		<span class="keyword">else</span></span><br><span class="line">		&#123;</span><br><span class="line">			tmp = tmp + c + int2string(count);</span><br><span class="line">			c = str[i];</span><br><span class="line">			count = <span class="number">1</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	tmp = tmp + c + int2string(count);</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> str.length()&gt;tmp.length() ? tmp:str;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><br><br><strong>1.6</strong> 归纳题意，简言之就是：对N阶方阵进行原地转置。（思路就是对每一层执行环状旋转，将上边移到右边、右边移到下边、下边移到左边、左边移到上边）<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">rotate</span><span class="params">(<span class="keyword">int</span> **mtx, <span class="keyword">int</span> n)</span></span><br><span class="line"></span>&#123;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> layer=<span class="number">0</span>; layer &lt; n/<span class="number">2</span>; ++layer)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">int</span> first = layer;</span><br><span class="line">		<span class="keyword">int</span> last = n-<span class="number">1</span>-layer;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i=first; i&lt;last; ++i)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">int</span> offset = i - first;</span><br><span class="line">			<span class="comment">// 暂存上边：top = mtx[first][i]</span></span><br><span class="line">			<span class="keyword">int</span> top = *((<span class="keyword">int</span>*)mtx+first*n+i);</span><br><span class="line"></span><br><span class="line">			<span class="comment">// 左到上：mtx[first][i] = mtx[last-offset][first]</span></span><br><span class="line">			*((<span class="keyword">int</span>*)mtx+first*n+i) = *((<span class="keyword">int</span>*)mtx+(last-offset)*n+first);</span><br><span class="line"></span><br><span class="line">			<span class="comment">// 下到左：mtx[last-offset][first] = mtx[last][last-offset]</span></span><br><span class="line">			*((<span class="keyword">int</span>*)mtx+(last-offset)*n+first) = *((<span class="keyword">int</span>*)mtx+last*n+(last-offset));</span><br><span class="line"></span><br><span class="line">			<span class="comment">// 右到下：mtx[last][last-offset] = mtx[i][last]</span></span><br><span class="line">			*((<span class="keyword">int</span>*)mtx+last*n+(last-offset)) = *((<span class="keyword">int</span>*)mtx+i*n+last);</span><br><span class="line"></span><br><span class="line">			<span class="comment">// 上到右：mtx[i][last] = top</span></span><br><span class="line">			*((<span class="keyword">int</span>*)mtx+i*n+last) = top;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>这里要注意二维数组作参数传递的问题，另外调用的时候像这样<code>rotate((int**)A, 4)</code>。这个算法的时间复杂度为<code>O(n^2)</code>，已是最优的做法。</p>
+<p><br><br><strong>1.7</strong> 这个问题貌似很简单，直接遍历嘛！只要发现为零的元素，就将其所在的行与列清零。不过这个方法有个陷阱：清零以后会导致连锁效应，最后整个矩阵都变成 0。我们的做法是：遍历两遍，第一遍记录要清零的行与列，第二遍再执行清零操作。<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">setZero</span><span class="params">(<span class="keyword">int</span> **mtx, <span class="keyword">int</span> m, <span class="keyword">int</span> n)</span></span><br><span class="line"></span>&#123;</span><br><span class="line">	<span class="keyword">bool</span> *row = <span class="keyword">new</span> <span class="keyword">bool</span>[m](); <span class="comment">// 默认初始化为false</span></span><br><span class="line">	<span class="keyword">bool</span> *col = <span class="keyword">new</span> <span class="keyword">bool</span>[n]();</span><br><span class="line"></span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;m; ++i)</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>; j&lt;n; ++j)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">if</span>(*((<span class="keyword">int</span>*)mtx+i*n+j) == <span class="number">0</span>)</span><br><span class="line">			&#123;</span><br><span class="line">				row[i] = <span class="keyword">true</span>;</span><br><span class="line">				col[j] = <span class="keyword">true</span>;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;m; ++i)</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>; j&lt;n; ++j)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">if</span>(row[i] || col[j])</span><br><span class="line">			&#123;</span><br><span class="line">				*((<span class="keyword">int</span>*)mtx+i*n+j) = <span class="number">0</span>;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">delete</span> [] row;</span><br><span class="line">	<span class="keyword">delete</span> [] col;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><br><br><strong>1.8</strong> 如果<code>x = wat</code>，<code>y = erbottle</code>，则<code>s1 = xy</code>，<code>s2 = yx</code>。不论x和y之间的分割点在何处，我们会发现<code>yx</code>肯定是<code>xyxy</code>的子串。即，s2总是s1s1的子串。<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">isRotation</span><span class="params">(<span class="built_in">string</span> s1, <span class="built_in">string</span> s2)</span></span><br><span class="line"></span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(s1.length() == s2.length() &amp;&amp; s1.length()&gt;<span class="number">0</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">return</span> isSubstring(s1+s1, s2);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<hr>
+<p><br><br>在解决链表问题时，首先我们得学会<strong>如何创建链表</strong>，下面是单链表创建和打印的示例代码：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="keyword">struct</span> node </span><br><span class="line">&#123;</span><br><span class="line">	node* next;</span><br><span class="line">	<span class="keyword">int</span> data;</span><br><span class="line">&#125; *LinkList;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 根据数组创建单链表：尾插法</span></span><br><span class="line"><span class="function">LinkList <span class="title">createList</span><span class="params">(<span class="keyword">int</span> A[], <span class="keyword">int</span> len)</span></span><br><span class="line"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> i = <span class="number">0</span>;</span><br><span class="line">	node *head = (node*)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(node));</span><br><span class="line">	node *s, *tail = head;</span><br><span class="line">	<span class="keyword">while</span>(i&lt;len)</span><br><span class="line">	&#123;</span><br><span class="line">		s = (node*)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(node));</span><br><span class="line">		s-&gt;data = A[i++];</span><br><span class="line">		tail-&gt;next = s;</span><br><span class="line">		tail = s;</span><br><span class="line">	&#125;</span><br><span class="line">	tail-&gt;next = NULL;</span><br><span class="line">	<span class="keyword">return</span> head;  <span class="comment">/*头结点不保存数据*/</span> </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 打印单链表</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">printList</span><span class="params">(LinkList L)</span></span><br><span class="line"></span>&#123;</span><br><span class="line">	node *p = L-&gt;next;</span><br><span class="line">	<span class="keyword">while</span>(p!=NULL)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; p-&gt;data;</span><br><span class="line">		p = p-&gt;next;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">if</span>(p!=NULL)</span><br><span class="line">			<span class="built_in">cout</span> &lt;&lt; <span class="string">"-&gt;"</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><br><br><strong>2.1</strong> 要想移除链表中的重复结点，我们只需在遍历的过程中，将每个未重复结点加入一个缓冲区。若发现有结点在缓冲区已经存在（即重复），则将该结点从链表中移除。只需遍历一次即可。<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">deleteDups</span><span class="params">(LinkList L)</span></span><br><span class="line"></span>&#123;</span><br><span class="line">	<span class="built_in">set</span>&lt;<span class="keyword">int</span>&gt; buffer;   <span class="comment">// 这里使用set容器</span></span><br><span class="line">	node *p = L-&gt;next;</span><br><span class="line">	node *pre = L;</span><br><span class="line">	<span class="keyword">while</span>(p!=NULL)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">int</span> data = p-&gt;data;</span><br><span class="line">		<span class="keyword">if</span>(buffer.find(data) == buffer.end())</span><br><span class="line">		&#123;</span><br><span class="line">			buffer.insert(data);</span><br><span class="line">			pre = p;</span><br><span class="line">			p = p-&gt;next;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span>  <span class="comment">/* 重复 */</span></span><br><span class="line">		&#123;</span><br><span class="line">			pre-&gt;next = p-&gt;next;</span><br><span class="line">			node* q = p;  <span class="comment">// 记录删除的结点</span></span><br><span class="line">			p = p-&gt;next;</span><br><span class="line">			<span class="built_in">free</span>(q);  <span class="comment">// 释放</span></span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>如果不借助额外的缓冲区，那么就只能两两比较以判断是否重复，时间复杂度为<code>O(n^2)</code>。需要使用两个指针来迭代：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">deleteDups</span><span class="params">(LinkList L)</span></span><br><span class="line"></span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(L == NULL) <span class="keyword">return</span>;</span><br><span class="line"></span><br><span class="line">	node* current = L-&gt;next;</span><br><span class="line">	<span class="keyword">while</span>(current!=NULL)</span><br><span class="line">	&#123;</span><br><span class="line">		node* runner = current;</span><br><span class="line">		<span class="keyword">while</span>(runner-&gt;next!=NULL)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">if</span>(runner-&gt;next-&gt;data == current-&gt;data)</span><br><span class="line">			&#123;</span><br><span class="line">				node* p = runner-&gt;next;</span><br><span class="line">				runner-&gt;next = runner-&gt;next-&gt;next;</span><br><span class="line">				<span class="built_in">free</span>(p);</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">else</span></span><br><span class="line">			&#123;</span><br><span class="line">				runner = runner-&gt;next;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		current = current-&gt;next;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><br><br><strong>2.2</strong> 本题有多种解法。</p>
+<ul>
+<li><p>解法一：有人可能首先会想到：这太简单了，先遍历一次链表获取长度 length，那么倒数第 k 个结点就是第 (length - k)个结点。但是，你觉得这会是面试官想要的答案吗？？</p>
+</li>
+<li><p>解法二：<strong>递归</strong>。先通过递归到达链表的末尾，然后从后往前进行计数，每次递归调用返回时，将计数器加1。当计数器等于 k 时，访问的就是链表倒数第 k 个元素。（注意计数器 i 需要<strong>传引用</strong>）</p>
+</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">node* kthToLast(node* head, <span class="keyword">int</span> k, <span class="keyword">int</span> &amp;i)</span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">if</span>(head == NULL)</span><br><span class="line">		<span class="keyword">return</span> NULL;</span><br><span class="line"></span><br><span class="line">	node* p = kthToLast(head-&gt;next, k, i);</span><br><span class="line">	i = i + <span class="number">1</span>;</span><br><span class="line">	<span class="keyword">if</span>(i == k)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">return</span> head;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> p;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>解法三：<strong>迭代法</strong>。相比于递归，迭代法通常不太直观但效率更高。思路就是：用两个指针 p1 和 p2 指向链表中两个距离为k的结点，然后以相同速度移动这两个指针，当其中一个指针指向链表的尾结点时，另一个指针指向的就是倒数第k个结点。（<strong>“快行指针”技巧</strong>）</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">node* kthToLast(LinkList L, <span class="keyword">int</span> k)    <span class="comment">// 时间复杂度O(n)，空间复杂度O(1)</span></span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">if</span>(k&lt;=<span class="number">0</span>) </span><br><span class="line">		<span class="keyword">return</span> NULL;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 两个指针</span></span><br><span class="line">	node* p1 = L-&gt;next;</span><br><span class="line">	node* p2 = L-&gt;next;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// p2向前移动k个结点</span></span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;k-<span class="number">1</span>; ++i)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span>(p2 == NULL)  <span class="comment">/*错误检查*/</span></span><br><span class="line">			<span class="keyword">return</span> NULL;</span><br><span class="line">		p2 = p2-&gt;next;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span>(p2 == NULL) <span class="keyword">return</span> NULL;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 移动p1与p2</span></span><br><span class="line">	<span class="keyword">while</span>(p2-&gt;next!=NULL)</span><br><span class="line">	&#123;</span><br><span class="line">		p1 = p1-&gt;next;</span><br><span class="line">		p2 = p2-&gt;next;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> p1;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><br><br><strong>2.3</strong>  本题中，你访问不到链表的首结点，只能访问待删除结点及之后的结点。所以我们的做法是：直接将后继结点的数据复制到当前结点，然后删除这个后继结点。<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">deleteNode</span><span class="params">(node* c)</span></span><br><span class="line"></span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(c==NULL || c-&gt;next==NULL) <span class="comment">// 尾结点无法删除</span></span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line"></span><br><span class="line">	node* next = c-&gt;next;</span><br><span class="line">	c-&gt;data = next-&gt;data;</span><br><span class="line">	c-&gt;next = next-&gt;next;</span><br><span class="line">	<span class="built_in">free</span>(next);</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><br><br><strong>2.4</strong> 链表不同于数组，在用现有元素创建新的链表时，我们不必移动和交换元素，只是改变元素的 next 指针的指向。所以本题的思路也很简单：遍历链表，将小于 x 的元素连接成一个链表，将大于等于 x 的元素连接成一个链表，最后合并两个链表即可。<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">LinkList <span class="title">partition</span><span class="params">(LinkList L, <span class="keyword">int</span> x)</span></span><br><span class="line"></span>&#123;</span><br><span class="line">	node* biggerHead = NULL;</span><br><span class="line">	node* biggerTail = NULL;</span><br><span class="line">	node* smallerHead = NULL;</span><br><span class="line">	node* smallerTail = NULL;</span><br><span class="line"></span><br><span class="line">	node* p = L-&gt;next;</span><br><span class="line">	<span class="keyword">while</span>(p!=NULL)</span><br><span class="line">	&#123;</span><br><span class="line">		node* next = p-&gt;next;</span><br><span class="line">		p-&gt;next = NULL;</span><br><span class="line">		<span class="keyword">if</span>(p-&gt;data &lt; x)</span><br><span class="line">		&#123;   <span class="comment">/*将比x小的结点插入smaller链表的尾部*/</span></span><br><span class="line">			<span class="keyword">if</span>(smallerHead == NULL)</span><br><span class="line">			&#123;</span><br><span class="line">				smallerHead = p;</span><br><span class="line">				smallerTail = smallerHead;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">else</span></span><br><span class="line">			&#123;</span><br><span class="line">				smallerTail-&gt;next = p;</span><br><span class="line">				smallerTail = p;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span></span><br><span class="line">		&#123;   <span class="comment">/*将比x大的结点插入bigger链表的尾部*/</span></span><br><span class="line">			<span class="keyword">if</span>(biggerHead == NULL)</span><br><span class="line">			&#123;</span><br><span class="line">				biggerHead = p;</span><br><span class="line">				biggerTail = biggerHead;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">else</span></span><br><span class="line">			&#123;</span><br><span class="line">				biggerTail-&gt;next = p;</span><br><span class="line">				biggerTail = p;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		p = next;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">/*遍历结束，合并两个链表*/</span></span><br><span class="line">	<span class="keyword">if</span>(smallerHead == NULL)</span><br><span class="line">	&#123;</span><br><span class="line">		L-&gt;next = biggerHead;</span><br><span class="line">		<span class="keyword">return</span> L;</span><br><span class="line">	&#125;</span><br><span class="line">	smallerTail-&gt;next = biggerHead;</span><br><span class="line">	L-&gt;next = smallerHead;</span><br><span class="line">	<span class="keyword">return</span> L;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><br><br><strong>2.5</strong>  本题的思路是逐个结点对应相加，然后判断是否进位。我们使用递归来模拟这个加法过程。<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">LinkList <span class="title">add</span><span class="params">(LinkList L1, LinkList L2, <span class="keyword">int</span> carry)</span></span><br><span class="line"></span>&#123;</span><br><span class="line">	<span class="comment">/*两个链表全部为空且进位为0，则函数返回*/</span></span><br><span class="line">	<span class="keyword">if</span>(L1==NULL &amp;&amp; L2==NULL &amp;&amp; carry==<span class="number">0</span>)</span><br><span class="line">		<span class="keyword">return</span> NULL;</span><br><span class="line"></span><br><span class="line">	node* result = (node*)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(node));</span><br><span class="line"></span><br><span class="line">	<span class="keyword">int</span> value = carry;</span><br><span class="line">	<span class="keyword">if</span>(L1!=NULL)</span><br><span class="line">		value+=L1-&gt;data;</span><br><span class="line">	<span class="keyword">if</span>(L2!=NULL)</span><br><span class="line">		value+=L2-&gt;data;</span><br><span class="line"></span><br><span class="line">	result-&gt;data = value%<span class="number">10</span>;  <span class="comment">/*取个位*/</span></span><br><span class="line"></span><br><span class="line">	node* more = add(L1==NULL?NULL:L1-&gt;next, </span><br><span class="line">    				L2==NULL?NULL:L2-&gt;next, </span><br><span class="line">                    value&gt;=<span class="number">10</span>?<span class="number">1</span>:<span class="number">0</span>);</span><br><span class="line"></span><br><span class="line">	result-&gt;next = more;</span><br><span class="line">	<span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>注意，这里<code>add</code>之后返回的链表没有“头指针”。</p>
+<p><br><br><strong>2.6</strong> 这个问题是由经典面试题——<strong>检查链表是否存在回路</strong>——演变而来。</p>
+<p><img src="http://img.blog.csdn.net/20150324231307367?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvbGlzb25nbGlzb25nbGlzb25n/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt=""></p>
+<p>如上图所示，如果链表中存在回路，那么我们遍历时会陷入死循环。那么，我们如何检测链表是否存在环 以及 寻找环的入口点呢？答案是<strong>“快慢指针”</strong>。</p>
+<p>① 设置两个指针（fast、slow），初始值都指向头，slow每次前进一步，fast每次前进二步。如果链表存在环，则fast必定先进入环，而slow后进入环，两个指针必定相遇。这是<strong>检测</strong>。</p>
+<p>② 在fast和slow第一次相遇的时候，假定slow走了n步，环路的入口是在p步，<br>   c为fast和slow相交点距离环路入口的距离。那么，slow走的路径： p+c ＝ n；<br>   fast走的路径： p+c+k*L = 2*n（L为环路的周长，k是整数），即n = k*L<br>   显然，如果从p+c点开始，slow再走n步的话，还可以回到p+c这个点。<br>   同时，fast从头开始走，步长为1，经过n步，也会达到p+c这点。<br>   显然，在这个过程中fast和slow只有前p步骤走的路径不同。所以当p1和p2再次重合的时候，必然是在链表的环路入口点上。</p>
+<p>③ 综上所述，可得出如下算法：</p>
+<ul>
+<li><p>创建两个指针：fast和slow</p>
+</li>
+<li><p>slow每走一步，fast就走两步</p>
+</li>
+<li><p>两者碰在一起时，将slow重新指向链表头，fast保持不变</p>
+</li>
+<li><p>以相同速度移动slow和fast，一次一步，然后返回新的碰撞处。</p>
+</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">node* findLoopEntrance(LinkList L)</span><br><span class="line">&#123;</span><br><span class="line">	node* slow = L-&gt;next;</span><br><span class="line">	node* fast = L-&gt;next;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">while</span>(fast!=NULL &amp;&amp; fast-&gt;next!=NULL)</span><br><span class="line">	&#123;</span><br><span class="line">		slow = slow-&gt;next;</span><br><span class="line">		fast = fast-&gt;next-&gt;next;</span><br><span class="line">		<span class="keyword">if</span>(fast == slow)  <span class="comment">/*碰撞*/</span></span><br><span class="line">			<span class="keyword">break</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span>(fast==NULL || fast-&gt;next==NULL)</span><br><span class="line">		<span class="keyword">return</span> NULL;  <span class="comment">/*没有环路*/</span></span><br><span class="line"></span><br><span class="line">	slow = L-&gt;next;   <span class="comment">/*重新指向链表头*/</span></span><br><span class="line">	<span class="keyword">while</span>(slow!=fast)</span><br><span class="line">	&#123;</span><br><span class="line">		slow = slow-&gt;next;</span><br><span class="line">		fast = fast-&gt;next;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> fast;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><br><br><strong>2.7</strong> 所谓“回文”指正向看和反向看是一样的。在链表中可以定义为 <code>0-&gt;1-&gt;2-&gt;1-&gt;0</code>。</p>
+<ul>
+<li><p>解法一：根据定义，先将整个链表反转，然后比较反转链表和原始链表。若两者相同，则该链表为回文。（只需比较链表的前半部分）</p>
+</li>
+<li><p>解法二：迭代法。先进行迭代，将链表的前半部分入栈，再继续进行迭代，与后半部分进行比较。每次迭代时，比较当前结点和栈顶元素，若完成迭代时比较结果完全相同，则该链表为回文。（在链表长度未知的情况下，可以使用<strong>“快慢指针</strong>”将前半部分入栈）</p>
+</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">isPalindrome</span><span class="params">(LinkList L)</span></span><br><span class="line"></span>&#123;</span><br><span class="line">	node* fast = L-&gt;next;</span><br><span class="line">	node* slow = L-&gt;next;</span><br><span class="line"></span><br><span class="line">	<span class="built_in">stack</span>&lt;<span class="keyword">int</span>&gt; s;</span><br><span class="line"></span><br><span class="line">	<span class="comment">/**将链表的前半部分入栈**/</span></span><br><span class="line">	<span class="keyword">while</span>(fast!=NULL &amp;&amp; fast-&gt;next!=NULL)</span><br><span class="line">	&#123;</span><br><span class="line">		s.push(slow-&gt;data);</span><br><span class="line">		slow = slow-&gt;next;</span><br><span class="line">		fast = fast-&gt;next-&gt;next;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">/**链表有奇数个元素，跳过中间元素**/</span></span><br><span class="line">	<span class="keyword">if</span>(fast!=NULL)</span><br><span class="line">		slow = slow-&gt;next;</span><br><span class="line"></span><br><span class="line">	<span class="comment">/**比较**/</span></span><br><span class="line">	<span class="keyword">while</span>(slow!=NULL)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">int</span> top = s.top();</span><br><span class="line">		s.pop();</span><br><span class="line">		<span class="keyword">if</span>(top!=slow-&gt;data)</span><br><span class="line">			<span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">		slow = slow-&gt;next;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><br><br><br><br><br><br>个人站点：<a href="http://songlee24.github.io/" target="_blank" rel="external">http://songlee24.github.com</a><br><br></p>
+
+        
+      </div>
+    
+
+    
+      <div class="post-footer">
+        
+          <div class="post-tags">
+            
+              <a href="/tags/Interview/">
+                #Interview
+              </a>
+            
+          </div>
+        
+
+        
+          <div class="post-nav">
+            <div class="post-nav-prev post-nav-item">
+              
+            </div>
+
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/2015/03/15/string-operating-function/">面试题之strcpy/strlen/strcat/strcmp的实现</a>
+              
+            </div>
+          </div>
+        
+
+        
+        
+      </div>
+    
+  </div>
+
+
+
+  
+    <div class="comments" id="comments">
+      
+        <div class="ds-thread" data-thread-key="2015/03/16/cracking-the-coding-interview-01/"
+             data-title="Cracking the Coding Interview 150题（一）" data-url="http://yoursite.com/2015/03/16/cracking-the-coding-interview-01/">
+        </div>
+
+      
+    </div>
+  
+
+          </div>
+
+          
+        </div>
+
+        
+<div class="sidebar-toggle">
+  <div class="sidebar-toggle-line-wrap">
+    <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+    <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+    <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+  </div>
+</div>
+
+<div id="sidebar" class="sidebar">
+  <div class="sidebar-inner">
+
+    
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview" data-target="site-overview">
+          站点概览
+        </li>
+      </ul>
+    
+
+    <div class="site-overview">
+      <div class="site-author motion-element">
+        <img class="site-author-image" src="https://avatars0.githubusercontent.com/u/6904366?v=3&s=140" alt="Song Lee" />
+        <p class="site-author-name">Song Lee</p>
+      </div>
+      <p class="site-description motion-element">放宽心，多努力</p>
+      <div class="site-state motion-element">
+        <div class="site-state-item site-state-posts">
+          <span class="site-state-item-count">59</span>
+          <span class="site-state-item-name">日志</span>
+        </div>
+        <div class="site-state-item site-state-tags">
+            <span class="site-state-item-count">15</span>
+            <span class="site-state-item-name">标签</span>
+        </div>
+        <div class="site-state-item site-state-pages">
+            <span class="site-state-item-count">4</span>
+            <span class="site-state-item-name">页面</span>
+        </div>
+      </div>
+
+      
+        <div class="feed-link motion-element">
+          <a href="/atom.xml">
+            <i class="menu-item-icon icon-feed"></i>
+            RSS
+          </a>
+        </div>
+      
+
+      <div class="links-of-author motion-element">
+        
+          
+            <span class="links-of-author-item">
+              <a href="https://github.com/SongLee24">GitHub</a>
+            </span>
+          
+            <span class="links-of-author-item">
+              <a href="http://blog.csdn.net/lisonglisonglisong">CSDN</a>
+            </span>
+          
+            <span class="links-of-author-item">
+              <a href="http://weibo.com/lisonglisong">Weibo</a>
+            </span>
+          
+            <span class="links-of-author-item">
+              <a href="http://www.douban.com/people/122455925/">DouBan</a>
+            </span>
+          
+            <span class="links-of-author-item">
+              <a href="http://www.zhihu.com/people/shen-yi-59">ZhiHu</a>
+            </span>
+          
+        
+      </div>
+
+      
+      
+        <div class="cc-license motion-element">
+          <a href="http://creativecommons.org/licenses/by-nc-sa/4.0" class="cc-opacity" target="_blank">
+            <img src="/images/cc-by-nc-sa.svg" alt="Creative Commons" />
+          </a>
+        </div>
+      
+
+    </div>
+
+    
+      <div class="post-toc-wrap sidebar-panel-active">
+        <div class="post-toc-indicator-top post-toc-indicator"></div>
+        <div class="post-toc">
+          
+          
+            <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1、数组与字符串"><span class="nav-number">1.</span> <span class="nav-text">1、数组与字符串</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2、链表"><span class="nav-number">2.</span> <span class="nav-text">2、链表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参考答案（C++）"><span class="nav-number">3.</span> <span class="nav-text">参考答案（C++）</span></a></li></ol></div>
+          
+        </div>
+        <div class="post-toc-indicator-bottom post-toc-indicator"></div>
+      </div>
+    
+
+  </div>
+</div>
+
+
+      </div>
+    </div>
+
+    <div id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy; &nbsp;  2014 - 
+  2015
+  <span class="with-love">
+    <i class="icon-heart"></i>
+  </span>
+  <span class="author">Song Lee</span>
+</div>
+
+<div class="powered-by">
+  <div style="float:left;margin-top:7px;margin-right:10px;">
+	<script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1254974724'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s11.cnzz.com/z_stat.php%3Fid%3D1254974724%26show%3Dpic' type='text/javascript'%3E%3C/script%3E"));</script>
+  </div>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+
+      </div>
+    </div>
+
+    <div class="back-to-top"></div>
+  </div>
+
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript">
+    $(document).ready(function() {
+      $(".fancybox").fancybox();
+    });
+  </script>
+
+  <script type="text/javascript">
+  function hasMobileUA () {
+    var nav = window.navigator;
+    var ua = nav.userAgent;
+    var pa = /iPad|iPhone|Android|Opera Mini|BlackBerry|webOS|UCWEB|Blazer|PSP|IEMobile|Symbian/g;
+
+    return pa.test(ua);
+  }
+
+  function isDesktop () {
+    return screen.width > 991 && !hasMobileUA();
+  }
+
+  function isTablet () {
+    return screen.width < 992 && screen.width > 767 && hasMobileUA();
+  }
+
+  function isMobile () {
+    return screen.width < 767 && hasMobileUA();
+  }
+
+  function escapeSelector (selector) {
+    return selector.replace(/[!"$%&'()*+,.\/:;<=>?@[\\\]^`{|}~]/g, "\\$&")
+  }
+</script>
+
+  
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
+
+  <script type="text/javascript" id="motion.global">
+  $(document).ready(function () {
+    var body = $('body');
+    var isSidebarVisible = false;
+    var sidebarToggle = $('.sidebar-toggle');
+    var sidebarToggleLine1st = $('.sidebar-toggle-line-first')
+    var sidebarToggleLine2nd = $('.sidebar-toggle-line-middle');
+    var sidebarToggleLine3rd = $('.sidebar-toggle-line-last');
+    var sidebar = $('.sidebar');
+
+    var SIDEBAR_WIDTH = '320px';
+    var SIDEBAR_DISPLAY_DURATION = 300;
+
+    var sidebarToogleLineStatusInit = {width: '100%', opacity: 1, left: 0, rotateZ: 0, top: 0};
+
+    var sidebarToggleLine1stStatusInit = sidebarToogleLineStatusInit;
+    var sidebarToggleLine1stStatusArrow = {width: '50%', rotateZ: '-45deg', top: '2px'};
+    var sidebarToogleLine1stStatusClose = {width: '100%', rotateZ: '-45deg', top: '5px'};
+
+    var sidebarToggleLine2ndStatusInit = sidebarToogleLineStatusInit;
+    var sidebarToggleLine2ndStatusArrow = {width: '90%'};
+    var sidebarToogleLine2ndStatusClose = {opacity: 0};
+
+    var sidebarToggleLine3rdStatusInit = sidebarToogleLineStatusInit;
+    var sidebarToggleLine3rdStatusArrow = {width: '50%', rotateZ: '45deg', top: '-2px'};
+    var sidebarToogleLine3rdStatusClose = {width: '100%', rotateZ: '45deg', top: '-5px'};
+
+    LogoAndMenuMotion();
+    sidebatToggleMotion();
+    postsListMotion();
+    backToTopMotion();
+
+
+    $(document)
+      .on('sidebar.isShowing', function () {
+        isDesktop() && body.velocity(
+          {paddingRight: SIDEBAR_WIDTH},
+          SIDEBAR_DISPLAY_DURATION
+        );
+        sidebarContentMotion();
+      })
+      .on('sidebar.isHiding', function () {});
+
+    function LogoAndMenuMotion() {
+      $.Velocity.RunSequence([
+        { e: $('.brand'), p: { opacity: 1 }, o: { duration: 100 } },
+        { e: $('.logo'), p: { opacity: 1, top: 0 }, o: { duration: 50} },
+        
+        { e: $('.logo-line-before i'), p: { translateX: "100%" }, o: { duration: 500, sequenceQueue: false } },
+        { e: $('.logo-line-after i'), p: { translateX: "-100%" }, o: { duration: 500, sequenceQueue: false } },
+        
+        { e: $('.site-title'), p: { opacity: 1, top: 0 }, o: { duration: 200 } }
+      ]);
+      $('.menu-item').velocity('transition.slideDownIn', {display: null});
+    }
+
+
+    function backToTopMotion () {
+      var b2top = $('.back-to-top');
+      b2top.on('click', function () {
+        body.velocity('scroll');
+      });
+    }
+
+    function sidebarShowMotion () {
+
+      sidebarToggleLine1st.velocity(sidebarToogleLine1stStatusClose);
+      sidebarToggleLine2nd.velocity(sidebarToogleLine2ndStatusClose);
+      sidebarToggleLine3rd.velocity(sidebarToogleLine3rdStatusClose);
+
+      sidebar.velocity({width: SIDEBAR_WIDTH}, {
+        display: 'block',
+        duration: SIDEBAR_DISPLAY_DURATION,
+        complete: function () {
+          sidebar.addClass('sidebar-active');
+          sidebar.trigger('sidebar.didShow');
+        }
+      });
+      sidebar.trigger('sidebar.isShowing');
+    }
+
+    function sidebarHideMotion () {
+      isDesktop() && body.velocity({paddingRight: 0});
+      sidebar.velocity('reverse');
+
+      sidebarToggleLine1st.velocity(sidebarToggleLine1stStatusInit);
+      sidebarToggleLine2nd.velocity(sidebarToggleLine2ndStatusInit);
+      sidebarToggleLine3rd.velocity(sidebarToggleLine3rdStatusInit);
+
+      sidebar.removeClass('sidebar-active');
+      sidebar.trigger('sidebar.isHiding');
+    };
+
+    function sidebarContentMotion () {
+      $('.sidebar .motion-element').velocity(
+        'transition.slideRightIn',
+        {stagger: 50, drag: true}
+      );
+    }
+
+    function postsListMotion () {
+      var postMotionOptions = window.postMotionOptions || {stagger: 300, drag: true};
+      $('.post').velocity('transition.slideDownIn', postMotionOptions);
+    }
+
+    function sidebatToggleMotion () {
+      sidebarToggle.on('click', function () {
+        isSidebarVisible ? sidebarHideMotion() : sidebarShowMotion();
+        isSidebarVisible = !isSidebarVisible;
+      });
+
+      sidebarToggle.hover(function () {
+        if (isSidebarVisible) {return}
+        sidebarToggleLine1st.velocity('stop').velocity(sidebarToggleLine1stStatusArrow);
+        sidebarToggleLine2nd.velocity('stop').velocity(sidebarToggleLine2ndStatusArrow);
+        sidebarToggleLine3rd.velocity('stop').velocity(sidebarToggleLine3rdStatusArrow);
+      }, function () {
+        if (isSidebarVisible) {return}
+        sidebarToggleLine1st.velocity('stop').velocity(sidebarToggleLine1stStatusInit);
+        sidebarToggleLine2nd.velocity('stop').velocity(sidebarToggleLine2ndStatusInit);
+        sidebarToggleLine3rd.velocity('stop').velocity(sidebarToggleLine3rdStatusInit);
+      });
+    }
+  });
+
+</script>
+
+
+
+
+
+  
+  
+<script type="text/javascript" id="bootstrap.scrollspy.custom">
+  /* ========================================================================
+  * Bootstrap: scrollspy.js v3.3.2
+  * http://getbootstrap.com/javascript/#scrollspy
+  * ========================================================================
+  * Copyright 2011-2015 Twitter, Inc.
+  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
+  * ======================================================================== */
+
+  /**
+   * Custom by iissnan
+   *
+   * - Add a `clear.bs.scrollspy` event.
+   * - Esacpe targets selector.
+   */
+
+
+  +function ($) {
+    'use strict';
+
+    // SCROLLSPY CLASS DEFINITION
+    // ==========================
+
+    function ScrollSpy(element, options) {
+      this.$body          = $(document.body)
+      this.$scrollElement = $(element).is(document.body) ? $(window) : $(element)
+      this.options        = $.extend({}, ScrollSpy.DEFAULTS, options)
+      this.selector       = (this.options.target || '') + ' .nav li > a'
+      this.offsets        = []
+      this.targets        = []
+      this.activeTarget   = null
+      this.scrollHeight   = 0
+
+      this.$scrollElement.on('scroll.bs.scrollspy', $.proxy(this.process, this))
+      this.refresh()
+      this.process()
+    }
+
+    ScrollSpy.VERSION  = '3.3.2'
+
+    ScrollSpy.DEFAULTS = {
+      offset: 10
+    }
+
+    ScrollSpy.prototype.getScrollHeight = function () {
+      return this.$scrollElement[0].scrollHeight || Math.max(this.$body[0].scrollHeight, document.documentElement.scrollHeight)
+    }
+
+    ScrollSpy.prototype.refresh = function () {
+      var that          = this
+      var offsetMethod  = 'offset'
+      var offsetBase    = 0
+
+      this.offsets      = []
+      this.targets      = []
+      this.scrollHeight = this.getScrollHeight()
+
+      if (!$.isWindow(this.$scrollElement[0])) {
+        offsetMethod = 'position'
+        offsetBase   = this.$scrollElement.scrollTop()
+      }
+
+      this.$body
+        .find(this.selector)
+        .map(function () {
+          var $el   = $(this)
+          var href  = $el.data('target') || $el.attr('href')
+          var $href = /^#./.test(href) && $(escapeSelector(href)) // Need to escape selector.
+
+          return ($href
+            && $href.length
+            && $href.is(':visible')
+            && [[$href[offsetMethod]().top + offsetBase, href]]) || null
+        })
+        .sort(function (a, b) { return a[0] - b[0] })
+        .each(function () {
+          that.offsets.push(this[0])
+          that.targets.push(this[1])
+        })
+
+
+    }
+
+    ScrollSpy.prototype.process = function () {
+      var scrollTop    = this.$scrollElement.scrollTop() + this.options.offset
+      var scrollHeight = this.getScrollHeight()
+      var maxScroll    = this.options.offset + scrollHeight - this.$scrollElement.height()
+      var offsets      = this.offsets
+      var targets      = this.targets
+      var activeTarget = this.activeTarget
+      var i
+
+      if (this.scrollHeight != scrollHeight) {
+        this.refresh()
+      }
+
+      if (scrollTop >= maxScroll) {
+        return activeTarget != (i = targets[targets.length - 1]) && this.activate(i)
+      }
+
+      if (activeTarget && scrollTop < offsets[0]) {
+        $(this.selector).trigger('clear.bs.scrollspy')  // Add a custom event.
+        this.activeTarget = null
+        return this.clear()
+      }
+
+      for (i = offsets.length; i--;) {
+        activeTarget != targets[i]
+          && scrollTop >= offsets[i]
+          && (!offsets[i + 1] || scrollTop <= offsets[i + 1])
+          && this.activate(targets[i])
+      }
+    }
+
+    ScrollSpy.prototype.activate = function (target) {
+      this.activeTarget = target
+
+      this.clear()
+
+      var selector = this.selector +
+        '[data-target="' + target + '"],' +
+        this.selector + '[href="' + target + '"]'
+
+      var active = $(selector)
+        .parents('li')
+        .addClass('active')
+
+      if (active.parent('.dropdown-menu').length) {
+        active = active
+          .closest('li.dropdown')
+          .addClass('active')
+      }
+
+      active.trigger('activate.bs.scrollspy')
+    }
+
+    ScrollSpy.prototype.clear = function () {
+      $(this.selector)
+        .parentsUntil(this.options.target, '.active')
+        .removeClass('active')
+    }
+
+
+    // SCROLLSPY PLUGIN DEFINITION
+    // ===========================
+
+    function Plugin(option) {
+      return this.each(function () {
+        var $this   = $(this)
+        var data    = $this.data('bs.scrollspy')
+        var options = typeof option == 'object' && option
+
+        if (!data) $this.data('bs.scrollspy', (data = new ScrollSpy(this, options)))
+        if (typeof option == 'string') data[option]()
+      })
+    }
+
+    var old = $.fn.scrollspy
+
+    $.fn.scrollspy             = Plugin
+    $.fn.scrollspy.Constructor = ScrollSpy
+
+
+    // SCROLLSPY NO CONFLICT
+    // =====================
+
+    $.fn.scrollspy.noConflict = function () {
+      $.fn.scrollspy = old
+      return this
+    }
+
+
+    // SCROLLSPY DATA-API
+    // ==================
+
+    $(window).on('load.bs.scrollspy.data-api', function () {
+      $('[data-spy="scroll"]').each(function () {
+        var $spy = $(this)
+        Plugin.call($spy, $spy.data())
+      })
+    })
+
+  }(jQuery);
+</script>
+
+
+<script type="text/javascript" id="sidebar.toc.highlight">
+  $(document).ready(function () {
+    var tocSelector = '.post-toc';
+    var $tocSelector = $(tocSelector);
+    var activeCurrentSelector = '.active-current';
+
+    $tocSelector
+      .on('activate.bs.scrollspy', function () {
+        var $currentActiveElement = $(tocSelector + ' .active').last();
+
+        removeCurrentActiveClass();
+        $currentActiveElement.addClass('active-current');
+
+        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
+      })
+      .on('clear.bs.scrollspy', function () {
+        removeCurrentActiveClass();
+      });
+
+    function removeCurrentActiveClass () {
+      $(tocSelector + ' ' + activeCurrentSelector)
+        .removeClass(activeCurrentSelector.substring(1));
+    }
+
+    function processTOC () {
+      getTOCMaxHeight();
+      toggleTOCOverflowIndicators();
+    }
+
+    function getTOCMaxHeight () {
+      var $sidebarInner = $('.sidebar-inner');
+      var height = $('.sidebar').height() -
+                   $tocSelector.position().top -
+                   $('.post-toc-indicator-bottom').height();
+
+      $tocSelector.css('height', height);
+
+      return height;
+    }
+
+    function toggleTOCOverflowIndicators () {
+      tocOverflowIndicator(
+        '.post-toc-indicator-top',
+        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
+      );
+
+      tocOverflowIndicator(
+        '.post-toc-indicator-bottom',
+        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
+      )
+    }
+
+    $(document).on('sidebar.didShow', function () {
+      processTOC();
+    });
+
+    $('body').scrollspy({ target: tocSelector });
+    $(window).on('resize', function () {
+      if ( $('.sidebar').hasClass('sidebar-active') ) {
+        processTOC();
+      }
+    });
+
+    onScroll($tocSelector);
+
+    function onScroll (element) {
+      element.on('mousewheel DOMMouseScroll', function (event) {
+          var oe = event.originalEvent;
+          var delta = oe.wheelDelta || -oe.detail;
+          var self = this;
+
+          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+          event.preventDefault();
+
+          toggleTOCOverflowIndicators();
+      });
+    }
+
+    function tocOverflowIndicator (indicator, action) {
+      $(indicator).velocity('stop').velocity({
+        opacity: action === 'show' ? 0.4 : 0
+      }, { duration: 100 });
+    }
+
+  });
+</script>
+
+
+  <script type="text/javascript" id="sidebar.nav">
+    $(document).ready(function () {
+      var html = $('html');
+
+      $('.sidebar-nav li').on('click', function () {
+        var item = $(this);
+        var activeTabClassName = 'sidebar-nav-active';
+        var activePanelClassName = 'sidebar-panel-active';
+        if (item.hasClass(activeTabClassName)) {
+          return;
+        }
+
+        var currentTarget = $('.' + activePanelClassName);
+        var target = $('.' + item.data('target'));
+
+        currentTarget.velocity('transition.slideUpOut', 200, function () {
+          target
+            .velocity('stop')
+            .velocity('transition.slideDownIn', 200)
+            .addClass(activePanelClassName);
+        });
+
+        item.siblings().removeClass(activeTabClassName);
+        item.addClass(activeTabClassName);
+      });
+
+      $('.post-toc a').on('click', function (e) {
+        e.preventDefault();
+        var offset = $(escapeSelector(this.getAttribute('href'))).offset().top;
+        html.velocity('stop').velocity('scroll', {
+          offset: offset  + 'px',
+          mobileHA: false
+        });
+      });
+
+      // Expand sidebar on post detail page by default, when post has a toc.
+      var $tocContent = $('.post-toc-content');
+      if ($tocContent.length > 0 && $tocContent.html().trim().length > 0 && isDesktop()) {
+        setTimeout(function () {
+          $('.sidebar-toggle').trigger('click');
+        }, 800);
+      }
+    });
+  </script>
+
+
+
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"16"},"slide":{"type":"slide","bdImg":"2","bdPos":"left","bdTop":"195.5"},"image":{"viewList":["qzone","tsina","tqq","renren","weixin"],"viewText":"分享到：","viewSize":"16"},"selectShare":{"bdContainerClass":null,"bdSelectMiniList":["qzone","tsina","tqq","renren","weixin"]}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+
+
+  
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for (i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"songlee24"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+  
+</body>
+</html>
