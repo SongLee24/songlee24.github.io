@@ -4,7 +4,7 @@
   <subtitle><![CDATA[李松]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://yoursite.com/"/>
-  <updated>2015-05-10T12:08:33.440Z</updated>
+  <updated>2015-05-10T12:13:59.727Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -13,6 +13,62 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[拓扑排序（Topological Sorting）]]></title>
+    <link href="http://yoursite.com/2015/05/07/topological-sorting/"/>
+    <id>http://yoursite.com/2015/05/07/topological-sorting/</id>
+    <published>2015-05-07T15:23:52.000Z</published>
+    <updated>2015-05-10T12:13:59.727Z</updated>
+    <content type="html"><![CDATA[<h3 id="一、什么是拓扑排序">一、什么是拓扑排序</h3><p>在图论中，<strong>拓扑排序（Topological Sorting）</strong>是一个<strong>有向无环图（DAG, Directed Acyclic Graph）</strong>的所有顶点的线性序列。且该序列必须满足下面两个条件：</p>
+<ol>
+<li>每个顶点出现且只出现一次。</li>
+<li>若存在一条从顶点 A 到顶点 B 的路径，那么在序列中顶点 A 出现在顶点 B 的前面。</li>
+</ol>
+<p>有向无环图（DAG）才有拓扑排序，非DAG图没有拓扑排序一说。<a id="more"></a></p>
+<p>例如，下面这个图：</p>
+<center><br><img src="http://img.blog.csdn.net/20150507001028284" alt=""><br></center>
+
+<p>它是一个 DAG 图，那么如何写出它的拓扑排序呢？这里说一种比较常用的方法：</p>
+<ol>
+<li>从 DAG 图中选择一个 没有前驱（即入度为0）的顶点并输出。</li>
+<li>从图中删除该顶点和所有以它为起点的有向边。</li>
+<li>重复 1 和 2 直到当前的 DAG 图为空或<strong>当前图中不存在无前驱的顶点为止</strong>。后一种情况说明有向图中必然存在环。</li>
+</ol>
+<center><br><img src="http://img.blog.csdn.net/20150507001759702" alt=""><br></center>
+
+<p>于是，得到拓扑排序后的结果是 { 1, 2, 4, 3, 5 }。</p>
+<p>通常，一个有向无环图可以有<strong>一个或多个</strong>拓扑排序序列。</p>
+<p><br></p>
+<h3 id="二、拓扑排序的应用">二、拓扑排序的应用</h3><p>拓扑排序通常用来“排序”具有依赖关系的任务。</p>
+<p>比如，如果用一个DAG图来表示一个工程，其中每个顶点表示工程中的一个任务，用有向边 <a, b=""> 表示在做任务 B 之前必须先完成任务 A。故在这个工程中，任意两个任务要么具有确定的先后关系，要么是没有关系，绝对不存在互相矛盾的关系（即环路）。</a,></p>
+<p><br></p>
+<h3 id="三、拓扑排序的实现">三、拓扑排序的实现</h3><p>根据上面讲的方法，我们关键是要<strong>维护一个入度为0的顶点的集合</strong>。</p>
+<p>图的存储方式有两种：邻接矩阵和邻接表。这里我们采用<strong>邻接表</strong>来存储图，C++代码如下：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#<span class="keyword">include</span>&lt;iostream&gt;</span></span><br><span class="line"><span class="preprocessor">#<span class="keyword">include</span> &lt;list&gt;</span></span><br><span class="line"><span class="preprocessor">#<span class="keyword">include</span> &lt;queue&gt;</span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/************************类声明************************/</span></span><br><span class="line"><span class="keyword">class</span> Graph</span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">int</span> V;             <span class="comment">// 顶点个数</span></span><br><span class="line">	<span class="built_in">list</span>&lt;<span class="keyword">int</span>&gt; *adj;    <span class="comment">// 邻接表</span></span><br><span class="line">	<span class="built_in">queue</span>&lt;<span class="keyword">int</span>&gt; q;      <span class="comment">// 维护一个入度为0的顶点的集合</span></span><br><span class="line">	<span class="keyword">int</span>* indegree;     <span class="comment">// 记录每个顶点的入度</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	Graph(<span class="keyword">int</span> V);                   <span class="comment">// 构造函数</span></span><br><span class="line">	~Graph();                       <span class="comment">// 析构函数</span></span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">addEdge</span><span class="params">(<span class="keyword">int</span> v, <span class="keyword">int</span> w)</span></span>;     <span class="comment">// 添加边</span></span><br><span class="line">	<span class="function"><span class="keyword">bool</span> <span class="title">topological_sort</span><span class="params">()</span></span>;        <span class="comment">// 拓扑排序</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">/************************类定义************************/</span></span><br><span class="line">Graph::Graph(<span class="keyword">int</span> V)</span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">this</span>-&gt;V = V;</span><br><span class="line">	adj = <span class="keyword">new</span> <span class="built_in">list</span>&lt;<span class="keyword">int</span>&gt;[V];</span><br><span class="line"></span><br><span class="line">	indegree = <span class="keyword">new</span> <span class="keyword">int</span>[V];  <span class="comment">// 入度全部初始化为0</span></span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;V; ++i)</span><br><span class="line">		indegree[i] = <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Graph::~Graph()</span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">delete</span> [] adj;</span><br><span class="line">	<span class="keyword">delete</span> [] indegree;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">void</span> Graph::addEdge(<span class="keyword">int</span> v, <span class="keyword">int</span> w)</span><br><span class="line">&#123;</span><br><span class="line">	adj[v].push_back(w); </span><br><span class="line">	++indegree[w];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">bool</span> Graph::topological_sort()</span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;V; ++i)</span><br><span class="line">		<span class="keyword">if</span>(indegree[i] == <span class="number">0</span>)</span><br><span class="line">			q.push(i);         <span class="comment">// 将所有入度为0的顶点入队</span></span><br><span class="line"></span><br><span class="line">	<span class="keyword">int</span> count = <span class="number">0</span>;             <span class="comment">// 计数，记录当前已经输出的顶点数 </span></span><br><span class="line">	<span class="keyword">while</span>(!q.empty())</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">int</span> v = q.front();      <span class="comment">// 从队列中取出一个顶点</span></span><br><span class="line">		q.pop();</span><br><span class="line"></span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; v &lt;&lt; <span class="string">" "</span>;      <span class="comment">// 输出该顶点</span></span><br><span class="line">		++count;</span><br><span class="line">		<span class="comment">// 将所有v指向的顶点的入度减1，并将入度减为0的顶点入栈</span></span><br><span class="line">		<span class="built_in">list</span>&lt;<span class="keyword">int</span>&gt;::iterator beg = adj[v].begin();</span><br><span class="line">		<span class="keyword">for</span>( ; beg!=adj[v].end(); ++beg)</span><br><span class="line">			<span class="keyword">if</span>(!(--indegree[*beg]))</span><br><span class="line">				q.push(*beg);   <span class="comment">// 若入度为0，则入栈</span></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span>(count &lt; V)</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">false</span>;           <span class="comment">// 没有输出全部顶点，有向图中有回路</span></span><br><span class="line">	<span class="keyword">else</span></span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">true</span>;            <span class="comment">// 拓扑排序成功</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>测试如下DAG图：</p>
+<p><img src="http://img.blog.csdn.net/20150507013500102" alt=""></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span><br><span class="line"></span>&#123;</span><br><span class="line">	<span class="function">Graph <span class="title">g</span><span class="params">(6)</span></span>;   <span class="comment">// 创建图</span></span><br><span class="line">	g.addEdge(<span class="number">5</span>, <span class="number">2</span>);</span><br><span class="line">	g.addEdge(<span class="number">5</span>, <span class="number">0</span>);</span><br><span class="line">	g.addEdge(<span class="number">4</span>, <span class="number">0</span>);</span><br><span class="line">	g.addEdge(<span class="number">4</span>, <span class="number">1</span>);</span><br><span class="line">	g.addEdge(<span class="number">2</span>, <span class="number">3</span>);</span><br><span class="line">	g.addEdge(<span class="number">3</span>, <span class="number">1</span>);</span><br><span class="line"></span><br><span class="line">	g.topological_sort();</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>输出结果是 4, 5, 2, 0, 3, 1。这是该图的拓扑排序序列之一。</p>
+<p>每次在入度为0的集合中取顶点，并没有特殊的取出规则，随机取出也行，这里使用的<code>queue</code>。取顶点的顺序不同会得到不同的拓扑排序序列，当然前提是该图存在多个拓扑排序序列。</p>
+<p>由于输出每个顶点的同时还要删除以它为起点的边，故上述拓扑排序的时间复杂度为$O(V+E)$。</p>
+<p><br><br><br><br><br><br><br><br><br>另外，拓扑排序还可以采用 <a href="http://songlee24.github.io/2014/07/04/depth-first-search/" target="_blank" rel="external">深度优先搜索（DFS）</a>的思想来实现，详见《<a href="http://www.geeksforgeeks.org/topological-sorting/" target="_blank" rel="external">topological sorting via DFS</a>》。</p>
+<p><br><br>个人站点：<a href="http://songlee24.github.io/" target="_blank" rel="external">http://songlee24.github.com</a></p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<h3 id="一、什么是拓扑排序">一、什么是拓扑排序</h3><p>在图论中，<strong>拓扑排序（Topological Sorting）</strong>是一个<strong>有向无环图（DAG, Directed Acyclic Graph）</strong>的所有顶点的线性序列。且该序列必须满足下面两个条件：</p>
+<ol>
+<li>每个顶点出现且只出现一次。</li>
+<li>若存在一条从顶点 A 到顶点 B 的路径，那么在序列中顶点 A 出现在顶点 B 的前面。</li>
+</ol>
+<p>有向无环图（DAG）才有拓扑排序，非DAG图没有拓扑排序一说。]]>
+    
+    </summary>
+    
+      <category term="算法" scheme="http://yoursite.com/tags/%E7%AE%97%E6%B3%95/"/>
+    
+      <category term="Basic-算法与数据结构" scheme="http://yoursite.com/categories/Basic-%E7%AE%97%E6%B3%95%E4%B8%8E%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[理解公钥与私钥]]></title>
@@ -1563,81 +1619,6 @@
 <p>上篇讲到使用动态规划可以在 <strong>θ(mn)</strong> 的时间里求出 LCS 的长度，本文将讨论如何输出最长公共子序列。</p>
 <p><strong>*问题描述：</strong>给定两个序列，例如 X = “ABCBDAB”、Y = “BDCABA”，求它们的最长公共子序列的长度。*</p>
 <p>下面是求解时的动态规划表，可以看出 X 和 Y 的最长公共子序列的长度为4：<br>]]>
-    
-    </summary>
-    
-      <category term="算法" scheme="http://yoursite.com/tags/%E7%AE%97%E6%B3%95/"/>
-    
-      <category term="Basic-算法与数据结构" scheme="http://yoursite.com/categories/Basic-%E7%AE%97%E6%B3%95%E4%B8%8E%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[动态规划（Dynamic Programming）]]></title>
-    <link href="http://yoursite.com/2014/11/27/dynamic-programming/"/>
-    <id>http://yoursite.com/2014/11/27/dynamic-programming/</id>
-    <published>2014-11-27T13:50:47.000Z</published>
-    <updated>2015-05-10T10:30:16.598Z</updated>
-    <content type="html"><![CDATA[<h3 id="一、动态规划">一、动态规划</h3><p><strong>动态规划（Dynamic Programming）</strong>是一种设计的技巧，是解决多阶段决策过程最优化问题的通用方法。</p>
-<p><strong>基本思想：</strong>将待求解问题分解成若干个子问题，先求解子问题，然后从这些子问题的解得到原问题的解（这部分与分治法相似）。与分治法不同的是，适合于用动态规划求解的问题，经分解得到的子问题往往不是互相独立的。若用分治法来解这类问题，则分解得到的子问题数目太多，有些子问题被重复计算了很多次。如果我们能够保存已解决的子问题的答案，而在需要时再找出已求得的答案，这样就可以避免大量的重复计算，节省时间。通常可以用一个<strong>表</strong>来记录所有已解的子问题的答案。不管该子问题以后是否被用到，只要它被计算过，就将其结果填入表中。这就是动态规划的基本思路。</p>
-<p>采用动态规划求解的问题需要具有<strong>两个特性：</strong><a id="more"></a></p>
-<ul>
-<li><p><strong>最优子结构（Optimal Substructure）：</strong>问题的一个最优解中所包含的子问题的解也是最优的。</p>
-</li>
-<li><p><strong>重叠子问题（Overlapping Subproblems）：</strong>用递归算法对问题进行求解时，每次产生的子问题并不总是新问题，有些子问题会被重复计算多次。</p>
-</li>
-</ul>
-<p>问题具有最优子结构性质，我们才能写出最优解的递归方程；具有重叠子问题特性，我们才能通过避免重复计算来减少运行时间。</p>
-<p>综上所述，动态规划的关键是 —— 记忆，空间换时间，不重复求解，从较小问题解逐步决策，构造较大问题的解。<br><br></p>
-<h3 id="二、最长公共子序列（LCS）问题">二、最长公共子序列（LCS）问题</h3><p>下面通过一个具体的例子来学习动态规划方法 —— 最长公共子序列问题。</p>
-<p><strong>*最长公共子串（Longest Common Substring）</strong>与<strong>最长公共子序列（Longest Common Subsequence）</strong>的区别： 子串要求在原字符串中是连续的，而子序列则只需保持相对顺序，并不要求连续。*</p>
-<p><strong>问题描述：</strong>给定两个序列：<code>X[1...m]</code>和<code>Y[1...n]</code>，求在两个序列中同时出现的最长子序列的长度。</p>
-<p>假设 X 和 Y 的序列如下：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">X[<span class="number">1.</span>..m] = &#123;A, B, C, B, D, A, B&#125;</span><br><span class="line">Y[<span class="number">1.</span>..n] = &#123;B, D, C, A, B, A&#125;</span><br></pre></td></tr></table></figure></p>
-<p>可以看出，X 和 Y 的最长公共子序列有 “BDAB”、“BCAB”、“BCBA”，即长度为4。</p>
-<p><strong>1） 穷举法</strong></p>
-<p>可能很多人会想到用穷举法来解决这个问题，即求出 X 中所有子序列，看 Y 中是否存在该子序列。</p>
-<ul>
-<li>X 有多少子序列 —— $2^m$ 个</li>
-<li>检查一个子序列是否在 Y 中 —— θ(n)</li>
-</ul>
-<p>所以穷举法在最坏情况下的时间复杂度是 $θ(n * 2^m)$，也就是说花费的时间是指数级的，这简直太慢了。</p>
-<p><strong>2） 动态规划</strong></p>
-<p>首先，我们来看看 LCS 问题是否具有动态规划问题的两个特性。</p>
-<p><strong>① 最优子结构</strong></p>
-<p>设 <code>C[i,j] = |LCS(x[1...i],y[1...j])|</code>，即<code>C[i,j]</code>表示序列<code>X[1...i]</code>和<code>Y[1...j]</code>的最长公共子序列的长度，则 <code>C[m,n] = |LCS(x,y)|</code>就是问题的解。</p>
-<p>递归推导式：</p>
-<p><img src="http://img.blog.csdn.net/20141127164356104?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvbGlzb25nbGlzb25nbGlzb25n/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" alt=""></p>
-<p>在这里就不证明了。从这个递归公式可以看出，问题具有最优子结构性质！</p>
-<p><strong>② 重叠子问题</strong></p>
-<p>根据上面的递归推导式，可以写出求LCS长度的递归伪代码：<br><figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">LCS(x,y,<span class="built_in">i</span>,<span class="built_in">j</span>)</span><br><span class="line">	<span class="keyword">if</span> x<span class="matrix">[i]</span> = y<span class="matrix">[j]</span></span><br><span class="line">		then C<span class="matrix">[i,j]</span> ← LCS(x,y,<span class="built_in">i</span>-<span class="number">1</span>,<span class="built_in">j</span>-<span class="number">1</span>)+<span class="number">1</span></span><br><span class="line">		<span class="keyword">else</span> C<span class="matrix">[i,j]</span> ← max<span class="cell">&#123;LCS(x,y,i-<span class="number">1</span>,j),LCS(x,y,i,j-<span class="number">1</span>)&#125;</span></span><br><span class="line">	<span class="keyword">return</span> C<span class="matrix">[i,j]</span></span><br></pre></td></tr></table></figure></p>
-<p>C++代码如下：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 简单的递归求解LCS问题</span></span><br><span class="line"><span class="preprocessor">#<span class="keyword">include</span> &lt;iostream&gt;</span></span><br><span class="line"><span class="preprocessor">#<span class="keyword">include</span> &lt;string&gt;</span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">max</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span> </span><br><span class="line"></span>&#123;</span><br><span class="line">	<span class="keyword">return</span> (a&gt;b)? a:b;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Return the length of LCS for X[0...m-1] and Y[0...n-1]</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">lcs</span><span class="params">(<span class="built_in">string</span> &amp;X, <span class="built_in">string</span> &amp;Y, <span class="keyword">int</span> m, <span class="keyword">int</span> n)</span></span><br><span class="line"></span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (m == <span class="number">0</span> || n == <span class="number">0</span>)</span><br><span class="line">		<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">if</span> (X[m-<span class="number">1</span>] == Y[n-<span class="number">1</span>])</span><br><span class="line">		<span class="keyword">return</span> lcs(X, Y, m-<span class="number">1</span>, n-<span class="number">1</span>) + <span class="number">1</span>;</span><br><span class="line">	<span class="keyword">else</span></span><br><span class="line">		<span class="keyword">return</span> max(lcs(X, Y, m, n-<span class="number">1</span>), lcs(X, Y, m-<span class="number">1</span>, n));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span><br><span class="line"></span>&#123;</span><br><span class="line">	<span class="built_in">string</span> X = <span class="string">"ABCBDAB"</span>;</span><br><span class="line">	<span class="built_in">string</span> Y = <span class="string">"BDCABA"</span>;</span><br><span class="line"></span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="string">"The length of LCS is "</span> &lt;&lt; lcs(X, Y, X.length(), Y.length());</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; endl;</span><br><span class="line"></span><br><span class="line">	getchar();</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>像这样使用简单的递归，在最坏情况下（X 和 Y 的所有字符都不匹配，即LCS的长度为0）的时间复杂度为 <strong>θ(2^n)</strong>。这和穷举法一样还是指数级的，太慢了。</p>
-<p>根据程序中 X 和 Y 的初始值，我们画出部分递归树：</p>
-<p><img src="http://img.blog.csdn.net/20141127164646781?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvbGlzb25nbGlzb25nbGlzb25n/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" alt=""></p>
-<p>递归树中红框标记的部分被调用了两次。如果画出完整的递归树，我们会看到很多重复的调用，所以这个问题具有重叠子问题的特性。</p>
-<p><strong>③ 动态规划求解</strong></p>
-<p>简单的递归之所以和穷举法一样慢，因为在递归过程中进行了大量的重复调用。而<strong>动态规划就是要解决这个问题，通过用一个表来保存子问题的结果，避免重复的计算，以空间换时间</strong>。前面我们已经证明，最长公共子序列问题具有动态规划所要求的两个特性，所以 LCS 问题可以用动态规划来求解。</p>
-<p>下面是用动态规划（打表）解决LCS问题：</p>
-<p><img src="http://img.blog.csdn.net/20141127164703086?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvbGlzb25nbGlzb25nbGlzb25n/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" alt=""></p>
-<p>C++代码：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 动态规划求解LCS问题</span></span><br><span class="line"><span class="preprocessor">#<span class="keyword">include</span> &lt;iostream&gt;</span></span><br><span class="line"><span class="preprocessor">#<span class="keyword">include</span> &lt;string&gt;</span></span><br><span class="line"><span class="preprocessor">#<span class="keyword">include</span> &lt;vector&gt;</span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">max</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span> </span><br><span class="line"></span>&#123;</span><br><span class="line">	<span class="keyword">return</span> (a&gt;b)? a:b;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span><br><span class="line"> * 返回X[0...m-1]和Y[0...n-1]的LCS的长度 </span><br><span class="line"> */</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">lcs</span><span class="params">(<span class="built_in">string</span> &amp;X, <span class="built_in">string</span> &amp;Y, <span class="keyword">int</span> m, <span class="keyword">int</span> n)</span></span><br><span class="line"></span>&#123;</span><br><span class="line">	<span class="comment">// 动态规划表，大小(m+1)*(n+1)</span></span><br><span class="line">	<span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; table(m+<span class="number">1</span>,<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;(n+<span class="number">1</span>));  </span><br><span class="line"></span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;m+<span class="number">1</span>; ++i)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>; j&lt;n+<span class="number">1</span>; ++j)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="comment">// 第一行和第一列置0</span></span><br><span class="line">			<span class="keyword">if</span> (i == <span class="number">0</span> || j == <span class="number">0</span>)</span><br><span class="line">				table[i][j] = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">			<span class="keyword">else</span> <span class="keyword">if</span>(X[i-<span class="number">1</span>] == Y[j-<span class="number">1</span>])</span><br><span class="line">				table[i][j] = table[i-<span class="number">1</span>][j-<span class="number">1</span>] + <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">			<span class="keyword">else</span></span><br><span class="line">				table[i][j] = max(table[i-<span class="number">1</span>][j], table[i][j-<span class="number">1</span>]);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> table[m][n];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span><br><span class="line"></span>&#123;</span><br><span class="line">	<span class="built_in">string</span> X = <span class="string">"ABCBDAB"</span>;</span><br><span class="line">	<span class="built_in">string</span> Y = <span class="string">"BDCABA"</span>;</span><br><span class="line"></span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="string">"The length of LCS is "</span> &lt;&lt; lcs(X, Y, X.length(), Y.length());</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; endl;</span><br><span class="line"></span><br><span class="line">	getchar();</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>容易看出，动态规划解决LCS问题的时间复杂度为 <strong>θ(mn)</strong>，这比简单的递归实现要快多了。空间复杂度是<strong>θ(mn)</strong>，因为使用了一个动态规划表。当然，空间复杂度还可以进行优化，即根据递推式我们可以只保存填下一个位置所用到的几个位置就行了。（关于如何输出LCS请看另一篇：《<a href="http://songlee24.github.io/blog/2014/11/29/printlcs/" target="_blank" rel="external">输出所有的最长公共子序列</a>》）</p>
-<p><br><br><br><br></p>
-<h3 id="总结：">总结：</h3><p>动态规划将原来具有指数级时间复杂度的搜索算法改进成了具有多项式时间复杂度的算法。其中的关键在于解决冗余（重复计算），这是动态规划算法的根本目的。动态规划实质上是一种以空间换时间的技术，它在实现的过程中，不得不存储产生过程中的各种状态，所以它的空间复杂度要大于其它的算法。</p>
-<p>从上面的例子中，我们可以总结动态规划解决最优化问题的一般步骤：</p>
-<ol>
-<li>分析最优解的性质，并刻划其结构特征。</li>
-<li>递归地定义最优值。</li>
-<li>以自底向上的方式或自顶向下的记忆化方法计算出最优值。</li>
-<li>根据计算最优值时得到的信息，构造一个最优解。</li>
-</ol>
-<p>步骤(1)—(3)是动态规划算法的基本步骤。在只需要求出最优值的情形，步骤(4)可以省略，若需要求出问题的一个最优解，则必须执行步骤(4)。此时，在步骤(3)中计算最优值时，通常需记录更多的信息，以便在步骤(4)中，根据所记录的信息，快速地构造出一个最优解。</p>
-<p>（全文完）</p>
-<p><br><br>参考：<br>[1] www.algorithmist.com/index.php/Longest_Common_Subsequence<br>[2] www.geeksforgeeks.org/dynamic-programming-set-4-longest-common-subsequence/</p>
-]]></content>
-    <summary type="html">
-    <![CDATA[<h3 id="一、动态规划">一、动态规划</h3><p><strong>动态规划（Dynamic Programming）</strong>是一种设计的技巧，是解决多阶段决策过程最优化问题的通用方法。</p>
-<p><strong>基本思想：</strong>将待求解问题分解成若干个子问题，先求解子问题，然后从这些子问题的解得到原问题的解（这部分与分治法相似）。与分治法不同的是，适合于用动态规划求解的问题，经分解得到的子问题往往不是互相独立的。若用分治法来解这类问题，则分解得到的子问题数目太多，有些子问题被重复计算了很多次。如果我们能够保存已解决的子问题的答案，而在需要时再找出已求得的答案，这样就可以避免大量的重复计算，节省时间。通常可以用一个<strong>表</strong>来记录所有已解的子问题的答案。不管该子问题以后是否被用到，只要它被计算过，就将其结果填入表中。这就是动态规划的基本思路。</p>
-<p>采用动态规划求解的问题需要具有<strong>两个特性：</strong>]]>
     
     </summary>
     
