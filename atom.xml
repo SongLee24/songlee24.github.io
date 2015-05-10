@@ -4,7 +4,7 @@
   <subtitle><![CDATA[李松]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://yoursite.com/"/>
-  <updated>2015-05-10T10:28:08.523Z</updated>
+  <updated>2015-05-10T10:30:16.598Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -19,7 +19,7 @@
     <link href="http://yoursite.com/2014/11/27/dynamic-programming/"/>
     <id>http://yoursite.com/2014/11/27/dynamic-programming/</id>
     <published>2014-11-27T13:50:47.000Z</published>
-    <updated>2015-05-10T10:28:08.523Z</updated>
+    <updated>2015-05-10T10:30:16.598Z</updated>
     <content type="html"><![CDATA[<h3 id="一、动态规划">一、动态规划</h3><p><strong>动态规划（Dynamic Programming）</strong>是一种设计的技巧，是解决多阶段决策过程最优化问题的通用方法。</p>
 <p><strong>基本思想：</strong>将待求解问题分解成若干个子问题，先求解子问题，然后从这些子问题的解得到原问题的解（这部分与分治法相似）。与分治法不同的是，适合于用动态规划求解的问题，经分解得到的子问题往往不是互相独立的。若用分治法来解这类问题，则分解得到的子问题数目太多，有些子问题被重复计算了很多次。如果我们能够保存已解决的子问题的答案，而在需要时再找出已求得的答案，这样就可以避免大量的重复计算，节省时间。通常可以用一个<strong>表</strong>来记录所有已解的子问题的答案。不管该子问题以后是否被用到，只要它被计算过，就将其结果填入表中。这就是动态规划的基本思路。</p>
 <p>采用动态规划求解的问题需要具有<strong>两个特性：</strong><a id="more"></a></p>
@@ -39,10 +39,10 @@
 <p><strong>1） 穷举法</strong></p>
 <p>可能很多人会想到用穷举法来解决这个问题，即求出 X 中所有子序列，看 Y 中是否存在该子序列。</p>
 <ul>
-<li>X 有多少子序列 —— 2^m 个</li>
+<li>X 有多少子序列 —— $2^m$ 个</li>
 <li>检查一个子序列是否在 Y 中 —— θ(n)</li>
 </ul>
-<p>所以穷举法在最坏情况下的时间复杂度是 <strong>θ(n * 2^m)</strong>，也就是说花费的时间是指数级的，这简直太慢了。</p>
+<p>所以穷举法在最坏情况下的时间复杂度是 $θ(n * 2^m)$，也就是说花费的时间是指数级的，这简直太慢了。</p>
 <p><strong>2） 动态规划</strong></p>
 <p>首先，我们来看看 LCS 问题是否具有动态规划问题的两个特性。</p>
 <p><strong>① 最优子结构</strong></p>
