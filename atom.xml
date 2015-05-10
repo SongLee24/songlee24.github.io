@@ -4,7 +4,7 @@
   <subtitle><![CDATA[李松]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://yoursite.com/"/>
-  <updated>2015-05-10T10:07:33.253Z</updated>
+  <updated>2015-05-10T10:09:23.284Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -19,7 +19,7 @@
     <link href="http://yoursite.com/2014/10/05/arithmetic-expression-01/"/>
     <id>http://yoursite.com/2014/10/05/arithmetic-expression-01/</id>
     <published>2014-10-05T01:49:03.000Z</published>
-    <updated>2015-05-10T10:07:33.253Z</updated>
+    <updated>2015-05-10T10:09:23.284Z</updated>
     <content type="html"><![CDATA[<p>在写一个计算器时遇到了一个问题，就是对字符串表示的<strong>算术表达式</strong>的合法性判断与求值。下面记录一下我的解决方案。</p>
 <h3 id="一、问题描述">一、问题描述</h3><p>问题：给定一个字符串，只包含 <strong>‘+’、’-‘、’*’、’/‘、数字、小数点、’(‘ 、’)’</strong>。</p>
 <p>要求：(1) 判断该算术表达式是否合法； (2) 如果合法，计算该表达式的值。</p>
@@ -36,13 +36,11 @@
 <p><strong>2）语法分析</strong></p>
 <p>算术表达式的文法 G[E] 如下：  </p>
 <blockquote>
-<p> <em>E → E+T | E-T | T</em><br> <em>T → T</em>F | T/F | F<em>  
- </em>F → (E) | d*</p>
+<p> E → E+T | E-T | T<br> T → T*F | T/F | F<br> F → (E) | d</p>
 </blockquote>
 <p>消去非终结符E和T的左递归后，改写 G[E] 文法如下：</p>
 <blockquote>
-<p><em>E → TE’</em><br><em>E’ → +TE’ | -TE’ | ε</em><br><em>T → FT’</em><br><em>T’ → </em>FT’ | /FT’ | ε<em>  
-</em>F → (E) | d*</p>
+<p>E → TE’<br>E’ → +TE’ | -TE’ | ε<br>T → FT’<br>T’ → *FT’ | /FT’ | ε<br>F → (E) | d</p>
 </blockquote>
 <p>可以证明上述无递归文法是 LL(1) 文法，可以使用 <strong>递归下降分析法</strong>。递归下降分析法是确定的自上而下分析法，这种分析法要求文法是 LL(1) 文法。它的<strong>基本思想</strong>是：对文法中的每一个非终结符编写一个函数（或子程序），每个函数（或子程序）的功能是识别由该非终结符所表示的语法成分。</p>
 <p>构造递归下降分析程序时，每个函数名是相应的非终结符，函数体是根据规则右部符号串的结构编写：</p>

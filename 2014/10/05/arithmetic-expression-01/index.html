@@ -177,13 +177,11 @@
 <p><strong>2）语法分析</strong></p>
 <p>算术表达式的文法 G[E] 如下：  </p>
 <blockquote>
-<p> <em>E → E+T | E-T | T</em><br> <em>T → T</em>F | T/F | F<em>  
- </em>F → (E) | d*</p>
+<p> E → E+T | E-T | T<br> T → T*F | T/F | F<br> F → (E) | d</p>
 </blockquote>
 <p>消去非终结符E和T的左递归后，改写 G[E] 文法如下：</p>
 <blockquote>
-<p><em>E → TE’</em><br><em>E’ → +TE’ | -TE’ | ε</em><br><em>T → FT’</em><br><em>T’ → </em>FT’ | /FT’ | ε<em>  
-</em>F → (E) | d*</p>
+<p>E → TE’<br>E’ → +TE’ | -TE’ | ε<br>T → FT’<br>T’ → *FT’ | /FT’ | ε<br>F → (E) | d</p>
 </blockquote>
 <p>可以证明上述无递归文法是 LL(1) 文法，可以使用 <strong>递归下降分析法</strong>。递归下降分析法是确定的自上而下分析法，这种分析法要求文法是 LL(1) 文法。它的<strong>基本思想</strong>是：对文法中的每一个非终结符编写一个函数（或子程序），每个函数（或子程序）的功能是识别由该非终结符所表示的语法成分。</p>
 <p>构造递归下降分析程序时，每个函数名是相应的非终结符，函数体是根据规则右部符号串的结构编写：</p>
