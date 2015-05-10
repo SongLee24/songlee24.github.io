@@ -115,9 +115,10 @@
     <link href="http://yoursite.com/2014/08/08/python-basic-03/"/>
     <id>http://yoursite.com/2014/08/08/python-basic-03/</id>
     <published>2014-08-08T12:13:46.000Z</published>
-    <updated>2015-05-10T00:46:59.129Z</updated>
+    <updated>2015-05-10T00:48:27.720Z</updated>
     <content type="html"><![CDATA[<p>Python中的运算符大部分与C语言的类似，但也有很多不同的地方。这里就大概地罗列一下Python 3中的运算符。</p>
-<h3 id="算术运算符">算术运算符</h3><table>
+<h3 id="算术运算符">算术运算符</h3><a id="more"></a>
+<table>
 <thead>
 <tr>
 <th>运算符</th>
@@ -217,12 +218,8 @@
 ]]></content>
     <summary type="html">
     <![CDATA[<p>Python中的运算符大部分与C语言的类似，但也有很多不同的地方。这里就大概地罗列一下Python 3中的运算符。</p>
-<h3 id="算术运算符">算术运算符</h3><table>
-<thead>
-<tr>
-<th>运算符</th>
-<th>描述</th>
-<th>]]>
+<h3 id="算术运算符">算术运算符</h3>]]>
+    
     </summary>
     
       <category term="Python" scheme="http://yoursite.com/tags/Python/"/>
