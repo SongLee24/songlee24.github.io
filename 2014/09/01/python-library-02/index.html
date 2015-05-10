@@ -1,0 +1,1066 @@
+<!doctype html>
+<html class="theme-next use-motion theme-next-next">
+<head>
+  
+
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+  <meta name="google-site-verification" content="VvyjvVXcJQa0QklHipu6pwm2PJGnnchIqX7s5JbbT_0" />
+
+
+
+  <link rel="stylesheet" type="text/css" href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5"/>
+
+
+<link rel="stylesheet" type="text/css" href="/css/main.css?v=0.4.0"/>
+
+
+    <meta name="description" content="放宽心，多努力" />
+
+
+
+	<meta name="keywords" content="Python," />
+
+  <title> Python3标准库（二） re模块 // SongLee's Blog </title>
+</head>
+
+<body>
+  <div class="container one-column page-post-detail">
+    <div class="headband"></div>
+
+    <div id="header" class="header">
+      <div class="header-inner">
+        <h1 class="site-meta">
+  <span class="logo-line-before"><i></i></span>
+  <a href="/" class="brand">
+      <span class="logo">
+        <i class="icon-logo"></i>
+      </span>
+      <span class="site-title">SongLee's Blog</span>
+  </a>
+  <span class="logo-line-after"><i></i></span>
+</h1>
+
+
+  <ul id="menu" class="menu">
+    
+      
+      <li class="menu-item menu-item-home">
+        <a href="/">
+          <i class="menu-item-icon icon-home"></i> <br />
+          首页
+        </a>
+      </li>
+    
+      
+      <li class="menu-item menu-item-categories">
+        <a href="/categories">
+          <i class="menu-item-icon icon-categories"></i> <br />
+          分类
+        </a>
+      </li>
+    
+      
+      <li class="menu-item menu-item-archives">
+        <a href="/archives">
+          <i class="menu-item-icon icon-archives"></i> <br />
+          归档
+        </a>
+      </li>
+    
+      
+      <li class="menu-item menu-item-tags">
+        <a href="/tags">
+          <i class="menu-item-icon icon-tags"></i> <br />
+          标签
+        </a>
+      </li>
+    
+      
+      <li class="menu-item menu-item-about">
+        <a href="/about">
+          <i class="menu-item-icon icon-about"></i> <br />
+          关于
+        </a>
+      </li>
+    
+  </ul>
+
+
+      </div>
+    </div>
+
+    <div id="main" class="main">
+      <div class="main-inner">
+        <div id="content" class="content">
+          
+            
+          
+
+          <div id="posts" class="posts-expand">
+            
+  
+
+  <div class="post post-type-normal ">
+    <div class="post-header">
+
+      
+      
+        <h1 class="post-title">
+          
+          
+            
+              Python3标准库（二） re模块
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          
+            发表于 2014-09-01
+          
+        </span>
+
+        
+          
+            <span class="post-category">
+              &nbsp; | &nbsp; 分类于
+              
+                <a href="/categories/Lang-Python/">Lang.-Python</a>
+
+                
+                
+
+              
+            </span>
+          
+        
+
+        
+          
+            <span class="post-comments-count">
+            &nbsp; | &nbsp;
+            <a href="/2014/09/01/python-library-02/#comments" >
+              <span class="post-comments-count ds-thread-count" data-thread-key="2014/09/01/python-library-02/"></span>
+            </a>
+          </span>
+          
+        
+      </div>
+    </div>
+
+    
+      <div class="post-body">
+
+        
+        
+
+        
+          <p><strong>正则表达式（Regular Expression）</strong>是字符串处理的常用工具，通常被用来检索、替换那些符合某个模式（Pattern）的文本。很多程序设计语言都支持正则表达式，像Perl、Java、C/C++。在 Python 中是通过标准库中的 <strong>re 模块</strong> 提供对正则的支持。</p>
+<p><br></p>
+<h3 id="一、正则表达式介绍">一、正则表达式介绍</h3><p><strong>1）用途</strong></p>
+<p>通过使用正则表达式，可以： </p>
+<ul>
+<li><p>测试字符串内的模式。—— 例如，可以测试输入字符串，以查看字符串内是否出现电话号码模式或信用卡号码模式。这称为数据验证。 <a id="more"></a></p>
+</li>
+<li><p>替换文本。—— 可以使用正则表达式来识别文档中的特定文本，完全删除该文本或者用其他文本替换它。</p>
+</li>
+<li><p>基于模式匹配从字符串中提取子字符串。—— 可以查找文档内或输入域内特定的文本。</p>
+</li>
+</ul>
+<p><strong>2）语法</strong></p>
+<p>本文主要介绍正则的基本语法以及 re 模块的使用，不包括如何编写高效的正则表达式、如何优化正则表达式，这些主题请看其他教程。</p>
+<p>下图列出了Python支持的一些正则表达式元字符和语法：</p>
+<p><img src="http://img.blog.csdn.net/20140929200042391?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvbGlzb25nbGlzb25nbGlzb25n/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt=""></p>
+<p><strong>3）贪婪模式与非贪婪模式</strong></p>
+<p>“贪婪模式”总是尝试匹配尽可能多的字符；“非贪婪模式”则相反，总是匹配尽可能少的字符。例如，用”ab<em>“如果用于查找”abbbc”，将找到”abbb”。而如果使用非贪婪的数量词”ab</em>?”，将找到”a”。</p>
+<p><br></p>
+<h3 id="二、使用_re_模块">二、使用 re 模块</h3><p><strong>1）编译正则表达式</strong></p>
+<p>re 模块提供了 <a href="https://docs.python.org/3/library/re.html#re.compile" target="_blank" rel="external">re.compile()</a> 函数将一个字符串编译成 pattern object，用于匹配或搜索。函数原型如下：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">re.compile(pattern, flags=<span class="number">0</span>)</span><br></pre></td></tr></table></figure></p>
+<p>re.compile() 还接受一个可选的参数 flag，用于指定正则匹配的模式。关于匹配模式，后面将会讲到。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">p = re.compile(<span class="string">'ab*'</span>, re.IGNORECASE)</span><br></pre></td></tr></table></figure>
+<p><strong>2）反斜杠的困扰</strong></p>
+<p>在 python 的字符串中，\ 是被当做转义字符的。在正则表达式中，\ 也是被当做转义字符。这就导致了一个问题：如果你要匹配 \ 字符串，那么传递给 re.compile() 的字符串必须是”\\\\“。</p>
+<p>由于字符串的转义，所以实际传递给 re.compile() 的是”\\“，然后再通过正则表达式的转义，”\\“ 会匹配到字符”\“。这样虽然可以正确匹配到字符 \，但是很麻烦，而且容易漏写反斜杠而导致 Bug。那么有什么好的解决方案呢？ </p>
+<p><strong>原始字符串</strong>很好的解决了这个问题，通过在字符串前面添加一个r，表示原始字符串，不让字符串的反斜杠发生转义。那么就可以使用<code>r&quot;\\&quot;</code>来匹配字符 <code>\</code>了。</p>
+<p><strong>3）pattern object 执行匹配</strong></p>
+<p>一旦你编译得到了一个 pattern object，你就可以使用 pattern object 的方法或属性进行匹配了，下面列举几个常用的方法，更多请看<a href="https://docs.python.org/3/library/re.html#regular-expression-objects" target="_blank" rel="external">这里</a>。</p>
+<p><a href="https://docs.python.org/3/library/re.html#re.regex.match" target="_blank" rel="external"><code>regex.match(string[, pos[, endpos]])</code></a>：</p>
+<ul>
+<li>匹配从 pos 到 endpos 的字符子串的开头。匹配成功返回一个 match object，不匹配返回 None。</li>
+<li>pos 的默认值是0，endpos 的默认值是 len(string)，所以默认情况下是匹配整个字符串的开头。<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> re</span><br><span class="line">pattern = re.compile(<span class="string">"ar&#123;1&#125;"</span>)</span><br><span class="line">print(pattern.match(<span class="string">"army"</span>))     <span class="comment"># "ar"在开头，匹配成功</span></span><br><span class="line">print(pattern.match(<span class="string">"mary"</span>))     <span class="comment"># "ar"不在开头，匹配失败</span></span><br><span class="line">print(pattern.match(<span class="string">"mary"</span>, <span class="number">1</span>))  <span class="comment"># "ar"不在开头，但在子串的开头</span></span><br><span class="line"> </span><br><span class="line"><span class="comment"># 输出结果：</span></span><br><span class="line"><span class="comment"># &lt;_sre.SRE_Match object; span=(0, 2), match='ar'&gt;</span></span><br><span class="line"><span class="comment"># None</span></span><br><span class="line"><span class="comment"># &lt;_sre.SRE_Match object; span=(1, 3), match='ar'&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p><a href="https://docs.python.org/3/library/re.html#re.regex.search" target="_blank" rel="external"><code>regex.search(string[, pos[, endpos]])</code></a>：</p>
+<ul>
+<li>扫描整个字符串，并返回它找到的第一个匹配（Match object）。</li>
+<li>和 regex.match() 一样，可以通过 pos 和 endpos 指定范围。<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">pattern = re.compile(<span class="string">"ar&#123;1&#125;"</span>)</span><br><span class="line">match = pattern.search(<span class="string">"mary"</span>)   <span class="comment"># search</span></span><br><span class="line">print(match)</span><br><span class="line"> </span><br><span class="line"><span class="comment"># 输出结果：</span></span><br><span class="line"><span class="comment"># &lt;_sre.SRE_Match object; span=(1, 3), match='ar'&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p><a href="https://docs.python.org/3/library/re.html#re.regex.findall" target="_blank" rel="external"><code>regex.findall(string[, pos[, endpos]])</code></a>：</p>
+<ul>
+<li>找到所有匹配的子串，并返回一个 list 。</li>
+<li>可选参数 pos 和 endpos 和上面一样。<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">pattern = re.compile(<span class="string">r"\d+"</span>)</span><br><span class="line">lst = pattern.findall(<span class="string">"abc1def2rst3xyz"</span>)   <span class="comment"># findall</span></span><br><span class="line">print(lst)</span><br><span class="line"> </span><br><span class="line"><span class="comment"># 输出结果：</span></span><br><span class="line"><span class="comment"># ['1', '2', '3']</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p><a href="https://docs.python.org/3/library/re.html#re.regex.finditer" target="_blank" rel="external"><code>regex.finditer(string[, pos[, endpos]])</code></a>：</p>
+<ul>
+<li>找到所有匹配的子串，并返回由这些匹配结果（match object）组成的迭代器。</li>
+<li>可选参数 pos 和 endpos 和上面一样。<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">pattern = re.compile(<span class="string">r"\d+"</span>)</span><br><span class="line">p = pattern.finditer(<span class="string">"abc1def2rst3xyz"</span>) </span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> p:</span><br><span class="line">    print(i)</span><br><span class="line"> </span><br><span class="line"><span class="comment"># 输出结果：</span></span><br><span class="line"><span class="comment"># &lt;_sre.SRE_Match object; span=(3, 4), match='1'&gt;</span></span><br><span class="line"><span class="comment"># &lt;_sre.SRE_Match object; span=(7, 8), match='2'&gt;</span></span><br><span class="line"><span class="comment"># &lt;_sre.SRE_Match object; span=(11, 12), match='3'&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p><strong>4）match object 获取结果</strong></p>
+<p>在上面讲到，通过 pattern object 的方法（除 findall 外）进行匹配得到的返回结果都是 <strong>match object</strong>。每一个 match object 都包含了匹配到的相关信息，比如，起始位置、匹配到的子串。那么，我们如何从 match object 中提取这些信息呢？</p>
+<p>match object 提供了一些方法，下面列举几个常用的方法，更多请看<a href="https://docs.python.org/3/library/re.html#match-objects" target="_blank" rel="external">这里</a>。</p>
+<p><a href="https://docs.python.org/3/library/re.html#re.match.group" target="_blank" rel="external"><code>match.group([group1, ...])</code></a>：</p>
+<ul>
+<li>返回 match object 中的字符串。</li>
+<li>每一个 ( ) 都是一个分组，分组编号从1开始，从左往右，每遇到一个左括号，分组编号+1。</li>
+<li>组 0 总是存在的，它就是整个表达式 。</li>
+<li>没有参数时，group1默认为0，这时返回整个匹配到的字符串。</li>
+<li>指定一个参数（整数）时，返回该分组匹配到的字符串。</li>
+<li>指定多个参数时，返回由那几个分组匹配到的字符串组成的 tuple。<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">pattern = re.compile(<span class="string">r"(\w+) (\w+)"</span>)</span><br><span class="line">m = pattern.match(<span class="string">"Kobe Bryant, Lakers"</span>)</span><br><span class="line">print(m)               <span class="comment"># &lt;_sre.SRE_Match object; span=(0, 11), match='Kobe Bryant'&gt;</span></span><br><span class="line">print(m.group())       <span class="comment"># Kobe Bryant</span></span><br><span class="line">print(m.group(<span class="number">1</span>))      <span class="comment"># Kobe</span></span><br><span class="line">print(m.group(<span class="number">2</span>))      <span class="comment"># Bryant</span></span><br><span class="line">print(m.group(<span class="number">1</span>, <span class="number">2</span>))   <span class="comment"># ('Kobe', 'Bryant')</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p><a href="https://docs.python.org/3/library/re.html#re.match.groups" target="_blank" rel="external"><code>match.groups()</code></a>：</p>
+<ul>
+<li>返回由所有分组匹配到的字符串组成的 tuple。<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="prompt">&gt;&gt;&gt; </span>m = re.match(<span class="string">r"(\d+)\.(\d+)"</span>, <span class="string">"24.1632"</span>)</span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>m.groups()</span><br><span class="line">(<span class="string">'24'</span>, <span class="string">'1632'</span>)</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p><a href="https://docs.python.org/3/library/re.html#re.match.start" target="_blank" rel="external"><code>match.start([group])</code></a>：</p>
+<ul>
+<li>没有参数时，返回匹配到的字符串的起始位置。</li>
+<li>指定参数（整数）时，返回该分组匹配到的字符串的起始位置。<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">pattern = re.compile(<span class="string">r"(\w+) (\w+)"</span>)</span><br><span class="line">m = pattern.match(<span class="string">"Kobe Bryant, Lakers"</span>)</span><br><span class="line">print(m.start())       <span class="comment"># 0</span></span><br><span class="line">print(m.start(<span class="number">2</span>))      <span class="comment"># 5</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p><a href="https://docs.python.org/3/library/re.html#re.match.end" target="_blank" rel="external"><code>match.end([group])</code></a>：</p>
+<ul>
+<li>没有参数时，返回匹配到的字符串的结束位置。</li>
+<li>指定参数（整数）时，返回该分组匹配到的字符串的结束位置。<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">pattern = re.compile(<span class="string">r"(\w+) (\w+)"</span>)</span><br><span class="line">m = pattern.match(<span class="string">"Kobe Bryant, Lakers"</span>)</span><br><span class="line">print(m.end())       <span class="comment"># 11</span></span><br><span class="line">print(m.end(<span class="number">1</span>))      <span class="comment"># 4</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p><a href="https://docs.python.org/3/library/re.html#re.match.span" target="_blank" rel="external"><code>match.span([group])</code></a>：</p>
+<ul>
+<li>返回一个二元 tuple 表示匹配到的字符串的范围，即 (start, end)。</li>
+<li>指定参数时，返回该分组匹配到的字符串的 (start, end)。<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">pattern = re.compile(<span class="string">r"(\w+) (\w+)"</span>)</span><br><span class="line">m = pattern.match(<span class="string">"Kobe Bryant, Lakers"</span>)</span><br><span class="line">print(m.span())     <span class="comment"># (0, 11)</span></span><br><span class="line">print(m.span(<span class="number">2</span>))    <span class="comment"># (5, 11)</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p><strong>5）模块级别的函数</strong></p>
+<p>上面讲到的函数都是<strong>对象的方法</strong>，要使用它们必须先得到相应的对象。本节将介绍一些<strong>Module-Level Functions</strong>，比如 match()，search()，findall() 等等。你不需要创建一个 pattern object 就可以直接调用这些函数。</p>
+<p><a href="https://docs.python.org/3/library/re.html#re.compile" target="_blank" rel="external"><code>re.compile(pattern, flags=0)</code></a>：上面已经介绍过。</p>
+<p><a href="https://docs.python.org/3/library/re.html#re.match" target="_blank" rel="external"><code>re.match(pattern, string, flags=0)</code></a>：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">pattern = re.compile(<span class="string">r"(\w+) (\w+)"</span>)</span><br><span class="line">m = pattern.match(<span class="string">"Kobe Bryant, Lakers"</span>)</span><br><span class="line"> </span><br><span class="line"><span class="comment"># 相当于</span></span><br><span class="line"> </span><br><span class="line">m = re.match(<span class="string">r"(\w+) (\w+)"</span>,<span class="string">"Kobe Bryant, Lakers"</span>)</span><br></pre></td></tr></table></figure>
+<p><a href="https://docs.python.org/3/library/re.html#re.search" target="_blank" rel="external"><code>re.search(pattern, string, flags=0)</code></a>：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">pattern = re.compile(<span class="string">r"(\w+) (\w+)"</span>)</span><br><span class="line">m = pattern.search(<span class="string">"Kobe Bryant, Lakers"</span>)</span><br><span class="line"> </span><br><span class="line"><span class="comment"># 相当于</span></span><br><span class="line"> </span><br><span class="line">m = re.search(<span class="string">r"(\w+) (\w+)"</span>,<span class="string">"Kobe Bryant, Lakers"</span>)</span><br></pre></td></tr></table></figure>
+<p><a href="https://docs.python.org/3/library/re.html#re.findall" target="_blank" rel="external"><code>re.findall(pattern, string, flags=0)</code></a>：与上面类似。</p>
+<p><a href="https://docs.python.org/3/library/re.html#re.finditer" target="_blank" rel="external"><code>re.finditer(pattern, string, flags=0)</code></a>：与上面类似。</p>
+<p><strong>6）编译标志（匹配模式）</strong></p>
+<p>在讲 re.compile() 函数时，曾说到该函数还接受可选的第二个参数，用以设置<strong>匹配模式</strong>。可选的匹配模式有：</p>
+<ul>
+<li><p><strong>re.IGNORECASE</strong>：忽略大小写，同 <strong>re.I</strong>。</p>
+</li>
+<li><p><strong>re.MULTILINE</strong>：多行模式，改变^和$的行为，同 <strong>re.M</strong>。</p>
+</li>
+<li><p><strong>re.DOTALL</strong>：点任意匹配模式，让’.’可以匹配包括’\n’在内的任意字符，同 <strong>re.S</strong>。 </p>
+</li>
+<li><p><strong>re.LOCALE</strong>：使预定字符类 \w \W \b \B \s \S 取决于当前区域设定， 同 <strong>re.L</strong>。</p>
+</li>
+<li><p><strong>re.ASCII</strong>：使 \w \W \b \B \s \S 只匹配 ASCII 字符，而不是 Unicode 字符，同 <strong>re.A</strong>。</p>
+</li>
+<li><p><strong>re.VERBOSE</strong>：详细模式。这个模式下正则表达式可以是多行，忽略空白字符，并可以加入注释。主要是为了让正则表达式更易读，同 <strong>re.X</strong>。例如，以下两个正则表达式是等价的：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">a = re.compile(<span class="string">r"""\d +  # the integral part</span><br><span class="line">                   \.    # the decimal point</span><br><span class="line">                   \d *  # some fractional digits"""</span>, re.X)</span><br><span class="line">b = re.compile(<span class="string">r"\d+\.\d*"</span>)</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p><br></p>
+<h3 id="三、修改字符串">三、修改字符串</h3><p>第二部分讲的是字符串的匹配和搜索，但是并没有改变字符串。下面就讲一下可以改变字符串的操作。</p>
+<p><strong>1）分割字符串</strong></p>
+<p><code>split()</code>函数<strong>在匹配的地方将字符串分割，并返回一个 list</strong>。同样的，re 模块提供了两种 split 函数，一个是 pattern object 的方法，一个是模块级的函数。</p>
+<p><a href="https://docs.python.org/3/library/re.html#re.regex.split" target="_blank" rel="external"><code>regex.split(string, maxsplit=0)</code></a>：</p>
+<ul>
+<li>maxsplit用于指定最大分割次数，不指定将全部分割。 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">pattern = re.compile(<span class="string">r"[A-Z]+"</span>)</span><br><span class="line">m = pattern.split(<span class="string">"abcDefgHijkLmnoPqrs"</span>)</span><br><span class="line">print(m)</span><br><span class="line"> </span><br><span class="line"><span class="comment"># 输出结果：</span></span><br><span class="line"><span class="comment"># ['abc', 'efg', 'ijk', 'mno', 'qrs']</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p><a href="https://docs.python.org/3/library/re.html#re.split" target="_blank" rel="external"><code>re.split(pattern, string, maxsplit=0, flags=0)</code></a>：</p>
+<ul>
+<li>模块级函数，功能与 regex.split() 相同。</li>
+<li>flags用于指定匹配模式。<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">m = re.split(<span class="string">r"[A-Z]+"</span>,<span class="string">"abcDefgHijkLmnoPqrs"</span>)</span><br><span class="line">print(m)</span><br><span class="line"> </span><br><span class="line"><span class="comment"># 输出结果：</span></span><br><span class="line"><span class="comment"># ['abc', 'efg', 'ijk', 'mno', 'qrs']</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p><strong>2）搜索与替换</strong></p>
+<p>另一个常用的功能是<strong>找到所有的匹配，并把它们用不同的字符串替换</strong>。re 模块提供了<code>sub()</code>和<code>subn()</code>来实现替换的功能，而它们也分别有自己两个不同版本的函数。</p>
+<p><a href="https://docs.python.org/3/library/re.html#re.regex.sub" target="_blank" rel="external"><code>regex.sub(repl, string, count=0)</code></a>：</p>
+<ul>
+<li>使用 repl 替换 string 中每一个匹配的子串，返回替换后的字符串。若找不到匹配，则返回原字符串。</li>
+<li>repl 可以是一个字符串，也可以是一个函数。</li>
+<li>当repl是一个字符串时，任何在其中的反斜杠都会被处理。</li>
+<li>当repl是一个函数时，这个函数应当只接受一个参数（Match对象），并返回一个字符串用于替换。</li>
+<li>count 用于指定最多替换次数，不指定时全部替换。<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">fun</span><span class="params">(m)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> m.group().upper()</span><br><span class="line"> </span><br><span class="line">pattern = re.compile(<span class="string">r"like"</span>, re.I)</span><br><span class="line">s1 = pattern.sub(<span class="string">r"love"</span>, <span class="string">"I like you, do you like me?"</span>)</span><br><span class="line">s2 = pattern.sub(fun, <span class="string">"I like you, do you like me?"</span>)</span><br><span class="line">print(s1)</span><br><span class="line">print(s2)</span><br><span class="line"> </span><br><span class="line"><span class="comment"># 输出结果：</span></span><br><span class="line"><span class="comment"># I love you, do you love me?</span></span><br><span class="line"><span class="comment"># I LIKE you, do you LIKE me?</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p><a href="https://docs.python.org/3/library/re.html#re.sub" target="_blank" rel="external"><code>re.sub(pattern, repl, string, count=0, flags=0)</code></a>：</p>
+<ul>
+<li>模块级函数，与 regex.sub() 函数功能相同。</li>
+<li>flags 用于指定匹配模式。</li>
+</ul>
+<p><a href="https://docs.python.org/3/library/re.html#re.regex.subn" target="_blank" rel="external"><code>regex.subn(repl, string, count=0)</code></a>：</p>
+<ul>
+<li>同 sub()，只不过返回值是一个二元 tuple，即<code>(sub函数返回值, 替换次数)</code>。</li>
+</ul>
+<p><a href="https://docs.python.org/3/library/re.html#re.subn" target="_blank" rel="external"><code>re.subn(pattern, repl, string, count=0, flags=0)</code></a>：</p>
+<ul>
+<li>同上</li>
+</ul>
+<p><br><br><br><br><br></p>
+
+        
+      </div>
+    
+
+    
+      <div class="post-footer">
+        
+          <div class="post-tags">
+            
+              <a href="/tags/Python/">
+                #Python
+              </a>
+            
+          </div>
+        
+
+        
+          <div class="post-nav">
+            <div class="post-nav-prev post-nav-item">
+              
+            </div>
+
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/2014/08/30/python-library-01/">Python3标准库（一） 内置函数</a>
+              
+            </div>
+          </div>
+        
+
+        
+        
+      </div>
+    
+  </div>
+
+
+
+  
+    <div class="comments" id="comments">
+      
+        <div class="ds-thread" data-thread-key="2014/09/01/python-library-02/"
+             data-title="Python3标准库（二） re模块" data-url="http://yoursite.com/2014/09/01/python-library-02/">
+        </div>
+
+      
+    </div>
+  
+
+          </div>
+
+          
+        </div>
+
+        
+<div class="sidebar-toggle">
+  <div class="sidebar-toggle-line-wrap">
+    <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+    <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+    <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+  </div>
+</div>
+
+<div id="sidebar" class="sidebar">
+  <div class="sidebar-inner">
+
+    
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview" data-target="site-overview">
+          站点概览
+        </li>
+      </ul>
+    
+
+    <div class="site-overview">
+      <div class="site-author motion-element">
+        <img class="site-author-image" src="https://avatars0.githubusercontent.com/u/6904366?v=3&s=140" alt="Song Lee" />
+        <p class="site-author-name">Song Lee</p>
+      </div>
+      <p class="site-description motion-element">放宽心，多努力</p>
+      <div class="site-state motion-element">
+        <div class="site-state-item site-state-posts">
+          <span class="site-state-item-count">44</span>
+          <span class="site-state-item-name">日志</span>
+        </div>
+        <div class="site-state-item site-state-tags">
+            <span class="site-state-item-count">11</span>
+            <span class="site-state-item-name">标签</span>
+        </div>
+        <div class="site-state-item site-state-pages">
+            <span class="site-state-item-count">4</span>
+            <span class="site-state-item-name">页面</span>
+        </div>
+      </div>
+
+      
+        <div class="feed-link motion-element">
+          <a href="/atom.xml">
+            <i class="menu-item-icon icon-feed"></i>
+            RSS
+          </a>
+        </div>
+      
+
+      <div class="links-of-author motion-element">
+        
+          
+            <span class="links-of-author-item">
+              <a href="https://github.com/SongLee24">GitHub</a>
+            </span>
+          
+            <span class="links-of-author-item">
+              <a href="http://blog.csdn.net/lisonglisonglisong">CSDN</a>
+            </span>
+          
+            <span class="links-of-author-item">
+              <a href="http://weibo.com/lisonglisong">Weibo</a>
+            </span>
+          
+            <span class="links-of-author-item">
+              <a href="http://www.douban.com/people/122455925/">DouBan</a>
+            </span>
+          
+            <span class="links-of-author-item">
+              <a href="http://www.zhihu.com/people/shen-yi-59">ZhiHu</a>
+            </span>
+          
+        
+      </div>
+
+      
+      
+        <div class="cc-license motion-element">
+          <a href="http://creativecommons.org/licenses/by-nc-sa/4.0" class="cc-opacity" target="_blank">
+            <img src="/images/cc-by-nc-sa.svg" alt="Creative Commons" />
+          </a>
+        </div>
+      
+
+    </div>
+
+    
+      <div class="post-toc-wrap sidebar-panel-active">
+        <div class="post-toc-indicator-top post-toc-indicator"></div>
+        <div class="post-toc">
+          
+          
+            <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#一、正则表达式介绍"><span class="nav-number">1.</span> <span class="nav-text">一、正则表达式介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二、使用_re_模块"><span class="nav-number">2.</span> <span class="nav-text">二、使用 re 模块</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#三、修改字符串"><span class="nav-number">3.</span> <span class="nav-text">三、修改字符串</span></a></li></ol></div>
+          
+        </div>
+        <div class="post-toc-indicator-bottom post-toc-indicator"></div>
+      </div>
+    
+
+  </div>
+</div>
+
+
+      </div>
+    </div>
+
+    <div id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy; &nbsp;  2014 - 
+  2015
+  <span class="with-love">
+    <i class="icon-heart"></i>
+  </span>
+  <span class="author">Song Lee</span>
+</div>
+
+<div class="powered-by">
+  <div style="float:left;margin-top:7px;margin-right:10px;">
+	<script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1254974724'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s11.cnzz.com/z_stat.php%3Fid%3D1254974724%26show%3Dpic' type='text/javascript'%3E%3C/script%3E"));</script>
+  </div>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+
+      </div>
+    </div>
+
+    <div class="back-to-top"></div>
+  </div>
+
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript">
+    $(document).ready(function() {
+      $(".fancybox").fancybox();
+    });
+  </script>
+
+  <script type="text/javascript">
+  function hasMobileUA () {
+    var nav = window.navigator;
+    var ua = nav.userAgent;
+    var pa = /iPad|iPhone|Android|Opera Mini|BlackBerry|webOS|UCWEB|Blazer|PSP|IEMobile|Symbian/g;
+
+    return pa.test(ua);
+  }
+
+  function isDesktop () {
+    return screen.width > 991 && !hasMobileUA();
+  }
+
+  function isTablet () {
+    return screen.width < 992 && screen.width > 767 && hasMobileUA();
+  }
+
+  function isMobile () {
+    return screen.width < 767 && hasMobileUA();
+  }
+
+  function escapeSelector (selector) {
+    return selector.replace(/[!"$%&'()*+,.\/:;<=>?@[\\\]^`{|}~]/g, "\\$&")
+  }
+</script>
+
+  
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
+
+  <script type="text/javascript" id="motion.global">
+  $(document).ready(function () {
+    var body = $('body');
+    var isSidebarVisible = false;
+    var sidebarToggle = $('.sidebar-toggle');
+    var sidebarToggleLine1st = $('.sidebar-toggle-line-first')
+    var sidebarToggleLine2nd = $('.sidebar-toggle-line-middle');
+    var sidebarToggleLine3rd = $('.sidebar-toggle-line-last');
+    var sidebar = $('.sidebar');
+
+    var SIDEBAR_WIDTH = '320px';
+    var SIDEBAR_DISPLAY_DURATION = 300;
+
+    var sidebarToogleLineStatusInit = {width: '100%', opacity: 1, left: 0, rotateZ: 0, top: 0};
+
+    var sidebarToggleLine1stStatusInit = sidebarToogleLineStatusInit;
+    var sidebarToggleLine1stStatusArrow = {width: '50%', rotateZ: '-45deg', top: '2px'};
+    var sidebarToogleLine1stStatusClose = {width: '100%', rotateZ: '-45deg', top: '5px'};
+
+    var sidebarToggleLine2ndStatusInit = sidebarToogleLineStatusInit;
+    var sidebarToggleLine2ndStatusArrow = {width: '90%'};
+    var sidebarToogleLine2ndStatusClose = {opacity: 0};
+
+    var sidebarToggleLine3rdStatusInit = sidebarToogleLineStatusInit;
+    var sidebarToggleLine3rdStatusArrow = {width: '50%', rotateZ: '45deg', top: '-2px'};
+    var sidebarToogleLine3rdStatusClose = {width: '100%', rotateZ: '45deg', top: '-5px'};
+
+    LogoAndMenuMotion();
+    sidebatToggleMotion();
+    postsListMotion();
+    backToTopMotion();
+
+
+    $(document)
+      .on('sidebar.isShowing', function () {
+        isDesktop() && body.velocity(
+          {paddingRight: SIDEBAR_WIDTH},
+          SIDEBAR_DISPLAY_DURATION
+        );
+        sidebarContentMotion();
+      })
+      .on('sidebar.isHiding', function () {});
+
+    function LogoAndMenuMotion() {
+      $.Velocity.RunSequence([
+        { e: $('.brand'), p: { opacity: 1 }, o: { duration: 100 } },
+        { e: $('.logo'), p: { opacity: 1, top: 0 }, o: { duration: 50} },
+        
+        { e: $('.logo-line-before i'), p: { translateX: "100%" }, o: { duration: 500, sequenceQueue: false } },
+        { e: $('.logo-line-after i'), p: { translateX: "-100%" }, o: { duration: 500, sequenceQueue: false } },
+        
+        { e: $('.site-title'), p: { opacity: 1, top: 0 }, o: { duration: 200 } }
+      ]);
+      $('.menu-item').velocity('transition.slideDownIn', {display: null});
+    }
+
+
+    function backToTopMotion () {
+      var b2top = $('.back-to-top');
+      b2top.on('click', function () {
+        body.velocity('scroll');
+      });
+    }
+
+    function sidebarShowMotion () {
+
+      sidebarToggleLine1st.velocity(sidebarToogleLine1stStatusClose);
+      sidebarToggleLine2nd.velocity(sidebarToogleLine2ndStatusClose);
+      sidebarToggleLine3rd.velocity(sidebarToogleLine3rdStatusClose);
+
+      sidebar.velocity({width: SIDEBAR_WIDTH}, {
+        display: 'block',
+        duration: SIDEBAR_DISPLAY_DURATION,
+        complete: function () {
+          sidebar.addClass('sidebar-active');
+          sidebar.trigger('sidebar.didShow');
+        }
+      });
+      sidebar.trigger('sidebar.isShowing');
+    }
+
+    function sidebarHideMotion () {
+      isDesktop() && body.velocity({paddingRight: 0});
+      sidebar.velocity('reverse');
+
+      sidebarToggleLine1st.velocity(sidebarToggleLine1stStatusInit);
+      sidebarToggleLine2nd.velocity(sidebarToggleLine2ndStatusInit);
+      sidebarToggleLine3rd.velocity(sidebarToggleLine3rdStatusInit);
+
+      sidebar.removeClass('sidebar-active');
+      sidebar.trigger('sidebar.isHiding');
+    };
+
+    function sidebarContentMotion () {
+      $('.sidebar .motion-element').velocity(
+        'transition.slideRightIn',
+        {stagger: 50, drag: true}
+      );
+    }
+
+    function postsListMotion () {
+      var postMotionOptions = window.postMotionOptions || {stagger: 300, drag: true};
+      $('.post').velocity('transition.slideDownIn', postMotionOptions);
+    }
+
+    function sidebatToggleMotion () {
+      sidebarToggle.on('click', function () {
+        isSidebarVisible ? sidebarHideMotion() : sidebarShowMotion();
+        isSidebarVisible = !isSidebarVisible;
+      });
+
+      sidebarToggle.hover(function () {
+        if (isSidebarVisible) {return}
+        sidebarToggleLine1st.velocity('stop').velocity(sidebarToggleLine1stStatusArrow);
+        sidebarToggleLine2nd.velocity('stop').velocity(sidebarToggleLine2ndStatusArrow);
+        sidebarToggleLine3rd.velocity('stop').velocity(sidebarToggleLine3rdStatusArrow);
+      }, function () {
+        if (isSidebarVisible) {return}
+        sidebarToggleLine1st.velocity('stop').velocity(sidebarToggleLine1stStatusInit);
+        sidebarToggleLine2nd.velocity('stop').velocity(sidebarToggleLine2ndStatusInit);
+        sidebarToggleLine3rd.velocity('stop').velocity(sidebarToggleLine3rdStatusInit);
+      });
+    }
+  });
+
+</script>
+
+
+
+
+
+  
+  
+<script type="text/javascript" id="bootstrap.scrollspy.custom">
+  /* ========================================================================
+  * Bootstrap: scrollspy.js v3.3.2
+  * http://getbootstrap.com/javascript/#scrollspy
+  * ========================================================================
+  * Copyright 2011-2015 Twitter, Inc.
+  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
+  * ======================================================================== */
+
+  /**
+   * Custom by iissnan
+   *
+   * - Add a `clear.bs.scrollspy` event.
+   * - Esacpe targets selector.
+   */
+
+
+  +function ($) {
+    'use strict';
+
+    // SCROLLSPY CLASS DEFINITION
+    // ==========================
+
+    function ScrollSpy(element, options) {
+      this.$body          = $(document.body)
+      this.$scrollElement = $(element).is(document.body) ? $(window) : $(element)
+      this.options        = $.extend({}, ScrollSpy.DEFAULTS, options)
+      this.selector       = (this.options.target || '') + ' .nav li > a'
+      this.offsets        = []
+      this.targets        = []
+      this.activeTarget   = null
+      this.scrollHeight   = 0
+
+      this.$scrollElement.on('scroll.bs.scrollspy', $.proxy(this.process, this))
+      this.refresh()
+      this.process()
+    }
+
+    ScrollSpy.VERSION  = '3.3.2'
+
+    ScrollSpy.DEFAULTS = {
+      offset: 10
+    }
+
+    ScrollSpy.prototype.getScrollHeight = function () {
+      return this.$scrollElement[0].scrollHeight || Math.max(this.$body[0].scrollHeight, document.documentElement.scrollHeight)
+    }
+
+    ScrollSpy.prototype.refresh = function () {
+      var that          = this
+      var offsetMethod  = 'offset'
+      var offsetBase    = 0
+
+      this.offsets      = []
+      this.targets      = []
+      this.scrollHeight = this.getScrollHeight()
+
+      if (!$.isWindow(this.$scrollElement[0])) {
+        offsetMethod = 'position'
+        offsetBase   = this.$scrollElement.scrollTop()
+      }
+
+      this.$body
+        .find(this.selector)
+        .map(function () {
+          var $el   = $(this)
+          var href  = $el.data('target') || $el.attr('href')
+          var $href = /^#./.test(href) && $(escapeSelector(href)) // Need to escape selector.
+
+          return ($href
+            && $href.length
+            && $href.is(':visible')
+            && [[$href[offsetMethod]().top + offsetBase, href]]) || null
+        })
+        .sort(function (a, b) { return a[0] - b[0] })
+        .each(function () {
+          that.offsets.push(this[0])
+          that.targets.push(this[1])
+        })
+
+
+    }
+
+    ScrollSpy.prototype.process = function () {
+      var scrollTop    = this.$scrollElement.scrollTop() + this.options.offset
+      var scrollHeight = this.getScrollHeight()
+      var maxScroll    = this.options.offset + scrollHeight - this.$scrollElement.height()
+      var offsets      = this.offsets
+      var targets      = this.targets
+      var activeTarget = this.activeTarget
+      var i
+
+      if (this.scrollHeight != scrollHeight) {
+        this.refresh()
+      }
+
+      if (scrollTop >= maxScroll) {
+        return activeTarget != (i = targets[targets.length - 1]) && this.activate(i)
+      }
+
+      if (activeTarget && scrollTop < offsets[0]) {
+        $(this.selector).trigger('clear.bs.scrollspy')  // Add a custom event.
+        this.activeTarget = null
+        return this.clear()
+      }
+
+      for (i = offsets.length; i--;) {
+        activeTarget != targets[i]
+          && scrollTop >= offsets[i]
+          && (!offsets[i + 1] || scrollTop <= offsets[i + 1])
+          && this.activate(targets[i])
+      }
+    }
+
+    ScrollSpy.prototype.activate = function (target) {
+      this.activeTarget = target
+
+      this.clear()
+
+      var selector = this.selector +
+        '[data-target="' + target + '"],' +
+        this.selector + '[href="' + target + '"]'
+
+      var active = $(selector)
+        .parents('li')
+        .addClass('active')
+
+      if (active.parent('.dropdown-menu').length) {
+        active = active
+          .closest('li.dropdown')
+          .addClass('active')
+      }
+
+      active.trigger('activate.bs.scrollspy')
+    }
+
+    ScrollSpy.prototype.clear = function () {
+      $(this.selector)
+        .parentsUntil(this.options.target, '.active')
+        .removeClass('active')
+    }
+
+
+    // SCROLLSPY PLUGIN DEFINITION
+    // ===========================
+
+    function Plugin(option) {
+      return this.each(function () {
+        var $this   = $(this)
+        var data    = $this.data('bs.scrollspy')
+        var options = typeof option == 'object' && option
+
+        if (!data) $this.data('bs.scrollspy', (data = new ScrollSpy(this, options)))
+        if (typeof option == 'string') data[option]()
+      })
+    }
+
+    var old = $.fn.scrollspy
+
+    $.fn.scrollspy             = Plugin
+    $.fn.scrollspy.Constructor = ScrollSpy
+
+
+    // SCROLLSPY NO CONFLICT
+    // =====================
+
+    $.fn.scrollspy.noConflict = function () {
+      $.fn.scrollspy = old
+      return this
+    }
+
+
+    // SCROLLSPY DATA-API
+    // ==================
+
+    $(window).on('load.bs.scrollspy.data-api', function () {
+      $('[data-spy="scroll"]').each(function () {
+        var $spy = $(this)
+        Plugin.call($spy, $spy.data())
+      })
+    })
+
+  }(jQuery);
+</script>
+
+
+<script type="text/javascript" id="sidebar.toc.highlight">
+  $(document).ready(function () {
+    var tocSelector = '.post-toc';
+    var $tocSelector = $(tocSelector);
+    var activeCurrentSelector = '.active-current';
+
+    $tocSelector
+      .on('activate.bs.scrollspy', function () {
+        var $currentActiveElement = $(tocSelector + ' .active').last();
+
+        removeCurrentActiveClass();
+        $currentActiveElement.addClass('active-current');
+
+        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
+      })
+      .on('clear.bs.scrollspy', function () {
+        removeCurrentActiveClass();
+      });
+
+    function removeCurrentActiveClass () {
+      $(tocSelector + ' ' + activeCurrentSelector)
+        .removeClass(activeCurrentSelector.substring(1));
+    }
+
+    function processTOC () {
+      getTOCMaxHeight();
+      toggleTOCOverflowIndicators();
+    }
+
+    function getTOCMaxHeight () {
+      var $sidebarInner = $('.sidebar-inner');
+      var height = $('.sidebar').height() -
+                   $tocSelector.position().top -
+                   $('.post-toc-indicator-bottom').height();
+
+      $tocSelector.css('height', height);
+
+      return height;
+    }
+
+    function toggleTOCOverflowIndicators () {
+      tocOverflowIndicator(
+        '.post-toc-indicator-top',
+        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
+      );
+
+      tocOverflowIndicator(
+        '.post-toc-indicator-bottom',
+        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
+      )
+    }
+
+    $(document).on('sidebar.didShow', function () {
+      processTOC();
+    });
+
+    $('body').scrollspy({ target: tocSelector });
+    $(window).on('resize', function () {
+      if ( $('.sidebar').hasClass('sidebar-active') ) {
+        processTOC();
+      }
+    });
+
+    onScroll($tocSelector);
+
+    function onScroll (element) {
+      element.on('mousewheel DOMMouseScroll', function (event) {
+          var oe = event.originalEvent;
+          var delta = oe.wheelDelta || -oe.detail;
+          var self = this;
+
+          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+          event.preventDefault();
+
+          toggleTOCOverflowIndicators();
+      });
+    }
+
+    function tocOverflowIndicator (indicator, action) {
+      $(indicator).velocity('stop').velocity({
+        opacity: action === 'show' ? 0.4 : 0
+      }, { duration: 100 });
+    }
+
+  });
+</script>
+
+
+  <script type="text/javascript" id="sidebar.nav">
+    $(document).ready(function () {
+      var html = $('html');
+
+      $('.sidebar-nav li').on('click', function () {
+        var item = $(this);
+        var activeTabClassName = 'sidebar-nav-active';
+        var activePanelClassName = 'sidebar-panel-active';
+        if (item.hasClass(activeTabClassName)) {
+          return;
+        }
+
+        var currentTarget = $('.' + activePanelClassName);
+        var target = $('.' + item.data('target'));
+
+        currentTarget.velocity('transition.slideUpOut', 200, function () {
+          target
+            .velocity('stop')
+            .velocity('transition.slideDownIn', 200)
+            .addClass(activePanelClassName);
+        });
+
+        item.siblings().removeClass(activeTabClassName);
+        item.addClass(activeTabClassName);
+      });
+
+      $('.post-toc a').on('click', function (e) {
+        e.preventDefault();
+        var offset = $(escapeSelector(this.getAttribute('href'))).offset().top;
+        html.velocity('stop').velocity('scroll', {
+          offset: offset  + 'px',
+          mobileHA: false
+        });
+      });
+
+      // Expand sidebar on post detail page by default, when post has a toc.
+      var $tocContent = $('.post-toc-content');
+      if ($tocContent.length > 0 && $tocContent.html().trim().length > 0 && isDesktop()) {
+        setTimeout(function () {
+          $('.sidebar-toggle').trigger('click');
+        }, 800);
+      }
+    });
+  </script>
+
+
+
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"16"},"slide":{"type":"slide","bdImg":"2","bdPos":"left","bdTop":"195.5"},"image":{"viewList":["qzone","tsina","tqq","renren","weixin"],"viewText":"分享到：","viewSize":"16"},"selectShare":{"bdContainerClass":null,"bdSelectMiniList":["qzone","tsina","tqq","renren","weixin"]}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+
+
+  
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for (i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"songlee24"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+  
+</body>
+</html>
