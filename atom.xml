@@ -4,7 +4,7 @@
   <subtitle><![CDATA[李松]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://yoursite.com/"/>
-  <updated>2015-05-10T11:22:40.472Z</updated>
+  <updated>2015-05-10T11:24:31.089Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -19,11 +19,11 @@
     <link href="http://yoursite.com/2015/03/18/hua-wei-OJ2011/"/>
     <id>http://yoursite.com/2015/03/18/hua-wei-OJ2011/</id>
     <published>2015-03-18T11:19:52.000Z</published>
-    <updated>2015-05-10T11:22:40.472Z</updated>
+    <updated>2015-05-10T11:24:31.089Z</updated>
     <content type="html"><![CDATA[<h3 id="一、题目描述">一、题目描述</h3><p><strong>描述：</strong></p>
 <p> 计算两个字符串的最大公共子串（Longest Common Substring）的长度，字符区分大小写。</p>
 <p><strong>输入：</strong></p>
-<p>输入两个字符串</p>
+<p>输入两个字符串<a id="more"></a></p>
 <p><strong>输出：</strong></p>
 <p>输出一个整数</p>
 <p><strong>样例输入：</strong><br><figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="title">asdfas</span> werasdfaswer</span><br></pre></td></tr></table></figure></p>
@@ -53,7 +53,9 @@
     <summary type="html">
     <![CDATA[<h3 id="一、题目描述">一、题目描述</h3><p><strong>描述：</strong></p>
 <p> 计算两个字符串的最大公共子串（Longest Common Substring）的长度，字符区分大小写。</p>
-<p><strong>输入：</strong><]]>
+<p><strong>输入：</strong></p>
+<p>输入两个字符串]]>
+    
     </summary>
     
       <category term="OJ" scheme="http://yoursite.com/tags/OJ/"/>
