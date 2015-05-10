@@ -138,6 +138,105 @@
           
           
             
+              <a class="post-title-link" href="/2014/09/02/cpp-virtual-table/">
+                C++进阶之虚函数表
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          
+            发表于 2014-09-02
+          
+        </span>
+
+        
+          
+            <span class="post-category">
+              &nbsp; | &nbsp; 分类于
+              
+                <a href="/categories/Lang-C/">Lang.-C++</a>
+
+                
+                
+
+              
+            </span>
+          
+        
+
+        
+          
+            <span class="post-comments-count">
+            &nbsp; | &nbsp;
+            <a href="/2014/09/02/cpp-virtual-table/#comments" >
+              <span class="post-comments-count ds-thread-count" data-thread-key="2014/09/02/cpp-virtual-table/"></span>
+            </a>
+          </span>
+          
+        
+      </div>
+    </div>
+
+    
+      <div class="post-body">
+
+        
+        
+
+        
+          
+            <p>C++通过<a href="http://songlee24.github.io/blog/2014/07/17/c-plus-plus-xue-xi-zhi-duo-zhong-ji-cheng-yu-xu-ji-cheng/">继承（inheritance）</a>和<a href="http://songlee24.github.io/blog/2014/07/16/c-plus-plus-xue-xi-zhi-xu-han-shu-yu-chun-xu-han-shu/">虚函数（virtual function）</a>来实现多态性。所谓多态，简单地说就是，将基类的指针或引用绑定到子类的实例，然后通过基类的指针或引用调用实际子类的成员函数（虚函数）。本文将介绍单继承、多重继承下虚函数的实现机制。</p>
+<p><br></p>
+<h3 id="一、虚函数表">一、虚函数表</h3><p>为了支持虚函数机制，编译器为每一个拥有虚函数的类的实例创建了一个<strong>虚函数表（virtual table）</strong>，这个表中有许多的<strong>槽（slot）</strong>，每个槽中存放的是虚函数的地址。虚函数表解决了继承、覆盖、添加虚函数的问题，保证其真实反应实际的函数。
+            <div class="post-more-link text-center">
+              <a class="btn" href="/2014/09/02/cpp-virtual-table/#more">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+        
+      </div>
+    
+
+    
+      <div class="post-footer">
+        
+          <div class="post-tags">
+            
+              <a href="/tags/C/">
+                #C++
+              </a>
+            
+          </div>
+        
+
+        
+
+        
+        
+          <div class="post-eof"></div>
+        
+      </div>
+    
+  </div>
+
+
+  
+    
+
+  <div class="post post-type-normal ">
+    <div class="post-header">
+
+      
+      
+        <h1 class="post-title">
+          
+          
+            
               <a class="post-title-link" href="/2014/09/01/python-library-02/">
                 Python3标准库（二） re模块
               </a>
@@ -192,9 +291,7 @@
             <p><strong>正则表达式（Regular Expression）</strong>是字符串处理的常用工具，通常被用来检索、替换那些符合某个模式（Pattern）的文本。很多程序设计语言都支持正则表达式，像Perl、Java、C/C++。在 Python 中是通过标准库中的 <strong>re 模块</strong> 提供对正则的支持。</p>
 <p><br></p>
 <h3 id="一、正则表达式介绍">一、正则表达式介绍</h3><p><strong>1）用途</strong></p>
-<p>通过使用正则表达式，可以： </p>
-<ul>
-<li><p>测试字符串内的模式。—— 例如，可以测试输入字符串，以查看字符串内是否出现电话号码模式或信用卡号码模式。这称为数据验证。
+<p>通过使用正则表达式，可以：
             <div class="post-more-link text-center">
               <a class="btn" href="/2014/09/01/python-library-02/#more">
                 阅读全文 &raquo;
@@ -1023,108 +1120,6 @@
 
 
   
-    
-
-  <div class="post post-type-normal ">
-    <div class="post-header">
-
-      
-      
-        <h1 class="post-title">
-          
-          
-            
-              <a class="post-title-link" href="/2014/08/13/python-basic-06/">
-                Python3基础（六） 深入list列表
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          
-            发表于 2014-08-12
-          
-        </span>
-
-        
-          
-            <span class="post-category">
-              &nbsp; | &nbsp; 分类于
-              
-                <a href="/categories/Lang-Python/">Lang.-Python</a>
-
-                
-                
-
-              
-            </span>
-          
-        
-
-        
-          
-            <span class="post-comments-count">
-            &nbsp; | &nbsp;
-            <a href="/2014/08/13/python-basic-06/#comments" >
-              <span class="post-comments-count ds-thread-count" data-thread-key="2014/08/13/python-basic-06/"></span>
-            </a>
-          </span>
-          
-        
-      </div>
-    </div>
-
-    
-      <div class="post-body">
-
-        
-        
-
-        
-          
-            <p>正如<a href="http://songlee24.github.io/2014/08/12/python-FAQ-01/">Python FAQ1附录</a>中说的， Python中任何值都是一个对象，所以任何类型（int、str、list…）都是一个类。而类就必然有它的方法或属性，我们要记下这么多类的所有方法显然是不可能的，这里介绍两个小技巧：</p>
-<ul>
-<li><strong>dir()</strong> ：内置函数，用来查询一个类或者对象所有属性，比如<code>&gt;&gt;&gt; dir(list)</code>。</li>
-<li><strong>help()</strong> ：内置函数，用来查询具体的说明文档，比如<code>&gt;&gt;&gt; help(int)</code>。</li>
-</ul>
-<p>在<a href="http://songlee24.github.io/2014/08/08/python-basic-02/">Python的基本数据类型</a>中，我们初步了解了list列表，也介绍了列表是Python 中使用最频繁的数据类型。本文将进一步深入学习列表的使用。<br>
-            <div class="post-more-link text-center">
-              <a class="btn" href="/2014/08/13/python-basic-06/#more">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          
-        
-      </div>
-    
-
-    
-      <div class="post-footer">
-        
-          <div class="post-tags">
-            
-              <a href="/tags/Python/">
-                #Python
-              </a>
-            
-          </div>
-        
-
-        
-
-        
-        
-          <div class="post-eof"></div>
-        
-      </div>
-    
-  </div>
-
-
-  
 
           </div>
 
@@ -1157,7 +1152,7 @@
       <p class="site-description motion-element">放宽心，多努力</p>
       <div class="site-state motion-element">
         <div class="site-state-item site-state-posts">
-          <span class="site-state-item-count">44</span>
+          <span class="site-state-item-count">45</span>
           <span class="site-state-item-name">日志</span>
         </div>
         <div class="site-state-item site-state-tags">
