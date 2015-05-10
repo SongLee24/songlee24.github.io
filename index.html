@@ -138,6 +138,105 @@
           
           
             
+              <a class="post-title-link" href="/2015/01/12/cpp-exception-in-constructor/">
+                C++学习之构造函数中的异常处理
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          
+            发表于 2015-01-12
+          
+        </span>
+
+        
+          
+            <span class="post-category">
+              &nbsp; | &nbsp; 分类于
+              
+                <a href="/categories/Lang-Cpp/">Lang.-Cpp</a>
+
+                
+                
+
+              
+            </span>
+          
+        
+
+        
+          
+            <span class="post-comments-count">
+            &nbsp; | &nbsp;
+            <a href="/2015/01/12/cpp-exception-in-constructor/#comments" >
+              <span class="post-comments-count ds-thread-count" data-thread-key="2015/01/12/cpp-exception-in-constructor/"></span>
+            </a>
+          </span>
+          
+        
+      </div>
+    </div>
+
+    
+      <div class="post-body">
+
+        
+        
+
+        
+          
+            <p>构造函数中可不可以抛出异常？当然可以。从语法上来说，是可以的；从实际情况来看，现在的软件系统日渐庞大和复杂，很难保证 Constructor 在执行过程中完全不发生一点异常。</p>
+<p>那么，如果构造函数中抛出异常，会发生什么情况呢？</p>
+<h4 id="一、构造函数中抛出异常将导致对象的析构函数不被执行。">一、构造函数中抛出异常将导致对象的析构函数不被执行。</h4><p>C++仅能 delete 被完全构造的对象（fully constructed objects），只有一个对象的构造函数完全运行完毕，这个对象才被完全地构造。所以如果在构造函数中抛出一个异常，这个异常将传递到创建对象的地方（程序控制权也会随之转移），这样对象就只是部分被构造，它的析构函数将不会被执行。
+            <div class="post-more-link text-center">
+              <a class="btn" href="/2015/01/12/cpp-exception-in-constructor/#more">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+        
+      </div>
+    
+
+    
+      <div class="post-footer">
+        
+          <div class="post-tags">
+            
+              <a href="/tags/Cpp/">
+                #Cpp
+              </a>
+            
+          </div>
+        
+
+        
+
+        
+        
+          <div class="post-eof"></div>
+        
+      </div>
+    
+  </div>
+
+
+  
+    
+
+  <div class="post post-type-normal ">
+    <div class="post-header">
+
+      
+      
+        <h1 class="post-title">
+          
+          
+            
               <a class="post-title-link" href="/2015/01/11/android-crawler/">
                 Android网络爬虫程序（基于Jsoup）
               </a>
@@ -1022,113 +1121,6 @@
 
 
   
-    
-
-  <div class="post post-type-normal ">
-    <div class="post-header">
-
-      
-      
-        <h1 class="post-title">
-          
-          
-            
-              <a class="post-title-link" href="/2014/09/20/memory-alignment/">
-                C/C++内存对齐
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          
-            发表于 2014-09-19
-          
-        </span>
-
-        
-          
-            <span class="post-category">
-              &nbsp; | &nbsp; 分类于
-              
-                <a href="/categories/Lang-Cpp/">Lang.-Cpp</a>
-
-                
-                
-
-              
-            </span>
-          
-        
-
-        
-          
-            <span class="post-comments-count">
-            &nbsp; | &nbsp;
-            <a href="/2014/09/20/memory-alignment/#comments" >
-              <span class="post-comments-count ds-thread-count" data-thread-key="2014/09/20/memory-alignment/"></span>
-            </a>
-          </span>
-          
-        
-      </div>
-    </div>
-
-    
-      <div class="post-body">
-
-        
-        
-
-        
-          
-            <p>下面是网易的一道笔试题：<code>struct { uint32_t m1; char m2; } varray[2];</code>以下哪些判断一定成立？（多选）</p>
-<ol>
-<li><code>sizeof(varray[0]) == 5</code></li>
-<li><code>sizeof(varray[0]) == 8</code></li>
-<li><code>(void*)&amp;(varray[0].m1) &lt; (void*)&amp;(varray[0].m2)</code></li>
-<li><code>(char*)&amp;varray[0] == (char*)&amp;(varray[0].m1)</code></li>
-<li><code>(char*)&amp;varray[0] + sizeof(varray[0]) == (char*)&amp;varray[1]</code></li>
-<li><code>(char*)&amp;(varray[0].m2) + 1 == (char*)&amp;varray[1]</code></li>
-<li><code>(char*)&amp;(varray[0].m2) + 4 == (char*)&amp;varray[1]</code></li>
-</ol>
-<p>这个题目考查的就是内存对齐的知识点，看完这篇文章你就知道这道题应该选什么了。
-            <div class="post-more-link text-center">
-              <a class="btn" href="/2014/09/20/memory-alignment/#more">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          
-        
-      </div>
-    
-
-    
-      <div class="post-footer">
-        
-          <div class="post-tags">
-            
-              <a href="/tags/Cpp/">
-                #Cpp
-              </a>
-            
-          </div>
-        
-
-        
-
-        
-        
-          <div class="post-eof"></div>
-        
-      </div>
-    
-  </div>
-
-
-  
 
           </div>
 
@@ -1161,7 +1153,7 @@
       <p class="site-description motion-element">放宽心，多努力</p>
       <div class="site-state motion-element">
         <div class="site-state-item site-state-posts">
-          <span class="site-state-item-count">55</span>
+          <span class="site-state-item-count">56</span>
           <span class="site-state-item-name">日志</span>
         </div>
         <div class="site-state-item site-state-tags">
