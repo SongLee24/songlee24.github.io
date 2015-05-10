@@ -4,7 +4,7 @@
   <subtitle><![CDATA[李松]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://yoursite.com/"/>
-  <updated>2015-05-10T08:38:41.248Z</updated>
+  <updated>2015-05-10T08:40:10.305Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -19,7 +19,7 @@
     <link href="http://yoursite.com/2014/09/20/memory-alignment/"/>
     <id>http://yoursite.com/2014/09/20/memory-alignment/</id>
     <published>2014-09-19T17:57:06.000Z</published>
-    <updated>2015-05-10T08:38:41.248Z</updated>
+    <updated>2015-05-10T08:40:10.305Z</updated>
     <content type="html"><![CDATA[<p>下面是网易的一道笔试题：<code>struct { uint32_t m1; char m2; } varray[2];</code>以下哪些判断一定成立？（多选）</p>
 <ol>
 <li><code>sizeof(varray[0]) == 5</code></li>
@@ -117,9 +117,9 @@
     
     </summary>
     
-      <category term="Cpp,C" scheme="http://yoursite.com/tags/Cpp-C/"/>
+      <category term="Cpp, C" scheme="http://yoursite.com/tags/Cpp-C/"/>
     
-      <category term="Lang.-Cpp,Lang.-C" scheme="http://yoursite.com/categories/Lang-Cpp-Lang-C/"/>
+      <category term="Lang.-Cpp, Lang.-C" scheme="http://yoursite.com/categories/Lang-Cpp-Lang-C/"/>
     
   </entry>
   
