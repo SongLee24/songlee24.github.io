@@ -4,7 +4,7 @@
   <subtitle><![CDATA[李松]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://yoursite.com/"/>
-  <updated>2015-05-10T08:03:08.444Z</updated>
+  <updated>2015-05-10T08:09:44.167Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -19,25 +19,25 @@
     <link href="http://yoursite.com/2014/08/24/python-basic-12/"/>
     <id>http://yoursite.com/2014/08/24/python-basic-12/</id>
     <published>2014-08-24T07:32:32.000Z</published>
-    <updated>2015-05-10T08:03:08.444Z</updated>
+    <updated>2015-05-10T08:09:44.167Z</updated>
     <content type="html"><![CDATA[<p>Python是一门强大的解释型、面向对象的高级程序设计语言，它优雅、简单、可移植、易扩展，可用于桌面应用、系统编程、数据库编程、网络编程、web开发、图像处理、人工智能、数学应用、文本处理等等。</p>
 <p>在学习Python的过程中，我做了一个比较详细、比较系统的学习笔记，适合Python的初学者用以快速入门。它讲解了Python 3.x的基本语法和高级特性，从基本数据类型、运算符、流程控制、函数、文件IO到模块、异常处理和面向对象，并且附上了很多经过测试的代码帮助读者去理解。</p>
 <p>如果你是一个Python初学者，希望这个学习笔记能够对你有所帮助。相信如果你看完这个学习笔记，你会对Python有一个整体的了解。<a id="more"></a></p>
 <p>Python3基础学习笔记：</p>
 <ul>
-<li><a href="http://songlee24.github.io/blog/2014/08/08/python3ji-chu-helloworld/" target="_blank" rel="external">Python3基础（一） Hello World </a></li>
-<li><a href="http://songlee24.github.io/blog/2014/08/08/python3ji-chu-er/" target="_blank" rel="external">Python3基础（二） 基本数据类型 </a></li>
-<li><a href="http://songlee24.github.io/blog/2014/08/08/python3ji-chu-san/" target="_blank" rel="external">Python3基础（三） 运算符 </a></li>
-<li><a href="http://songlee24.github.io/blog/2014/08/09/python3ji-chu-si/" target="_blank" rel="external">Python3基础（四） 条件与循环控制</a></li>
-<li><a href="http://songlee24.github.io/blog/2014/08/09/python3ji-chu-wu-han-shu/" target="_blank" rel="external">Python3基础（五） 函数</a></li>
-<li><a href="http://songlee24.github.io/blog/2014/08/13/python3ji-chu-liu/" target="_blank" rel="external">Python3基础（六） 深入list列表</a></li>
-<li><a href="http://songlee24.github.io/blog/2014/08/14/python3ji-chu-qi/" target="_blank" rel="external">Python3基础（七） 输入和输出</a></li>
-<li><a href="http://songlee24.github.io/blog/2014/08/18/python3ji-chu-ba/" target="_blank" rel="external">Python3基础（八） 模块</a></li>
-<li><a href="http://songlee24.github.io/blog/2014/08/19/python3ji-chu-jiu/" target="_blank" rel="external">Python3基础（九） 错误和异常</a></li>
-<li><a href="http://songlee24.github.io/blog/2014/08/20/python3ji-chu-shi/" target="_blank" rel="external">Python3基础（十） 类的初印象</a></li>
-<li><a href="http://songlee24.github.io/blog/2014/08/21/python3ji-chu-shi-yi/" target="_blank" rel="external">Python3基础（十一） 类的拓展 </a></li>
-<li><a href="http://songlee24.github.io/blog/2014/08/12/pythonza-tan-yi/" target="_blank" rel="external">Python FAQ1：传值，还是传引用？</a></li>
-<li><a href="http://songlee24.github.io/blog/2014/08/15/python-faq2/" target="_blank" rel="external">Python FAQ2：赋值、浅拷贝、深拷贝的区别？</a></li>
+<li><a href="http://songlee24.github.io/2014/08/08/python-basic-01/" target="_blank" rel="external">Python3基础（一） Hello World </a></li>
+<li><a href="http://songlee24.github.io/2014/08/08/python-basic-02/" target="_blank" rel="external">Python3基础（二） 基本数据类型 </a></li>
+<li><a href="http://songlee24.github.io/2014/08/08/python-basic-03/" target="_blank" rel="external">Python3基础（三） 运算符 </a></li>
+<li><a href="http://songlee24.github.io/2014/08/09/python-basic-04/" target="_blank" rel="external">Python3基础（四） 条件与循环控制</a></li>
+<li><a href="http://songlee24.github.io/2014/08/09/python-basic-05/" target="_blank" rel="external">Python3基础（五） 函数</a></li>
+<li><a href="http://songlee24.github.io/2014/08/13/python-basic-06/" target="_blank" rel="external">Python3基础（六） 深入list列表</a></li>
+<li><a href="http://songlee24.github.io/2014/08/14/python-basic-07/" target="_blank" rel="external">Python3基础（七） 输入和输出</a></li>
+<li><a href="http://songlee24.github.io/2014/08/18/python-basic-08/" target="_blank" rel="external">Python3基础（八） 模块</a></li>
+<li><a href="http://songlee24.github.io/2014/08/19/python-basic-09/" target="_blank" rel="external">Python3基础（九） 错误和异常</a></li>
+<li><a href="http://songlee24.github.io/2014/08/20/python-basic-10/" target="_blank" rel="external">Python3基础（十） 类的初印象</a></li>
+<li><a href="http://songlee24.github.io/2014/08/21/python-basic-11/" target="_blank" rel="external">Python3基础（十一） 类的拓展 </a></li>
+<li><a href="http://songlee24.github.io/2014/08/12/python-FAQ-01/" target="_blank" rel="external">Python FAQ1：传值，还是传引用？</a></li>
+<li><a href="http://songlee24.github.io/2014/08/15/python-FAQ-02/" target="_blank" rel="external">Python FAQ2：赋值、浅拷贝、深拷贝的区别？</a></li>
 </ul>
 <p><strong>为了方便大家离线阅读，我把上面所有的学习笔记用 markdown 排版制作了一个精良的PDF，供大家下载。</strong></p>
 <p><strong>下载地址：</strong><a href="http://download.csdn.net/detail/lisong694767315/7807405" target="_blank" rel="external">http://download.csdn.net/detail/lisong694767315/7807405</a></p>
@@ -61,8 +61,8 @@
     <link href="http://yoursite.com/2014/08/21/python-basic-11/"/>
     <id>http://yoursite.com/2014/08/21/python-basic-11/</id>
     <published>2014-08-20T17:29:34.000Z</published>
-    <updated>2015-05-10T08:02:04.844Z</updated>
-    <content type="html"><![CDATA[<p>在<a href="http://songlee24.github.io/blog/2014/08/20/python3ji-chu-shi/" target="_blank" rel="external">类的初印象</a>中，我们已经简单的介绍了类，包括类的定义、类对象和实例对象。本文将进一步学习类的继承、迭代器、发生器等等。</p>
+    <updated>2015-05-10T08:06:31.094Z</updated>
+    <content type="html"><![CDATA[<p>在<a href="http://songlee24.github.io/2014/08/20/python-basic-10/" target="_blank" rel="external">类的初印象</a>中，我们已经简单的介绍了类，包括类的定义、类对象和实例对象。本文将进一步学习类的继承、迭代器、发生器等等。</p>
 <p><br></p>
 <h3 id="一、类的继承">一、类的继承</h3><p><strong>单继承</strong></p>
 <p>派生类的定义如下：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">DerivedClassName</span><span class="params">(BaseClassName)</span>:</span></span><br><span class="line">    &lt;statement-<span class="number">1</span>&gt;</span><br><span class="line">    .</span><br><span class="line">    .</span><br><span class="line">    .</span><br><span class="line">    &lt;statement-N&gt;</span><br></pre></td></tr></table></figure></p>
@@ -116,7 +116,7 @@
 <p>（全文完）<br><br><br><br><br><br></p>
 ]]></content>
     <summary type="html">
-    <![CDATA[<p>在<a href="http://songlee24.github.io/blog/2014/08/20/python3ji-chu-shi/">类的初印象</a>中，我们已经简单的介绍了类，包括类的定义、类对象和实例对象。本文将进一步学习类的继承、迭代器、发生器等等。</p>
+    <![CDATA[<p>在<a href="http://songlee24.github.io/2014/08/20/python-basic-10/">类的初印象</a>中，我们已经简单的介绍了类，包括类的定义、类对象和实例对象。本文将进一步学习类的继承、迭代器、发生器等等。</p>
 <p><br></p>
 <h3 id="一、类的继承">一、类的继承</h3><p><strong>单继承</strong></p>
 <p>派生类的定义如下：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">DerivedClassName</span><span class="params">(BaseClassName)</span>:</span></span><br><span class="line">    &lt;statement-<span class="number">1</span>&gt;</span><br><span class="line">    .</span><br><span class="line">    .</span><br><span class="line">    .</span><br><span class="line">    &lt;statement-N&gt;</span><br></pre></td></tr></table></figure></p>]]>
