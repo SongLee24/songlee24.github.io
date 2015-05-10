@@ -22,9 +22,9 @@
 
 
 
-	<meta name="keywords" content="OJ," />
+	<meta name="keywords" content="数据结构," />
 
-  <title> 华为OJ2288-合唱队（最长递增子序列） // SongLee's Blog </title>
+  <title> Trie树|前缀树的介绍与实现 // SongLee's Blog </title>
 </head>
 
 <body>
@@ -113,7 +113,7 @@
           
           
             
-              华为OJ2288-合唱队（最长递增子序列）
+              Trie树|前缀树的介绍与实现
             
           
         </h1>
@@ -122,7 +122,7 @@
       <div class="post-meta">
         <span class="post-time">
           
-            发表于 2015-03-19
+            发表于 2015-05-09
           
         </span>
 
@@ -131,7 +131,7 @@
             <span class="post-category">
               &nbsp; | &nbsp; 分类于
               
-                <a href="/categories/试题-OJ/">试题-OJ</a>
+                <a href="/categories/Basic-算法与数据结构/">Basic-算法与数据结构</a>
 
                 
                 
@@ -145,8 +145,8 @@
           
             <span class="post-comments-count">
             &nbsp; | &nbsp;
-            <a href="/2015/03/19/hua-wei-OJ2288/#comments" >
-              <span class="post-comments-count ds-thread-count" data-thread-key="2015/03/19/hua-wei-OJ2288/"></span>
+            <a href="/2015/05/09/prefix-tree/#comments" >
+              <span class="post-comments-count ds-thread-count" data-thread-key="2015/05/09/prefix-tree/"></span>
             </a>
           </span>
           
@@ -161,69 +161,59 @@
         
 
         
-          <h1 id="一、题目描述">一、题目描述</h1><p><strong>描述：</strong></p>
-<p>N位同学站成一排，音乐老师要请其中的(N-K)位同学出列，使得剩下的K位同学不交换位置就能排成合唱队形。<br>合唱队形是指这样的一种队形：设K位同学从左到右依次编号为1, 2, …, K，他们的身高分别为T1, T2, …, TK，则他们的身高满足T1 &lt; T2 &lt; … &lt; Ti , Ti &gt; Ti+1 &gt; … &gt; TK (1 &lt;= i &lt;= K) 。<br>你的任务是，已知所有N位同学的身高，计算最少需要几位同学出列，可以使得剩下的同学排成合唱队形。<a id="more"></a></p>
-<p><strong>输入：</strong></p>
-<p>第一行整数 N，表示同学的总数<br>第二行整数数组，空格隔开，表示 N 位同学身高</p>
-<p><strong>输出：</strong></p>
-<p>最少需要几位同学出列</p>
-<p><strong>样例输入：</strong><br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">8</span><br><span class="line">186 186 150 200 160 130 197 200</span><br></pre></td></tr></table></figure></p>
-<p><strong>样例输出：</strong><br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">4</span><br></pre></td></tr></table></figure></p>
-<p><br></p>
-<h1 id="二、最长递增子序列">二、最长递增子序列</h1><p><strong>最长递增子序列（Longest Increasing Subsequence）</strong>是指找到一个给定序列的最长子序列的长度，使得子序列中的所有元素单调递增。</p>
-<p>例如：{ 3，5，7，1，2，8 }  的 LIS 是 { 3，5，7，8 }，长度为 4。</p>
-<h2 id="解法一：转化为求最长公共子序列">解法一：转化为求最长公共子序列</h2><p>其实可以把 求最长递增子序列问题 转化为 求最长公共子序列的问题。</p>
-<ul>
-<li>设数组 { 3， 5， 7， 1， 2， 8 } 为 A</li>
-<li>对数组 A 排序，排序后的数组为 B = { 1， 2， 3， 5， 7， 8 }。</li>
-<li>于是，求数组 A 的最长递增子序列，就是求数组 A 与数组 B 的最长公共子序列。</li>
-</ul>
-<p>最长公共子序列的求法见《<a href="http://blog.csdn.net/lisonglisonglisong/article/details/41548557" target="_blank" rel="external">动态规划DP</a>》。本方法的时间复杂度是 </p>
-<p>$$Θ(nlgn)+ Θ(n^2) = Θ(n^2)$$</p>
-<h2 id="解法二：动态规划法">解法二：动态规划法</h2><p>虽然解法一也是使用动态规划，但是与解法一不同的是，解法二不进行转化，而是直接在原问题上采用动态规划法。</p>
-<p><strong>最优子结构：</strong></p>
-<p>对于长度为 N 的数组 $A[N] = { a<em>0, a_1, a_2, …, a</em>{n-1}}$，假设我们想求以 $a_i$ 结尾的最大递增子序列长度，设为$L[i]$，那么</p>
-<p>$$<br>L[i] =<br>\begin{cases}<br>max(L[j]) + 1,  &amp; \text{where $j &lt; i$ and $A[j] &lt; A[i]$} \[2ex]<br>1, &amp; \text{otherwise}<br>\end{cases}<br>$$</p>
-<p>也就是 $j$ 的范围是 0 到 $i–1$。这样，想求 $a_i$ 结尾的最大递增子序列的长度，我们就需要遍历 $i$ 之前的所有位置 $j$（0到 i-1），找出$A[j] &lt; A[i]$，计算这些 $j$ 中，能产生最大 $L[j]$ 的 $j$，之后就可以求出 $L[i]$。之后对每一个$A[N]$中的元素都计算以他们各自结尾的最大递增子序列的长度，这些长度的最大值，就是我们要求的问题——数组$A$的最大递增子序列的长度。</p>
-<p><strong>重叠子问题：</strong></p>
-<p>根据上述推导式采用递归实现的话，有些子问题会被计算很多次。</p>
-<p><strong>动态规划法：</strong></p>
-<p>综上所述，LIS 问题具有动态规划需要的两个性质，可以使用动态规划求解该问题。设数组 A = { 3，5，7，1，2，8 }，则：</p>
-<center><br><img src="http://img.blog.csdn.net/20150424101652021" alt=""><br></center>
+          <p>本文尝试用尽量简洁的语言介绍一种树形数据结构 —— Trie树。</p>
+<h1 id="一、什么是Trie树">一、什么是Trie树</h1><p><strong>Trie树</strong>，又叫<strong>字典树</strong>、<strong>前缀树（Prefix Tree）</strong>、<strong>单词查找树</strong> 或 <strong>键树</strong>，是一种多叉树结构。如下图：<a id="more"></a></p>
+<center><br><img src="http://img.blog.csdn.net/20150509003807271" alt=""><br></center>
 
-<p>具体的打表方式如下：</p>
-<ul>
-<li>初始化对角线为 1；</li>
-<li>对每一个 i，遍历 j（0 到 i-1）：<ul>
-<li>若<code>A[i] &lt;= A[j]</code>，置 1。</li>
-<li>若<code>A[i] &gt; A[j]</code>，取第 j 行的<strong>最大值</strong>加 1。</li>
-</ul>
-</li>
-</ul>
-<p>打完表以后，最后一行的最大值就是最长递增子序列的长度。由于每次都进行遍历，故时间复杂度还是 $Θ(n^2)$ 。</p>
-<p>通常在实现的时候我们不会创建一整个表，因为这样太浪费空间。由打表的过程可知，我们只需要一个一维数组来保存每一行的最大值即可：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// LIS 的动态规划方式实现</span></span><br><span class="line"><span class="preprocessor">#<span class="keyword">include</span> &lt;iostream&gt;</span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">getLISLength</span><span class="params">(<span class="keyword">int</span> A[], <span class="keyword">int</span> len)</span></span><br><span class="line"></span>&#123;</span><br><span class="line">	<span class="comment">/* 一维数组 */</span></span><br><span class="line">   <span class="keyword">int</span>* lis = <span class="keyword">new</span> <span class="keyword">int</span>[len];  </span><br><span class="line"></span><br><span class="line">   <span class="comment">/* 初始化为1 */</span></span><br><span class="line">   <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; len; ++i) </span><br><span class="line">      lis[i] = <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">   <span class="comment">/* 计算每个i对应的lis最大值，即打表的过程 */</span></span><br><span class="line">   <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; len; ++i)</span><br><span class="line">      <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; i; ++j)     <span class="comment">// 0到i-1</span></span><br><span class="line">         <span class="keyword">if</span> ( A[i] &gt; A[j] &amp;&amp; lis[i] &lt; lis[j]+<span class="number">1</span>)</span><br><span class="line">            lis[i] = lis[j] + <span class="number">1</span>;  <span class="comment">// 更新</span></span><br><span class="line"></span><br><span class="line">   <span class="comment">/* 数组中最大的那个，就是最长递增子序列的长度 */</span></span><br><span class="line">   <span class="keyword">int</span> maxlis = <span class="number">0</span>;</span><br><span class="line">   <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; len; ++i)</span><br><span class="line">      <span class="keyword">if</span> ( maxlis &lt; lis[i] )</span><br><span class="line">         maxlis = lis[i];</span><br><span class="line"></span><br><span class="line">   <span class="keyword">delete</span> [] lis;</span><br><span class="line">   <span class="keyword">return</span> maxlis;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span><br><span class="line"></span>&#123;</span><br><span class="line">  <span class="keyword">int</span> arr[] = &#123;<span class="number">3</span>, <span class="number">5</span>, <span class="number">7</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">8</span>&#125;;</span><br><span class="line">  <span class="built_in">cout</span> &lt;&lt; getLISLength(arr, <span class="number">6</span>) &lt;&lt; endl;</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h2 id="解法三：Θ(nlgn)的方案">解法三：Θ(nlgn)的方案</h2><p>本解法的具体操作如下：</p>
-<ul>
-<li>开一个栈，依次读取数组元素 x 与栈顶元素 top：<ul>
-<li>如果 x &gt; top，将 x 入栈；</li>
-<li>如果 x &lt; top，则二分查找栈中第一个 大于等于x 的数，并用 x 替换它。</li>
-</ul>
-</li>
-</ul>
-<p>遍历结束之后，最长递增序列长度即为栈的大小。</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">getLISLength</span><span class="params">(<span class="keyword">int</span> A[], <span class="keyword">int</span> len)</span></span><br><span class="line"></span>&#123;</span><br><span class="line">	<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; v;  <span class="comment">// 模拟栈</span></span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;len; ++i)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span>(v.size()==<span class="number">0</span> || v.back()&lt;A[i])</span><br><span class="line">			v.push_back(A[i]);</span><br><span class="line">		<span class="keyword">else</span>  <span class="comment">// 二分查找</span></span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">int</span> mid, low=<span class="number">0</span>, high=v.size()-<span class="number">1</span>;</span><br><span class="line">			<span class="keyword">while</span>(low&lt;high)</span><br><span class="line">			&#123;</span><br><span class="line">				mid = (low+high)/<span class="number">2</span>;</span><br><span class="line">				<span class="keyword">if</span>(v[mid] &lt; A[i])</span><br><span class="line">					low = mid + <span class="number">1</span>;</span><br><span class="line">				<span class="keyword">else</span></span><br><span class="line">					high = mid - <span class="number">1</span>;</span><br><span class="line">			&#125;</span><br><span class="line">			v[low] = A[i];  <span class="comment">// 替换</span></span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> v.size();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>由于使用了二分搜索，故时间复杂度变成了 $Θ(nlgn)$。</p>
-<p>特别注意的是：本方法<strong>只能</strong>用于求最长递增子序列的长度，千万不要以为栈中的序列就是最长递增子序列：</p>
-<ul>
-<li><p>例一：原序列为1，5，8，3，6，7<br>栈为1，5，8，此时读到3，用3替换5，得到1，3，8； 再读6，用6替换8，得到1，3，6；再读7，得到最终栈为1，3，6，7。最长递增子序列为长度4。</p>
-</li>
-<li><p>例二：原序列为1，5，8，3<br>则最终栈为1，3，8。明显这不是最长递增子序列！</p>
-</li>
-</ul>
+<p>上图是一棵Trie树，表示了关键字集合{“a”, “to”, “tea”, “ted”, “ten”, “i”, “in”, “inn”} 。从上图可以归纳出Trie树的基本性质：</p>
+<ol>
+<li>根节点不包含字符，除根节点外的每一个子节点都包含一个字符。</li>
+<li>从根节点到<strong>某一个节点</strong>，路径上经过的字符连接起来，为该节点对应的字符串。</li>
+<li>每个节点的所有子节点包含的字符互不相同。</li>
+</ol>
+<p>通常在实现的时候，会在节点结构中设置一个标志，用来标记该结点处是否构成一个单词（关键字）。</p>
+<p>可以看出，Trie树的关键字一般都是字符串，而且Trie树把每个关键字保存在一条路径上，而不是一个结点中。另外，两个有公共前缀的关键字，在Trie树中前缀部分的路径相同，所以Trie树又叫做<strong>前缀树（Prefix Tree）</strong>。</p>
 <p><br></p>
-<h1 id="三、解题报告">三、解题报告</h1><p>根据题意可知，我们需要求出一个“中间点”，使得其左边的【最长递增子序列】和其右边的【最长递减子序列】之和最大。<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#<span class="keyword">include</span> &lt;iostream&gt;</span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span><br><span class="line"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> len;</span><br><span class="line">	<span class="built_in">cin</span> &gt;&gt; len;</span><br><span class="line">	<span class="keyword">int</span> *A = <span class="keyword">new</span> <span class="keyword">int</span>[len];</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;len; ++i)</span><br><span class="line">		<span class="built_in">cin</span> &gt;&gt; A[i];</span><br><span class="line"></span><br><span class="line">	<span class="comment">// lis[i]表示以A[i]为结尾的最长递增子序列的长度</span></span><br><span class="line">	<span class="keyword">int</span> *lis = <span class="keyword">new</span> <span class="keyword">int</span>[len];  </span><br><span class="line">	<span class="comment">// lds[i]表示以A[i]为起点的最长递减子序列的长度</span></span><br><span class="line">	<span class="keyword">int</span> *lds = <span class="keyword">new</span> <span class="keyword">int</span>[len];</span><br><span class="line"></span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; len; ++i) </span><br><span class="line">	&#123;</span><br><span class="line">		lis[i] = <span class="number">1</span>;</span><br><span class="line">		lds[i] = <span class="number">1</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>; i&lt;len; ++i)</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>; j&lt;i; ++j)</span><br><span class="line">			<span class="keyword">if</span>(A[i] &gt; A[j] &amp;&amp; lis[i] &lt; lis[j]+<span class="number">1</span>)</span><br><span class="line">				lis[i] = lis[j] + <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=len-<span class="number">2</span>; i&gt;=<span class="number">0</span>; --i)</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> j=len-<span class="number">1</span>; j&gt;i; --j)</span><br><span class="line">			<span class="keyword">if</span>(A[i] &gt; A[j] &amp;&amp; lds[i] &lt; lds[j]+<span class="number">1</span>)</span><br><span class="line">				lds[i] = lds[j] + <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">int</span> maxl = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;len; ++i)</span><br><span class="line">		<span class="keyword">if</span>(maxl &lt; lis[i]+lds[i])</span><br><span class="line">			maxl = lis[i] + lds[i];</span><br><span class="line"></span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; len - maxl + <span class="number">1</span> &lt;&lt; endl;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">delete</span> [] lis;</span><br><span class="line">	<span class="keyword">delete</span> [] lds;</span><br><span class="line">	<span class="keyword">delete</span> [] A;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p><br><br><br><br><br><br></p>
-<p>个人站点：<a href="http://songlee24.github.io/" target="_blank" rel="external">http://songlee24.github.com</a></p>
+<h1 id="二、Trie树的优缺点">二、Trie树的优缺点</h1><p>Trie树的核心思想是空间换时间，利用字符串的公共前缀来减少无谓的字符串比较以达到提高查询效率的目的。</p>
+<h2 id="优点">优点</h2><ol>
+<li><p>插入和查询的效率很高，都为$O(m)$，其中 $m$ 是待插入/查询的字符串的长度。</p>
+<ul>
+<li>关于查询，会有人说 hash 表时间复杂度是$O(1)$不是更快？但是，哈希搜索的效率通常取决于 hash 函数的好坏，若一个坏的 hash 函数导致很多的冲突，效率并不一定比Trie树高。</li>
+</ul>
+</li>
+<li><p>Trie树中不同的关键字不会产生冲突。</p>
+</li>
+<li><p>Trie树只有在允许一个关键字关联多个值的情况下才有类似hash碰撞发生。</p>
+</li>
+<li><p>Trie树不用求 hash 值，对短字符串有更快的速度。通常，求hash值也是需要遍历字符串的。</p>
+</li>
+<li><p>Trie树可以对关键字按<strong>字典序</strong>排序。</p>
+</li>
+</ol>
+<h2 id="缺点">缺点</h2><ol>
+<li><p>当 hash 函数很好时，Trie树的查找效率会低于哈希搜索。</p>
+</li>
+<li><p>空间消耗比较大。</p>
+</li>
+</ol>
+<p><br></p>
+<h1 id="三、Trie树的应用">三、Trie树的应用</h1><h2 id="1、字符串检索">1、字符串检索</h2><p>检索/查询功能是Trie树最原始的功能。<strong>思路</strong>就是从根节点开始一个一个字符进行比较：</p>
+<ul>
+<li>如果沿路比较，发现不同的字符，则表示该字符串在集合中不存在。</li>
+<li>如果所有的字符全部比较完并且全部相同，还需判断最后一个节点的标志位（标记该节点是否代表一个关键字）。</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> trie_node</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">bool</span> isKey;   <span class="comment">// 标记该节点是否代表一个关键字</span></span><br><span class="line">    trie_node *children[<span class="number">26</span>]; <span class="comment">// 各个子节点 </span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h2 id="2、词频统计">2、词频统计</h2><p>Trie树常被搜索引擎系统用于文本词频统计    。<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> trie_node</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">int</span> count;   <span class="comment">// 记录该节点代表的单词的个数</span></span><br><span class="line">    trie_node *children[<span class="number">26</span>]; <span class="comment">// 各个子节点 </span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<p>思路：为了实现词频统计，我们修改了节点结构，用一个整型变量<code>count</code>来计数。对每一个关键字执行插入操作，若已存在，计数加1，若不存在，插入后<code>count</code>置1。</p>
+<p><strong>注意：第一、第二种应用也都可以用 hash table 来做。</strong></p>
+<h2 id="3、字符串排序">3、字符串排序</h2><p>Trie树可以对大量字符串按字典序进行排序，思路也很简单：遍历一次所有关键字，将它们全部插入trie树，树的每个结点的所有儿子很显然地按照字母表排序，然后先序遍历输出Trie树中所有关键字即可。</p>
+<h2 id="4、前缀匹配">4、前缀匹配</h2><p>例如：找出一个字符串集合中所有以<code>ab</code>开头的字符串。我们只需要用所有字符串构造一个trie树，然后输出以<code>a-&gt;b-&gt;</code>开头的路径上的关键字即可。</p>
+<p>trie树前缀匹配常用于搜索提示。如当输入一个网址，可以自动搜索出可能的选择。当没有完全匹配的搜索结果，可以返回前缀最相似的可能。</p>
+<h2 id="5、作为其他数据结构和算法的辅助结构">5、作为其他数据结构和算法的辅助结构</h2><p>如后缀树，AC自动机等。</p>
+<p><br></p>
+<h1 id="四、Trie树的实现">四、Trie树的实现</h1><p>这里为了方便，我们假设所有的关键字都由 a-z 的字母组成。下面是 trie 树的一种典型实现：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#<span class="keyword">include</span> &lt;iostream&gt;</span></span><br><span class="line"><span class="preprocessor">#<span class="keyword">include</span> &lt;string&gt;</span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="preprocessor">#<span class="keyword">define</span> ALPHABET_SIZE 26</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">struct</span> trie_node</span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">int</span> count;   <span class="comment">// 记录该节点代表的单词的个数</span></span><br><span class="line">	trie_node *children[ALPHABET_SIZE]; <span class="comment">// 各个子节点 </span></span><br><span class="line">&#125;*trie;</span><br><span class="line"></span><br><span class="line">trie_node* create_trie_node()</span><br><span class="line">&#123;</span><br><span class="line">	trie_node* pNode = <span class="keyword">new</span> trie_node();</span><br><span class="line">	pNode-&gt;count = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;ALPHABET_SIZE; ++i)</span><br><span class="line">		pNode-&gt;children[i] = NULL;</span><br><span class="line">	<span class="keyword">return</span> pNode;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">trie_insert</span><span class="params">(trie root, <span class="keyword">char</span>* key)</span></span><br><span class="line"></span>&#123;</span><br><span class="line">	trie_node* node = root;</span><br><span class="line">	<span class="keyword">char</span>* p = key;</span><br><span class="line">	<span class="keyword">while</span>(*p)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span>(node-&gt;children[*p-<span class="string">'a'</span>] == NULL)</span><br><span class="line">		&#123;</span><br><span class="line">			node-&gt;children[*p-<span class="string">'a'</span>] = create_trie_node();</span><br><span class="line">		&#125;</span><br><span class="line">		node = node-&gt;children[*p-<span class="string">'a'</span>];</span><br><span class="line">		++p;</span><br><span class="line">	&#125;</span><br><span class="line">	node-&gt;count += <span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span><br><span class="line"> * 查询：不存在返回0，存在返回出现的次数</span><br><span class="line"> */</span> </span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">trie_search</span><span class="params">(trie root, <span class="keyword">char</span>* key)</span></span><br><span class="line"></span>&#123;</span><br><span class="line">	trie_node* node = root;</span><br><span class="line">	<span class="keyword">char</span>* p = key;</span><br><span class="line">	<span class="keyword">while</span>(*p &amp;&amp; node!=NULL)</span><br><span class="line">	&#123;</span><br><span class="line">		node = node-&gt;children[*p-<span class="string">'a'</span>];</span><br><span class="line">		++p;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">if</span>(node == NULL)</span><br><span class="line">		<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">else</span></span><br><span class="line">		<span class="keyword">return</span> node-&gt;count;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span><br><span class="line"></span>&#123;</span><br><span class="line">	<span class="comment">// 关键字集合</span></span><br><span class="line">	<span class="keyword">char</span> keys[][<span class="number">8</span>] = &#123;<span class="string">"the"</span>, <span class="string">"a"</span>, <span class="string">"there"</span>, <span class="string">"answer"</span>, <span class="string">"any"</span>, <span class="string">"by"</span>, <span class="string">"bye"</span>, <span class="string">"their"</span>&#125;;</span><br><span class="line">	trie root = create_trie_node();</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 创建trie树</span></span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">8</span>; i++)</span><br><span class="line">		trie_insert(root, keys[i]);</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 检索字符串</span></span><br><span class="line">	<span class="keyword">char</span> s[][<span class="number">32</span>] = &#123;<span class="string">"Present in trie"</span>, <span class="string">"Not present in trie"</span>&#125;;</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"%s --- %s\n"</span>, <span class="string">"the"</span>, trie_search(root, <span class="string">"the"</span>)&gt;<span class="number">0</span>?s[<span class="number">0</span>]:s[<span class="number">1</span>]);</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"%s --- %s\n"</span>, <span class="string">"these"</span>, trie_search(root, <span class="string">"these"</span>)&gt;<span class="number">0</span>?s[<span class="number">0</span>]:s[<span class="number">1</span>]);</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"%s --- %s\n"</span>, <span class="string">"their"</span>, trie_search(root, <span class="string">"their"</span>)&gt;<span class="number">0</span>?s[<span class="number">0</span>]:s[<span class="number">1</span>]);</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"%s --- %s\n"</span>, <span class="string">"thaw"</span>, trie_search(root, <span class="string">"thaw"</span>)&gt;<span class="number">0</span>?s[<span class="number">0</span>]:s[<span class="number">1</span>]);</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>对于Trie树，我们一般只实现插入和搜索操作。这段代码可以用来检索单词和统计词频。</p>
+<p><br><br><br><br><br><br><br>个人站点：<a href="http://songlee24.github.io/" target="_blank" rel="external">http://songlee24.github.com</a></p>
 
         
       </div>
@@ -234,8 +224,8 @@
         
           <div class="post-tags">
             
-              <a href="/tags/OJ/">
-                #OJ
+              <a href="/tags/数据结构/">
+                #数据结构
               </a>
             
           </div>
@@ -245,13 +235,11 @@
           <div class="post-nav">
             <div class="post-nav-prev post-nav-item">
               
-                <a href="/2015/03/20/hua-wei-OJ1964/">华为OJ1964-求解立方根（牛顿迭代法）</a>
-              
             </div>
 
             <div class="post-nav-next post-nav-item">
               
-                <a href="/2015/03/18/hua-wei-OJ2011/">华为OJ2011-最长公共子串</a>
+                <a href="/2015/05/07/topological-sorting/">拓扑排序（Topological Sorting）</a>
               
             </div>
           </div>
@@ -268,8 +256,8 @@
   
     <div class="comments" id="comments">
       
-        <div class="ds-thread" data-thread-key="2015/03/19/hua-wei-OJ2288/"
-             data-title="华为OJ2288-合唱队（最长递增子序列）" data-url="http://yoursite.com/2015/03/19/hua-wei-OJ2288/">
+        <div class="ds-thread" data-thread-key="2015/05/09/prefix-tree/"
+             data-title="Trie树|前缀树的介绍与实现" data-url="http://yoursite.com/2015/05/09/prefix-tree/">
         </div>
 
       
@@ -377,7 +365,7 @@
         <div class="post-toc">
           
           
-            <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#一、题目描述"><span class="nav-number">1.</span> <span class="nav-text">一、题目描述</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#二、最长递增子序列"><span class="nav-number">2.</span> <span class="nav-text">二、最长递增子序列</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#解法一：转化为求最长公共子序列"><span class="nav-number">2.1.</span> <span class="nav-text">解法一：转化为求最长公共子序列</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解法二：动态规划法"><span class="nav-number">2.2.</span> <span class="nav-text">解法二：动态规划法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解法三：Θ(nlgn)的方案"><span class="nav-number">2.3.</span> <span class="nav-text">解法三：Θ(nlgn)的方案</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#三、解题报告"><span class="nav-number">3.</span> <span class="nav-text">三、解题报告</span></a></li></ol></div>
+            <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#一、什么是Trie树"><span class="nav-number">1.</span> <span class="nav-text">一、什么是Trie树</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#二、Trie树的优缺点"><span class="nav-number">2.</span> <span class="nav-text">二、Trie树的优缺点</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#优点"><span class="nav-number">2.1.</span> <span class="nav-text">优点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#缺点"><span class="nav-number">2.2.</span> <span class="nav-text">缺点</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#三、Trie树的应用"><span class="nav-number">3.</span> <span class="nav-text">三、Trie树的应用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1、字符串检索"><span class="nav-number">3.1.</span> <span class="nav-text">1、字符串检索</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2、词频统计"><span class="nav-number">3.2.</span> <span class="nav-text">2、词频统计</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3、字符串排序"><span class="nav-number">3.3.</span> <span class="nav-text">3、字符串排序</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4、前缀匹配"><span class="nav-number">3.4.</span> <span class="nav-text">4、前缀匹配</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5、作为其他数据结构和算法的辅助结构"><span class="nav-number">3.5.</span> <span class="nav-text">5、作为其他数据结构和算法的辅助结构</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#四、Trie树的实现"><span class="nav-number">4.</span> <span class="nav-text">四、Trie树的实现</span></a></li></ol></div>
           
         </div>
         <div class="post-toc-indicator-bottom post-toc-indicator"></div>
