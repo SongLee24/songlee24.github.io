@@ -1,0 +1,948 @@
+<!doctype html>
+<html class="theme-next use-motion theme-next-next">
+<head>
+  
+
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+  <meta name="google-site-verification" content="VvyjvVXcJQa0QklHipu6pwm2PJGnnchIqX7s5JbbT_0" />
+
+
+
+  <link rel="stylesheet" type="text/css" href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5"/>
+
+
+<link rel="stylesheet" type="text/css" href="/css/main.css?v=0.4.0"/>
+
+
+    <meta name="description" content="放宽心，多努力" />
+
+
+
+	<meta name="keywords" content="Python," />
+
+  <title> Python3基础（十） 类的初印象 // SongLee's Blog </title>
+</head>
+
+<body>
+  <div class="container one-column page-post-detail">
+    <div class="headband"></div>
+
+    <div id="header" class="header">
+      <div class="header-inner">
+        <h1 class="site-meta">
+  <span class="logo-line-before"><i></i></span>
+  <a href="/" class="brand">
+      <span class="logo">
+        <i class="icon-logo"></i>
+      </span>
+      <span class="site-title">SongLee's Blog</span>
+  </a>
+  <span class="logo-line-after"><i></i></span>
+</h1>
+
+
+  <ul id="menu" class="menu">
+    
+      
+      <li class="menu-item menu-item-home">
+        <a href="/">
+          <i class="menu-item-icon icon-home"></i> <br />
+          首页
+        </a>
+      </li>
+    
+      
+      <li class="menu-item menu-item-categories">
+        <a href="/categories">
+          <i class="menu-item-icon icon-categories"></i> <br />
+          分类
+        </a>
+      </li>
+    
+      
+      <li class="menu-item menu-item-archives">
+        <a href="/archives">
+          <i class="menu-item-icon icon-archives"></i> <br />
+          归档
+        </a>
+      </li>
+    
+      
+      <li class="menu-item menu-item-tags">
+        <a href="/tags">
+          <i class="menu-item-icon icon-tags"></i> <br />
+          标签
+        </a>
+      </li>
+    
+      
+      <li class="menu-item menu-item-about">
+        <a href="/about">
+          <i class="menu-item-icon icon-about"></i> <br />
+          关于
+        </a>
+      </li>
+    
+  </ul>
+
+
+      </div>
+    </div>
+
+    <div id="main" class="main">
+      <div class="main-inner">
+        <div id="content" class="content">
+          
+            
+          
+
+          <div id="posts" class="posts-expand">
+            
+  
+
+  <div class="post post-type-normal ">
+    <div class="post-header">
+
+      
+      
+        <h1 class="post-title">
+          
+          
+            
+              Python3基础（十） 类的初印象
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          
+            发表于 2014-08-19
+          
+        </span>
+
+        
+          
+            <span class="post-category">
+              &nbsp; | &nbsp; 分类于
+              
+                <a href="/categories/Lang-Python/">Lang.-Python</a>
+
+                
+                
+
+              
+            </span>
+          
+        
+
+        
+          
+            <span class="post-comments-count">
+            &nbsp; | &nbsp;
+            <a href="/2014/08/20/python-basic-10/#comments" >
+              <span class="post-comments-count ds-thread-count" data-thread-key="2014/08/20/python-basic-10/"></span>
+            </a>
+          </span>
+          
+        
+      </div>
+    </div>
+
+    
+      <div class="post-body">
+
+        
+        
+
+        
+          <p>Python是一种面向对象的脚本语言，所以它也提供了面向对象编程的所有基本特征：<em>允许多继承的类继承机制、派生类可以重写它父类的任何方法、一个方法可以调用父类中同名的方法、对象可以包含任意数量和类型的数据成员</em>。关于继承，将在下一篇博文里面介绍，本文只简单的介绍Python中的类的定义和使用。</p>
+<h3 id="一、类定义">一、类定义</h3><p>最简单的类的定义形式：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ClassName</span>:</span></span><br><span class="line">    &lt;statement-<span class="number">1</span>&gt;</span><br><span class="line">    .</span><br><span class="line">    .</span><br><span class="line">    .</span><br><span class="line">    &lt;statement-N&gt;</span><br></pre></td></tr></table></figure></p>
+<a id="more"></a>
+<p>类定义会创建一个新的命名空间，作为一个局部的作用域。在Python中，类本身就是对象，当一个类定义结束后, 一个 Class Object 就被创建。</p>
+<p><br></p>
+<h3 id="二、类对象">二、类对象</h3><p>类对象（Class Object）支持两种操作：<strong>属性引用</strong> 和 <strong>实例化</strong>。</p>
+<p><strong>属性引用</strong></p>
+<p>类对象的属性引用和 Python 中所有的属性引用一样，形式为：<code>obj.name</code> 。类对象创建后，类命名空间中所有的名字都是有效属性名，像下面这个类：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyClass</span>:</span></span><br><span class="line">    <span class="string">"""A simple example class"""</span></span><br><span class="line">    i = <span class="number">12345</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">f</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> <span class="string">'hello world'</span></span><br></pre></td></tr></table></figure></p>
+<p>它有一个属性 i 和 方法 f ，所以可以用<code>MyClass.i</code> 和 <code>MyClass.f</code> 进行属性引用，分别返回一个整数和一个函数对象。__doc__ 也是一个合法的属性，返回属于这个类的文档字符串。</p>
+<p><strong>实例化</strong></p>
+<p>类的实例化形式为：<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">x = <span class="function"><span class="title">MyClass</span><span class="params">()</span></span></span><br></pre></td></tr></table></figure></p>
+<p>创建了一个新的实例，并且将其指定给局部变量 x 。</p>
+<p>在创建实例时，通常可能都需要有特定的初始状态，所以一个类可以定义一个名为 <code>__init__()</code>的特殊方法（构造方法）：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self)</span>:</span></span><br><span class="line">    self.data = []</span><br></pre></td></tr></table></figure></p>
+<p>当一个类定义了 __init__() 方法，类在实例化时会<strong>自动调用</strong> __init__() 方法，用于创建新的类实例。 就像C++中的构造函数一样， __init__() 也可以有更多的参数，这时实例化提供给类的参数会传给 __init__() ，比如：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">student</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, n, a)</span>:</span></span><br><span class="line">        self.name = n</span><br><span class="line">        self.age = a</span><br><span class="line"></span><br><span class="line">stu = student(<span class="string">'Selena'</span>, <span class="number">19</span>)</span><br><span class="line">print(stu.name, stu.age)     <span class="comment"># 输出：Selena 19</span></span><br></pre></td></tr></table></figure></p>
+<p><br></p>
+<h3 id="三、实例对象">三、实例对象</h3><p>类对象实例化得到<strong>实例对象（Instance Object）</strong>，实例对象只能进行 <strong>属性引用</strong> 这一种操作。合法的属性有两种：数据属性 和 方法。</p>
+<p><strong>数据属性</strong></p>
+<p>数据属性（data attributes）相当于C++中的数据成员，在Python中，数据属性不需要声明，当它们第一次指定时就会被引入：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyClass</span>:</span></span><br><span class="line">    i = <span class="number">12345</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">f</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> <span class="string">'hello world'</span></span><br><span class="line"></span><br><span class="line">x = MyClass()</span><br><span class="line">x.counter = <span class="number">1</span></span><br><span class="line">print(x.counter)</span><br><span class="line"><span class="keyword">del</span> x.counter</span><br></pre></td></tr></table></figure></p>
+<p>注：在Python中每个值都是一个对象，可以通过<code>object.__class__</code>来获取对象的 class （即类型），其作用与 type() 相同。</p>
+<p><strong>方法</strong></p>
+<p>在类对象中定义的函数与普通函数只有一个特别的区别：<strong>它们的第一个参数必须是<code>self</code>，用以指定调用该方法的实例对象。</strong> </p>
+<p><strong>注意</strong>：类的方法只有被绑定到实例对象上才能够被调用。比如上面的例子中，x 是 MyClass类的一个实例对象，所以它可以直接调用 f 方法：<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">x.<span class="function"><span class="title">f</span><span class="params">()</span></span></span><br></pre></td></tr></table></figure></p>
+<p>为什么 f() 定义时是有一个参数的，而这里调用不需要参数呢？ 因为在调用时， x 对象作为参数传递给了函数的第一个参数（即 self）。也就是说，<code>x.f()</code> 是严格等价于 <code>MyClass.f(x)</code>的。</p>
+<p>所以在多数情况下，调用一个方法（有个 n 个参数），和调用相应的函数（也有那 n 个参数，但是再额外加入一个使用该方法的对象） 是等价的。</p>
+<p>另外，函数也可以在 class 外定义，指定该函数对象给类中的局部变量就可以了，例如：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Function defined outside the class</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">f1</span><span class="params">(self, x, y)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> min(x, y)</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">C</span>:</span></span><br><span class="line">    f = f1</span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">g</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> <span class="string">'hello world'</span></span><br><span class="line"></span><br><span class="line">c = C()    <span class="comment"># 实例化</span></span><br><span class="line">c.f(<span class="number">1</span>,<span class="number">3</span>)</span><br><span class="line">c.g()</span><br></pre></td></tr></table></figure></p>
+<p><br></p>
+<h3 id="四、私有成员">四、私有成员</h3><p>从C++术语上讲，Python 类的成员（包括数据成员）通常都是 <strong>public</strong> 的，并且所有的成员函数都是 <strong>virtual</strong> 的。</p>
+<p>那么，如何在类中定义私有变量或私有方法呢？ </p>
+<p>答：在Python中规定，以<strong>两个下划线开头的名字</strong>为私有成员，不能在类的外部使用。</p>
+<p>示例：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span>:</span></span><br><span class="line">    __str = <span class="string">'python'</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__f</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> self.__str</span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">f</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> self.__str</span><br><span class="line"></span><br><span class="line">a = A()</span><br><span class="line">a.__str   <span class="comment"># 'A' object has no attribute '__str'</span></span><br><span class="line">a.__f()   <span class="comment"># 'A' object has no attribute '__f'</span></span><br><span class="line">a.f()     <span class="comment"># 输出：python</span></span><br></pre></td></tr></table></figure></p>
+<p><br><br><br><br></p>
+<h3 id="附：作用域的探讨">附：作用域的探讨</h3><p>在讲<a href="http://songlee24.github.io/blog/2014/08/09/python3ji-chu-wu-han-shu/" target="_blank" rel="external">函数变量作用域</a>时，曾经说过在一个局部作用域内重新绑定全局变量，需要使用<code>global</code>声明。否则，尝试给这个变量赋值，只是会简单的创建一个新的局部变量，而不会改变那个全局变量。</p>
+<p>这里再介绍一个<code>nonlocal</code>语句，它用于指示，在外层的局部作用域中的变量可以在这里进行重新绑定。下面是一个例子：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">scope_test</span><span class="params">()</span>:</span>   <span class="comment"># 作用域测试</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">do_local</span><span class="params">()</span>:</span></span><br><span class="line">        x = <span class="string">'local x'</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">do_nonlocal</span><span class="params">()</span>:</span></span><br><span class="line">        <span class="keyword">nonlocal</span> x</span><br><span class="line">        x = <span class="string">'nonlocal x'</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">do_global</span><span class="params">()</span>:</span></span><br><span class="line">        <span class="keyword">global</span> x</span><br><span class="line">        x = <span class="string">'global x'</span></span><br><span class="line"></span><br><span class="line">    x = <span class="string">'test x'</span>   <span class="comment"># 局部变量</span></span><br><span class="line"></span><br><span class="line">    do_local()</span><br><span class="line">    print(<span class="string">'After do_local():'</span>, x)</span><br><span class="line">    do_nonlocal()</span><br><span class="line">    print(<span class="string">'After do_nonlocal():'</span>, x)</span><br><span class="line">    do_global()</span><br><span class="line">    print(<span class="string">'After do_global():'</span>, x)</span><br><span class="line"></span><br><span class="line">scope_test()</span><br><span class="line">print(<span class="string">'In global scope:'</span>, x)</span><br></pre></td></tr></table></figure></p>
+<p>可以看出，局部的赋值 <strong>do_local()</strong> 并没有改变 scope_test 绑定的 x 变量，而 <strong>do_nonlocal()</strong> 则改变了 scope_test 中的 x，而 <strong>do_global()</strong> 则改变了模块级别的绑定，即全局变量。</p>
+<p><br><br><br><br></p>
+
+        
+      </div>
+    
+
+    
+      <div class="post-footer">
+        
+          <div class="post-tags">
+            
+              <a href="/tags/Python/">
+                #Python
+              </a>
+            
+          </div>
+        
+
+        
+          <div class="post-nav">
+            <div class="post-nav-prev post-nav-item">
+              
+                <a href="/2014/08/21/python-basic-11/">Python3基础（十一） 类的拓展</a>
+              
+            </div>
+
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/2014/08/19/python-basic-09/">Python3基础（九） 错误和异常</a>
+              
+            </div>
+          </div>
+        
+
+        
+        
+      </div>
+    
+  </div>
+
+
+
+  
+    <div class="comments" id="comments">
+      
+        <div class="ds-thread" data-thread-key="2014/08/20/python-basic-10/"
+             data-title="Python3基础（十） 类的初印象" data-url="http://yoursite.com/2014/08/20/python-basic-10/">
+        </div>
+
+      
+    </div>
+  
+
+          </div>
+
+          
+        </div>
+
+        
+<div class="sidebar-toggle">
+  <div class="sidebar-toggle-line-wrap">
+    <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+    <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+    <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+  </div>
+</div>
+
+<div id="sidebar" class="sidebar">
+  <div class="sidebar-inner">
+
+    
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview" data-target="site-overview">
+          站点概览
+        </li>
+      </ul>
+    
+
+    <div class="site-overview">
+      <div class="site-author motion-element">
+        <img class="site-author-image" src="https://avatars0.githubusercontent.com/u/6904366?v=3&s=140" alt="Song Lee" />
+        <p class="site-author-name">Song Lee</p>
+      </div>
+      <p class="site-description motion-element">放宽心，多努力</p>
+      <div class="site-state motion-element">
+        <div class="site-state-item site-state-posts">
+          <span class="site-state-item-count">42</span>
+          <span class="site-state-item-name">日志</span>
+        </div>
+        <div class="site-state-item site-state-tags">
+            <span class="site-state-item-count">11</span>
+            <span class="site-state-item-name">标签</span>
+        </div>
+        <div class="site-state-item site-state-pages">
+            <span class="site-state-item-count">4</span>
+            <span class="site-state-item-name">页面</span>
+        </div>
+      </div>
+
+      
+        <div class="feed-link motion-element">
+          <a href="/atom.xml">
+            <i class="menu-item-icon icon-feed"></i>
+            RSS
+          </a>
+        </div>
+      
+
+      <div class="links-of-author motion-element">
+        
+          
+            <span class="links-of-author-item">
+              <a href="https://github.com/SongLee24">GitHub</a>
+            </span>
+          
+            <span class="links-of-author-item">
+              <a href="http://blog.csdn.net/lisonglisonglisong">CSDN</a>
+            </span>
+          
+            <span class="links-of-author-item">
+              <a href="http://weibo.com/lisonglisong">Weibo</a>
+            </span>
+          
+            <span class="links-of-author-item">
+              <a href="http://www.douban.com/people/122455925/">DouBan</a>
+            </span>
+          
+            <span class="links-of-author-item">
+              <a href="http://www.zhihu.com/people/shen-yi-59">ZhiHu</a>
+            </span>
+          
+        
+      </div>
+
+      
+      
+        <div class="cc-license motion-element">
+          <a href="http://creativecommons.org/licenses/by-nc-sa/4.0" class="cc-opacity" target="_blank">
+            <img src="/images/cc-by-nc-sa.svg" alt="Creative Commons" />
+          </a>
+        </div>
+      
+
+    </div>
+
+    
+      <div class="post-toc-wrap sidebar-panel-active">
+        <div class="post-toc-indicator-top post-toc-indicator"></div>
+        <div class="post-toc">
+          
+          
+            <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#一、类定义"><span class="nav-number">1.</span> <span class="nav-text">一、类定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二、类对象"><span class="nav-number">2.</span> <span class="nav-text">二、类对象</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#三、实例对象"><span class="nav-number">3.</span> <span class="nav-text">三、实例对象</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#四、私有成员"><span class="nav-number">4.</span> <span class="nav-text">四、私有成员</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#附：作用域的探讨"><span class="nav-number">5.</span> <span class="nav-text">附：作用域的探讨</span></a></li></ol></div>
+          
+        </div>
+        <div class="post-toc-indicator-bottom post-toc-indicator"></div>
+      </div>
+    
+
+  </div>
+</div>
+
+
+      </div>
+    </div>
+
+    <div id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy; &nbsp;  2014 - 
+  2015
+  <span class="with-love">
+    <i class="icon-heart"></i>
+  </span>
+  <span class="author">Song Lee</span>
+</div>
+
+<div class="powered-by">
+  <div style="float:left;margin-top:7px;margin-right:10px;">
+	<script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1254974724'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s11.cnzz.com/z_stat.php%3Fid%3D1254974724%26show%3Dpic' type='text/javascript'%3E%3C/script%3E"));</script>
+  </div>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+
+      </div>
+    </div>
+
+    <div class="back-to-top"></div>
+  </div>
+
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript">
+    $(document).ready(function() {
+      $(".fancybox").fancybox();
+    });
+  </script>
+
+  <script type="text/javascript">
+  function hasMobileUA () {
+    var nav = window.navigator;
+    var ua = nav.userAgent;
+    var pa = /iPad|iPhone|Android|Opera Mini|BlackBerry|webOS|UCWEB|Blazer|PSP|IEMobile|Symbian/g;
+
+    return pa.test(ua);
+  }
+
+  function isDesktop () {
+    return screen.width > 991 && !hasMobileUA();
+  }
+
+  function isTablet () {
+    return screen.width < 992 && screen.width > 767 && hasMobileUA();
+  }
+
+  function isMobile () {
+    return screen.width < 767 && hasMobileUA();
+  }
+
+  function escapeSelector (selector) {
+    return selector.replace(/[!"$%&'()*+,.\/:;<=>?@[\\\]^`{|}~]/g, "\\$&")
+  }
+</script>
+
+  
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
+
+  <script type="text/javascript" id="motion.global">
+  $(document).ready(function () {
+    var body = $('body');
+    var isSidebarVisible = false;
+    var sidebarToggle = $('.sidebar-toggle');
+    var sidebarToggleLine1st = $('.sidebar-toggle-line-first')
+    var sidebarToggleLine2nd = $('.sidebar-toggle-line-middle');
+    var sidebarToggleLine3rd = $('.sidebar-toggle-line-last');
+    var sidebar = $('.sidebar');
+
+    var SIDEBAR_WIDTH = '320px';
+    var SIDEBAR_DISPLAY_DURATION = 300;
+
+    var sidebarToogleLineStatusInit = {width: '100%', opacity: 1, left: 0, rotateZ: 0, top: 0};
+
+    var sidebarToggleLine1stStatusInit = sidebarToogleLineStatusInit;
+    var sidebarToggleLine1stStatusArrow = {width: '50%', rotateZ: '-45deg', top: '2px'};
+    var sidebarToogleLine1stStatusClose = {width: '100%', rotateZ: '-45deg', top: '5px'};
+
+    var sidebarToggleLine2ndStatusInit = sidebarToogleLineStatusInit;
+    var sidebarToggleLine2ndStatusArrow = {width: '90%'};
+    var sidebarToogleLine2ndStatusClose = {opacity: 0};
+
+    var sidebarToggleLine3rdStatusInit = sidebarToogleLineStatusInit;
+    var sidebarToggleLine3rdStatusArrow = {width: '50%', rotateZ: '45deg', top: '-2px'};
+    var sidebarToogleLine3rdStatusClose = {width: '100%', rotateZ: '45deg', top: '-5px'};
+
+    LogoAndMenuMotion();
+    sidebatToggleMotion();
+    postsListMotion();
+    backToTopMotion();
+
+
+    $(document)
+      .on('sidebar.isShowing', function () {
+        isDesktop() && body.velocity(
+          {paddingRight: SIDEBAR_WIDTH},
+          SIDEBAR_DISPLAY_DURATION
+        );
+        sidebarContentMotion();
+      })
+      .on('sidebar.isHiding', function () {});
+
+    function LogoAndMenuMotion() {
+      $.Velocity.RunSequence([
+        { e: $('.brand'), p: { opacity: 1 }, o: { duration: 100 } },
+        { e: $('.logo'), p: { opacity: 1, top: 0 }, o: { duration: 50} },
+        
+        { e: $('.logo-line-before i'), p: { translateX: "100%" }, o: { duration: 500, sequenceQueue: false } },
+        { e: $('.logo-line-after i'), p: { translateX: "-100%" }, o: { duration: 500, sequenceQueue: false } },
+        
+        { e: $('.site-title'), p: { opacity: 1, top: 0 }, o: { duration: 200 } }
+      ]);
+      $('.menu-item').velocity('transition.slideDownIn', {display: null});
+    }
+
+
+    function backToTopMotion () {
+      var b2top = $('.back-to-top');
+      b2top.on('click', function () {
+        body.velocity('scroll');
+      });
+    }
+
+    function sidebarShowMotion () {
+
+      sidebarToggleLine1st.velocity(sidebarToogleLine1stStatusClose);
+      sidebarToggleLine2nd.velocity(sidebarToogleLine2ndStatusClose);
+      sidebarToggleLine3rd.velocity(sidebarToogleLine3rdStatusClose);
+
+      sidebar.velocity({width: SIDEBAR_WIDTH}, {
+        display: 'block',
+        duration: SIDEBAR_DISPLAY_DURATION,
+        complete: function () {
+          sidebar.addClass('sidebar-active');
+          sidebar.trigger('sidebar.didShow');
+        }
+      });
+      sidebar.trigger('sidebar.isShowing');
+    }
+
+    function sidebarHideMotion () {
+      isDesktop() && body.velocity({paddingRight: 0});
+      sidebar.velocity('reverse');
+
+      sidebarToggleLine1st.velocity(sidebarToggleLine1stStatusInit);
+      sidebarToggleLine2nd.velocity(sidebarToggleLine2ndStatusInit);
+      sidebarToggleLine3rd.velocity(sidebarToggleLine3rdStatusInit);
+
+      sidebar.removeClass('sidebar-active');
+      sidebar.trigger('sidebar.isHiding');
+    };
+
+    function sidebarContentMotion () {
+      $('.sidebar .motion-element').velocity(
+        'transition.slideRightIn',
+        {stagger: 50, drag: true}
+      );
+    }
+
+    function postsListMotion () {
+      var postMotionOptions = window.postMotionOptions || {stagger: 300, drag: true};
+      $('.post').velocity('transition.slideDownIn', postMotionOptions);
+    }
+
+    function sidebatToggleMotion () {
+      sidebarToggle.on('click', function () {
+        isSidebarVisible ? sidebarHideMotion() : sidebarShowMotion();
+        isSidebarVisible = !isSidebarVisible;
+      });
+
+      sidebarToggle.hover(function () {
+        if (isSidebarVisible) {return}
+        sidebarToggleLine1st.velocity('stop').velocity(sidebarToggleLine1stStatusArrow);
+        sidebarToggleLine2nd.velocity('stop').velocity(sidebarToggleLine2ndStatusArrow);
+        sidebarToggleLine3rd.velocity('stop').velocity(sidebarToggleLine3rdStatusArrow);
+      }, function () {
+        if (isSidebarVisible) {return}
+        sidebarToggleLine1st.velocity('stop').velocity(sidebarToggleLine1stStatusInit);
+        sidebarToggleLine2nd.velocity('stop').velocity(sidebarToggleLine2ndStatusInit);
+        sidebarToggleLine3rd.velocity('stop').velocity(sidebarToggleLine3rdStatusInit);
+      });
+    }
+  });
+
+</script>
+
+
+
+
+
+  
+  
+<script type="text/javascript" id="bootstrap.scrollspy.custom">
+  /* ========================================================================
+  * Bootstrap: scrollspy.js v3.3.2
+  * http://getbootstrap.com/javascript/#scrollspy
+  * ========================================================================
+  * Copyright 2011-2015 Twitter, Inc.
+  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
+  * ======================================================================== */
+
+  /**
+   * Custom by iissnan
+   *
+   * - Add a `clear.bs.scrollspy` event.
+   * - Esacpe targets selector.
+   */
+
+
+  +function ($) {
+    'use strict';
+
+    // SCROLLSPY CLASS DEFINITION
+    // ==========================
+
+    function ScrollSpy(element, options) {
+      this.$body          = $(document.body)
+      this.$scrollElement = $(element).is(document.body) ? $(window) : $(element)
+      this.options        = $.extend({}, ScrollSpy.DEFAULTS, options)
+      this.selector       = (this.options.target || '') + ' .nav li > a'
+      this.offsets        = []
+      this.targets        = []
+      this.activeTarget   = null
+      this.scrollHeight   = 0
+
+      this.$scrollElement.on('scroll.bs.scrollspy', $.proxy(this.process, this))
+      this.refresh()
+      this.process()
+    }
+
+    ScrollSpy.VERSION  = '3.3.2'
+
+    ScrollSpy.DEFAULTS = {
+      offset: 10
+    }
+
+    ScrollSpy.prototype.getScrollHeight = function () {
+      return this.$scrollElement[0].scrollHeight || Math.max(this.$body[0].scrollHeight, document.documentElement.scrollHeight)
+    }
+
+    ScrollSpy.prototype.refresh = function () {
+      var that          = this
+      var offsetMethod  = 'offset'
+      var offsetBase    = 0
+
+      this.offsets      = []
+      this.targets      = []
+      this.scrollHeight = this.getScrollHeight()
+
+      if (!$.isWindow(this.$scrollElement[0])) {
+        offsetMethod = 'position'
+        offsetBase   = this.$scrollElement.scrollTop()
+      }
+
+      this.$body
+        .find(this.selector)
+        .map(function () {
+          var $el   = $(this)
+          var href  = $el.data('target') || $el.attr('href')
+          var $href = /^#./.test(href) && $(escapeSelector(href)) // Need to escape selector.
+
+          return ($href
+            && $href.length
+            && $href.is(':visible')
+            && [[$href[offsetMethod]().top + offsetBase, href]]) || null
+        })
+        .sort(function (a, b) { return a[0] - b[0] })
+        .each(function () {
+          that.offsets.push(this[0])
+          that.targets.push(this[1])
+        })
+
+
+    }
+
+    ScrollSpy.prototype.process = function () {
+      var scrollTop    = this.$scrollElement.scrollTop() + this.options.offset
+      var scrollHeight = this.getScrollHeight()
+      var maxScroll    = this.options.offset + scrollHeight - this.$scrollElement.height()
+      var offsets      = this.offsets
+      var targets      = this.targets
+      var activeTarget = this.activeTarget
+      var i
+
+      if (this.scrollHeight != scrollHeight) {
+        this.refresh()
+      }
+
+      if (scrollTop >= maxScroll) {
+        return activeTarget != (i = targets[targets.length - 1]) && this.activate(i)
+      }
+
+      if (activeTarget && scrollTop < offsets[0]) {
+        $(this.selector).trigger('clear.bs.scrollspy')  // Add a custom event.
+        this.activeTarget = null
+        return this.clear()
+      }
+
+      for (i = offsets.length; i--;) {
+        activeTarget != targets[i]
+          && scrollTop >= offsets[i]
+          && (!offsets[i + 1] || scrollTop <= offsets[i + 1])
+          && this.activate(targets[i])
+      }
+    }
+
+    ScrollSpy.prototype.activate = function (target) {
+      this.activeTarget = target
+
+      this.clear()
+
+      var selector = this.selector +
+        '[data-target="' + target + '"],' +
+        this.selector + '[href="' + target + '"]'
+
+      var active = $(selector)
+        .parents('li')
+        .addClass('active')
+
+      if (active.parent('.dropdown-menu').length) {
+        active = active
+          .closest('li.dropdown')
+          .addClass('active')
+      }
+
+      active.trigger('activate.bs.scrollspy')
+    }
+
+    ScrollSpy.prototype.clear = function () {
+      $(this.selector)
+        .parentsUntil(this.options.target, '.active')
+        .removeClass('active')
+    }
+
+
+    // SCROLLSPY PLUGIN DEFINITION
+    // ===========================
+
+    function Plugin(option) {
+      return this.each(function () {
+        var $this   = $(this)
+        var data    = $this.data('bs.scrollspy')
+        var options = typeof option == 'object' && option
+
+        if (!data) $this.data('bs.scrollspy', (data = new ScrollSpy(this, options)))
+        if (typeof option == 'string') data[option]()
+      })
+    }
+
+    var old = $.fn.scrollspy
+
+    $.fn.scrollspy             = Plugin
+    $.fn.scrollspy.Constructor = ScrollSpy
+
+
+    // SCROLLSPY NO CONFLICT
+    // =====================
+
+    $.fn.scrollspy.noConflict = function () {
+      $.fn.scrollspy = old
+      return this
+    }
+
+
+    // SCROLLSPY DATA-API
+    // ==================
+
+    $(window).on('load.bs.scrollspy.data-api', function () {
+      $('[data-spy="scroll"]').each(function () {
+        var $spy = $(this)
+        Plugin.call($spy, $spy.data())
+      })
+    })
+
+  }(jQuery);
+</script>
+
+
+<script type="text/javascript" id="sidebar.toc.highlight">
+  $(document).ready(function () {
+    var tocSelector = '.post-toc';
+    var $tocSelector = $(tocSelector);
+    var activeCurrentSelector = '.active-current';
+
+    $tocSelector
+      .on('activate.bs.scrollspy', function () {
+        var $currentActiveElement = $(tocSelector + ' .active').last();
+
+        removeCurrentActiveClass();
+        $currentActiveElement.addClass('active-current');
+
+        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
+      })
+      .on('clear.bs.scrollspy', function () {
+        removeCurrentActiveClass();
+      });
+
+    function removeCurrentActiveClass () {
+      $(tocSelector + ' ' + activeCurrentSelector)
+        .removeClass(activeCurrentSelector.substring(1));
+    }
+
+    function processTOC () {
+      getTOCMaxHeight();
+      toggleTOCOverflowIndicators();
+    }
+
+    function getTOCMaxHeight () {
+      var $sidebarInner = $('.sidebar-inner');
+      var height = $('.sidebar').height() -
+                   $tocSelector.position().top -
+                   $('.post-toc-indicator-bottom').height();
+
+      $tocSelector.css('height', height);
+
+      return height;
+    }
+
+    function toggleTOCOverflowIndicators () {
+      tocOverflowIndicator(
+        '.post-toc-indicator-top',
+        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
+      );
+
+      tocOverflowIndicator(
+        '.post-toc-indicator-bottom',
+        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
+      )
+    }
+
+    $(document).on('sidebar.didShow', function () {
+      processTOC();
+    });
+
+    $('body').scrollspy({ target: tocSelector });
+    $(window).on('resize', function () {
+      if ( $('.sidebar').hasClass('sidebar-active') ) {
+        processTOC();
+      }
+    });
+
+    onScroll($tocSelector);
+
+    function onScroll (element) {
+      element.on('mousewheel DOMMouseScroll', function (event) {
+          var oe = event.originalEvent;
+          var delta = oe.wheelDelta || -oe.detail;
+          var self = this;
+
+          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+          event.preventDefault();
+
+          toggleTOCOverflowIndicators();
+      });
+    }
+
+    function tocOverflowIndicator (indicator, action) {
+      $(indicator).velocity('stop').velocity({
+        opacity: action === 'show' ? 0.4 : 0
+      }, { duration: 100 });
+    }
+
+  });
+</script>
+
+
+  <script type="text/javascript" id="sidebar.nav">
+    $(document).ready(function () {
+      var html = $('html');
+
+      $('.sidebar-nav li').on('click', function () {
+        var item = $(this);
+        var activeTabClassName = 'sidebar-nav-active';
+        var activePanelClassName = 'sidebar-panel-active';
+        if (item.hasClass(activeTabClassName)) {
+          return;
+        }
+
+        var currentTarget = $('.' + activePanelClassName);
+        var target = $('.' + item.data('target'));
+
+        currentTarget.velocity('transition.slideUpOut', 200, function () {
+          target
+            .velocity('stop')
+            .velocity('transition.slideDownIn', 200)
+            .addClass(activePanelClassName);
+        });
+
+        item.siblings().removeClass(activeTabClassName);
+        item.addClass(activeTabClassName);
+      });
+
+      $('.post-toc a').on('click', function (e) {
+        e.preventDefault();
+        var offset = $(escapeSelector(this.getAttribute('href'))).offset().top;
+        html.velocity('stop').velocity('scroll', {
+          offset: offset  + 'px',
+          mobileHA: false
+        });
+      });
+
+      // Expand sidebar on post detail page by default, when post has a toc.
+      var $tocContent = $('.post-toc-content');
+      if ($tocContent.length > 0 && $tocContent.html().trim().length > 0 && isDesktop()) {
+        setTimeout(function () {
+          $('.sidebar-toggle').trigger('click');
+        }, 800);
+      }
+    });
+  </script>
+
+
+
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"16"},"slide":{"type":"slide","bdImg":"2","bdPos":"left","bdTop":"195.5"},"image":{"viewList":["qzone","tsina","tqq","renren","weixin"],"viewText":"分享到：","viewSize":"16"},"selectShare":{"bdContainerClass":null,"bdSelectMiniList":["qzone","tsina","tqq","renren","weixin"]}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+
+
+  
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for (i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"songlee24"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+  
+</body>
+</html>

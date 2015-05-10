@@ -1,0 +1,965 @@
+<!doctype html>
+<html class="theme-next use-motion theme-next-next">
+<head>
+  
+
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+  <meta name="google-site-verification" content="VvyjvVXcJQa0QklHipu6pwm2PJGnnchIqX7s5JbbT_0" />
+
+
+
+  <link rel="stylesheet" type="text/css" href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5"/>
+
+
+<link rel="stylesheet" type="text/css" href="/css/main.css?v=0.4.0"/>
+
+
+    <meta name="description" content="放宽心，多努力" />
+
+
+
+	<meta name="keywords" content="Python," />
+
+  <title> Python3基础（十一） 类的拓展 // SongLee's Blog </title>
+</head>
+
+<body>
+  <div class="container one-column page-post-detail">
+    <div class="headband"></div>
+
+    <div id="header" class="header">
+      <div class="header-inner">
+        <h1 class="site-meta">
+  <span class="logo-line-before"><i></i></span>
+  <a href="/" class="brand">
+      <span class="logo">
+        <i class="icon-logo"></i>
+      </span>
+      <span class="site-title">SongLee's Blog</span>
+  </a>
+  <span class="logo-line-after"><i></i></span>
+</h1>
+
+
+  <ul id="menu" class="menu">
+    
+      
+      <li class="menu-item menu-item-home">
+        <a href="/">
+          <i class="menu-item-icon icon-home"></i> <br />
+          首页
+        </a>
+      </li>
+    
+      
+      <li class="menu-item menu-item-categories">
+        <a href="/categories">
+          <i class="menu-item-icon icon-categories"></i> <br />
+          分类
+        </a>
+      </li>
+    
+      
+      <li class="menu-item menu-item-archives">
+        <a href="/archives">
+          <i class="menu-item-icon icon-archives"></i> <br />
+          归档
+        </a>
+      </li>
+    
+      
+      <li class="menu-item menu-item-tags">
+        <a href="/tags">
+          <i class="menu-item-icon icon-tags"></i> <br />
+          标签
+        </a>
+      </li>
+    
+      
+      <li class="menu-item menu-item-about">
+        <a href="/about">
+          <i class="menu-item-icon icon-about"></i> <br />
+          关于
+        </a>
+      </li>
+    
+  </ul>
+
+
+      </div>
+    </div>
+
+    <div id="main" class="main">
+      <div class="main-inner">
+        <div id="content" class="content">
+          
+            
+          
+
+          <div id="posts" class="posts-expand">
+            
+  
+
+  <div class="post post-type-normal ">
+    <div class="post-header">
+
+      
+      
+        <h1 class="post-title">
+          
+          
+            
+              Python3基础（十一） 类的拓展
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          
+            发表于 2014-08-20
+          
+        </span>
+
+        
+          
+            <span class="post-category">
+              &nbsp; | &nbsp; 分类于
+              
+                <a href="/categories/Lang-Python/">Lang.-Python</a>
+
+                
+                
+
+              
+            </span>
+          
+        
+
+        
+          
+            <span class="post-comments-count">
+            &nbsp; | &nbsp;
+            <a href="/2014/08/21/python-basic-11/#comments" >
+              <span class="post-comments-count ds-thread-count" data-thread-key="2014/08/21/python-basic-11/"></span>
+            </a>
+          </span>
+          
+        
+      </div>
+    </div>
+
+    
+      <div class="post-body">
+
+        
+        
+
+        
+          <p>在<a href="http://songlee24.github.io/blog/2014/08/20/python3ji-chu-shi/" target="_blank" rel="external">类的初印象</a>中，我们已经简单的介绍了类，包括类的定义、类对象和实例对象。本文将进一步学习类的继承、迭代器、发生器等等。</p>
+<p><br></p>
+<h3 id="一、类的继承">一、类的继承</h3><p><strong>单继承</strong></p>
+<p>派生类的定义如下：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">DerivedClassName</span><span class="params">(BaseClassName)</span>:</span></span><br><span class="line">    &lt;statement-<span class="number">1</span>&gt;</span><br><span class="line">    .</span><br><span class="line">    .</span><br><span class="line">    .</span><br><span class="line">    &lt;statement-N&gt;</span><br></pre></td></tr></table></figure></p>
+<a id="more"></a>
+<p>基类名 BaseClassName 对于派生类来说必须是可见的。也可以继承在其他模块中定义的基类：<br><figure class="highlight haskell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="type">DerivedClassName</span><span class="container">(<span class="title">module</span>.<span class="type">BaseClassName</span>)</span>:</span></span><br></pre></td></tr></table></figure></p>
+<p>对于派生类的属性引用：首先会在当前的派生类中搜索，如果没有找到，则会递归地去基类中寻找。</p>
+<p>从C++术语上讲，Python 类中所有的方法都是<code>vitual</code>的，所以派生类可以覆写（override）基类的方法。在派生类中一个覆写的方法可能需要调用基类的方法，可以通过以下方式：<br><figure class="highlight nimrod"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">BaseClassName</span>.<span class="keyword">method</span>(self, arguments)</span><br></pre></td></tr></table></figure></p>
+<p>介绍两个函数：</p>
+<ul>
+<li><code>isinstance(object, class_name)</code>：内置函数，用于判断实例对象 object 是不是类 class<em>name 或其派生类的实例，即`object.<em>_class</em></em> `是 class_name 或其派生类时返回 True。</li>
+<li><code>issubclass(class1, class2)</code>：内置函数，用于检查类 class1 是不是 class2 的派生类。例如<code>issubclass(bool, int)</code>会返回 True，因为 bool 是 int 的派生类。 </li>
+</ul>
+<p><strong>多重继承</strong></p>
+<p>Python支持多重继承，一个多重继承的定义形如：<br><figure class="highlight haskell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="type">DerivedClassName</span><span class="container">(<span class="type">Base1</span>, <span class="type">Base2</span>, <span class="type">Base3</span>)</span>:</span><br><span class="line">    &lt;statement-1&gt;</span><br><span class="line">    .</span><br><span class="line">    .</span><br><span class="line">    .</span><br><span class="line">    &lt;statement-<span class="type">N</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>大多数的情况（未使用super）下，多重继承中属性搜索的方式是，深度优先，从左到右。在继承体系中，同样的类只会被搜寻一次。如果一个属性在当前类中没有被找到，它就会搜寻 Base1，然后递归地搜寻 Base1 的基类，然后如果还是没有找到，那么就会搜索 Base2，依次类推。</p>
+<p>对于菱形继承，Python 3采用了 C3 线性化算法去搜索基类，保证每个基类只搜寻一次。所以对于使用者，无须担心这个问题，如果你想了解更多细节，可以看看<a href="http://hi.baidu.com/tim_bi/item/c26137837f34c0c8b071544e" target="_blank" rel="external">Python类的方法解析顺序</a>。</p>
+<p><br></p>
+<h3 id="二、自定义异常类">二、自定义异常类</h3><p>在《<a href="http://songlee24.github.io/2014/08/19/python-basic-09/" target="_blank" rel="external">Python3的错误和异常</a>》中，我们简单地介绍了Python中的异常处理、异常抛出以及清理动作。在学习了类的继承以后，我们就可以定义自己的异常类了。</p>
+<p>自定义异常需要从 <strong>Exception</strong> 类派生，既可以是直接也可以是间接。例如：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyError</span><span class="params">(Exception)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, value)</span>:</span></span><br><span class="line">        self.value = value</span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__str__</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> repr(self.value)</span><br><span class="line"></span><br><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    <span class="keyword">raise</span> MyError(<span class="number">2</span>*<span class="number">2</span>)</span><br><span class="line"><span class="keyword">except</span> MyError <span class="keyword">as</span> e:</span><br><span class="line">    print(<span class="string">'My exception occurred, value:'</span>, e.value)</span><br><span class="line">    <span class="comment"># 输出：My exception occurred, value: 4</span></span><br></pre></td></tr></table></figure></p>
+<p>在这个例子中， Exception 的默认方法 __init__() 被覆写了，现在新的异常类可以像其他的类一样做任何的事。当创建一个模块时，可能会有多种不同的异常，一种常用的做法就是，创建一个基类，然后派生出各种不同的异常：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Error</span><span class="params">(Exception)</span>:</span></span><br><span class="line">    <span class="string">"""Base class for exceptions in this module."""</span></span><br><span class="line">    <span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">InputError</span><span class="params">(Error)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, expression, message)</span>:</span></span><br><span class="line">        self.expression = expression</span><br><span class="line">        self.message = message</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">TransitionError</span><span class="params">(Error)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, previous, next, message)</span>:</span></span><br><span class="line">        self.previous = previous</span><br><span class="line">        self.next = next</span><br><span class="line">        self.message = message</span><br></pre></td></tr></table></figure></p>
+<p>需要特别注意的是，如果一个 except 后跟了一个异常类，则这个 except 语句不能捕获该异常类的基类，但能够捕获该异常类的子类。例如：<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">class <span class="function"><span class="title">B</span><span class="params">(Exception)</span></span>:</span><br><span class="line">    pass</span><br><span class="line">class <span class="function"><span class="title">C</span><span class="params">(B)</span></span>:</span><br><span class="line">    pass</span><br><span class="line">class <span class="function"><span class="title">D</span><span class="params">(C)</span></span>:</span><br><span class="line">    pass</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> e <span class="keyword">in</span> [B, C, D]:</span><br><span class="line">    try:</span><br><span class="line">        raise <span class="function"><span class="title">e</span><span class="params">()</span></span></span><br><span class="line">    except D:</span><br><span class="line">        <span class="function"><span class="title">print</span><span class="params">(<span class="string">'D'</span>)</span></span></span><br><span class="line">    except C:</span><br><span class="line">        <span class="function"><span class="title">print</span><span class="params">(<span class="string">'C'</span>)</span></span></span><br><span class="line">    except B:</span><br><span class="line">        <span class="function"><span class="title">print</span><span class="params">(<span class="string">'B'</span>)</span></span></span><br></pre></td></tr></table></figure></p>
+<p>上面的代码会按顺序输出B、C、D。如果将三个 except 语句逆序，则会打印B、B、B。</p>
+<p><br></p>
+<h3 id="三、迭代器（Iterator）">三、迭代器（Iterator）</h3><p>到目前为止，你可能注意到，大多数的容器对象都可以使用 for 来迭代：<br><figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> element <span class="keyword">in</span> [1, 2, 3]:</span><br><span class="line">    <span class="keyword">print</span>(element)</span><br><span class="line"><span class="keyword">for</span> element <span class="keyword">in</span> (1, 2, 3):</span><br><span class="line">    <span class="keyword">print</span>(element)</span><br><span class="line"><span class="keyword">for</span> key <span class="keyword">in</span> &#123;'<span class="keyword">one</span>':1, '<span class="keyword">two</span>':2&#125;:</span><br><span class="line">    <span class="keyword">print</span>(key)</span><br><span class="line"><span class="keyword">for</span> <span class="keyword">char</span> <span class="keyword">in</span> <span class="string">"123"</span>:</span><br><span class="line">    <span class="keyword">print</span>(<span class="keyword">char</span>)</span><br><span class="line"><span class="keyword">for</span> <span class="keyword">line</span> <span class="keyword">in</span> <span class="keyword">open</span>(<span class="string">"myfile.txt"</span>):</span><br><span class="line">    <span class="keyword">print</span>(<span class="keyword">line</span>)</span><br></pre></td></tr></table></figure></p>
+<p>这种形式可以说是简洁明了。其实，for 语句在遍历容器的过程中隐式地调用了<code>iter()</code>，这个函数返回一个迭代器对象，迭代器对象定义了 <code>__next__()</code> 方法，用以在每次访问时得到一个元素。当没有任何元素时，__next__() 将产生 StopIteration 异常来告诉 for 语句停止迭代。</p>
+<p>内置函数 <code>next()</code>可以用来调用 __next__() 方法，示例：<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="prompt">&gt;&gt;</span>&gt; s = <span class="string">'abc'</span></span><br><span class="line"><span class="prompt">&gt;&gt;</span>&gt; it = iter(s)   <span class="comment"># 获取迭代器对象</span></span><br><span class="line"><span class="prompt">&gt;&gt;</span>&gt; next(it)</span><br><span class="line"><span class="string">'a'</span></span><br><span class="line"><span class="prompt">&gt;&gt;</span>&gt; next(it)</span><br><span class="line"><span class="string">'b'</span></span><br><span class="line"><span class="prompt">&gt;&gt;</span>&gt; next(it)</span><br><span class="line"><span class="string">'c'</span></span><br><span class="line"><span class="prompt">&gt;&gt;</span>&gt; next(it)</span><br><span class="line"><span class="constant">Traceback</span> (most recent call last)<span class="symbol">:</span></span><br><span class="line">  <span class="constant">File</span> <span class="string">"&lt;stdin&gt;"</span>, line <span class="number">1</span>, <span class="keyword">in</span> &lt;<span class="class"><span class="keyword">module</span>&gt;</span></span><br><span class="line"><span class="constant">StopIteration</span></span><br></pre></td></tr></table></figure></p>
+<p>在了解了迭代器的机制之后，就可以很简单的将迭代行为增加到你的类中。定义一个 <code>__iter__()</code>方法返回一个具有 __next__() 的对象，如果这个类定义了 __next__() , 那么 __iter__() 仅需要返回 self：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Reverse</span>:</span></span><br><span class="line">    <span class="string">""" 逆序迭代一个序列 """</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, data)</span>:</span></span><br><span class="line">        self.data = data</span><br><span class="line">        self.index = len(data)</span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__iter__</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> self</span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__next__</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">if</span> self.index == <span class="number">0</span>:</span><br><span class="line">            <span class="keyword">raise</span> StopIteration</span><br><span class="line">        self.index -= <span class="number">1</span></span><br><span class="line">        <span class="keyword">return</span>  self.data[self.index]</span><br></pre></td></tr></table></figure></p>
+<p>测试：<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 测试</span></span><br><span class="line">rev = <span class="constant">Reverse</span>(<span class="string">'spam'</span>)</span><br><span class="line"><span class="keyword">for</span> c <span class="keyword">in</span> <span class="symbol">rev:</span></span><br><span class="line">    print(c, <span class="keyword">end</span>=<span class="string">' '</span>)   <span class="comment"># 输出：m a p s </span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 单步测试</span></span><br><span class="line"><span class="prompt">&gt;&gt;</span>&gt; rev = <span class="constant">Reverse</span>(<span class="string">'spam'</span>)</span><br><span class="line"><span class="prompt">&gt;&gt;</span>&gt; it = iter(rev)    <span class="comment"># 返回的 self 本身</span></span><br><span class="line"><span class="prompt">&gt;&gt;</span>&gt; next(it)          <span class="comment"># 相当于 next(rev)，因为iter(rev)返回本身</span></span><br><span class="line"><span class="string">'m'</span></span><br><span class="line"><span class="prompt">&gt;&gt;</span>&gt; next(it)</span><br><span class="line"><span class="string">'a'</span></span><br><span class="line"><span class="prompt">&gt;&gt;</span>&gt; next(it) </span><br><span class="line"><span class="string">'p'</span></span><br><span class="line"><span class="prompt">&gt;&gt;</span>&gt; next(it)</span><br><span class="line"><span class="string">'s'</span></span><br></pre></td></tr></table></figure></p>
+<p><br></p>
+<h3 id="四、生成器（Generator）">四、生成器（Generator）</h3><p>生成器（Generator）是用来创建迭代器的工具，它的形式跟函数一样，唯一的不同是生成器使用 <code>yield</code> 语句返回，而不是 return 语句。</p>
+<p>有了生成器，我们不再需要自定义迭代器类（例如上面的 class Reverse），因为自定义迭代器类需要手动实现 <strong>__iter__()</strong> 和 <strong>__next__()</strong> 方法，也是有点麻烦。而生成器则会自动创建 __iter()__ 和 __next__()，可以更方便地生成一个迭代器，而且代码也会更短更简洁。例如，这里用生成器实现与 class Reverse 相同作用的迭代器：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">Reverse</span><span class="params">(data)</span>:</span></span><br><span class="line">    <span class="keyword">for</span> idx <span class="keyword">in</span> range(len(data)-<span class="number">1</span>, -<span class="number">1</span>, -<span class="number">1</span>):</span><br><span class="line">        <span class="keyword">yield</span> data[idx]</span><br></pre></td></tr></table></figure></p>
+<p>原来要十多行代码写一个迭代器类，现在使用生成器只需要3行代码！来测试一下：<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 测试</span></span><br><span class="line"><span class="keyword">for</span> c <span class="keyword">in</span> <span class="constant">Reverse</span>(<span class="string">'spam'</span>)<span class="symbol">:</span></span><br><span class="line">    print(c, <span class="keyword">end</span>=<span class="string">' '</span>)      <span class="comment"># 输出：m a p s </span></span><br><span class="line">    </span><br><span class="line"><span class="comment"># 单步测试</span></span><br><span class="line"><span class="prompt">&gt;&gt;</span>&gt; rev = <span class="constant">Reverse</span>(<span class="string">'spam'</span>)</span><br><span class="line"><span class="prompt">&gt;&gt;</span>&gt; next(rev)</span><br><span class="line"><span class="string">'m'</span></span><br><span class="line"><span class="prompt">&gt;&gt;</span>&gt; next(rev)</span><br><span class="line"><span class="string">'a'</span></span><br><span class="line"><span class="prompt">&gt;&gt;</span>&gt; next(rev)</span><br><span class="line"><span class="string">'p'</span></span><br><span class="line"><span class="prompt">&gt;&gt;</span>&gt; next(rev)</span><br><span class="line"><span class="string">'s'</span></span><br></pre></td></tr></table></figure></p>
+<p>怎么样？现在感受到生成器的强大了吧。确实，生成器让我们可以方便的创建迭代器，而不必去自定义迭代器类那么麻烦。下面我们来了解一下生成器的工作过程：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">generator_func</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="string">""" 这是一个简单的生成器 """</span></span><br><span class="line">    <span class="keyword">yield</span> <span class="number">1</span></span><br><span class="line">    <span class="keyword">yield</span> <span class="number">2</span></span><br><span class="line">    <span class="keyword">yield</span> <span class="number">3</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 测试</span></span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>g = generator_func()</span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>next(g)</span><br><span class="line"><span class="number">1</span></span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>next(g)</span><br><span class="line"><span class="number">2</span></span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>next(g)</span><br><span class="line"><span class="number">3</span></span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>next(g)</span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">  File <span class="string">"&lt;stdin&gt;"</span>, line <span class="number">1</span>, <span class="keyword">in</span> &lt;module&gt;</span><br><span class="line">StopIteration</span><br></pre></td></tr></table></figure></p>
+<p>执行过程大致如下：</p>
+<ol>
+<li>调用生成器函数将返回一个生成器。</li>
+<li>第一次调用生成器的 next 方法时，生成器才开始执行生成器函数。直到遇到 yield 时暂停执行（挂起），并且将 yield 的参数作为此次的返回值。</li>
+<li>之后每次调用 next 方法，生成器将从上次暂停的位置恢复并继续执行，直到再次遇到yield 时暂停，同样将 yield 的参数返回。</li>
+<li>当调用 next 方法时生成器函数结束，则此次调用将抛出 StopIteration 异常（for循环终止条件）。</li>
+</ol>
+<p>所以说，生成器的神奇之处在于每次使用 next() 执行生成器函数遇到 yield 返回时，生成器函数的“状态”会被冻结，所有的数据值和执行位置会被记住，一旦 next() 再次被调用，生成器函数会从它上次离开的地方继续执行。</p>
+<p><br></p>
+<h3 id="五、类用作ADT">五、类用作ADT</h3><p>有些时候，类似于 Pascal 的“record”或 C 的“struct”这样的数据类型非常有用，绑定一些命名的数据。在 Python 中一个空的类定义就可以做到：<br><figure class="highlight puppet"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword"><span class="keyword">class</span> <span class="title">Employee</span>:</span></span><br><span class="line">    <span class="literal">pass</span></span><br><span class="line"></span><br><span class="line">john = <span class="constant">Employee</span>()  <span class="comment"># Create an empty employee record</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Fill the fields of the record</span></span><br><span class="line">john.<span class="literal">name</span> = <span class="string">'John Doe'</span></span><br><span class="line">john.dept = <span class="string">'computer lab'</span></span><br><span class="line">john.salary = <span class="number">1000</span></span><br></pre></td></tr></table></figure></p>
+<p>一段 Python 代码中如果需要一个抽象数据类型，那么可以通过传递一个类给那个方法，就好像有了那个数据类型一样。</p>
+<p>例如，如果你有一个函数用于格式化某些从文件对象中读取的数据，你可以定义一个有 read() 和 readline() 方法的类用于读取数据，然后将这个类作为一个参数传递给那个函数。</p>
+<p><br><br><br><br><br></p>
+<h3 id="附：类变量与实例变量的区别">附：类变量与实例变量的区别</h3><p><strong>类变量（class variable）</strong>是类的属性和方法，它们会被类的所有实例共享。而<strong>实例变量（instance variable）</strong>是实例对象所特有的数据。如下：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">animal</span>:</span></span><br><span class="line">    kind = <span class="string">'dog'</span>    <span class="comment"># class variable shared by all instances</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, color)</span>:</span></span><br><span class="line">        self.color = color    <span class="comment"># instance variable unique to each instance</span></span><br><span class="line"></span><br><span class="line">a1 = animal(<span class="string">'black'</span>)</span><br><span class="line">a2 = animal(<span class="string">'white'</span>)</span><br><span class="line"></span><br><span class="line">print(a1.kind, a2.kind)     <span class="comment"># shared by all animals</span></span><br><span class="line">print(a1.color, a2.color)   <span class="comment"># unique to each animal</span></span><br></pre></td></tr></table></figure></p>
+<p>当类变量（被所有实例共享）是一个可变的对象时，如 list 、dict ，那么在一个实例对象中改变该属性，其他实例的这个属性也会发生变化。这应该不难理解，例如：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">animal</span>:</span></span><br><span class="line">    actions = []    <span class="comment"># class variable shared by all instances</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, color)</span>:</span></span><br><span class="line">        self.color = color    <span class="comment"># instance variable unique to each instance</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">addActions</span><span class="params">(self, action)</span>:</span></span><br><span class="line">        self.actions.append(action)</span><br><span class="line"></span><br><span class="line">a1 = animal(<span class="string">'black'</span>)</span><br><span class="line">a2 = animal(<span class="string">'white'</span>)</span><br><span class="line"></span><br><span class="line">a1.addActions(<span class="string">'run'</span>)      <span class="comment"># 动物a1会跑</span></span><br><span class="line">a2.addActions(<span class="string">'fly'</span>)      <span class="comment"># 动物a2会飞</span></span><br><span class="line"></span><br><span class="line">print(a1.actions, a2.actions)   <span class="comment"># 输出：['run', 'fly'] ['run', 'fly']</span></span><br></pre></td></tr></table></figure></p>
+<p>输出结果显示：动物 a1 和 a2 总是又相同的行为（actions），显然这不是我们想要的，因为不同的动物有不同的行为，比如狗会跑、鸟会飞、鱼会游……</p>
+<p>对这个问题进行改进，我们只需要将 <strong>actions</strong> 这个属性变成实例变量，让它对每个实例对象都 unique ，而不是被所有实例共享：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">animal</span>:</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, color)</span>:</span></span><br><span class="line">        self.color = color    <span class="comment"># instance variable</span></span><br><span class="line">        self.actions = []     <span class="comment"># instance variable</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">addActions</span><span class="params">(self, action)</span>:</span></span><br><span class="line">        self.actions.append(action)</span><br><span class="line"></span><br><span class="line">a1 = animal(<span class="string">'black'</span>)</span><br><span class="line">a2 = animal(<span class="string">'white'</span>)</span><br><span class="line"></span><br><span class="line">a1.addActions(<span class="string">'run'</span>)      <span class="comment"># 动物a1会跑</span></span><br><span class="line">a2.addActions(<span class="string">'fly'</span>)      <span class="comment"># 动物a2会飞</span></span><br><span class="line"></span><br><span class="line">print(a1.actions, a2.actions)   <span class="comment"># 输出：['run'] ['fly']</span></span><br></pre></td></tr></table></figure></p>
+<p>（全文完）<br><br><br><br><br><br></p>
+
+        
+      </div>
+    
+
+    
+      <div class="post-footer">
+        
+          <div class="post-tags">
+            
+              <a href="/tags/Python/">
+                #Python
+              </a>
+            
+          </div>
+        
+
+        
+          <div class="post-nav">
+            <div class="post-nav-prev post-nav-item">
+              
+                <a href="/2014/08/24/python-basic-12/">Python3基础（十二） 学习总结·附PDF</a>
+              
+            </div>
+
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/2014/08/20/python-basic-10/">Python3基础（十） 类的初印象</a>
+              
+            </div>
+          </div>
+        
+
+        
+        
+      </div>
+    
+  </div>
+
+
+
+  
+    <div class="comments" id="comments">
+      
+        <div class="ds-thread" data-thread-key="2014/08/21/python-basic-11/"
+             data-title="Python3基础（十一） 类的拓展" data-url="http://yoursite.com/2014/08/21/python-basic-11/">
+        </div>
+
+      
+    </div>
+  
+
+          </div>
+
+          
+        </div>
+
+        
+<div class="sidebar-toggle">
+  <div class="sidebar-toggle-line-wrap">
+    <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+    <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+    <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+  </div>
+</div>
+
+<div id="sidebar" class="sidebar">
+  <div class="sidebar-inner">
+
+    
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview" data-target="site-overview">
+          站点概览
+        </li>
+      </ul>
+    
+
+    <div class="site-overview">
+      <div class="site-author motion-element">
+        <img class="site-author-image" src="https://avatars0.githubusercontent.com/u/6904366?v=3&s=140" alt="Song Lee" />
+        <p class="site-author-name">Song Lee</p>
+      </div>
+      <p class="site-description motion-element">放宽心，多努力</p>
+      <div class="site-state motion-element">
+        <div class="site-state-item site-state-posts">
+          <span class="site-state-item-count">42</span>
+          <span class="site-state-item-name">日志</span>
+        </div>
+        <div class="site-state-item site-state-tags">
+            <span class="site-state-item-count">11</span>
+            <span class="site-state-item-name">标签</span>
+        </div>
+        <div class="site-state-item site-state-pages">
+            <span class="site-state-item-count">4</span>
+            <span class="site-state-item-name">页面</span>
+        </div>
+      </div>
+
+      
+        <div class="feed-link motion-element">
+          <a href="/atom.xml">
+            <i class="menu-item-icon icon-feed"></i>
+            RSS
+          </a>
+        </div>
+      
+
+      <div class="links-of-author motion-element">
+        
+          
+            <span class="links-of-author-item">
+              <a href="https://github.com/SongLee24">GitHub</a>
+            </span>
+          
+            <span class="links-of-author-item">
+              <a href="http://blog.csdn.net/lisonglisonglisong">CSDN</a>
+            </span>
+          
+            <span class="links-of-author-item">
+              <a href="http://weibo.com/lisonglisong">Weibo</a>
+            </span>
+          
+            <span class="links-of-author-item">
+              <a href="http://www.douban.com/people/122455925/">DouBan</a>
+            </span>
+          
+            <span class="links-of-author-item">
+              <a href="http://www.zhihu.com/people/shen-yi-59">ZhiHu</a>
+            </span>
+          
+        
+      </div>
+
+      
+      
+        <div class="cc-license motion-element">
+          <a href="http://creativecommons.org/licenses/by-nc-sa/4.0" class="cc-opacity" target="_blank">
+            <img src="/images/cc-by-nc-sa.svg" alt="Creative Commons" />
+          </a>
+        </div>
+      
+
+    </div>
+
+    
+      <div class="post-toc-wrap sidebar-panel-active">
+        <div class="post-toc-indicator-top post-toc-indicator"></div>
+        <div class="post-toc">
+          
+          
+            <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#一、类的继承"><span class="nav-number">1.</span> <span class="nav-text">一、类的继承</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二、自定义异常类"><span class="nav-number">2.</span> <span class="nav-text">二、自定义异常类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#三、迭代器（Iterator）"><span class="nav-number">3.</span> <span class="nav-text">三、迭代器（Iterator）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#四、生成器（Generator）"><span class="nav-number">4.</span> <span class="nav-text">四、生成器（Generator）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#五、类用作ADT"><span class="nav-number">5.</span> <span class="nav-text">五、类用作ADT</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#附：类变量与实例变量的区别"><span class="nav-number">6.</span> <span class="nav-text">附：类变量与实例变量的区别</span></a></li></ol></div>
+          
+        </div>
+        <div class="post-toc-indicator-bottom post-toc-indicator"></div>
+      </div>
+    
+
+  </div>
+</div>
+
+
+      </div>
+    </div>
+
+    <div id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy; &nbsp;  2014 - 
+  2015
+  <span class="with-love">
+    <i class="icon-heart"></i>
+  </span>
+  <span class="author">Song Lee</span>
+</div>
+
+<div class="powered-by">
+  <div style="float:left;margin-top:7px;margin-right:10px;">
+	<script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1254974724'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s11.cnzz.com/z_stat.php%3Fid%3D1254974724%26show%3Dpic' type='text/javascript'%3E%3C/script%3E"));</script>
+  </div>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+
+      </div>
+    </div>
+
+    <div class="back-to-top"></div>
+  </div>
+
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript">
+    $(document).ready(function() {
+      $(".fancybox").fancybox();
+    });
+  </script>
+
+  <script type="text/javascript">
+  function hasMobileUA () {
+    var nav = window.navigator;
+    var ua = nav.userAgent;
+    var pa = /iPad|iPhone|Android|Opera Mini|BlackBerry|webOS|UCWEB|Blazer|PSP|IEMobile|Symbian/g;
+
+    return pa.test(ua);
+  }
+
+  function isDesktop () {
+    return screen.width > 991 && !hasMobileUA();
+  }
+
+  function isTablet () {
+    return screen.width < 992 && screen.width > 767 && hasMobileUA();
+  }
+
+  function isMobile () {
+    return screen.width < 767 && hasMobileUA();
+  }
+
+  function escapeSelector (selector) {
+    return selector.replace(/[!"$%&'()*+,.\/:;<=>?@[\\\]^`{|}~]/g, "\\$&")
+  }
+</script>
+
+  
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
+
+  <script type="text/javascript" id="motion.global">
+  $(document).ready(function () {
+    var body = $('body');
+    var isSidebarVisible = false;
+    var sidebarToggle = $('.sidebar-toggle');
+    var sidebarToggleLine1st = $('.sidebar-toggle-line-first')
+    var sidebarToggleLine2nd = $('.sidebar-toggle-line-middle');
+    var sidebarToggleLine3rd = $('.sidebar-toggle-line-last');
+    var sidebar = $('.sidebar');
+
+    var SIDEBAR_WIDTH = '320px';
+    var SIDEBAR_DISPLAY_DURATION = 300;
+
+    var sidebarToogleLineStatusInit = {width: '100%', opacity: 1, left: 0, rotateZ: 0, top: 0};
+
+    var sidebarToggleLine1stStatusInit = sidebarToogleLineStatusInit;
+    var sidebarToggleLine1stStatusArrow = {width: '50%', rotateZ: '-45deg', top: '2px'};
+    var sidebarToogleLine1stStatusClose = {width: '100%', rotateZ: '-45deg', top: '5px'};
+
+    var sidebarToggleLine2ndStatusInit = sidebarToogleLineStatusInit;
+    var sidebarToggleLine2ndStatusArrow = {width: '90%'};
+    var sidebarToogleLine2ndStatusClose = {opacity: 0};
+
+    var sidebarToggleLine3rdStatusInit = sidebarToogleLineStatusInit;
+    var sidebarToggleLine3rdStatusArrow = {width: '50%', rotateZ: '45deg', top: '-2px'};
+    var sidebarToogleLine3rdStatusClose = {width: '100%', rotateZ: '45deg', top: '-5px'};
+
+    LogoAndMenuMotion();
+    sidebatToggleMotion();
+    postsListMotion();
+    backToTopMotion();
+
+
+    $(document)
+      .on('sidebar.isShowing', function () {
+        isDesktop() && body.velocity(
+          {paddingRight: SIDEBAR_WIDTH},
+          SIDEBAR_DISPLAY_DURATION
+        );
+        sidebarContentMotion();
+      })
+      .on('sidebar.isHiding', function () {});
+
+    function LogoAndMenuMotion() {
+      $.Velocity.RunSequence([
+        { e: $('.brand'), p: { opacity: 1 }, o: { duration: 100 } },
+        { e: $('.logo'), p: { opacity: 1, top: 0 }, o: { duration: 50} },
+        
+        { e: $('.logo-line-before i'), p: { translateX: "100%" }, o: { duration: 500, sequenceQueue: false } },
+        { e: $('.logo-line-after i'), p: { translateX: "-100%" }, o: { duration: 500, sequenceQueue: false } },
+        
+        { e: $('.site-title'), p: { opacity: 1, top: 0 }, o: { duration: 200 } }
+      ]);
+      $('.menu-item').velocity('transition.slideDownIn', {display: null});
+    }
+
+
+    function backToTopMotion () {
+      var b2top = $('.back-to-top');
+      b2top.on('click', function () {
+        body.velocity('scroll');
+      });
+    }
+
+    function sidebarShowMotion () {
+
+      sidebarToggleLine1st.velocity(sidebarToogleLine1stStatusClose);
+      sidebarToggleLine2nd.velocity(sidebarToogleLine2ndStatusClose);
+      sidebarToggleLine3rd.velocity(sidebarToogleLine3rdStatusClose);
+
+      sidebar.velocity({width: SIDEBAR_WIDTH}, {
+        display: 'block',
+        duration: SIDEBAR_DISPLAY_DURATION,
+        complete: function () {
+          sidebar.addClass('sidebar-active');
+          sidebar.trigger('sidebar.didShow');
+        }
+      });
+      sidebar.trigger('sidebar.isShowing');
+    }
+
+    function sidebarHideMotion () {
+      isDesktop() && body.velocity({paddingRight: 0});
+      sidebar.velocity('reverse');
+
+      sidebarToggleLine1st.velocity(sidebarToggleLine1stStatusInit);
+      sidebarToggleLine2nd.velocity(sidebarToggleLine2ndStatusInit);
+      sidebarToggleLine3rd.velocity(sidebarToggleLine3rdStatusInit);
+
+      sidebar.removeClass('sidebar-active');
+      sidebar.trigger('sidebar.isHiding');
+    };
+
+    function sidebarContentMotion () {
+      $('.sidebar .motion-element').velocity(
+        'transition.slideRightIn',
+        {stagger: 50, drag: true}
+      );
+    }
+
+    function postsListMotion () {
+      var postMotionOptions = window.postMotionOptions || {stagger: 300, drag: true};
+      $('.post').velocity('transition.slideDownIn', postMotionOptions);
+    }
+
+    function sidebatToggleMotion () {
+      sidebarToggle.on('click', function () {
+        isSidebarVisible ? sidebarHideMotion() : sidebarShowMotion();
+        isSidebarVisible = !isSidebarVisible;
+      });
+
+      sidebarToggle.hover(function () {
+        if (isSidebarVisible) {return}
+        sidebarToggleLine1st.velocity('stop').velocity(sidebarToggleLine1stStatusArrow);
+        sidebarToggleLine2nd.velocity('stop').velocity(sidebarToggleLine2ndStatusArrow);
+        sidebarToggleLine3rd.velocity('stop').velocity(sidebarToggleLine3rdStatusArrow);
+      }, function () {
+        if (isSidebarVisible) {return}
+        sidebarToggleLine1st.velocity('stop').velocity(sidebarToggleLine1stStatusInit);
+        sidebarToggleLine2nd.velocity('stop').velocity(sidebarToggleLine2ndStatusInit);
+        sidebarToggleLine3rd.velocity('stop').velocity(sidebarToggleLine3rdStatusInit);
+      });
+    }
+  });
+
+</script>
+
+
+
+
+
+  
+  
+<script type="text/javascript" id="bootstrap.scrollspy.custom">
+  /* ========================================================================
+  * Bootstrap: scrollspy.js v3.3.2
+  * http://getbootstrap.com/javascript/#scrollspy
+  * ========================================================================
+  * Copyright 2011-2015 Twitter, Inc.
+  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
+  * ======================================================================== */
+
+  /**
+   * Custom by iissnan
+   *
+   * - Add a `clear.bs.scrollspy` event.
+   * - Esacpe targets selector.
+   */
+
+
+  +function ($) {
+    'use strict';
+
+    // SCROLLSPY CLASS DEFINITION
+    // ==========================
+
+    function ScrollSpy(element, options) {
+      this.$body          = $(document.body)
+      this.$scrollElement = $(element).is(document.body) ? $(window) : $(element)
+      this.options        = $.extend({}, ScrollSpy.DEFAULTS, options)
+      this.selector       = (this.options.target || '') + ' .nav li > a'
+      this.offsets        = []
+      this.targets        = []
+      this.activeTarget   = null
+      this.scrollHeight   = 0
+
+      this.$scrollElement.on('scroll.bs.scrollspy', $.proxy(this.process, this))
+      this.refresh()
+      this.process()
+    }
+
+    ScrollSpy.VERSION  = '3.3.2'
+
+    ScrollSpy.DEFAULTS = {
+      offset: 10
+    }
+
+    ScrollSpy.prototype.getScrollHeight = function () {
+      return this.$scrollElement[0].scrollHeight || Math.max(this.$body[0].scrollHeight, document.documentElement.scrollHeight)
+    }
+
+    ScrollSpy.prototype.refresh = function () {
+      var that          = this
+      var offsetMethod  = 'offset'
+      var offsetBase    = 0
+
+      this.offsets      = []
+      this.targets      = []
+      this.scrollHeight = this.getScrollHeight()
+
+      if (!$.isWindow(this.$scrollElement[0])) {
+        offsetMethod = 'position'
+        offsetBase   = this.$scrollElement.scrollTop()
+      }
+
+      this.$body
+        .find(this.selector)
+        .map(function () {
+          var $el   = $(this)
+          var href  = $el.data('target') || $el.attr('href')
+          var $href = /^#./.test(href) && $(escapeSelector(href)) // Need to escape selector.
+
+          return ($href
+            && $href.length
+            && $href.is(':visible')
+            && [[$href[offsetMethod]().top + offsetBase, href]]) || null
+        })
+        .sort(function (a, b) { return a[0] - b[0] })
+        .each(function () {
+          that.offsets.push(this[0])
+          that.targets.push(this[1])
+        })
+
+
+    }
+
+    ScrollSpy.prototype.process = function () {
+      var scrollTop    = this.$scrollElement.scrollTop() + this.options.offset
+      var scrollHeight = this.getScrollHeight()
+      var maxScroll    = this.options.offset + scrollHeight - this.$scrollElement.height()
+      var offsets      = this.offsets
+      var targets      = this.targets
+      var activeTarget = this.activeTarget
+      var i
+
+      if (this.scrollHeight != scrollHeight) {
+        this.refresh()
+      }
+
+      if (scrollTop >= maxScroll) {
+        return activeTarget != (i = targets[targets.length - 1]) && this.activate(i)
+      }
+
+      if (activeTarget && scrollTop < offsets[0]) {
+        $(this.selector).trigger('clear.bs.scrollspy')  // Add a custom event.
+        this.activeTarget = null
+        return this.clear()
+      }
+
+      for (i = offsets.length; i--;) {
+        activeTarget != targets[i]
+          && scrollTop >= offsets[i]
+          && (!offsets[i + 1] || scrollTop <= offsets[i + 1])
+          && this.activate(targets[i])
+      }
+    }
+
+    ScrollSpy.prototype.activate = function (target) {
+      this.activeTarget = target
+
+      this.clear()
+
+      var selector = this.selector +
+        '[data-target="' + target + '"],' +
+        this.selector + '[href="' + target + '"]'
+
+      var active = $(selector)
+        .parents('li')
+        .addClass('active')
+
+      if (active.parent('.dropdown-menu').length) {
+        active = active
+          .closest('li.dropdown')
+          .addClass('active')
+      }
+
+      active.trigger('activate.bs.scrollspy')
+    }
+
+    ScrollSpy.prototype.clear = function () {
+      $(this.selector)
+        .parentsUntil(this.options.target, '.active')
+        .removeClass('active')
+    }
+
+
+    // SCROLLSPY PLUGIN DEFINITION
+    // ===========================
+
+    function Plugin(option) {
+      return this.each(function () {
+        var $this   = $(this)
+        var data    = $this.data('bs.scrollspy')
+        var options = typeof option == 'object' && option
+
+        if (!data) $this.data('bs.scrollspy', (data = new ScrollSpy(this, options)))
+        if (typeof option == 'string') data[option]()
+      })
+    }
+
+    var old = $.fn.scrollspy
+
+    $.fn.scrollspy             = Plugin
+    $.fn.scrollspy.Constructor = ScrollSpy
+
+
+    // SCROLLSPY NO CONFLICT
+    // =====================
+
+    $.fn.scrollspy.noConflict = function () {
+      $.fn.scrollspy = old
+      return this
+    }
+
+
+    // SCROLLSPY DATA-API
+    // ==================
+
+    $(window).on('load.bs.scrollspy.data-api', function () {
+      $('[data-spy="scroll"]').each(function () {
+        var $spy = $(this)
+        Plugin.call($spy, $spy.data())
+      })
+    })
+
+  }(jQuery);
+</script>
+
+
+<script type="text/javascript" id="sidebar.toc.highlight">
+  $(document).ready(function () {
+    var tocSelector = '.post-toc';
+    var $tocSelector = $(tocSelector);
+    var activeCurrentSelector = '.active-current';
+
+    $tocSelector
+      .on('activate.bs.scrollspy', function () {
+        var $currentActiveElement = $(tocSelector + ' .active').last();
+
+        removeCurrentActiveClass();
+        $currentActiveElement.addClass('active-current');
+
+        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
+      })
+      .on('clear.bs.scrollspy', function () {
+        removeCurrentActiveClass();
+      });
+
+    function removeCurrentActiveClass () {
+      $(tocSelector + ' ' + activeCurrentSelector)
+        .removeClass(activeCurrentSelector.substring(1));
+    }
+
+    function processTOC () {
+      getTOCMaxHeight();
+      toggleTOCOverflowIndicators();
+    }
+
+    function getTOCMaxHeight () {
+      var $sidebarInner = $('.sidebar-inner');
+      var height = $('.sidebar').height() -
+                   $tocSelector.position().top -
+                   $('.post-toc-indicator-bottom').height();
+
+      $tocSelector.css('height', height);
+
+      return height;
+    }
+
+    function toggleTOCOverflowIndicators () {
+      tocOverflowIndicator(
+        '.post-toc-indicator-top',
+        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
+      );
+
+      tocOverflowIndicator(
+        '.post-toc-indicator-bottom',
+        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
+      )
+    }
+
+    $(document).on('sidebar.didShow', function () {
+      processTOC();
+    });
+
+    $('body').scrollspy({ target: tocSelector });
+    $(window).on('resize', function () {
+      if ( $('.sidebar').hasClass('sidebar-active') ) {
+        processTOC();
+      }
+    });
+
+    onScroll($tocSelector);
+
+    function onScroll (element) {
+      element.on('mousewheel DOMMouseScroll', function (event) {
+          var oe = event.originalEvent;
+          var delta = oe.wheelDelta || -oe.detail;
+          var self = this;
+
+          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+          event.preventDefault();
+
+          toggleTOCOverflowIndicators();
+      });
+    }
+
+    function tocOverflowIndicator (indicator, action) {
+      $(indicator).velocity('stop').velocity({
+        opacity: action === 'show' ? 0.4 : 0
+      }, { duration: 100 });
+    }
+
+  });
+</script>
+
+
+  <script type="text/javascript" id="sidebar.nav">
+    $(document).ready(function () {
+      var html = $('html');
+
+      $('.sidebar-nav li').on('click', function () {
+        var item = $(this);
+        var activeTabClassName = 'sidebar-nav-active';
+        var activePanelClassName = 'sidebar-panel-active';
+        if (item.hasClass(activeTabClassName)) {
+          return;
+        }
+
+        var currentTarget = $('.' + activePanelClassName);
+        var target = $('.' + item.data('target'));
+
+        currentTarget.velocity('transition.slideUpOut', 200, function () {
+          target
+            .velocity('stop')
+            .velocity('transition.slideDownIn', 200)
+            .addClass(activePanelClassName);
+        });
+
+        item.siblings().removeClass(activeTabClassName);
+        item.addClass(activeTabClassName);
+      });
+
+      $('.post-toc a').on('click', function (e) {
+        e.preventDefault();
+        var offset = $(escapeSelector(this.getAttribute('href'))).offset().top;
+        html.velocity('stop').velocity('scroll', {
+          offset: offset  + 'px',
+          mobileHA: false
+        });
+      });
+
+      // Expand sidebar on post detail page by default, when post has a toc.
+      var $tocContent = $('.post-toc-content');
+      if ($tocContent.length > 0 && $tocContent.html().trim().length > 0 && isDesktop()) {
+        setTimeout(function () {
+          $('.sidebar-toggle').trigger('click');
+        }, 800);
+      }
+    });
+  </script>
+
+
+
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"16"},"slide":{"type":"slide","bdImg":"2","bdPos":"left","bdTop":"195.5"},"image":{"viewList":["qzone","tsina","tqq","renren","weixin"],"viewText":"分享到：","viewSize":"16"},"selectShare":{"bdContainerClass":null,"bdSelectMiniList":["qzone","tsina","tqq","renren","weixin"]}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+
+
+  
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for (i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"songlee24"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+  
+</body>
+</html>
