@@ -1,0 +1,1099 @@
+<!doctype html>
+<html class="theme-next use-motion theme-next-next">
+<head>
+  
+
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+  <meta name="google-site-verification" content="VvyjvVXcJQa0QklHipu6pwm2PJGnnchIqX7s5JbbT_0" />
+
+
+
+  <link rel="stylesheet" type="text/css" href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5"/>
+
+
+<link rel="stylesheet" type="text/css" href="/css/main.css?v=0.4.0"/>
+
+
+    <meta name="description" content="放宽心，多努力" />
+
+
+
+	<meta name="keywords" content="Interview," />
+
+  <title> Cracking the Coding Interview 150题（二） // SongLee's Blog </title>
+</head>
+
+<body>
+  <div class="container one-column page-post-detail">
+    <div class="headband"></div>
+
+    <div id="header" class="header">
+      <div class="header-inner">
+        <h1 class="site-meta">
+  <span class="logo-line-before"><i></i></span>
+  <a href="/" class="brand">
+      <span class="logo">
+        <i class="icon-logo"></i>
+      </span>
+      <span class="site-title">SongLee's Blog</span>
+  </a>
+  <span class="logo-line-after"><i></i></span>
+</h1>
+
+
+  <ul id="menu" class="menu">
+    
+      
+      <li class="menu-item menu-item-home">
+        <a href="/">
+          <i class="menu-item-icon icon-home"></i> <br />
+          首页
+        </a>
+      </li>
+    
+      
+      <li class="menu-item menu-item-categories">
+        <a href="/categories">
+          <i class="menu-item-icon icon-categories"></i> <br />
+          分类
+        </a>
+      </li>
+    
+      
+      <li class="menu-item menu-item-archives">
+        <a href="/archives">
+          <i class="menu-item-icon icon-archives"></i> <br />
+          归档
+        </a>
+      </li>
+    
+      
+      <li class="menu-item menu-item-tags">
+        <a href="/tags">
+          <i class="menu-item-icon icon-tags"></i> <br />
+          标签
+        </a>
+      </li>
+    
+      
+      <li class="menu-item menu-item-about">
+        <a href="/about">
+          <i class="menu-item-icon icon-about"></i> <br />
+          关于
+        </a>
+      </li>
+    
+  </ul>
+
+
+      </div>
+    </div>
+
+    <div id="main" class="main">
+      <div class="main-inner">
+        <div id="content" class="content">
+          
+            
+          
+
+          <div id="posts" class="posts-expand">
+            
+  
+
+  <div class="post post-type-normal ">
+    <div class="post-header">
+
+      
+      
+        <h1 class="post-title">
+          
+          
+            
+              Cracking the Coding Interview 150题（二）
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          
+            发表于 2015-03-16
+          
+        </span>
+
+        
+          
+            <span class="post-category">
+              &nbsp; | &nbsp; 分类于
+              
+                <a href="/categories/试题-CareerCup/">试题-CareerCup</a>
+
+                
+                
+
+              
+            </span>
+          
+        
+
+        
+          
+            <span class="post-comments-count">
+            &nbsp; | &nbsp;
+            <a href="/2015/03/17/cracking-the-coding-interview-02/#comments" >
+              <span class="post-comments-count ds-thread-count" data-thread-key="2015/03/17/cracking-the-coding-interview-02/"></span>
+            </a>
+          </span>
+          
+        
+      </div>
+    </div>
+
+    
+      <div class="post-body">
+
+        
+        
+
+        
+          <h3 id="3、栈与队列">3、栈与队列</h3><p><strong>3.1</strong> 描述如何只用一个数组来实现三个栈。</p>
+<p><strong>3.2</strong> 请设计一个栈，除<code>pop</code>与<code>push</code>方法，还支持<code>min</code>方法，可返回栈元素中的最小值。<code>pop</code>、<code>push</code>和<code>min</code>三个方法的时间复杂度必须为<code>O(1)</code>。</p>
+<p><strong>3.3</strong> 设想有一堆盘子，堆太高可能会倒下来。因此，在现实生活中，盘子堆到一定高度时，我们就会另外堆一堆盘子。请实现数据结构<code>SetOfStacks</code>，模拟这种行为。<code>SetOfStacks</code>应该由多个栈组成，并且在前一个栈填满时新建一个栈。此外，<code>SetOfStacks.push()</code>和<code>SetOfStacks.pop()</code>应该与普通栈的操作方法相同（也就是说，pop()返回的值，应该跟只有一个栈时的情况一样）<a id="more"></a></p>
+<ul>
+<li>进阶：实现一个<code>popAt(int index)</code>方法，根据指定的子栈，执行 pop 操作。</li>
+</ul>
+<p><strong>3.4</strong> 在经典问题汉诺塔中，有3根柱子及N个不同大小的穿孔圆盘，盘子可以滑入任意一根柱子。一开始，所有盘子自底向上从大到小依次套在第一根柱子上（即每一个盘子只能放在更大的盘子上面）。移动圆盘时有以下限制：</p>
+<ul>
+<li>每次只能移动一个盘子</li>
+<li>盘子只能从柱子顶端滑出移到下一根柱子</li>
+<li>盘子只能叠在比它大的盘子上</li>
+</ul>
+<p>请运用栈，编写程序将所有盘子从第一根柱子移到最后一根柱子。</p>
+<p><strong>3.5</strong> 实现一个<code>MyQueue</code>类，该类用两个栈来实现一个队列。</p>
+<p><strong>3.6</strong> 编写程序，按升序对栈进行排序（即最大元素位于栈顶）。最多只能使用一个额外的栈存放临时数据，但不得将元素复制到别的数据结构中（如数组）。该栈支持如下操作：<code>push</code>、<code>pop</code>、<code>peek</code>和<code>isEmpty</code>。</p>
+<p><strong>3.7</strong> 有家动物收容所只收容狗与猫，且严格遵守“先进先出”的原则。在收养该收容所的动物时，收养人只能收养所有动物中“最老”（根据进入收容所的时间长短）的动物，或者，可以挑选猫或狗（同时必须收养此类动物中“最老”的）。换言之，收养人不能自由挑选想收养的对象。请创建适用于这个系统的数据结构，实现各种操作方法，比如<code>enqueue</code>、<code>dequeueAny</code>、<code>dequeueDog</code>和<code>dequeueCat</code>等。</p>
+<p><br><br></p>
+<h3 id="4、树与图">4、树与图</h3><p><strong>4.1</strong> 实现一个函数，检查二叉树是否平衡。在这个问题中，平衡树的定义如下：任意一个结点，其两棵子树的高度差不超过1。</p>
+<p><strong>4.2</strong> 给定有向图，设计一个算法，找出两个结点之间是否存在一条路径。</p>
+<p><strong>4.3</strong> 给定一个有序整数数组，元素各不相同且按升序排列，编写一个算法，创建一棵高度最小的二叉查找树。</p>
+<p><strong>4.4</strong> 给定一棵二叉树，设计一个算法，创建含有某一深度上所有结点的链表（比如，若一棵树的深度为D，则会创建出D个链表）。</p>
+<p><strong>4.5</strong> 实现一个函数，检查一棵二叉树是否为二叉查找树。</p>
+<p><strong>4.6</strong> 设计一个算法，找出二叉查找树中指定结点的“下一个”结点（即中序后继）。可以假定每个结点都含有指向父结点的连接。</p>
+<p><strong>4.7</strong> 设计并实现一个算法，找出二叉树中某两个结点的第一个共同祖先。不得将额外的结点储存在另外的数据结构中。注意：这不一定是二叉查找树。</p>
+<p><strong>4.8</strong> 你有两棵非常大的二叉树：T1，有几百万个结点；T2，有几百个结点。设计一个算法，判断T2是否为T1的子树。（如果T1有这么一个结点n，其子树与T2一模一样，则T2为T1的子树。也就是说，从结点n处把树砍断，得到的树与T2完全相同。）</p>
+<p><strong>4.9</strong> 给定一棵二叉树，其中每个结点都含有一个数值。设计一个算法，打印结点数值总和等于某个给定值的所有路径。注意，路径不一定非得从二叉树的根结点或叶结点开始或结束。</p>
+<p><br><br><br><br><br><br></p>
+<h3 id="参考答案（C++）">参考答案（C++）</h3><hr>
+<p><strong>3.1 描述如何只用一个数组来实现三个栈。</strong></p>
+<p>这个问题的难易程度取决于每个栈是<em>固定分割</em> 还是 <em>动态分割</em>。</p>
+<ul>
+<li><strong>固定分割</strong>：也就是每个栈分配固定大小的空间。这是最简单的实现方法，但是效率不高，因为即使某个栈是空的，它的空间也不能被别的栈使用。下面是每个栈占数组1/3的实现代码：</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> Stacks</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">	<span class="keyword">static</span> <span class="keyword">const</span> <span class="keyword">int</span> size = <span class="number">100</span>;  <span class="comment">// 每个栈的大小</span></span><br><span class="line">	<span class="keyword">int</span> tops[<span class="number">3</span>];                  <span class="comment">// 3个栈的栈顶指针</span></span><br><span class="line">	<span class="keyword">int</span> arr[<span class="number">3</span>*size];              <span class="comment">// 共享的数组</span></span><br><span class="line">	<span class="function"><span class="keyword">int</span> <span class="title">absTopOfStack</span><span class="params">(<span class="keyword">int</span> flag)</span></span>;  <span class="comment">// 返回栈顶指针在数组中的绝对量</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	Stacks();</span><br><span class="line">	<span class="function"><span class="keyword">bool</span> <span class="title">isEmpty</span><span class="params">(<span class="keyword">int</span> flag)</span></span>;  <span class="comment">// flag用0,1,2分别表示对3个栈进行操作</span></span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">push</span><span class="params">(<span class="keyword">int</span> value, <span class="keyword">int</span> flag)</span></span>;</span><br><span class="line">	<span class="function"><span class="keyword">int</span> <span class="title">pop</span><span class="params">(<span class="keyword">int</span> flag)</span></span>;</span><br><span class="line">	<span class="function"><span class="keyword">int</span> <span class="title">top</span><span class="params">(<span class="keyword">int</span> flag)</span></span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">Stacks::Stacks()</span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;<span class="number">3</span>; ++i)</span><br><span class="line">		tops[i] = -<span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> Stacks::absTopOfStack(<span class="keyword">int</span> flag)</span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">return</span> flag * size + tops[flag];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">bool</span> Stacks::isEmpty(<span class="keyword">int</span> flag)</span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">return</span> tops[flag] == -<span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">void</span> Stacks::push(<span class="keyword">int</span> value, <span class="keyword">int</span> flag)</span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">if</span>(tops[flag]+<span class="number">1</span> &gt;= size) <span class="comment">/*检查有无空闲空间*/</span></span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"Out of space.\n"</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">else</span></span><br><span class="line">	&#123;</span><br><span class="line">		++tops[flag];</span><br><span class="line">		arr[absTopOfStack(flag)] = value;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> Stacks::pop(<span class="keyword">int</span> flag)</span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">if</span>(isEmpty(flag))</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"Trying to pop an empty stack.\n"</span>;</span><br><span class="line">		<span class="built_in">exit</span>(<span class="number">1</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">int</span> value = arr[absTopOfStack(flag)];</span><br><span class="line">	arr[absTopOfStack(flag)] = <span class="number">0</span>;   <span class="comment">/*清零*/</span></span><br><span class="line">	--tops[flag];  <span class="comment">/*指针自减*/</span></span><br><span class="line">	<span class="keyword">return</span> value;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> Stacks::top(<span class="keyword">int</span> flag)</span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">return</span> arr[absTopOfStack(flag)];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p><strong>动态分割</strong>：允许栈的大小灵活可变，要实现起来难度有点大。</p>
+<ul>
+<li><p><strong>思路一</strong>：我们可以先考虑<em>用一个数组实现两个栈</em>，思路很简单：分别用数组的两端作为两个栈的起点，向中间扩展，若两个栈中的元素总和不超过n，两个栈不会重叠。基于同样的想法，我们可以把第三个栈实现在数组的中部，当前两个栈中有一个满了（即将重叠第三个栈时），平移第三个栈以扩展栈空间。这种方法由于需要搬移元素所以效率不高。</p>
+</li>
+<li><p><strong>思路二</strong>：链式栈。通过链表的方式来实现栈，如下图：</p>
+</li>
+</ul>
+</li>
+</ul>
+<p><img src="http://img.blog.csdn.net/20150407021806320?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvbGlzb25nbGlzb25nbGlzb25n/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt=""></p>
+<p><strong>链式栈</strong>是在一个数组上实现多个栈（3个、4个、5个…）的通用解决方案。下面是示例代码：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> Node</span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">int</span> key;       <span class="comment">// 存储关键字</span></span><br><span class="line">	<span class="keyword">int</span> preIndex;  <span class="comment">// 记录上一个元素的位置</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> Stacks</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">	<span class="keyword">int</span> top1, top2, top3;</span><br><span class="line">	<span class="keyword">int</span> array_size;  <span class="comment">// 数组的大小，即栈的最大容量</span></span><br><span class="line">	<span class="keyword">int</span> current_ptr; <span class="comment">// 下一个元素入栈的位置</span></span><br><span class="line">	Node* arr;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	Stacks(<span class="keyword">int</span> size);</span><br><span class="line">	~Stacks();</span><br><span class="line">	<span class="function"><span class="keyword">bool</span> <span class="title">isEmpty</span><span class="params">(<span class="keyword">int</span> flag)</span></span>;  <span class="comment">// flag用0,1,2分别表示对3个栈进行操作</span></span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">push</span><span class="params">(<span class="keyword">int</span> value, <span class="keyword">int</span> flag)</span></span>;</span><br><span class="line">	<span class="function"><span class="keyword">int</span> <span class="title">pop</span><span class="params">(<span class="keyword">int</span> flag)</span></span>;</span><br><span class="line">	<span class="function"><span class="keyword">int</span> <span class="title">top</span><span class="params">(<span class="keyword">int</span> flag)</span></span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">Stacks::Stacks(<span class="keyword">int</span> size):array_size(size),</span><br><span class="line">	top1(-<span class="number">1</span>),top2(-<span class="number">1</span>),top3(-<span class="number">1</span>),current_ptr(<span class="number">0</span>)</span><br><span class="line">&#123;</span><br><span class="line">	arr = <span class="keyword">new</span> Node[size];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Stacks::~Stacks()</span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">delete</span> [] arr;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">bool</span> Stacks::isEmpty(<span class="keyword">int</span> flag)</span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">switch</span>(flag)</span><br><span class="line">	&#123;</span><br><span class="line">	<span class="keyword">case</span> <span class="number">0</span>:</span><br><span class="line">		<span class="keyword">return</span> top1 == -<span class="number">1</span>;</span><br><span class="line">	<span class="keyword">case</span> <span class="number">1</span>:</span><br><span class="line">		<span class="keyword">return</span> top2 == -<span class="number">1</span>;</span><br><span class="line">	<span class="keyword">case</span> <span class="number">2</span>:</span><br><span class="line">		<span class="keyword">return</span> top3 == -<span class="number">1</span>;</span><br><span class="line">	<span class="keyword">default</span>:</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; <span class="string">"Error flag of stack.\n"</span>;</span><br><span class="line">		<span class="built_in">exit</span>(<span class="number">1</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">void</span> Stacks::push(<span class="keyword">int</span> value, <span class="keyword">int</span> flag)</span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">if</span>(current_ptr == array_size) <span class="comment">// 栈已满</span></span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; <span class="string">"Stack is full.\n"</span>;</span><br><span class="line">		<span class="keyword">return</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">else</span></span><br><span class="line">	&#123;</span><br><span class="line">		arr[current_ptr].key = value;</span><br><span class="line">		<span class="keyword">switch</span> (flag)</span><br><span class="line">		&#123;</span><br><span class="line">		<span class="keyword">case</span> <span class="number">0</span>:</span><br><span class="line">			arr[current_ptr].preIndex = top1;</span><br><span class="line">			top1 = current_ptr;</span><br><span class="line">			<span class="keyword">break</span>;</span><br><span class="line">		<span class="keyword">case</span> <span class="number">1</span>:</span><br><span class="line">			arr[current_ptr].preIndex = top2;</span><br><span class="line">			top2 = current_ptr;</span><br><span class="line">			<span class="keyword">break</span>;</span><br><span class="line">		<span class="keyword">case</span> <span class="number">2</span>:</span><br><span class="line">			arr[current_ptr].preIndex = top3;</span><br><span class="line">			top3 = current_ptr;</span><br><span class="line">			<span class="keyword">break</span>;</span><br><span class="line">		<span class="keyword">default</span>:</span><br><span class="line">			<span class="keyword">break</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		++current_ptr;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> Stacks::pop(<span class="keyword">int</span> flag)</span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">if</span>(isEmpty(flag))</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; <span class="string">"Trying to pop an empty stack.\n"</span>;</span><br><span class="line">		<span class="built_in">exit</span>(<span class="number">1</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">int</span> value;</span><br><span class="line">	<span class="keyword">switch</span> (flag)</span><br><span class="line">	&#123;</span><br><span class="line">	<span class="keyword">case</span> <span class="number">0</span>:</span><br><span class="line">		value = arr[top1].key;</span><br><span class="line">		top1 = arr[top1].preIndex;</span><br><span class="line">		<span class="keyword">break</span>;</span><br><span class="line">	<span class="keyword">case</span> <span class="number">1</span>:</span><br><span class="line">		value = arr[top2].key;</span><br><span class="line">		top2 = arr[top2].preIndex;</span><br><span class="line">		<span class="keyword">break</span>;</span><br><span class="line">	<span class="keyword">case</span> <span class="number">2</span>:</span><br><span class="line">		value = arr[top3].key;</span><br><span class="line">		top3 = arr[top3].preIndex;</span><br><span class="line">		<span class="keyword">break</span>;</span><br><span class="line">	<span class="keyword">default</span>:</span><br><span class="line">		<span class="keyword">break</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> value;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> Stacks::top(<span class="keyword">int</span> flag)</span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">switch</span> (flag)</span><br><span class="line">	&#123;</span><br><span class="line">	<span class="keyword">case</span> <span class="number">0</span>:</span><br><span class="line">		<span class="keyword">return</span> arr[top1].key;</span><br><span class="line">	<span class="keyword">case</span> <span class="number">1</span>:</span><br><span class="line">		<span class="keyword">return</span> arr[top2].key;</span><br><span class="line">	<span class="keyword">case</span> <span class="number">2</span>:</span><br><span class="line">		<span class="keyword">return</span> arr[top3].key;</span><br><span class="line">	<span class="keyword">default</span>:</span><br><span class="line">		<span class="keyword">break</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><br><br><strong>3.2 请设计一个栈，除pop与push方法，还支持min方法，可返回栈元素中的最小值。pop、push和min三个方法的时间复杂度必须为O(1)。</strong></p>
+<p>通常来说<code>pop</code>和<code>push</code>方法的时间复杂度就是O(1)，关键是<code>min</code>方法。</p>
+<p>可能有人会想 在Stack类里添加一个int型的变量用来记录最小值。当新元素入栈时，比较新元素与最小值，若新元素更小则更新最小值，此时<code>push</code>的时间效率是O(1)；但是当 minValue 出栈时，我们需要遍历整个栈，找出新的最小值，此时<code>pop</code>操作的时间效率就不符合O(1)的要求了。</p>
+<ul>
+<li><strong>思路一</strong>：记录每种状态下的最小值。通过给栈元素增加一个 min 字段，每个元素在入栈时记录当前状态下的最小值。这么一来，要找到最小值，直接查看栈顶元素的 min 就行了。</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> node &#123;</span><br><span class="line">	<span class="keyword">int</span> value;</span><br><span class="line">	<span class="keyword">int</span> min;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> Stack &#123;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">	<span class="built_in">std</span>::<span class="built_in">stack</span>&lt;node&gt; s;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">push</span><span class="params">(<span class="keyword">int</span> v)</span></span>;</span><br><span class="line">	<span class="function"><span class="keyword">int</span> <span class="title">pop</span><span class="params">()</span></span>;</span><br><span class="line">	<span class="function"><span class="keyword">int</span> <span class="title">min</span><span class="params">()</span></span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**********实现***********/</span></span><br><span class="line"><span class="keyword">void</span> Stack::push(<span class="keyword">int</span> v)</span><br><span class="line">&#123;</span><br><span class="line">	node n;</span><br><span class="line">	n.value = v;</span><br><span class="line">	n.min = v &lt; min() ? v : min();</span><br><span class="line">	s.push(n);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> Stack::pop()</span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">if</span>(s.empty())</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"Trying to pop an empty stack.\n"</span>;</span><br><span class="line">		<span class="built_in">exit</span>(<span class="number">1</span>);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">int</span> top = s.top().value;</span><br><span class="line">	s.pop();</span><br><span class="line">	<span class="keyword">return</span> top;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> Stack::min()</span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">if</span>(s.empty())</span><br><span class="line">		<span class="keyword">return</span> INT_MAX;</span><br><span class="line">	<span class="keyword">else</span></span><br><span class="line">		<span class="keyword">return</span> s.top().min;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><strong>思路二</strong>：利用辅助栈保存最小值。这种方法比思路一更节省空间一些 ———— 因为思路一中每个栈元素都要记录 min，而使用辅助栈，当入栈元素大于当前最小值时，不需要记录。</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> Stack &#123;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">	<span class="built_in">std</span>::<span class="built_in">stack</span>&lt;<span class="keyword">int</span>&gt; s;</span><br><span class="line">	<span class="built_in">std</span>::<span class="built_in">stack</span>&lt;<span class="keyword">int</span>&gt; min_s;  <span class="comment">// 辅助栈</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">push</span><span class="params">(<span class="keyword">int</span> v)</span></span>;</span><br><span class="line">	<span class="function"><span class="keyword">int</span> <span class="title">pop</span><span class="params">()</span></span>;</span><br><span class="line">	<span class="function"><span class="keyword">int</span> <span class="title">min</span><span class="params">()</span></span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**********实现***********/</span></span><br><span class="line"><span class="keyword">void</span> Stack::push(<span class="keyword">int</span> v)</span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">if</span>(v &lt;= min())</span><br><span class="line">		min_s.push(v);</span><br><span class="line">	s.push(v);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> Stack::pop()</span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">if</span>(s.empty())</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"Trying to pop an empty stack.\n"</span>;</span><br><span class="line">		<span class="built_in">exit</span>(<span class="number">1</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">int</span> top = s.top();</span><br><span class="line">	s.pop();</span><br><span class="line">	<span class="keyword">if</span>(top == min())</span><br><span class="line">		min_s.pop();</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> top;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> Stack::min()</span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">if</span>(min_s.empty())</span><br><span class="line">		<span class="keyword">return</span> INT_MAX;</span><br><span class="line">	<span class="keyword">else</span></span><br><span class="line">		<span class="keyword">return</span> min_s.top();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><br><br><strong> 3.3 设想有一堆盘子，堆太高可能会倒下来。因此，在现实生活中，盘子堆到一定高度时，我们就会另外堆一堆盘子。请实现数据结构SetOfStacks，模拟这种行为。SetOfStacks应该由多个栈组成，并且在前一个栈填满时新建一个栈。此外，SetOfStacks.push()和SetOfStacks.pop()应该与普通栈的操作方法相同（也就是说，pop()返回的值，应该跟只有一个栈时的情况一样）</strong></p>
+<p>根据题意，<code>SetOfStacks</code>中应该有一个栈数组，而<code>push</code>和<code>pop</code>都是操作栈数组中的最后一个栈。入栈时若最后一个栈被填满，就需新建一个栈；出栈后若最后一个栈为空，就必须从栈数组中移除这个栈。<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> SetOfStacks</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">	<span class="built_in">vector</span>&lt;<span class="built_in">stack</span>&lt;<span class="keyword">int</span>&gt;&gt; stacks;</span><br><span class="line">	<span class="keyword">int</span> capacity;  <span class="comment">// 一个栈的最大存储量</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	SetOfStacks(<span class="keyword">int</span> cap);</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">push</span><span class="params">(<span class="keyword">int</span> v)</span></span>;</span><br><span class="line">	<span class="function"><span class="keyword">int</span> <span class="title">pop</span><span class="params">()</span></span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**********实现**********/</span></span><br><span class="line">SetOfStacks::SetOfStacks(<span class="keyword">int</span> cap)</span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">this</span>-&gt;capacity = cap;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">void</span> SetOfStacks::push(<span class="keyword">int</span> v)</span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">if</span>(!stacks.empty() &amp;&amp; stacks.back().size() &lt; capacity)</span><br><span class="line">	&#123;</span><br><span class="line">		stacks.back().push(v);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">else</span></span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">stack</span>&lt;<span class="keyword">int</span>&gt; s;  <span class="comment">// 必须新建一个栈</span></span><br><span class="line">		s.push(v);</span><br><span class="line">		stacks.push_back(s);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> SetOfStacks::pop()</span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">if</span>(stacks.empty())</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; <span class="string">"Trying to pop an empty stack.\n"</span>;</span><br><span class="line">		<span class="built_in">exit</span>(<span class="number">1</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">int</span> value = stacks.back().top();</span><br><span class="line">	stacks.back().pop();</span><br><span class="line">	<span class="keyword">if</span>(stacks.back().empty())</span><br><span class="line">		stacks.pop_back();  <span class="comment">// 移除</span></span><br><span class="line">	<span class="keyword">return</span> value;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><strong>进阶：实现一个popAt(int index)方法，根据指定的子栈，执行 pop 操作。</strong></p>
+<p>设想当弹出 栈1 的栈顶元素时，我们需要移出 栈2 的栈底元素，并将其推到栈1中。随后，将栈3的栈底元素推入栈2，将栈4的栈底元素推入栈3，以此类推。</p>
+<p>有人可能会说，没必要执行“推入”操作，有些栈不填满也可以啊！而且还降低了时间复杂度。但是若之后有人假定所有的栈（最后一个栈除外）都是填满的，就可能出现意想不到的 error！这个问题并没有“标准答案”，你应该跟面试官讨论各种做法的优劣。</p>
+<p><br><br><strong>3.4 在经典问题汉诺塔中，有3根柱子及N个不同大小的穿孔圆盘，盘子可以滑入任意一根柱子。一开始，所有盘子自底向上从大到小依次套在第一根柱子上（即每一个盘子只能放在更大的盘子上面）。移动圆盘时有以下限制：</strong></p>
+<ul>
+<li><strong>每次只能移动一个盘子</strong></li>
+<li><strong>盘子只能从柱子顶端滑出移到下一根柱子</strong></li>
+<li><strong>盘子只能叠在比它大的盘子上</strong></li>
+</ul>
+<p><strong>请运用栈，编写程序将所有盘子从第一根柱子移到最后一根柱子。</strong></p>
+<p><img src="http://img.blog.csdn.net/20150407021526401?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvbGlzb25nbGlzb25nbGlzb25n/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" alt=""></p>
+<p>首先我们从最简单的开始整理自己的思路：</p>
+<ul>
+<li>当<code>n=1</code>时，因为只有一个盘子，所以可以直接将盘子1从柱1移至柱3.</li>
+<li>当<code>n=2</code>时，可以这样将所有盘子从柱1移至柱3：<ol>
+<li>将盘子1从柱1移至柱2。</li>
+<li>将盘子2从柱1移至柱3。</li>
+<li>将盘子1从柱2移至柱3。</li>
+</ol>
+</li>
+<li>当<code>n=3</code>时，可以这样将所有盘子从柱1移至柱3：<ol>
+<li>将上面两个盘子从柱1移至柱2，同上。</li>
+<li>将盘子3移至柱3。</li>
+<li>将盘子1、2从柱2移至柱3。</li>
+</ol>
+</li>
+<li>当<code>n=4</code>时，可以这样将所有盘子从柱1移至柱3：<ol>
+<li>将盘子1、2、3移至柱2，具体做法参见前面。</li>
+<li>将盘子4移至柱3。</li>
+<li>将盘子1、2、3移至柱3。</li>
+</ol>
+</li>
+</ul>
+<p>把柱1上的盘子移至柱3，需要柱2作为缓冲。可以看出，上面的过程是递归的，很自然地就可以导出递归算法。<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> Tower</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">	<span class="built_in">stack</span>&lt;<span class="keyword">int</span>&gt; disks;  <span class="comment">// 用整数的大小表示盘子的大小</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">add</span><span class="params">(<span class="keyword">int</span> d)</span></span>;             <span class="comment">// 向柱子上添加盘子</span></span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">moveButtomTo</span><span class="params">(Tower &amp;t)</span></span>; <span class="comment">// 移动最下面那块盘子</span></span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">moveDisks</span><span class="params">(<span class="keyword">int</span> n, Tower &amp;dest, Tower &amp;buf)</span></span>;  <span class="comment">// 利用buf将n块盘子移至dest</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*******************实现*********************/</span></span><br><span class="line"><span class="keyword">void</span> Tower::add(<span class="keyword">int</span> d)</span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">if</span>(!disks.empty() &amp;&amp; disks.top() &lt;= d) &#123;</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; <span class="string">"Error placing disk "</span> &lt;&lt; d;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">else</span> &#123;</span><br><span class="line">		disks.push(d);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">void</span> Tower::moveButtomTo(Tower &amp;t)</span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">int</span> top = disks.top();</span><br><span class="line">	disks.pop();</span><br><span class="line">	t.add(top);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 递归实现 —— 注意使用引用</span></span><br><span class="line"><span class="keyword">void</span> Tower::moveDisks(<span class="keyword">int</span> n, Tower &amp;dest, Tower &amp;buf)</span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">if</span>(n&gt;<span class="number">0</span>) </span><br><span class="line">    &#123;</span><br><span class="line">		<span class="comment">/*将上面的n-1块盘子移至缓冲区*/</span></span><br><span class="line">		moveDisks(n-<span class="number">1</span>, buf, dest);</span><br><span class="line">		<span class="comment">/*将最下面那块盘子移至目的地*/</span></span><br><span class="line">		moveButtomTo(dest);</span><br><span class="line">		<span class="comment">/*将缓冲区的n-1块盘子移至目的地*/</span></span><br><span class="line">		buf.moveDisks(n-<span class="number">1</span>, dest, *<span class="keyword">this</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*******************测试*********************/</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span><br><span class="line"></span>&#123;</span><br><span class="line">	Tower tower[<span class="number">3</span>];  <span class="comment">// 3根柱子</span></span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">5</span>; i&gt;<span class="number">0</span>; --i)</span><br><span class="line">		tower[<span class="number">0</span>].add(i);</span><br><span class="line">	<span class="comment">// 移动</span></span><br><span class="line">	tower[<span class="number">0</span>].moveDisks(<span class="number">5</span>, tower[<span class="number">2</span>], tower[<span class="number">1</span>]);</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><br><br><strong>3.5 实现一个MyQueue类，该类用两个栈来实现一个队列。</strong></p>
+<p>队列和栈的主要区别就是元素进出顺序。假设两个栈分别是 Newest 和 Oldest，为了用这两个栈达到先进先出（FIFO）的效果，在入队时我们将元素压入 Newest 栈，然后将 Newest 的元素弹出，压入 Oldest 栈中（这样就达到了反转的效果），在出队时，我们从 Oldest 栈中弹出元素。</p>
+<p>注意，为了避免频繁的执行从 Newest 到 Oldest 的反转操作，我们规定：只有在发现 Oldest 为空时，才执行反转操作 —— 将 Newest 中的所有元素弹出并压入 Oldest 中。<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> MyQueue</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">	<span class="built_in">stack</span>&lt;<span class="keyword">int</span>&gt; Newest;  <span class="comment">// 新入队的元素</span></span><br><span class="line">	<span class="built_in">stack</span>&lt;<span class="keyword">int</span>&gt; Oldest;  <span class="comment">// 准备出队的元素</span></span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">reverseStacks</span><span class="params">()</span></span>;  <span class="comment">// 将Newest元素弹出，压入Oldest </span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="function"><span class="keyword">int</span> <span class="title">size</span><span class="params">()</span></span>;           <span class="comment">// 队列大小</span></span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">enqueue</span><span class="params">(<span class="keyword">int</span> v)</span></span>;  <span class="comment">// 入队</span></span><br><span class="line">	<span class="function"><span class="keyword">int</span> <span class="title">dequeue</span><span class="params">()</span></span>;        <span class="comment">// 出队</span></span><br><span class="line">	<span class="function"><span class="keyword">int</span> <span class="title">top</span><span class="params">()</span></span>;            <span class="comment">// 队首元素</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// Oldest为空才进行反转，避免频繁操作</span></span><br><span class="line"><span class="keyword">void</span> MyQueue::reverseStacks()</span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">if</span>(Oldest.empty())  </span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">while</span>(!Newest.empty()) &#123;</span><br><span class="line">			Oldest.push(Newest.top());</span><br><span class="line">			Newest.pop();</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> MyQueue::size()</span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">return</span> Oldest.size()+Newest.size();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 压入Newest，最新元素始终位于它的顶端</span></span><br><span class="line"><span class="keyword">void</span> MyQueue::enqueue(<span class="keyword">int</span> v)</span><br><span class="line">&#123;</span><br><span class="line">	Newest.push(v);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 从Oldest出队</span></span><br><span class="line"><span class="keyword">int</span> MyQueue::dequeue()</span><br><span class="line">&#123;</span><br><span class="line">	reverseStacks();</span><br><span class="line">	<span class="keyword">int</span> value = Oldest.top();</span><br><span class="line">	Oldest.pop();</span><br><span class="line">	<span class="keyword">return</span> value;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> MyQueue::top()</span><br><span class="line">&#123;</span><br><span class="line">	reverseStacks();</span><br><span class="line">	<span class="keyword">return</span> Oldest.top();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><br><br><strong>3.6 编写程序，按升序对栈进行排序（即最大元素位于栈顶）。最多只能使用一个额外的栈存放临时数据，但不得将元素复制到别的数据结构中（如数组）。该栈支持如下操作：push、pop、peek和isEmpty。</strong></p>
+<p>可以想到的一种做法是，搜索整个栈，找出最小元素，将其压入另一个栈；然后，在剩余元素中找出最小的，并将其入栈。但这种做法实际上需要两个额外的栈，一个用来存放最终的有序序列，一个在搜索时用作缓冲区。</p>
+<p>那么，只使用一个额外的栈怎么做呢？可以从S1逐一弹出元素，然后按顺序插入S2中，如下图所示：</p>
+<p><img src="http://img.blog.csdn.net/20150407021739968?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvbGlzb25nbGlzb25nbGlzb25n/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt=""></p>
+<p>S1是未排序的，S2是排好序的：</p>
+<ul>
+<li><p>从S1中弹出5，我们需要在S2中找到合适的位置插入这个数，所以将 12 和 8 移至 S1 中，然后将 5 压入 S2。</p>
+</li>
+<li><p>那么 8 和 12 需不需要移回 S2 呢？其实不需要，对于这两个数，我们可以像处理 5 那样重复相关步骤就可以了。</p>
+</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">stack</span>&lt;<span class="keyword">int</span>&gt; Sort(<span class="built_in">stack</span>&lt;<span class="keyword">int</span>&gt; s)</span><br><span class="line">&#123;</span><br><span class="line">	<span class="built_in">stack</span>&lt;<span class="keyword">int</span>&gt; r;</span><br><span class="line">	<span class="keyword">while</span>(!s.empty())</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">int</span> tmp = s.top();</span><br><span class="line">		s.pop();          <span class="comment">// 弹出元素存到临时变量</span></span><br><span class="line">		<span class="keyword">while</span>(!r.empty() &amp;&amp; r.top() &gt; tmp)</span><br><span class="line">		&#123;</span><br><span class="line">			s.push(r.top());</span><br><span class="line">			r.pop();</span><br><span class="line">		&#125;</span><br><span class="line">		r.push(tmp);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> r;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><br><br><strong>3.7 有家动物收容所只收容狗与猫，且严格遵守“先进先出”的原则。在收养该收容所的动物时，收养人只能收养所有动物中“最老”（根据进入收容所的时间长短）的动物，或者，可以挑选猫或狗（同时必须收养此类动物中“最老”的）。换言之，收养人不能自由挑选想收养的对象。请创建适用于这个系统的数据结构，实现各种操作方法，比如 enqueue、dequeueAny、dequeueDog 和 dequeueCat 等。</strong></p>
+<p><strong>思路一</strong>：只维护一个队列。那么 dequeueAny 就容易实现，而 dequeueDog 和 dequeueCat 就需迭代访问整个队列，找到第一只被收养的狗或猫。这种解法明显效率不高。</p>
+<p><strong>思路二</strong>：为猫和狗各维护一个队列。那么 dequeueDog 和 dequeueCat 很容易实现，而 dequeueAny 需要比较猫队列与狗队列的队首，看哪个“更老”。为了方便 dequeueAny 的实现，我们给每个动物加一个额外的变量，以标记进入队列的先后顺序。这种解法显然更简单更高效！<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> Animal</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="built_in">string</span> name;</span><br><span class="line">	<span class="keyword">int</span> order;    <span class="comment">// 标记先后顺序</span></span><br><span class="line">	Animal(<span class="built_in">string</span> s):name(s)&#123;&#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="comment">/******* 狗 *******/</span></span><br><span class="line"><span class="keyword">class</span> Dog : <span class="keyword">public</span> Animal</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	Dog(<span class="built_in">string</span> s):Animal(s)&#123;&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">/******* 猫 *******/</span></span><br><span class="line"><span class="keyword">class</span> Cat : <span class="keyword">public</span> Animal</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	Cat(<span class="built_in">string</span> s):Animal(s)&#123;&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*******队列*******/</span></span><br><span class="line"><span class="keyword">class</span> Queue</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">	<span class="built_in">list</span>&lt;Dog&gt; dogs;</span><br><span class="line">	<span class="built_in">list</span>&lt;Cat&gt; cats;</span><br><span class="line">	<span class="keyword">int</span> order;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	Queue():order(<span class="number">0</span>)&#123;&#125;</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">enqueue</span><span class="params">(Dog d)</span></span><br><span class="line">	</span>&#123;</span><br><span class="line">		d.order = order++;</span><br><span class="line">		dogs.push_back(d);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">enqueue</span><span class="params">(Cat c)</span>  <span class="comment">// 重载</span></span><br><span class="line">	</span>&#123;</span><br><span class="line">		c.order = order++;</span><br><span class="line">		cats.push_back(c);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function">Dog <span class="title">dequeueDog</span><span class="params">()</span></span><br><span class="line">	</span>&#123;</span><br><span class="line">		Dog d = dogs.front();</span><br><span class="line">		dogs.pop_front();</span><br><span class="line">		<span class="keyword">return</span> d;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function">Cat <span class="title">dequeueCat</span><span class="params">()</span></span><br><span class="line">	</span>&#123;</span><br><span class="line">		Cat c = cats.front();</span><br><span class="line">		cats.pop_front();</span><br><span class="line">		<span class="keyword">return</span> c;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function">Animal <span class="title">dequeueAny</span><span class="params">()</span></span><br><span class="line">	</span>&#123;</span><br><span class="line">		<span class="keyword">if</span>(dogs.size() == <span class="number">0</span>)</span><br><span class="line">			<span class="keyword">return</span> dequeueCat();</span><br><span class="line">		<span class="keyword">if</span>(cats.size() == <span class="number">0</span>)</span><br><span class="line">			<span class="keyword">return</span> dequeueDog();</span><br><span class="line"></span><br><span class="line">		<span class="keyword">if</span>(dogs.front().order &lt; cats.front().order)</span><br><span class="line">			<span class="keyword">return</span> dequeueDog();</span><br><span class="line">		<span class="keyword">else</span></span><br><span class="line">			<span class="keyword">return</span> dequeueCat();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<p><br><br><br><br></p>
+<hr>
+<p><strong>下面的题是关于树或图，做下面的题之前，首先我们要能够创建一棵二叉树或一个图：</strong></p>
+<ul>
+<li><strong>创建二叉树</strong>：二叉树是什么相信就不用我多说了，可以递归地根据输入创建一棵二叉树。</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="keyword">struct</span> TreeNode</span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">int</span> data;</span><br><span class="line">	TreeNode* left;</span><br><span class="line">	TreeNode* right;</span><br><span class="line">&#125; *BiTree;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 递归地创建二叉树</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">createBinaryTree</span><span class="params">(BiTree &amp;T)</span></span><br><span class="line"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> x;</span><br><span class="line">	<span class="built_in">cin</span> &gt;&gt; x;</span><br><span class="line">	<span class="keyword">if</span>(x &lt; <span class="number">0</span>) &#123;</span><br><span class="line">		T = NULL;</span><br><span class="line">		<span class="keyword">return</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	T = (TreeNode*)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(TreeNode));</span><br><span class="line">	T-&gt;data = x;</span><br><span class="line">	createBinaryTree(T-&gt;left);</span><br><span class="line">	createBinaryTree(T-&gt;right);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span><br><span class="line"></span>&#123;</span><br><span class="line">	BiTree T;</span><br><span class="line">	createBinaryTree(T); </span><br><span class="line">	getchar();</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p><strong>创建二叉查找树</strong>： 可以由一个数组生成一棵二叉查找树，见《<a href="http://blog.csdn.net/lisonglisonglisong/article/details/42592757" target="_blank" rel="external">二叉查找树（BST）</a>》。</p>
+</li>
+<li><p><strong>创建图</strong>：图有两种存储方式，邻接矩阵和邻接表，这里采用邻接表来创建图。</p>
+</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> Graph  </span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>: </span><br><span class="line">	<span class="keyword">int</span> V;                         <span class="comment">// 顶点数  </span></span><br><span class="line">	<span class="built_in">list</span>&lt;<span class="keyword">int</span>&gt; *adj;                <span class="comment">// 邻接表  </span></span><br><span class="line"> </span><br><span class="line">	Graph(<span class="keyword">int</span> V);                  <span class="comment">// 构造函数  </span></span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">addEdge</span><span class="params">(<span class="keyword">int</span> v, <span class="keyword">int</span> w)</span></span>;    <span class="comment">// 向图中添加边   </span></span><br><span class="line">&#125;;  </span><br><span class="line"></span><br><span class="line"><span class="comment">/* 构造函数 */</span>  </span><br><span class="line">Graph::Graph(<span class="keyword">int</span> V)  </span><br><span class="line">&#123;  </span><br><span class="line">	<span class="keyword">this</span>-&gt;V = V;  </span><br><span class="line">	adj = <span class="keyword">new</span> <span class="built_in">list</span>&lt;<span class="keyword">int</span>&gt;[V];  </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 添加边，构造邻接表 */</span>  </span><br><span class="line"><span class="keyword">void</span> Graph::addEdge(<span class="keyword">int</span> v, <span class="keyword">int</span> w)  </span><br><span class="line">&#123;  </span><br><span class="line">	adj[v].push_back(w);          <span class="comment">// 将w添加到v的链表  </span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><br><br><br><strong>4.1 实现一个函数，检查二叉树是否平衡。在这个问题中，平衡树的定义如下：任意一个结点，其两棵子树的高度差不超过1。</strong></p>
+<p>本题明确地给出了平衡树的定义，我们的解法就是根据定义直接递归检查每棵子树的高度。代码中的 checkHeight 方法以递归方式获取左右子树的高度。若子树是平衡的，返回该子树的实际高度；若子树不平衡，返回-1，这时所有递归都会立即返回：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* </span><br><span class="line"> * 平衡返回高度，不平衡返回-1</span><br><span class="line"> */</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">checkHeight</span><span class="params">(BiTree T)</span></span><br><span class="line"></span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(T == NULL)</span><br><span class="line">		<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">	<span class="comment">/* 检查左子树是否平衡 */</span></span><br><span class="line">	<span class="keyword">int</span> leftHeight = checkHeight(T-&gt;left);</span><br><span class="line">	<span class="keyword">if</span>(leftHeight == -<span class="number">1</span>)</span><br><span class="line">		<span class="keyword">return</span> -<span class="number">1</span>;  </span><br><span class="line"></span><br><span class="line">	<span class="comment">/* 检查右子树是否平衡 */</span></span><br><span class="line">	<span class="keyword">int</span> rightHeight = checkHeight(T-&gt;right);</span><br><span class="line">	<span class="keyword">if</span>(rightHeight == -<span class="number">1</span>)</span><br><span class="line">		<span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">	<span class="comment">/* 检查当前结点是否平衡 */</span></span><br><span class="line">	<span class="keyword">int</span> diff = leftHeight&gt;rightHeight ? </span><br><span class="line">		leftHeight-rightHeight : rightHeight-leftHeight;</span><br><span class="line">	<span class="keyword">if</span>(diff &gt; <span class="number">1</span>)  <span class="comment">// 不平衡，返回-1</span></span><br><span class="line">		<span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">	<span class="keyword">else</span>          <span class="comment">// 平衡，返回高度</span></span><br><span class="line">		<span class="keyword">return</span> leftHeight&gt;rightHeight ? leftHeight+<span class="number">1</span> : rightHeight+<span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">isBalance</span><span class="params">(BiTree T)</span></span><br><span class="line"></span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(checkHeight(T) == -<span class="number">1</span>)</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">	<span class="keyword">else</span></span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><br><br><strong>4.2 给定有向图，设计一个算法，找出两个结点之间是否存在一条路径。</strong></p>
+<p>只需通过图的遍历，比如深度优先搜索或广度优先搜索，就能解决这个问题。</p>
+<p>我们从其中一个结点出发，在遍历过程中检查是否找到另一个结点。在这个算法中，访问过的结点都应标记为“已访问”，以免循环和重复访问结点。下面的示例代码使用了广度优先搜索：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">isPathExist</span><span class="params">(Graph g, <span class="keyword">int</span> start, <span class="keyword">int</span> end)</span></span><br><span class="line"></span>&#123;</span><br><span class="line">	<span class="built_in">list</span>&lt;<span class="keyword">int</span>&gt; <span class="built_in">queue</span>;  <span class="comment">// 当做队列</span></span><br><span class="line"></span><br><span class="line">	<span class="keyword">int</span> V = g.getVertexNum();  <span class="comment">// 顶点个数</span></span><br><span class="line">	<span class="keyword">bool</span> *visited = <span class="keyword">new</span> <span class="keyword">bool</span>[V];  </span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;V; ++i)  </span><br><span class="line">		visited[i] = <span class="keyword">false</span>; </span><br><span class="line"></span><br><span class="line">	visited[start] = <span class="keyword">true</span>; <span class="comment">// 将当前顶点标记为已访问并压入队列</span></span><br><span class="line">	<span class="built_in">queue</span>.push_back(start);</span><br><span class="line"></span><br><span class="line">	<span class="built_in">list</span>&lt;<span class="keyword">int</span>&gt;::iterator i;</span><br><span class="line">	<span class="keyword">int</span> node;</span><br><span class="line">	<span class="keyword">while</span>(!<span class="built_in">queue</span>.empty())</span><br><span class="line">	&#123;</span><br><span class="line">		node = <span class="built_in">queue</span>.front(); <span class="comment">// 出队</span></span><br><span class="line">		<span class="built_in">queue</span>.pop_front();</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">for</span>(i=g.adj[node].begin(); i!=g.adj[node].end(); ++i)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">if</span>(!visited[*i])</span><br><span class="line">			&#123;</span><br><span class="line">				<span class="keyword">if</span>(*i == end)  <span class="comment">// 是否等于另一个结点</span></span><br><span class="line">					<span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">				<span class="keyword">else</span></span><br><span class="line">				&#123;</span><br><span class="line">					visited[*i] = <span class="keyword">true</span>;</span><br><span class="line">					<span class="built_in">queue</span>.push_back(*i);</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><br><br><strong>4.3 给定一个有序整数数组，元素各不相同且按升序排列，编写一个算法，创建一棵高度最小的二叉查找树。</strong></p>
+<p>要让二叉查找树的高度最小，就必须让左右子树的结点数越接近越好。根据二叉查找树的性质（中序遍历的序列是一个递增的有序序列），可以让该数组中间的值成为根节点，前半区间成为左子树，后半区间成为右子树。然后，每一个区间中间的值又成为子树的根节点，以此类推。<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">TreeNode* createMinBST(<span class="keyword">int</span> A[], <span class="keyword">int</span> low, <span class="keyword">int</span> high)</span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">if</span>(low &gt; high)   <span class="comment">/*递归终止条件*/</span></span><br><span class="line">		<span class="keyword">return</span> NULL; </span><br><span class="line"></span><br><span class="line">	<span class="keyword">int</span> mid = (low + high)/<span class="number">2</span>;</span><br><span class="line">	TreeNode* T = (TreeNode*)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(TreeNode));</span><br><span class="line">	T-&gt;data = A[mid];</span><br><span class="line">	T-&gt;left = createMinBST(A, low, mid-<span class="number">1</span>);</span><br><span class="line">	T-&gt;right = createMinBST(A, mid+<span class="number">1</span>, high);</span><br><span class="line">	<span class="keyword">return</span> T;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><br><br><strong>4.4 给定一棵二叉树，设计一个算法，创建含有某一深度上所有结点的链表（比如，若一棵树的深度为D，则会创建出D个链表）。</strong></p>
+<p>根据题意，你可能认为这个问题需要一层一层遍历，每一层构成一个链表。但其实可以用任意方式遍历树，只要记住结点位于哪一层即可。</p>
+<p>下面是使用先序遍历实现的一个例子：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">createLevelLists</span><span class="params">(BiTree T, <span class="built_in">vector</span>&lt;<span class="built_in">list</span>&lt;TreeNode*&gt;&gt; &amp;lists, <span class="keyword">int</span> level)</span></span><br><span class="line"></span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(T == NULL)   <span class="comment">/*递归终止条件*/</span></span><br><span class="line">		<span class="keyword">return</span>;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span>(lists.size() &lt;= level)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">list</span>&lt;TreeNode*&gt; lst;</span><br><span class="line">		lst.push_back(T);</span><br><span class="line">		lists.push_back(lst);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">else</span></span><br><span class="line">	&#123;</span><br><span class="line">		lists.at(level).push_back(T);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	createLevelLists(T-&gt;left, lists, level+<span class="number">1</span>);  <span class="comment">// 左子树</span></span><br><span class="line">	createLevelLists(T-&gt;right, lists, level+<span class="number">1</span>); <span class="comment">// 右子树</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>当然，你也可以使用其他遍历方式，比如层序遍历、广度优先搜索。</p>
+<p><br><br><strong>4.5 实现一个函数，检查一棵二叉树是否为二叉查找树。</strong></p>
+<ul>
+<li><strong>思路一</strong>：检查中序序列是否是升序。这是二叉查找树的性质，但<strong>需要注意的是</strong>，这种方法无法正确处理树中的重复值。若假定这棵树不包含重复值，则这种方法是有效的。</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">inOrder</span><span class="params">(BiTree T, <span class="keyword">int</span> &amp;last)</span></span><br><span class="line"></span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(T == NULL)  <span class="comment">/*递归终止条件*/</span> </span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">/*检查左子树*/</span></span><br><span class="line">	<span class="keyword">if</span>(!inOrder(T-&gt;left, last))</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line"></span><br><span class="line">	<span class="comment">/*检查当前结点*/</span></span><br><span class="line">	<span class="keyword">if</span>(T-&gt;data &lt;= last)</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">	last = T-&gt;data;</span><br><span class="line"></span><br><span class="line">	<span class="comment">/*检查右子树*/</span></span><br><span class="line">	<span class="keyword">if</span>(!inOrder(T-&gt;right, last))</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">checkBST</span><span class="params">(BiTree T)</span></span><br><span class="line"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> last = INT_MIN;</span><br><span class="line">	<span class="keyword">return</span> inOrder(T, last);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><strong>思路二</strong>：自上而下传递最小和最大值，判断每个结点是否在范围内。假定根结点的值是20，最开始的范围是（<code>INT_MIN</code>,<code>INT_MAX</code>），根结点明显在这个范围内。然后判断左孩子是否在（<code>INT_MIN</code>, 20）这个范围内，右孩子是否在（20 ,<code>INT_MAX</code>）这个范围内。以此类推，递归下去。</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">checkBST</span><span class="params">(BiTree T, <span class="keyword">int</span> min, <span class="keyword">int</span> max)</span></span><br><span class="line"></span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(T == NULL)  <span class="comment">/*递归终止条件*/</span> </span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">if</span>(T-&gt;data &lt;= min || T-&gt;data &gt; max)</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span>(!checkBST(T-&gt;left,min,T-&gt;data) || !checkBST(T-&gt;right,T-&gt;data,max))</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">checkBST</span><span class="params">(BiTree T)</span></span><br><span class="line"></span>&#123;</span><br><span class="line">	<span class="keyword">return</span> checkBST(T, INT_MIN, INT_MAX);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><br><br><strong>4.6 设计一个算法，找出二叉查找树中指定结点的“下一个”结点（即中序后继）。可以假定每个结点都含有指向父结点的连接。</strong></p>
+<p>见《<a href="http://blog.csdn.net/lisonglisonglisong/article/details/42592757#t2" target="_blank" rel="external">BST的前驱与后继</a>》，本题要求的是中序遍历中的后继结点。求一个结点 x 的后继，有两种情况：</p>
+<ul>
+<li><p>若结点 x 的右子树不为空，则 x 的后继是右子树中值最小的结点，即右子树最左边的结点。</p>
+</li>
+<li><p>若结点 x 的右子树为空，表示已遍访 x 的子树。我们必须回到 x 的父结点，记父结点为 p ：</p>
+<ul>
+<li><p>如果 x 是 p 的左儿子，那么下一个要访问的结点就是 p ；</p>
+</li>
+<li><p>如果 x 是 p 的右儿子，表示已遍访 p 的子树，这时需从 p 往上继续访问，直到遇到一个祖先结点 pp，它的左儿子也是结点 x 的祖先。</p>
+</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">TreeNode* successor_BST(TreeNode* n)</span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">if</span>(n == NULL)</span><br><span class="line">		<span class="keyword">return</span> NULL;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span>(n-&gt;right != NULL)</span><br><span class="line">	&#123;</span><br><span class="line">		TreeNode* tmp = n-&gt;right;</span><br><span class="line">		<span class="keyword">while</span>(tmp-&gt;left!=NULL)</span><br><span class="line">		&#123;</span><br><span class="line">			tmp = tmp-&gt;left;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span> tmp;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">else</span></span><br><span class="line">	&#123;</span><br><span class="line">		TreeNode* p = n-&gt;parent;</span><br><span class="line">		<span class="keyword">while</span>(p!=NULL &amp;&amp; p-&gt;right==n)</span><br><span class="line">		&#123;</span><br><span class="line">			n = p;</span><br><span class="line">			p = p-&gt;parent;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span> p;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><br><br><strong>4.7 设计并实现一个算法，找出二叉树中某两个结点的第一个共同祖先。不得将额外的结点储存在另外的数据结构中。注意：这不一定是二叉查找树。</strong></p>
+<p>我们在解题之前应该先要问问面试官，这棵树的结点是否包含指向父结点的指针。</p>
+<ul>
+<li><p><strong>情况一</strong>：如果每个结点中包含指向父结点的指针，那么就可以直接向上追踪 p 和 q 的路径，直到两者相交。当然，在向上追踪的过程中我们需要标记结点是否已经被访问过，比如可以给结点添加<code>isVisited</code>域、或者将已访问结点映射到散列表。</p>
+</li>
+<li><p><strong>情况二</strong>：如果结点不包含指向父结点的指针，又不得将额外的结点储存在另外的数据结构中。那么我们的做法就是：从上向下判断，若 p 和 q 都在某结点的左边，就到左子树中查找共同祖先；若都在该结点的右边，则在右子树中查找共同祖先。要是 p 和 q 不在同一边，那么就表示已经找到第一个共同祖先了。</p>
+</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 若p为root的子孙，则返回true</span></span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">cover</span><span class="params">(TreeNode* root, TreeNode* p)</span></span><br><span class="line"></span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(root == NULL)</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">	<span class="keyword">if</span>(root == p)</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">	<span class="keyword">return</span> cover(root-&gt;left, p) || cover(root-&gt;right, p);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">TreeNode* getCommonAncester(BiTree T, TreeNode* p, TreeNode* q)</span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">if</span>(T == NULL)</span><br><span class="line">		<span class="keyword">return</span> NULL;</span><br><span class="line">	<span class="keyword">if</span>(T == p || T == q)</span><br><span class="line">		<span class="keyword">return</span> T;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">bool</span> pAtLeft = cover(T-&gt;left, p);</span><br><span class="line">	<span class="keyword">bool</span> qAtLeft = cover(T-&gt;left, q);</span><br><span class="line"></span><br><span class="line">	<span class="comment">/*若p和q不在同一边，则表示已经找到第一个共同祖先*/</span></span><br><span class="line">	<span class="keyword">if</span>(pAtLeft != qAtLeft)</span><br><span class="line">		<span class="keyword">return</span> T;</span><br><span class="line">	<span class="comment">/*若在同一边，遍访那一边*/</span></span><br><span class="line">	TreeNode* child = pAtLeft ? T-&gt;left : T-&gt;right;</span><br><span class="line">	<span class="keyword">return</span> getCommonAncester(child, p, q);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">TreeNode* commonAncester(BiTree T, TreeNode* p, TreeNode* q)</span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">if</span>(!cover(T, p) || !cover(T, q))  <span class="comment">// --错误检查--</span></span><br><span class="line">		<span class="keyword">return</span> NULL;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">return</span> getCommonAncester(T, p, q);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><br><br><strong>4.8 你有两棵非常大的二叉树：T1，有几百万个结点；T2，有几百个结点。设计一个算法，判断T2是否为T1的子树。（如果T1有这么一个结点n，其子树与T2一模一样，则T2为T1的子树。也就是说，从结点n处把树砍断，得到的树与T2完全相同。）</strong></p>
+<p>首先考虑小数据量的情况，可以求出两棵树的前序和中序遍历序列，若 T2 前序遍历是 T1 前序遍历的子串，并且 T2 中序遍历是 T1 中序遍历的子串，则 T2 为 T1 的子树。假设T1的节点数为 N，T2的节点数为 M。遍历两棵树的时间复杂度是 O(N + M)， 判断字符串是否为另一个字符串的子串的复杂性也是 O(N + M)（比如使用KMP算法）。所以总的时间复杂度是<code>O(N+M)</code>，所需的空间也是<code>O(N+M)</code>。———— 这里需要注意一点：对于左结点或者右结点为 null 的情况，需要在字符串中插入特殊字符表示。</p>
+<p>对于简单的情形，上面的解法还算不错。但是当数据量非常大时，暂存前序和中序序列可能要占用太多的内存，所以我们考虑另一种解法：遍历 T1，每当 T1 的某个节点与 T2 的根节点值相同时，就判断两棵子树是否相同。假设 T2 的根节点在 T1 中出现了 k 次，那么算法的时间复杂度就是<code>O(N + k*M)</code>，最坏情况下是<code>O(N*M)</code>。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 匹配两棵子树，完全一样返回true</span></span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">matchTree</span><span class="params">(TreeNode* t1, TreeNode* t2)</span></span><br><span class="line"></span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(t1 == NULL &amp;&amp; t2 == NULL) <span class="comment">/*若两者都为空*/</span></span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">	<span class="keyword">if</span>(t1 == NULL || t2 == NULL) <span class="comment">/*若只有一个为空*/</span></span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span>(t1-&gt;data != t2-&gt;data)</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> matchTree(t1-&gt;left,t2-&gt;left) &amp;&amp; matchTree(t1-&gt;right,t2-&gt;right);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 遍历大树t1，当某个结点与t2根结点相同，matchTree判断</span></span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">subTree</span><span class="params">(BiTree t1, BiTree t2)</span></span><br><span class="line"></span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(t1 == NULL)</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">false</span>;  <span class="comment">/*大的树已经空了，还未找到子树*/</span></span><br><span class="line">	<span class="keyword">if</span>(t1-&gt;data == t2-&gt;data)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span>(matchTree(t1, t2))</span><br><span class="line">			<span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> subTree(t1-&gt;left, t2) || subTree(t1-&gt;right, t2);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">containTree</span><span class="params">(BiTree t1, BiTree t2)</span></span><br><span class="line"></span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(t2 == NULL)  <span class="comment">/*空树一定是子树*/</span></span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">true</span>; </span><br><span class="line">	<span class="keyword">return</span> subTree(t1, t2);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>对于上面的两种解法，哪种解法比较好呢？</p>
+<ul>
+<li><p>方法一会占用 O(N + M) 的内存，而另外一种解法只会占用 O(logN + logM) 的内存（递归的栈内存）。当考虑扩展性时，内存使用的多寡是个很重要的因素。</p>
+</li>
+<li><p>方法一的时间复杂度为O(N + M)，方法二最差的时间复杂度是O(N*M)。但是最差情况的时间复杂度并没有代表性，我们需要进一步观察，因为更可能的情况是很早就发现两棵树的不同，早早的退出了 matchTree。</p>
+</li>
+</ul>
+<p>总的来说，在空间效率上，第二种解法更好。在时间上，需要通过实际数据来验证。</p>
+<p><br><br><strong>4.9 给定一棵二叉树，其中每个结点都含有一个数值。设计一个算法，打印结点数值总和等于某个给定值的所有路径。注意，路径不一定非得从二叉树的根结点或叶结点开始或结束。</strong></p>
+<p>下面我们采用简化推广法来解题。</p>
+<p><strong>Step 1 </strong>： 简化——假设路径必须从根节点开始，但可以在任意结点结束，该怎么解决？</p>
+<p>在这种情况下，问题就会变得容易很多。我们可以从根节点开始，向下访问子节点，计算每条路径上到当前节点为止的数值总和，若与给定值相同则打印当前路径。注意，就算找到总和，仍要继续访问这条路径（因为可能存在正负相抵消的情况）。</p>
+<p><strong>Step 2 </strong>： 推广——路径可从任意结点开始</p>
+<p>如果路径可以从任意结点开始，在任意结点结束。在这种情况下我们稍作调整，对于每个结点，都向“上”检查是否有总和为 sum 的路径。具体来讲就是：递归访问每个结点 p 时，我们将 root 到 p 的完整 path 传入函数；然后，函数会从 p 到 root 逆序将结点上的值加起来，当每条子路径的总和等于 sum 时，打印该条子路径。</p>
+<p>代码如下：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 打印从start到end的路径</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">print</span><span class="params">(<span class="keyword">int</span> path[], <span class="keyword">int</span> start, <span class="keyword">int</span> end)</span></span><br><span class="line"></span>&#123;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=start; i&lt;=end; ++i)</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; path[i] &lt;&lt; <span class="string">" "</span>;</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; endl;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 求一棵子树的高度</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">depth</span><span class="params">(TreeNode* n)</span></span><br><span class="line"></span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(n == NULL)</span><br><span class="line">		<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">else</span></span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">int</span> leftDepth = depth(n-&gt;left);</span><br><span class="line">		<span class="keyword">int</span> rightDepth = depth(n-&gt;right);</span><br><span class="line">		<span class="keyword">return</span> leftDepth&gt;rightDepth ? leftDepth+<span class="number">1</span> : rightDepth+<span class="number">1</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">findSum</span><span class="params">(BiTree T, <span class="keyword">int</span> sum, <span class="keyword">int</span> path[], <span class="keyword">int</span> level)</span></span><br><span class="line"></span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(T == NULL)</span><br><span class="line">		<span class="keyword">return</span>;</span><br><span class="line">	<span class="comment">/*将当前结点插入路径*/</span></span><br><span class="line">	path[level] = T-&gt;data;</span><br><span class="line"></span><br><span class="line">	<span class="comment">/*从当前结点到root结点，看是否存在和为sum的路径*/</span></span><br><span class="line">	<span class="keyword">int</span> t = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=level; i&gt;=<span class="number">0</span>; --i)</span><br><span class="line">	&#123;</span><br><span class="line">		t += path[i];</span><br><span class="line">		<span class="keyword">if</span>(t == sum)</span><br><span class="line">			print(path, i, level);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">/*递归*/</span></span><br><span class="line">	findSum(T-&gt;left, sum, path, level+<span class="number">1</span>);</span><br><span class="line">	findSum(T-&gt;right, sum, path, level+<span class="number">1</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">findSum</span><span class="params">(BiTree T, <span class="keyword">int</span> sum)</span></span><br><span class="line"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> dep = depth(T);</span><br><span class="line">	<span class="keyword">int</span> *path = (<span class="keyword">int</span>*)<span class="built_in">malloc</span>(dep*<span class="keyword">sizeof</span>(<span class="keyword">int</span>));</span><br><span class="line">	findSum(T, sum, path, <span class="number">0</span>);</span><br><span class="line">	</span><br><span class="line">	<span class="built_in">free</span>(path);<span class="comment">/*释放内存*/</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+
+        
+      </div>
+    
+
+    
+      <div class="post-footer">
+        
+          <div class="post-tags">
+            
+              <a href="/tags/Interview/">
+                #Interview
+              </a>
+            
+          </div>
+        
+
+        
+          <div class="post-nav">
+            <div class="post-nav-prev post-nav-item">
+              
+            </div>
+
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/2015/03/16/cracking-the-coding-interview-01/">Cracking the Coding Interview 150题（一）</a>
+              
+            </div>
+          </div>
+        
+
+        
+        
+      </div>
+    
+  </div>
+
+
+
+  
+    <div class="comments" id="comments">
+      
+        <div class="ds-thread" data-thread-key="2015/03/17/cracking-the-coding-interview-02/"
+             data-title="Cracking the Coding Interview 150题（二）" data-url="http://yoursite.com/2015/03/17/cracking-the-coding-interview-02/">
+        </div>
+
+      
+    </div>
+  
+
+          </div>
+
+          
+        </div>
+
+        
+<div class="sidebar-toggle">
+  <div class="sidebar-toggle-line-wrap">
+    <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+    <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+    <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+  </div>
+</div>
+
+<div id="sidebar" class="sidebar">
+  <div class="sidebar-inner">
+
+    
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview" data-target="site-overview">
+          站点概览
+        </li>
+      </ul>
+    
+
+    <div class="site-overview">
+      <div class="site-author motion-element">
+        <img class="site-author-image" src="https://avatars0.githubusercontent.com/u/6904366?v=3&s=140" alt="Song Lee" />
+        <p class="site-author-name">Song Lee</p>
+      </div>
+      <p class="site-description motion-element">放宽心，多努力</p>
+      <div class="site-state motion-element">
+        <div class="site-state-item site-state-posts">
+          <span class="site-state-item-count">60</span>
+          <span class="site-state-item-name">日志</span>
+        </div>
+        <div class="site-state-item site-state-tags">
+            <span class="site-state-item-count">15</span>
+            <span class="site-state-item-name">标签</span>
+        </div>
+        <div class="site-state-item site-state-pages">
+            <span class="site-state-item-count">4</span>
+            <span class="site-state-item-name">页面</span>
+        </div>
+      </div>
+
+      
+        <div class="feed-link motion-element">
+          <a href="/atom.xml">
+            <i class="menu-item-icon icon-feed"></i>
+            RSS
+          </a>
+        </div>
+      
+
+      <div class="links-of-author motion-element">
+        
+          
+            <span class="links-of-author-item">
+              <a href="https://github.com/SongLee24">GitHub</a>
+            </span>
+          
+            <span class="links-of-author-item">
+              <a href="http://blog.csdn.net/lisonglisonglisong">CSDN</a>
+            </span>
+          
+            <span class="links-of-author-item">
+              <a href="http://weibo.com/lisonglisong">Weibo</a>
+            </span>
+          
+            <span class="links-of-author-item">
+              <a href="http://www.douban.com/people/122455925/">DouBan</a>
+            </span>
+          
+            <span class="links-of-author-item">
+              <a href="http://www.zhihu.com/people/shen-yi-59">ZhiHu</a>
+            </span>
+          
+        
+      </div>
+
+      
+      
+        <div class="cc-license motion-element">
+          <a href="http://creativecommons.org/licenses/by-nc-sa/4.0" class="cc-opacity" target="_blank">
+            <img src="/images/cc-by-nc-sa.svg" alt="Creative Commons" />
+          </a>
+        </div>
+      
+
+    </div>
+
+    
+      <div class="post-toc-wrap sidebar-panel-active">
+        <div class="post-toc-indicator-top post-toc-indicator"></div>
+        <div class="post-toc">
+          
+          
+            <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#3、栈与队列"><span class="nav-number">1.</span> <span class="nav-text">3、栈与队列</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4、树与图"><span class="nav-number">2.</span> <span class="nav-text">4、树与图</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参考答案（C++）"><span class="nav-number">3.</span> <span class="nav-text">参考答案（C++）</span></a></li></ol></div>
+          
+        </div>
+        <div class="post-toc-indicator-bottom post-toc-indicator"></div>
+      </div>
+    
+
+  </div>
+</div>
+
+
+      </div>
+    </div>
+
+    <div id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy; &nbsp;  2014 - 
+  2015
+  <span class="with-love">
+    <i class="icon-heart"></i>
+  </span>
+  <span class="author">Song Lee</span>
+</div>
+
+<div class="powered-by">
+  <div style="float:left;margin-top:7px;margin-right:10px;">
+	<script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1254974724'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s11.cnzz.com/z_stat.php%3Fid%3D1254974724%26show%3Dpic' type='text/javascript'%3E%3C/script%3E"));</script>
+  </div>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+
+      </div>
+    </div>
+
+    <div class="back-to-top"></div>
+  </div>
+
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript">
+    $(document).ready(function() {
+      $(".fancybox").fancybox();
+    });
+  </script>
+
+  <script type="text/javascript">
+  function hasMobileUA () {
+    var nav = window.navigator;
+    var ua = nav.userAgent;
+    var pa = /iPad|iPhone|Android|Opera Mini|BlackBerry|webOS|UCWEB|Blazer|PSP|IEMobile|Symbian/g;
+
+    return pa.test(ua);
+  }
+
+  function isDesktop () {
+    return screen.width > 991 && !hasMobileUA();
+  }
+
+  function isTablet () {
+    return screen.width < 992 && screen.width > 767 && hasMobileUA();
+  }
+
+  function isMobile () {
+    return screen.width < 767 && hasMobileUA();
+  }
+
+  function escapeSelector (selector) {
+    return selector.replace(/[!"$%&'()*+,.\/:;<=>?@[\\\]^`{|}~]/g, "\\$&")
+  }
+</script>
+
+  
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
+
+  <script type="text/javascript" id="motion.global">
+  $(document).ready(function () {
+    var body = $('body');
+    var isSidebarVisible = false;
+    var sidebarToggle = $('.sidebar-toggle');
+    var sidebarToggleLine1st = $('.sidebar-toggle-line-first')
+    var sidebarToggleLine2nd = $('.sidebar-toggle-line-middle');
+    var sidebarToggleLine3rd = $('.sidebar-toggle-line-last');
+    var sidebar = $('.sidebar');
+
+    var SIDEBAR_WIDTH = '320px';
+    var SIDEBAR_DISPLAY_DURATION = 300;
+
+    var sidebarToogleLineStatusInit = {width: '100%', opacity: 1, left: 0, rotateZ: 0, top: 0};
+
+    var sidebarToggleLine1stStatusInit = sidebarToogleLineStatusInit;
+    var sidebarToggleLine1stStatusArrow = {width: '50%', rotateZ: '-45deg', top: '2px'};
+    var sidebarToogleLine1stStatusClose = {width: '100%', rotateZ: '-45deg', top: '5px'};
+
+    var sidebarToggleLine2ndStatusInit = sidebarToogleLineStatusInit;
+    var sidebarToggleLine2ndStatusArrow = {width: '90%'};
+    var sidebarToogleLine2ndStatusClose = {opacity: 0};
+
+    var sidebarToggleLine3rdStatusInit = sidebarToogleLineStatusInit;
+    var sidebarToggleLine3rdStatusArrow = {width: '50%', rotateZ: '45deg', top: '-2px'};
+    var sidebarToogleLine3rdStatusClose = {width: '100%', rotateZ: '45deg', top: '-5px'};
+
+    LogoAndMenuMotion();
+    sidebatToggleMotion();
+    postsListMotion();
+    backToTopMotion();
+
+
+    $(document)
+      .on('sidebar.isShowing', function () {
+        isDesktop() && body.velocity(
+          {paddingRight: SIDEBAR_WIDTH},
+          SIDEBAR_DISPLAY_DURATION
+        );
+        sidebarContentMotion();
+      })
+      .on('sidebar.isHiding', function () {});
+
+    function LogoAndMenuMotion() {
+      $.Velocity.RunSequence([
+        { e: $('.brand'), p: { opacity: 1 }, o: { duration: 100 } },
+        { e: $('.logo'), p: { opacity: 1, top: 0 }, o: { duration: 50} },
+        
+        { e: $('.logo-line-before i'), p: { translateX: "100%" }, o: { duration: 500, sequenceQueue: false } },
+        { e: $('.logo-line-after i'), p: { translateX: "-100%" }, o: { duration: 500, sequenceQueue: false } },
+        
+        { e: $('.site-title'), p: { opacity: 1, top: 0 }, o: { duration: 200 } }
+      ]);
+      $('.menu-item').velocity('transition.slideDownIn', {display: null});
+    }
+
+
+    function backToTopMotion () {
+      var b2top = $('.back-to-top');
+      b2top.on('click', function () {
+        body.velocity('scroll');
+      });
+    }
+
+    function sidebarShowMotion () {
+
+      sidebarToggleLine1st.velocity(sidebarToogleLine1stStatusClose);
+      sidebarToggleLine2nd.velocity(sidebarToogleLine2ndStatusClose);
+      sidebarToggleLine3rd.velocity(sidebarToogleLine3rdStatusClose);
+
+      sidebar.velocity({width: SIDEBAR_WIDTH}, {
+        display: 'block',
+        duration: SIDEBAR_DISPLAY_DURATION,
+        complete: function () {
+          sidebar.addClass('sidebar-active');
+          sidebar.trigger('sidebar.didShow');
+        }
+      });
+      sidebar.trigger('sidebar.isShowing');
+    }
+
+    function sidebarHideMotion () {
+      isDesktop() && body.velocity({paddingRight: 0});
+      sidebar.velocity('reverse');
+
+      sidebarToggleLine1st.velocity(sidebarToggleLine1stStatusInit);
+      sidebarToggleLine2nd.velocity(sidebarToggleLine2ndStatusInit);
+      sidebarToggleLine3rd.velocity(sidebarToggleLine3rdStatusInit);
+
+      sidebar.removeClass('sidebar-active');
+      sidebar.trigger('sidebar.isHiding');
+    };
+
+    function sidebarContentMotion () {
+      $('.sidebar .motion-element').velocity(
+        'transition.slideRightIn',
+        {stagger: 50, drag: true}
+      );
+    }
+
+    function postsListMotion () {
+      var postMotionOptions = window.postMotionOptions || {stagger: 300, drag: true};
+      $('.post').velocity('transition.slideDownIn', postMotionOptions);
+    }
+
+    function sidebatToggleMotion () {
+      sidebarToggle.on('click', function () {
+        isSidebarVisible ? sidebarHideMotion() : sidebarShowMotion();
+        isSidebarVisible = !isSidebarVisible;
+      });
+
+      sidebarToggle.hover(function () {
+        if (isSidebarVisible) {return}
+        sidebarToggleLine1st.velocity('stop').velocity(sidebarToggleLine1stStatusArrow);
+        sidebarToggleLine2nd.velocity('stop').velocity(sidebarToggleLine2ndStatusArrow);
+        sidebarToggleLine3rd.velocity('stop').velocity(sidebarToggleLine3rdStatusArrow);
+      }, function () {
+        if (isSidebarVisible) {return}
+        sidebarToggleLine1st.velocity('stop').velocity(sidebarToggleLine1stStatusInit);
+        sidebarToggleLine2nd.velocity('stop').velocity(sidebarToggleLine2ndStatusInit);
+        sidebarToggleLine3rd.velocity('stop').velocity(sidebarToggleLine3rdStatusInit);
+      });
+    }
+  });
+
+</script>
+
+
+
+
+
+  
+  
+<script type="text/javascript" id="bootstrap.scrollspy.custom">
+  /* ========================================================================
+  * Bootstrap: scrollspy.js v3.3.2
+  * http://getbootstrap.com/javascript/#scrollspy
+  * ========================================================================
+  * Copyright 2011-2015 Twitter, Inc.
+  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
+  * ======================================================================== */
+
+  /**
+   * Custom by iissnan
+   *
+   * - Add a `clear.bs.scrollspy` event.
+   * - Esacpe targets selector.
+   */
+
+
+  +function ($) {
+    'use strict';
+
+    // SCROLLSPY CLASS DEFINITION
+    // ==========================
+
+    function ScrollSpy(element, options) {
+      this.$body          = $(document.body)
+      this.$scrollElement = $(element).is(document.body) ? $(window) : $(element)
+      this.options        = $.extend({}, ScrollSpy.DEFAULTS, options)
+      this.selector       = (this.options.target || '') + ' .nav li > a'
+      this.offsets        = []
+      this.targets        = []
+      this.activeTarget   = null
+      this.scrollHeight   = 0
+
+      this.$scrollElement.on('scroll.bs.scrollspy', $.proxy(this.process, this))
+      this.refresh()
+      this.process()
+    }
+
+    ScrollSpy.VERSION  = '3.3.2'
+
+    ScrollSpy.DEFAULTS = {
+      offset: 10
+    }
+
+    ScrollSpy.prototype.getScrollHeight = function () {
+      return this.$scrollElement[0].scrollHeight || Math.max(this.$body[0].scrollHeight, document.documentElement.scrollHeight)
+    }
+
+    ScrollSpy.prototype.refresh = function () {
+      var that          = this
+      var offsetMethod  = 'offset'
+      var offsetBase    = 0
+
+      this.offsets      = []
+      this.targets      = []
+      this.scrollHeight = this.getScrollHeight()
+
+      if (!$.isWindow(this.$scrollElement[0])) {
+        offsetMethod = 'position'
+        offsetBase   = this.$scrollElement.scrollTop()
+      }
+
+      this.$body
+        .find(this.selector)
+        .map(function () {
+          var $el   = $(this)
+          var href  = $el.data('target') || $el.attr('href')
+          var $href = /^#./.test(href) && $(escapeSelector(href)) // Need to escape selector.
+
+          return ($href
+            && $href.length
+            && $href.is(':visible')
+            && [[$href[offsetMethod]().top + offsetBase, href]]) || null
+        })
+        .sort(function (a, b) { return a[0] - b[0] })
+        .each(function () {
+          that.offsets.push(this[0])
+          that.targets.push(this[1])
+        })
+
+
+    }
+
+    ScrollSpy.prototype.process = function () {
+      var scrollTop    = this.$scrollElement.scrollTop() + this.options.offset
+      var scrollHeight = this.getScrollHeight()
+      var maxScroll    = this.options.offset + scrollHeight - this.$scrollElement.height()
+      var offsets      = this.offsets
+      var targets      = this.targets
+      var activeTarget = this.activeTarget
+      var i
+
+      if (this.scrollHeight != scrollHeight) {
+        this.refresh()
+      }
+
+      if (scrollTop >= maxScroll) {
+        return activeTarget != (i = targets[targets.length - 1]) && this.activate(i)
+      }
+
+      if (activeTarget && scrollTop < offsets[0]) {
+        $(this.selector).trigger('clear.bs.scrollspy')  // Add a custom event.
+        this.activeTarget = null
+        return this.clear()
+      }
+
+      for (i = offsets.length; i--;) {
+        activeTarget != targets[i]
+          && scrollTop >= offsets[i]
+          && (!offsets[i + 1] || scrollTop <= offsets[i + 1])
+          && this.activate(targets[i])
+      }
+    }
+
+    ScrollSpy.prototype.activate = function (target) {
+      this.activeTarget = target
+
+      this.clear()
+
+      var selector = this.selector +
+        '[data-target="' + target + '"],' +
+        this.selector + '[href="' + target + '"]'
+
+      var active = $(selector)
+        .parents('li')
+        .addClass('active')
+
+      if (active.parent('.dropdown-menu').length) {
+        active = active
+          .closest('li.dropdown')
+          .addClass('active')
+      }
+
+      active.trigger('activate.bs.scrollspy')
+    }
+
+    ScrollSpy.prototype.clear = function () {
+      $(this.selector)
+        .parentsUntil(this.options.target, '.active')
+        .removeClass('active')
+    }
+
+
+    // SCROLLSPY PLUGIN DEFINITION
+    // ===========================
+
+    function Plugin(option) {
+      return this.each(function () {
+        var $this   = $(this)
+        var data    = $this.data('bs.scrollspy')
+        var options = typeof option == 'object' && option
+
+        if (!data) $this.data('bs.scrollspy', (data = new ScrollSpy(this, options)))
+        if (typeof option == 'string') data[option]()
+      })
+    }
+
+    var old = $.fn.scrollspy
+
+    $.fn.scrollspy             = Plugin
+    $.fn.scrollspy.Constructor = ScrollSpy
+
+
+    // SCROLLSPY NO CONFLICT
+    // =====================
+
+    $.fn.scrollspy.noConflict = function () {
+      $.fn.scrollspy = old
+      return this
+    }
+
+
+    // SCROLLSPY DATA-API
+    // ==================
+
+    $(window).on('load.bs.scrollspy.data-api', function () {
+      $('[data-spy="scroll"]').each(function () {
+        var $spy = $(this)
+        Plugin.call($spy, $spy.data())
+      })
+    })
+
+  }(jQuery);
+</script>
+
+
+<script type="text/javascript" id="sidebar.toc.highlight">
+  $(document).ready(function () {
+    var tocSelector = '.post-toc';
+    var $tocSelector = $(tocSelector);
+    var activeCurrentSelector = '.active-current';
+
+    $tocSelector
+      .on('activate.bs.scrollspy', function () {
+        var $currentActiveElement = $(tocSelector + ' .active').last();
+
+        removeCurrentActiveClass();
+        $currentActiveElement.addClass('active-current');
+
+        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
+      })
+      .on('clear.bs.scrollspy', function () {
+        removeCurrentActiveClass();
+      });
+
+    function removeCurrentActiveClass () {
+      $(tocSelector + ' ' + activeCurrentSelector)
+        .removeClass(activeCurrentSelector.substring(1));
+    }
+
+    function processTOC () {
+      getTOCMaxHeight();
+      toggleTOCOverflowIndicators();
+    }
+
+    function getTOCMaxHeight () {
+      var $sidebarInner = $('.sidebar-inner');
+      var height = $('.sidebar').height() -
+                   $tocSelector.position().top -
+                   $('.post-toc-indicator-bottom').height();
+
+      $tocSelector.css('height', height);
+
+      return height;
+    }
+
+    function toggleTOCOverflowIndicators () {
+      tocOverflowIndicator(
+        '.post-toc-indicator-top',
+        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
+      );
+
+      tocOverflowIndicator(
+        '.post-toc-indicator-bottom',
+        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
+      )
+    }
+
+    $(document).on('sidebar.didShow', function () {
+      processTOC();
+    });
+
+    $('body').scrollspy({ target: tocSelector });
+    $(window).on('resize', function () {
+      if ( $('.sidebar').hasClass('sidebar-active') ) {
+        processTOC();
+      }
+    });
+
+    onScroll($tocSelector);
+
+    function onScroll (element) {
+      element.on('mousewheel DOMMouseScroll', function (event) {
+          var oe = event.originalEvent;
+          var delta = oe.wheelDelta || -oe.detail;
+          var self = this;
+
+          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+          event.preventDefault();
+
+          toggleTOCOverflowIndicators();
+      });
+    }
+
+    function tocOverflowIndicator (indicator, action) {
+      $(indicator).velocity('stop').velocity({
+        opacity: action === 'show' ? 0.4 : 0
+      }, { duration: 100 });
+    }
+
+  });
+</script>
+
+
+  <script type="text/javascript" id="sidebar.nav">
+    $(document).ready(function () {
+      var html = $('html');
+
+      $('.sidebar-nav li').on('click', function () {
+        var item = $(this);
+        var activeTabClassName = 'sidebar-nav-active';
+        var activePanelClassName = 'sidebar-panel-active';
+        if (item.hasClass(activeTabClassName)) {
+          return;
+        }
+
+        var currentTarget = $('.' + activePanelClassName);
+        var target = $('.' + item.data('target'));
+
+        currentTarget.velocity('transition.slideUpOut', 200, function () {
+          target
+            .velocity('stop')
+            .velocity('transition.slideDownIn', 200)
+            .addClass(activePanelClassName);
+        });
+
+        item.siblings().removeClass(activeTabClassName);
+        item.addClass(activeTabClassName);
+      });
+
+      $('.post-toc a').on('click', function (e) {
+        e.preventDefault();
+        var offset = $(escapeSelector(this.getAttribute('href'))).offset().top;
+        html.velocity('stop').velocity('scroll', {
+          offset: offset  + 'px',
+          mobileHA: false
+        });
+      });
+
+      // Expand sidebar on post detail page by default, when post has a toc.
+      var $tocContent = $('.post-toc-content');
+      if ($tocContent.length > 0 && $tocContent.html().trim().length > 0 && isDesktop()) {
+        setTimeout(function () {
+          $('.sidebar-toggle').trigger('click');
+        }, 800);
+      }
+    });
+  </script>
+
+
+
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"16"},"slide":{"type":"slide","bdImg":"2","bdPos":"left","bdTop":"195.5"},"image":{"viewList":["qzone","tsina","tqq","renren","weixin"],"viewText":"分享到：","viewSize":"16"},"selectShare":{"bdContainerClass":null,"bdSelectMiniList":["qzone","tsina","tqq","renren","weixin"]}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+
+
+  
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for (i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"songlee24"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+  
+</body>
+</html>
