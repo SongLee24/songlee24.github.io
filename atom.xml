@@ -4,7 +4,7 @@
   <subtitle><![CDATA[李松]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://yoursite.com/"/>
-  <updated>2015-05-12T13:10:39.870Z</updated>
+  <updated>2015-05-12T13:11:43.312Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -19,7 +19,7 @@
     <link href="http://yoursite.com/2015/05/12/longest-palindromic-substring/"/>
     <id>http://yoursite.com/2015/05/12/longest-palindromic-substring/</id>
     <published>2015-05-12T12:53:19.000Z</published>
-    <updated>2015-05-12T13:10:39.870Z</updated>
+    <updated>2015-05-12T13:11:43.312Z</updated>
     <content type="html"><![CDATA[<p><strong>回文串</strong>，就是指正读和反读都一样的字符串，比如<code>&quot;level&quot;</code>或者<code>&quot;noon&quot;</code>等等。</p>
 <p>那么，如何求一个字符串的<strong>最长回文子串（Longest Palindromic Substring）</strong>？这里我们有多种解法。</p>
 <h3 id="解法一：暴力法">解法一：暴力法</h3><p>暴力解法就是直接枚举所有子串，对每个子串判断是否为回文，时间复杂度为$O(n^3)$。</p>
@@ -29,7 +29,7 @@
 <ul>
 <li><p>初始化：<br>$$\begin{cases}<br>dp[i][i] = true  &amp; \text{(0 &lt;= i &lt;= n-1)}\\<br>dp[i][i-1] = true &amp; \text{(1 &lt;= i &lt;= n-1) }\\<br>others = fasle<br>\end{cases}$$</p>
 </li>
-<li><p>动态规划的状态转移方程：<br>$$<br>dp[i][j] =<br>\begin{cases}<br>dp[i+1][j-1], &amp; \text{if s[i] == s[j]} \[2ex]<br>false, &amp; \text{if s[i] ≠ s[j]}<br>\end{cases}<br>$$</p>
+<li><p>动态规划的状态转移方程：<br>$$<br>dp[i][j] =<br>\begin{cases}<br>dp[i+1][j-1], &amp; \text{if s[i] == s[j]} \\<br>false, &amp; \text{if s[i] ≠ s[j]}<br>\end{cases}<br>$$</p>
 </li>
 </ul>
 <p>C++代码如下<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="built_in">string</span> <span class="title">longestPalindrome</span><span class="params">(<span class="built_in">string</span> s)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">int</span> len = s.size();</span><br><span class="line">	<span class="keyword">if</span>(len &lt;= <span class="number">1</span>) <span class="keyword">return</span> s;</span><br><span class="line">	<span class="comment">// 动态规划表，全部初始化为true</span></span><br><span class="line">	<span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">bool</span>&gt;&gt; dp(len, <span class="built_in">vector</span>&lt;<span class="keyword">bool</span>&gt;(len, <span class="keyword">true</span>));</span><br><span class="line"></span><br><span class="line">	<span class="keyword">int</span> start = <span class="number">0</span>, maxlen = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> k=<span class="number">2</span>; k&lt;=len; ++k) &#123;    <span class="comment">// 枚举子串的长度</span></span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;=len-k; ++i) &#123;  <span class="comment">// 枚举子串起始位置</span></span><br><span class="line">			<span class="keyword">int</span> j = i+k-<span class="number">1</span>;</span><br><span class="line">			<span class="keyword">if</span>(s[i] == s[j] &amp;&amp; dp[i+<span class="number">1</span>][j-<span class="number">1</span>])</span><br><span class="line">			&#123;</span><br><span class="line">				dp[i][j] = <span class="keyword">true</span>;</span><br><span class="line">				start = i;      <span class="comment">// 记录回文子串的起点和长度</span></span><br><span class="line">				maxlen = k;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> s.substr(start, maxlen);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
