@@ -4,7 +4,7 @@
   <subtitle><![CDATA[李松]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://yoursite.com/"/>
-  <updated>2015-05-12T12:57:34.779Z</updated>
+  <updated>2015-05-12T13:10:39.870Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -19,7 +19,7 @@
     <link href="http://yoursite.com/2015/05/12/longest-palindromic-substring/"/>
     <id>http://yoursite.com/2015/05/12/longest-palindromic-substring/</id>
     <published>2015-05-12T12:53:19.000Z</published>
-    <updated>2015-05-12T12:57:34.779Z</updated>
+    <updated>2015-05-12T13:10:39.870Z</updated>
     <content type="html"><![CDATA[<p><strong>回文串</strong>，就是指正读和反读都一样的字符串，比如<code>&quot;level&quot;</code>或者<code>&quot;noon&quot;</code>等等。</p>
 <p>那么，如何求一个字符串的<strong>最长回文子串（Longest Palindromic Substring）</strong>？这里我们有多种解法。</p>
 <h3 id="解法一：暴力法">解法一：暴力法</h3><p>暴力解法就是直接枚举所有子串，对每个子串判断是否为回文，时间复杂度为$O(n^3)$。</p>
@@ -27,7 +27,7 @@
 <h3 id="解法二：动态规划法$O(n^2)$">解法二：动态规划法$O(n^2)$</h3><p>动态规划法是在暴力解法上进行的优化。通过记录一些我们需要的东西，来避免暴力解法中很多重复的判断。</p>
 <p>假设 $dp[i][j]$ 表示子串 $s[i…j]$ 是否是回文，那么对于动态规划表 $dp$ 的打表方式如下：</p>
 <ul>
-<li><p>初始化：<br>$$\begin{cases}<br>dp[i][i] = true  &amp; \text{(0 &lt;= i &lt;= n-1)}\<br>dp[i][i-1] = true &amp; \text{(1 &lt;= i &lt;= n-1) }\<br>others = fasle<br>\end{cases}$$</p>
+<li><p>初始化：<br>$$\begin{cases}<br>dp[i][i] = true  &amp; \text{(0 &lt;= i &lt;= n-1)}\\<br>dp[i][i-1] = true &amp; \text{(1 &lt;= i &lt;= n-1) }\\<br>others = fasle<br>\end{cases}$$</p>
 </li>
 <li><p>动态规划的状态转移方程：<br>$$<br>dp[i][j] =<br>\begin{cases}<br>dp[i+1][j-1], &amp; \text{if s[i] == s[j]} \[2ex]<br>false, &amp; \text{if s[i] ≠ s[j]}<br>\end{cases}<br>$$</p>
 </li>

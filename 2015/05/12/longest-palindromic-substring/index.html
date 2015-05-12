@@ -168,7 +168,7 @@
 <h3 id="解法二：动态规划法$O(n^2)$">解法二：动态规划法$O(n^2)$</h3><p>动态规划法是在暴力解法上进行的优化。通过记录一些我们需要的东西，来避免暴力解法中很多重复的判断。</p>
 <p>假设 $dp[i][j]$ 表示子串 $s[i…j]$ 是否是回文，那么对于动态规划表 $dp$ 的打表方式如下：</p>
 <ul>
-<li><p>初始化：<br>$$\begin{cases}<br>dp[i][i] = true  &amp; \text{(0 &lt;= i &lt;= n-1)}\<br>dp[i][i-1] = true &amp; \text{(1 &lt;= i &lt;= n-1) }\<br>others = fasle<br>\end{cases}$$</p>
+<li><p>初始化：<br>$$\begin{cases}<br>dp[i][i] = true  &amp; \text{(0 &lt;= i &lt;= n-1)}\\<br>dp[i][i-1] = true &amp; \text{(1 &lt;= i &lt;= n-1) }\\<br>others = fasle<br>\end{cases}$$</p>
 </li>
 <li><p>动态规划的状态转移方程：<br>$$<br>dp[i][j] =<br>\begin{cases}<br>dp[i+1][j-1], &amp; \text{if s[i] == s[j]} \[2ex]<br>false, &amp; \text{if s[i] ≠ s[j]}<br>\end{cases}<br>$$</p>
 </li>
