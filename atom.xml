@@ -4,7 +4,7 @@
   <subtitle><![CDATA[李松]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://yoursite.com/"/>
-  <updated>2015-05-23T06:24:19.074Z</updated>
+  <updated>2015-05-23T07:14:57.577Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -19,7 +19,7 @@
     <link href="http://yoursite.com/2015/05/23/intern-seeking-experience/"/>
     <id>http://yoursite.com/2015/05/23/intern-seeking-experience/</id>
     <published>2015-05-23T01:40:05.000Z</published>
-    <updated>2015-05-23T06:24:19.074Z</updated>
+    <updated>2015-05-23T07:14:57.577Z</updated>
     <content type="html"><![CDATA[<p style="font-size:15pt;font-weight:bold">一、实习季Timeline</p>
 
 <p>从2015年4月开始找实习，前后历时两个月，参加了很多的笔试/面试。这是一个焦虑又美好的学期，我在这段时间里学到了很多东西。</p>
@@ -31,7 +31,7 @@
 <p><br></p>
 <p style="font-size:15pt;font-weight:bold">二、经验之谈</p>
 
-<p>我在本科时就决定要进互联网行业，在做过的项目中是C++开发居多，所以也自然而然的走向了服务端开发方向。从这两个月的笔试/面试经历来看，其实做后台服务端开发主要就是要掌握5个方面的知识，而且需要较深入。</p>
+<p>我在本科时就决定要进互联网行业，在做过的项目中是C++开发居多，所以也自然而然的走向了服务端开发方向。从这两个月的笔试/面试经历来看，其实做后台服务端开发主要就是要掌握5个方面的基础知识，而且需要较深入。</p>
 <ol>
 <li><p><strong>语言：</strong>编程语言必然要掌握一门的，而且需要熟练的掌握。从笔试/面试的情况来看，基本就是 C/C++/Java 熟练掌握一门，最好还会一门脚本语言（Perl/Python/Shell）。因为我是C++党，所以这里推荐一下学习C++要看的书：</p>
 <ul>
