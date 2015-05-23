@@ -4,7 +4,7 @@
   <subtitle><![CDATA[李松]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://yoursite.com/"/>
-  <updated>2015-05-23T05:57:23.212Z</updated>
+  <updated>2015-05-23T06:06:00.634Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -19,46 +19,43 @@
     <link href="http://yoursite.com/2015/05/23/intern-seeking-experience/"/>
     <id>http://yoursite.com/2015/05/23/intern-seeking-experience/</id>
     <published>2015-05-23T01:40:05.000Z</published>
-    <updated>2015-05-23T05:57:23.212Z</updated>
+    <updated>2015-05-23T06:06:00.634Z</updated>
     <content type="html"><![CDATA[<h3 id="一、实习季Timeline">一、实习季Timeline</h3><p>从2015年4月开始找实习，前后历时两个月，参加了很多的笔试/面试。这是一个焦虑又美好的学期，我在这段时间里学到了很多东西。</p>
-<hr>
-
 <p><iframe src="http://timelinejs.sinaapp.com/" width="100%" height="500" frameborder="0"></iframe><br><a id="more"></a></p>
-<hr>
-
 <p>这一个学期就这么磕磕绊绊的过了一半了，决定去360实习以后，也终于能安下心来。因为等待（笔试/面试通知）真的是很痛苦的一件事。</p>
 <p>参加的笔试/面试越多，越发现自己有很多的不足。求职难免碰壁，这两个月我被虐了好几次，导致我的自信心直线下降。但现在来看，我觉得被虐反而更好，它让我不断总结和反思：哪一块的知识不知道就补哪一块，然后不断地提高自己。</p>
+<p><br></p>
 <h3 id="二、经验之谈">二、经验之谈</h3><p>我在本科时就决定要进互联网行业，在做过的项目中是C++开发居多，所以也自然而然的走向了服务端开发方向。从这两个月的笔试/面试经历来看，其实做后台服务端开发主要就是要掌握5各方面的知识，而且需要较深入。</p>
 <ol>
-<li><p><strong>语言</strong>：编程语言必然是要掌握一门的，而且需要熟练的掌握。从笔试/面试的情况来看，基本就是 C/C++/Java 熟练掌握一门，最好还会一门脚本语言（Perl/Python/Shell）。因为我是C++党，所以这里推荐一下学习C++要看的书：</p>
+<li><p><strong>语言：</strong>编程语言必然是要掌握一门的，而且需要熟练的掌握。从笔试/面试的情况来看，基本就是 C/C++/Java 熟练掌握一门，最好还会一门脚本语言（Perl/Python/Shell）。因为我是C++党，所以这里推荐一下学习C++要看的书：</p>
 <ul>
 <li>《C++ Primer》不用多说，入门必看。</li>
 <li>《Effective C++》《More Effective C++》《深度探索C++对象模型》进阶。</li>
 <li>《Effective STL》《STL源码剖析》了解C++ STL。</li>
 </ul>
 </li>
-<li><p>算法与数据结构：这个就不用多说，不管什么岗位都要有算法基础的。</p>
+<li><p><strong>算法与数据结构：</strong>这个就不用多说，不管什么岗位都要有算法基础的。</p>
 <ul>
 <li>《算法导论》最经典，但有人说上面讲的太繁琐，其实我也觉得，可能是水平还不够。</li>
 <li>《程序员面试金典》《编程之美》《剑指offer》</li>
 <li>刷题：LeetCode</li>
 </ul>
 </li>
-<li><p>操作系统：做服务端开发，对操作系统一定要很了解。通常考的最多的是进程线程、内存管理、I/O管理。</p>
+<li><p><strong>操作系统：</strong>做服务端开发，对操作系统一定要很了解。通常考的最多的是进程线程、内存管理、I/O管理。</p>
 <ul>
 <li>《现代操作系统》《深入理解计算机系统》这是原理方面的。</li>
 <li>《UNIX环境高级编程》服务端是比较偏Unix/Linux的。</li>
 <li>如果你还要了解Linux内核的话…</li>
 </ul>
 </li>
-<li><p>网络：主要是指TCP/IP，做服务端必须熟练掌握TCP/IP，这点不需要解释什么。</p>
+<li><p><strong>网络：</strong>主要是指TCP/IP，做服务端必须熟练掌握TCP/IP，这点不需要解释什么。</p>
 <ul>
 <li>《TCP/IP协议详解》卷1，必看网络协议经典书籍。</li>
 <li>《计算机网络：自顶向下方法》也是讲原理的。</li>
 <li>《Unix网络编程》了解了原理，需要实战一下。</li>
 </ul>
 </li>
-<li><p>数据库：不论什么样的应用，都需要数据库的支持，数据库无处不在。而现在主流的还是关系型数据库，建议学MySQL。</p>
+<li><p><strong>数据库：</strong>不论什么样的应用，都需要数据库的支持，数据库无处不在。而现在主流的还是关系型数据库，建议学MySQL。</p>
 <ul>
 <li>《数据库系统概念》了解数据库。</li>
 <li>《SQL Cookbook》《SQL入门经典》了解SQL结构化查询语言。</li>
@@ -71,13 +68,12 @@
 <center><br><img src="http://img.blog.csdn.net/20150523134332379" alt=""><br></center>
 
 <p>对于基础知识，必然是要全部掌握的；而对于技术领域，可以择其一而攻之。</p>
-<h3 id="三、总结和展望">三、总结和展望</h3><p>这个实习生招聘季，我收获颇多。经过多个<code>笔试-&gt;总结-&gt;面试-&gt;总结</code>的循环，我学到了很多，提高了很多。同时，也更加明确了自己将来要做什么，要往哪个方向走。</p>
-<p>我会记住并保持这段时间的这种心态，在接下来一年的实习时间里，继续不断地学习并实践，提高自己的能力。我给自己列了一个<code>To-Do-List</code>，在接下来的一年里完成它，相信在一年后的毕业招聘季，我能更加的得心应手。</p>
+<p><br></p>
+<h3 id="三、总结和展望">三、总结和展望</h3><p>这个实习生招聘季，经过多个<code>笔试-&gt;总结-&gt;面试-&gt;总结</code>的循环，我学到了很多，提高了很多。同时，也更加明确了自己将来要做什么，要往哪个方向走。</p>
+<p>我会记住并保持这段时间的这种心态，在接下来一年的实习时间里，看完还没看完的书，了解并学习一些新的领域，完成给自己制定的<code>To-Do-List</code>。相信在一年后的毕业招聘季中，我能更加地得心应手。</p>
 ]]></content>
     <summary type="html">
     <![CDATA[<h3 id="一、实习季Timeline">一、实习季Timeline</h3><p>从2015年4月开始找实习，前后历时两个月，参加了很多的笔试/面试。这是一个焦虑又美好的学期，我在这段时间里学到了很多东西。</p>
-<hr>
-
 <p><iframe src='http://timelinejs.sinaapp.com/' width='100%' height='500' frameborder='0'></iframe><br>]]>
     
     </summary>
