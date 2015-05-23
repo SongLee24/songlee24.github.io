@@ -4,7 +4,7 @@
   <subtitle><![CDATA[李松]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://yoursite.com/"/>
-  <updated>2015-05-12T13:11:43.312Z</updated>
+  <updated>2015-05-23T01:52:22.154Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -13,6 +13,32 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[2015实习生求职季总结]]></title>
+    <link href="http://yoursite.com/2015/05/23/intern-seeking-experience/"/>
+    <id>http://yoursite.com/2015/05/23/intern-seeking-experience/</id>
+    <published>2015-05-23T01:40:05.000Z</published>
+    <updated>2015-05-23T01:52:22.154Z</updated>
+    <content type="html"><![CDATA[<!-- BEGIN：嵌入Timeline -->
+<pre><code><span class="tag">&lt;<span class="title">div</span> <span class="attribute">id</span>=<span class="value">"timeline-embed"</span>&gt;</span><span class="tag">&lt;/<span class="title">div</span>&gt;</span>
+<span class="tag">&lt;<span class="title">script</span> <span class="attribute">type</span>=<span class="value">"text/javascript"</span>&gt;</span><span class="processing">
+  var timeline_config = {
+   <span class="variable">width</span>: <span class="string">"100%"</span>,
+   <span class="variable">height</span>: <span class="string">"100%"</span>,
+   source: <span class="string">'data.json'</span>
+  }
+</span><span class="tag">&lt;/<span class="title">script</span>&gt;</span>
+<span class="tag">&lt;<span class="title">script</span> <span class="attribute">type</span>=<span class="value">"text/javascript"</span> <span class="attribute">src</span>=<span class="value">"../js/storyjs-embed.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span>
+</code></pre><!-- END：嵌入Timeline -->]]></content>
+    <summary type="html">
+    <![CDATA[<!-- BEGIN：嵌入Timeline -->
+<pre><code><span class="tag">&lt;<span class="title">div</span> <span class="attribute">id</span>=<span class="val]]>
+    </summary>
+    
+      <category term="非技术-杂谈" scheme="http://yoursite.com/categories/%E9%9D%9E%E6%8A%80%E6%9C%AF-%E6%9D%82%E8%B0%88/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[求最长回文子串]]></title>
@@ -1529,94 +1555,6 @@
       <category term="Cpp" scheme="http://yoursite.com/tags/Cpp/"/>
     
       <category term="Lang.-Cpp" scheme="http://yoursite.com/categories/Lang-Cpp/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[Android网络爬虫程序（基于Jsoup）]]></title>
-    <link href="http://yoursite.com/2015/01/11/android-crawler/"/>
-    <id>http://yoursite.com/2015/01/11/android-crawler/</id>
-    <published>2015-01-11T15:53:11.000Z</published>
-    <updated>2015-05-10T10:52:59.184Z</updated>
-    <content type="html"><![CDATA[<p>摘要：基于 Jsoup 实现一个 Android 的网络爬虫程序，抓取网页的内容并显示出来。写这个程序的主要目的是抓取<a href="http://xjh.haitou.cc/" target="_blank" rel="external">海投网</a>的宣讲会信息（公司、时间、地点）并在移动端显示，这样就可以随时随地的浏览在学校举办的宣讲会信息了。</p>
-<h3 id="一、Jsoup简介">一、Jsoup简介</h3><p><a href="http://jsoup.org/" target="_blank" rel="external">Jsoup</a> 是一个 Java 的开源HTML解析器，可直接解析某个URL地址、HTML文本内容。它提供了一套非常方便的API，可通过DOM，CSS以及类似于jQuery的操作方法来取出和操作数据。</p>
-<p>Jsoup主要有以下功能：<a id="more"></a></p>
-<ul>
-<li><p>从一个URL，文件或字符串中解析HTML；</p>
-</li>
-<li><p>使用DOM或CSS选择器来查找、取出数据；</p>
-</li>
-<li><p>对HTML元素、属性、文本进行操作；</p>
-</li>
-<li><p>清除不受信任的HTML (来防止XSS攻击)</p>
-</li>
-</ul>
-<p>好了，下面写几段代码来说明 Jsoup 是如何优雅的进行 HTML 文档处理的。首先，我们需要去 <a href="http://jsoup.org/download" target="_blank" rel="external">Jsoup官网</a> 下载Jsoup的<code>jar</code>包，然后加入项目的依赖库中。</p>
-<p><strong>1） HTML解析</strong></p>
-<p>Jsoup 可以从一个字符串、文件或者一个 URL 中解析HTML，解析的目的主要是为了得到一个干净完整的解析结果，并生成 Document 对象实例。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Parse a document from a String</span></span><br><span class="line">String html = <span class="string">"&lt;html&gt;&lt;head&gt;&lt;title&gt;神奕的博客&lt;/title&gt;&lt;/head&gt;"</span></span><br><span class="line">        +<span class="string">"&lt;body&gt;&lt;p&gt;搭个博客写学习笔记！！&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;"</span>;</span><br><span class="line">Document doc = Jsoup.parse(html);</span><br><span class="line"></span><br><span class="line"><span class="comment">// Load a Document from a File</span></span><br><span class="line">File input = <span class="keyword">new</span> File(<span class="string">"D://a.html"</span>);</span><br><span class="line">Document doc = Jsoup.parse(input, <span class="string">"UTF-8"</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// Load a Document from a URL</span></span><br><span class="line">Document doc = Jsoup.connect(<span class="string">"http://example.com/"</span>).get();</span><br></pre></td></tr></table></figure></p>
-<p>当加载和解析一个本地的HTML文件时，如果在加载文件的时候发生错误，将抛出 IOException，应作适当处理。</p>
-<p><strong>2） 数据提取</strong></p>
-<p>将HTML解析成一个<code>Document</code>之后，就可以使用传统的 DOM 方法进行数据抽取。例如：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 海投网</span></span><br><span class="line">String url = <span class="string">"http://xjh.haitou.cc/wh/uni-1/after/hold/page-1/"</span>;</span><br><span class="line">Document doc = Jsoup.connect(url).get();</span><br><span class="line"></span><br><span class="line">Elements elements = doc.getElementsByTag(<span class="string">"company"</span>);</span><br><span class="line"><span class="keyword">for</span>(Element e : elements) &#123;</span><br><span class="line">    System.out.println(e.text());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>Document 对象和 Elements 对象提供了一系列类似于DOM的方法来查找元素，比如 getElementById(String id)、getElementsByTag(String tag) 等等。更多方法请看《<a href="http://www.open-open.com/jsoup/dom-navigation.htm" target="_blank" rel="external">Jsoup Cookbook</a>》。</p>
-<p>另外，还可以使用 Selector 选择器（类似于CSS或jQuery语法）来查找元素。如下：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 海投网</span></span><br><span class="line">String url = <span class="string">"http://xjh.haitou.cc/wh/uni-1/after/hold/page-1/"</span>;</span><br><span class="line">Document doc = Jsoup.connect(url).get();</span><br><span class="line"></span><br><span class="line"><span class="comment">// 通过标签company查找元素</span></span><br><span class="line">Elements company = doc.select(<span class="string">"company"</span>);</span><br><span class="line"><span class="comment">// 带有href属性的a元素</span></span><br><span class="line">Elements links = doc.select(<span class="string">"a[href]"</span>);</span><br><span class="line"><span class="comment">// 扩展名为.png的图片</span></span><br><span class="line">Elements pngs = doc.select(<span class="string">"img[src$=.png]"</span>);</span><br><span class="line"><span class="comment">// class等于content的div标签</span></span><br><span class="line">Element content = doc.select(<span class="string">"div.content"</span>).first();</span><br></pre></td></tr></table></figure></p>
-<p>选择器实现了非常强大和灵活的查找功能。<code>select</code>方法在Document、Element 或 Elements 对象中都可以使用，且是上下文相关的，因此可实现指定元素的过滤或者链式选择访问。<code>select</code>方法将返回一个Elements集合，并提供一组方法来抽取和处理结果。</p>
-<p>通过 DOM 方法或者 Selector 方法查找到一些 Elements 元素之后，我们需要从这些元素中取得数据，下面是几个常用的方法：</p>
-<ul>
-<li><p>取得一个属性的值，可以使用<code>Node.attr(String key)</code>方法；</p>
-</li>
-<li><p>取得一个元素中的文本，可以使用<code>Element.text()</code>方法；</p>
-</li>
-<li><p>取得元素或属性中的HTML内容，可用<code>Element.html()</code>或<code>Node.outerHtml()</code>方法</p>
-</li>
-<li><p>取得一个元素的 id ：<code>Element.id()</code></p>
-</li>
-<li><p>取得一个元素的标签名：<code>Element.tagName()</code></p>
-</li>
-<li><p>取得一个元素的类名：<code>Element.className()</code></p>
-</li>
-</ul>
-<p><strong>3） 数据修改</strong></p>
-<p>在解析一个 Document 之后可能想修改其中的某些属性值、HTML或文本内容，然后再保存到磁盘或都输出到前台页面。例如：我们可以为文档中的所有图片增加可点击链接、修改链接地址或者是修改文本等。Jsoup 提供了很多方法用来进行修改，这里就不列举了，请移步 <a href="http://www.open-open.com/jsoup/set-attributes.htm" target="_blank" rel="external">Jsoup Cookbook</a> 。</p>
-<h3 id="二、海投网的页面抓取">二、海投网的页面抓取</h3><p><a href="http://www.haitou.cc/" target="_blank" rel="external">海投网</a>是一个为高校毕业生服务的招聘信息网，创始人是华中科技大学的毕业生。现在我要抓取在华中科技大学举办的宣讲会的信息，网页如下图：</p>
-<p><img src="http://img.blog.csdn.net/20150124222530359?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvbGlzb25nbGlzb25nbGlzb25n/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" alt=""></p>
-<p>查看网页源代码，如下图：</p>
-<p><img src="http://img.blog.csdn.net/20150124222646938?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvbGlzb25nbGlzb25nbGlzb25n/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt=""></p>
-<p>可以看出，公司名是在一个 company 标签内，宣讲会时间是在一个类名为 text-center 的 td 标签内，学校的具体地点则是在一个类名为 preach-tbody-addre 的 td 标签内。这么一分析，要提取华中科技大学的宣讲会信息就变得挺简单了。</p>
-<p>Java代码如下：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.jsoup.Connection;</span><br><span class="line"><span class="keyword">import</span> org.jsoup.Jsoup;</span><br><span class="line"><span class="keyword">import</span> org.jsoup.nodes.Document;</span><br><span class="line"><span class="keyword">import</span> org.jsoup.nodes.Element;</span><br><span class="line"><span class="keyword">import</span> org.jsoup.select.Elements;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">        String url = <span class="string">"http://xjh.haitou.cc/wh/uni-1/after/hold/page-1/"</span>;</span><br><span class="line">        Connection conn = Jsoup.connect(url);</span><br><span class="line">        <span class="comment">// 修改http包中的header,伪装成浏览器进行抓取</span></span><br><span class="line">        conn.header(<span class="string">"User-Agent"</span>, <span class="string">"Mozilla/5.0 (X11; Linux x86_64; rv:32.0) Gecko/    20100101 Firefox/32.0"</span>);</span><br><span class="line">        Document doc = conn.get();</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// 获取tbody元素下的所有tr元素</span></span><br><span class="line">        Elements elements = doc.select(<span class="string">"tbody tr"</span>);</span><br><span class="line">        <span class="keyword">for</span>(Element element : elements) &#123;</span><br><span class="line">        	String companyName = element.getElementsByTag(<span class="string">"company"</span>).text();</span><br><span class="line">        	String time = element.select(<span class="string">"td.text-center"</span>).first().text();</span><br><span class="line">        	String address = element.getElementsByClass(<span class="string">"preach-tbody-addre"</span>).text();</span><br><span class="line">        	</span><br><span class="line">        	System.out.println(<span class="string">"公司："</span>+companyName);</span><br><span class="line">        	System.out.println(<span class="string">"宣讲时间："</span>+time);</span><br><span class="line">        	System.out.println(<span class="string">"宣讲学校：华中科技大学"</span>);</span><br><span class="line">        	System.out.println(<span class="string">"具体地点："</span>+address);</span><br><span class="line">        	System.out.println(<span class="string">"---------------------------------"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>某些网站禁止爬虫，不能抓取或者抓取一定数量后封IP。这时候我们需要<strong>伪装成浏览器</strong>进行抓取，这可以通过修改http包中的header来实现（<a href="http://www.966266.com/jishu/user-agent-chaxun.html" target="_blank" rel="external">设置User-Agent</a>）。运行上面的程序得到输出结果：<br><figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">公司：瑞声科技(常州)有限公司</span><br><span class="line">宣讲时间：2015-03-07 19:00(周六)</span><br><span class="line">宣讲学校：华中科技大学</span><br><span class="line"><span class="header">具体地点：大学生活动中心305阶梯教室</span><br><span class="line">---------------------------------</span></span><br><span class="line">公司：普联技术有限公司</span><br><span class="line">宣讲时间：2015-03-08 19:00(周日)</span><br><span class="line">宣讲学校：华中科技大学</span><br><span class="line"><span class="header">具体地点：大学生活动中心305阶梯教室</span><br><span class="line">---------------------------------</span></span><br><span class="line">公司：大联大投资控股股份有限公司</span><br><span class="line">宣讲时间：2015-03-09 09:30(周一)</span><br><span class="line">宣讲学校：华中科技大学</span><br><span class="line"><span class="header">具体地点：大学生活动中心305阶梯教室</span><br><span class="line">---------------------------------</span></span><br><span class="line">......</span><br></pre></td></tr></table></figure></p>
-<h3 id="三、应用到Android程序中">三、应用到Android程序中</h3><p>开发 Android 程序，你需要搭建开发环境，很简单：先安装Java的JDK（最好不低于1.6），然后去<a href="http://developer.android.com" target="_blank" rel="external">Android官网</a>下载并安装 <strong>Android Studio</strong> 就行了。</p>
-<p>在Android程序中使用 Jsoup 需要注意两点：</p>
-<ul>
-<li><p>在AndroidManifest.xml文件中添加网络访问权限<code>android.permission.INTERNET</code></p>
-</li>
-<li><p>Android在4.0之后，不允许在主线程里执行网络（http）请求，也就是说 Jsoup 的代码需要写在子线程里。</p>
-</li>
-</ul>
-<p><strong>1） 多线程</strong></p>
-<p>4.0 版本以后，如果你在主线程里尝试进行网络操作，会报android.os.NetworkOnMainThreadException 的异常。所以我们需要开辟子线程进行异步加载，用到<code>Thread</code>、<code>Runnable</code>、<code>Handler</code>这三个类：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onCreate</span><span class="params">(Bundle savedInstanceState)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">super</span>.onCreate(savedInstanceState);</span><br><span class="line">    <span class="keyword">this</span>.setContentView(R.layout.share_mblog_view);</span><br><span class="line">    <span class="comment">// 开辟一个线程</span></span><br><span class="line">    <span class="keyword">new</span> Thread(runnable).start();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Runnable runnable = <span class="keyword">new</span> Runnable()&#123;</span><br><span class="line">    <span class="annotation">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    	<span class="javadoc">/**</span><br><span class="line">         * 要执行的操作</span><br><span class="line">         */</span></span><br><span class="line">    	<span class="comment">// 执行完毕后给handler发送一个空消息</span></span><br><span class="line">        handler.sendEmptyMessage(<span class="number">0</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Handler handler = <span class="keyword">new</span> Handler()&#123;</span><br><span class="line">    <span class="annotation">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">handleMessage</span><span class="params">(Message msg)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>.handleMessage(msg);</span><br><span class="line">        <span class="javadoc">/**</span><br><span class="line">         * 处理UI</span><br><span class="line">         */</span></span><br><span class="line">    	<span class="comment">// 当收到消息时就会执行这个方法</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p><strong>2） 判断网络连接是否可用</strong></p>
-<p>如果在没有可用网络的情况下执行网络爬虫程序，App将会报错。所以在每次执行之前都应该先判断网络是否可用。大致步骤如下：</p>
-<p>① 获取ConnectivityManager对象<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Context context = activity.getApplicationContext();</span><br><span class="line"><span class="comment">// 获取手机所有连接管理对象（包括对wi-fi,net等连接的管理）</span></span><br><span class="line">ConnectivityManager cm = (ConnectivityManager)context.getSystemService(Context.CONNECTIVITY_SERVICE);</span><br></pre></td></tr></table></figure></p>
-<p>② 获取NetworkInfo对象<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">NetworkInfo info = cm.getActiveNetworkInfo();</span><br></pre></td></tr></table></figure></p>
-<p>③ 判断网络类型，Android的网络分为两大类：WIFI 和 手机网络<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// WIFI 判定条件</span></span><br><span class="line">info != <span class="keyword">null</span> &amp;&amp; info.getType() == ConnectivityManager.TYPE_WIFI</span><br><span class="line"><span class="comment">// 手机网络 判定条件</span></span><br><span class="line">info !=<span class="keyword">null</span> &amp;&amp; info.getType() ==  ConnectivityManager.TYPE_MOBILE</span><br></pre></td></tr></table></figure></p>
-<p>而手机网络具体又分为很多类，比如移动3G、移动2G、联通2G等等。这里就不说了，自行Google。</p>
-<p>④ 判断网络连接是否可用（包括所有网络类型）<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isNetworkAvailable</span><span class="params">(Activity activity)</span></span><br><span class="line"></span>&#123;</span><br><span class="line">    Context context = activity.getApplicationContext();</span><br><span class="line">    ConnectivityManager cm = (ConnectivityManager) </span><br><span class="line">    		context.getSystemService(Context.CONNECTIVITY_SERVICE);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (cm == <span class="keyword">null</span>)</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;   <span class="comment">// 获取所有NetworkInfo对象</span></span><br><span class="line">        NetworkInfo[] networkInfo = cm.getAllNetworkInfo();</span><br><span class="line">        <span class="keyword">if</span> (networkInfo != <span class="keyword">null</span> &amp;&amp; networkInfo.length &gt; <span class="number">0</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; networkInfo.length; i++)</span><br><span class="line">                <span class="keyword">if</span> (networkInfo[i].getState() == NetworkInfo.State.CONNECTED)</span><br><span class="line">                    <span class="keyword">return</span> <span class="keyword">true</span>;  <span class="comment">// 存在可用的网络连接</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>注意，要在 AndroidManifest.xml 文件中添加访问网络状态的权限：<br><figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;uses-permission android:<span class="property">name</span>=<span class="string">"android.permission.ACCESS_NETWORK_STATE"</span> /&gt;</span><br></pre></td></tr></table></figure></p>
-<p><br><br>另外，本程序在 UI 界面开发上涉及到 Android 中的 ListView（显示）、PopupWindow（菜单）、ProgressDialog（加载）、AlertDialog（提示）等控件的使用。因为本文并不是讨论 Android 控件的使用，在这里就不赘述了。</p>
-<p><img src="http://img.blog.csdn.net/20150124232559703?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvbGlzb25nbGlzb25nbGlzb25n/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt=""></p>
-<p><strong>源码下载：</strong><a href="https://github.com/SongLee24/android-crawler" target="_blank" rel="external">https://github.com/SongLee24/android-crawler</a></p>
-<p><br><br><br><br><br><br>（全文完）<br><br></p>
-]]></content>
-    <summary type="html">
-    <![CDATA[<p>摘要：基于 Jsoup 实现一个 Android 的网络爬虫程序，抓取网页的内容并显示出来。写这个程序的主要目的是抓取<a href="http://xjh.haitou.cc/">海投网</a>的宣讲会信息（公司、时间、地点）并在移动端显示，这样就可以随时随地的浏览在学校举办的宣讲会信息了。</p>
-<h3 id="一、Jsoup简介">一、Jsoup简介</h3><p><a href="http://jsoup.org/">Jsoup</a> 是一个 Java 的开源HTML解析器，可直接解析某个URL地址、HTML文本内容。它提供了一套非常方便的API，可通过DOM，CSS以及类似于jQuery的操作方法来取出和操作数据。</p>
-<p>Jsoup主要有以下功能：]]>
-    
-    </summary>
-    
-      <category term="Android" scheme="http://yoursite.com/tags/Android/"/>
-    
-      <category term="System-Android" scheme="http://yoursite.com/categories/System-Android/"/>
     
   </entry>
   
