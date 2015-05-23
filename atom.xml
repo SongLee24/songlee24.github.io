@@ -4,7 +4,7 @@
   <subtitle><![CDATA[李松]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://yoursite.com/"/>
-  <updated>2015-05-23T03:40:23.640Z</updated>
+  <updated>2015-05-23T03:43:57.542Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -19,13 +19,19 @@
     <link href="http://yoursite.com/2015/05/23/intern-seeking-experience/"/>
     <id>http://yoursite.com/2015/05/23/intern-seeking-experience/</id>
     <published>2015-05-23T01:40:05.000Z</published>
-    <updated>2015-05-23T03:40:23.640Z</updated>
-    <content type="html"><![CDATA[<h2 id="从2015年4月开始找实习，参加了很多的笔试/面试。这是一个焦虑又美好的学期，我在这段时间里学到了很多东西。">从2015年4月开始找实习，参加了很多的笔试/面试。这是一个焦虑又美好的学期，我在这段时间里学到了很多东西。</h2><iframe src="http://timelinejs.sinaapp.com/" width="100%" height="500" frameborder="0"></iframe>
-
+    <updated>2015-05-23T03:43:57.542Z</updated>
+    <content type="html"><![CDATA[<p>从2015年4月开始找实习，参加了很多的笔试/面试。这是一个焦虑又美好的学期，我在这段时间里学到了很多东西。</p>
 <hr>
+
+<iframe src="http://timelinejs.sinaapp.com/" width="100%" height="500" frameborder="0"></iframe>
+
+<p><hr><br>由于我个人是后台方向，所以这里的总结对前端等方向并不适用。</p>
 ]]></content>
     <summary type="html">
-    <![CDATA[<h2 id="从2015年4月开始找实习，参加了很多的笔试/面试。这是一个焦虑又美好的学期，我在这段时间里学到了很多东西。">从2015年4月开始找实习，参加了很多的笔试/面试。这是一个焦虑又美好的学期，我在这段时间里学到了很多东西。</h2><iframe src="http]]>
+    <![CDATA[<p>从2015年4月开始找实习，参加了很多的笔试/面试。这是一个焦虑又美好的学期，我在这段时间里学到了很多东西。</p>
+<hr>
+
+<iframe src="http://timelinejs.sinaapp.com/" width="100%" height="500" f]]>
     </summary>
     
       <category term="非技术-杂谈" scheme="http://yoursite.com/categories/%E9%9D%9E%E6%8A%80%E6%9C%AF-%E6%9D%82%E8%B0%88/"/>
