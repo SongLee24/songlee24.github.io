@@ -4,7 +4,7 @@
   <subtitle><![CDATA[李松]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://yoursite.com/"/>
-  <updated>2015-05-23T01:52:22.154Z</updated>
+  <updated>2015-05-23T01:59:52.546Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -19,21 +19,13 @@
     <link href="http://yoursite.com/2015/05/23/intern-seeking-experience/"/>
     <id>http://yoursite.com/2015/05/23/intern-seeking-experience/</id>
     <published>2015-05-23T01:40:05.000Z</published>
-    <updated>2015-05-23T01:52:22.154Z</updated>
-    <content type="html"><![CDATA[<!-- BEGIN：嵌入Timeline -->
-<pre><code><span class="tag">&lt;<span class="title">div</span> <span class="attribute">id</span>=<span class="value">"timeline-embed"</span>&gt;</span><span class="tag">&lt;/<span class="title">div</span>&gt;</span>
-<span class="tag">&lt;<span class="title">script</span> <span class="attribute">type</span>=<span class="value">"text/javascript"</span>&gt;</span><span class="processing">
-  var timeline_config = {
-   <span class="variable">width</span>: <span class="string">"100%"</span>,
-   <span class="variable">height</span>: <span class="string">"100%"</span>,
-   source: <span class="string">'data.json'</span>
-  }
-</span><span class="tag">&lt;/<span class="title">script</span>&gt;</span>
-<span class="tag">&lt;<span class="title">script</span> <span class="attribute">type</span>=<span class="value">"text/javascript"</span> <span class="attribute">src</span>=<span class="value">"../js/storyjs-embed.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span>
-</code></pre><!-- END：嵌入Timeline -->]]></content>
+    <updated>2015-05-23T01:59:52.546Z</updated>
+    <content type="html"><![CDATA[<p>&lt;!DOCTYPE html&gt;</p>
+<html lang="zh-cn"><br>  <head><br>    <meta charset="utf-8"><br>    <meta name="description" content="TimelineJS example"><br>    <meta name="apple-mobile-web-app-capable" content="yes"><br>    <meta name="apple-touch-fullscreen" content="yes"><br>    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"><br>    <!-- Style--><br>    <style><br>      html, body {<br>       height:100%;<br>       padding: 0px;<br>       margin: 0px;<br>      }<br>    </style><br>    <!-- HTML5 shim, for IE6-8 support of HTML elements--><!--[if lt IE 9]>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script><![endif]--><br>  </head><br>  <body><br>      <!-- BEGIN：嵌入Timeline --><br>      <div id="timeline-embed"></div><br>      <script type="text/javascript"><br>        var timeline_config = {<br>         width: “100%”,<br>         height: “100%”,<br>         source: ‘data.json’<br>        }<br>      </script><br>      <script type="text/javascript" src="../js/storyjs-embed.js"></script><br>      <!-- END：嵌入Timeline --><br>  </body><br></html>]]></content>
     <summary type="html">
-    <![CDATA[<!-- BEGIN：嵌入Timeline -->
-<pre><code><span class="tag">&lt;<span class="title">div</span> <span class="attribute">id</span>=<span class="val]]>
+    <![CDATA[<p>&lt;!DOCTYPE html&gt;</p>
+<html lang="zh-cn"><br>  <head><br>    <meta charset="utf-8"><br>    <meta name="description" content="Timeline]]>
     </summary>
     
       <category term="非技术-杂谈" scheme="http://yoursite.com/categories/%E9%9D%9E%E6%8A%80%E6%9C%AF-%E6%9D%82%E8%B0%88/"/>
