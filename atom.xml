@@ -4,7 +4,7 @@
   <subtitle><![CDATA[李松]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://yoursite.com/"/>
-  <updated>2015-05-23T05:33:01.241Z</updated>
+  <updated>2015-05-23T05:40:29.664Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -19,8 +19,8 @@
     <link href="http://yoursite.com/2015/05/23/intern-seeking-experience/"/>
     <id>http://yoursite.com/2015/05/23/intern-seeking-experience/</id>
     <published>2015-05-23T01:40:05.000Z</published>
-    <updated>2015-05-23T05:33:01.241Z</updated>
-    <content type="html"><![CDATA[<p>从2015年4月开始找实习，参加了很多的笔试/面试。这是一个焦虑又美好的学期，我在这段时间里学到了很多东西。</p>
+    <updated>2015-05-23T05:40:29.664Z</updated>
+    <content type="html"><![CDATA[<h3 id="一、实习季Timeline">一、实习季Timeline</h3><p>从2015年4月开始找实习，前后历时两个月，参加了很多的笔试/面试。这是一个焦虑又美好的学期，我在这段时间里学到了很多东西。</p>
 <hr>
 
 <iframe src="http://timelinejs.sinaapp.com/" width="100%" height="500" frameborder="0"></iframe>
@@ -29,12 +29,15 @@
 
 <p>这一个学期就这么磕磕绊绊的过了一半了，决定去360实习以后，也终于能安下心来。因为等待（笔试/面试通知）真的是很痛苦的一件事。</p>
 <p>参加的笔试/面试越多，越发现自己有很多的不足。求职难免碰壁，这两个月我被虐了好几次，导致我的自信心直线下降。但现在来看，我觉得被虐反而更好，它让我不断总结和反思：哪一块的知识不知道就补哪一块，然后不断地提高自己。</p>
-<p>我在本科时就决定要进互联网行业，在做过的项目中是C++开发居多，所以也自然而然的走向了服务端开发方向。从这两个月的笔试/面试经历来看，其实做后台服务端开发主要就是要掌握5各方面的知识，而且需要较深入。</p>
-<p><strong>1. 语言</strong>：编程语言必然是要掌握一门的，而且需要熟练的掌握。从笔试/面试的情况来看，基本就是 C/C++/Java 熟练掌握一门，最好还会一门脚本语言（Perl/Python/Shell）。因为我是C++党，所以这里推荐一下学习C++要看的书：</p>
-<pre><code><span class="comment">*</span> <span class="comment">《C</span><span class="literal">+</span><span class="literal">+</span> <span class="comment">Primer》不用多说，入门必看。</span>
-<span class="comment">*</span> <span class="comment">《Effective</span> <span class="comment">C</span><span class="literal">+</span><span class="literal">+</span><span class="comment">》《More</span> <span class="comment">Effective</span> <span class="comment">C</span><span class="literal">+</span><span class="literal">+</span><span class="comment">》《深度探索C</span><span class="literal">+</span><span class="literal">+</span><span class="comment">对象模型》进阶。</span>
-<span class="comment">*</span> <span class="comment">《Effective</span> <span class="comment">STL》《STL源码剖析》了解C</span><span class="literal">+</span><span class="literal">+</span> <span class="comment">STL。</span>
-</code></pre><ol>
+<h3 id="二、经验之谈">二、经验之谈</h3><p>我在本科时就决定要进互联网行业，在做过的项目中是C++开发居多，所以也自然而然的走向了服务端开发方向。从这两个月的笔试/面试经历来看，其实做后台服务端开发主要就是要掌握5各方面的知识，而且需要较深入。</p>
+<ol>
+<li><p><strong>语言</strong>：编程语言必然是要掌握一门的，而且需要熟练的掌握。从笔试/面试的情况来看，基本就是 C/C++/Java 熟练掌握一门，最好还会一门脚本语言（Perl/Python/Shell）。因为我是C++党，所以这里推荐一下学习C++要看的书：</p>
+<ul>
+<li>《C++ Primer》不用多说，入门必看。</li>
+<li>《Effective C++》《More Effective C++》《深度探索C++对象模型》进阶。</li>
+<li>《Effective STL》《STL源码剖析》了解C++ STL。</li>
+</ul>
+</li>
 <li><p>算法与数据结构：这个就不用多说，不管什么岗位都要有算法基础的。</p>
 <ul>
 <li>《算法导论》最经典，但有人说上面讲的太繁琐，其实我也觉得，可能是水平还不够。</li>
@@ -69,12 +72,12 @@
 <center><br><img src="http://img.blog.csdn.net/20150523132326403" alt=""><br></center>
 
 <p>对于基础知识，必然是要全部掌握的；对于技术领域，可以择其一而攻之。</p>
-]]></content>
+<h3 id="三、总结和展望">三、总结和展望</h3>]]></content>
     <summary type="html">
-    <![CDATA[<p>从2015年4月开始找实习，参加了很多的笔试/面试。这是一个焦虑又美好的学期，我在这段时间里学到了很多东西。</p>
+    <![CDATA[<h3 id="一、实习季Timeline">一、实习季Timeline</h3><p>从2015年4月开始找实习，前后历时两个月，参加了很多的笔试/面试。这是一个焦虑又美好的学期，我在这段时间里学到了很多东西。</p>
 <hr>
 
-<iframe src="http://timelinejs.sinaapp.com/" width="100%" height="500" f]]>
+<iframe src="http://tim]]>
     </summary>
     
       <category term="非技术-杂谈" scheme="http://yoursite.com/categories/%E9%9D%9E%E6%8A%80%E6%9C%AF-%E6%9D%82%E8%B0%88/"/>
