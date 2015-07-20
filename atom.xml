@@ -4,7 +4,7 @@
   <subtitle><![CDATA[李松]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://yoursite.com/"/>
-  <updated>2015-07-20T15:32:58.514Z</updated>
+  <updated>2015-07-20T15:35:31.342Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -19,7 +19,7 @@
     <link href="http://yoursite.com/2015/07/20/hadoop-hbase-zookeeper-distributed-mode/"/>
     <id>http://yoursite.com/2015/07/20/hadoop-hbase-zookeeper-distributed-mode/</id>
     <published>2015-07-20T14:52:53.000Z</published>
-    <updated>2015-07-20T15:32:58.514Z</updated>
+    <updated>2015-07-20T15:35:31.342Z</updated>
     <content type="html"><![CDATA[<h1 id="一、环境说明">一、环境说明</h1><p>集群环境至少需要3个节点（也就是3台服务器设备）：1个Master，2个Slave，节点之间局域网连接，可以相互ping通，下面举例说明，配置节点IP分配如下：</p>
 <table>
 <thead>
@@ -61,15 +61,15 @@
 <h2 id="2-3_集群之间SSH无密码登陆">2.3 集群之间SSH无密码登陆</h2><p>CentOS默认安装了ssh，如果没有你需要先安装ssh 。</p>
 <p>集群环境的使用必须通过ssh无密码登陆来执行，本机登陆本机必须无密码登陆，主机与从机之间必须可以双向无密码登陆，从机与从机之间无限制。</p>
 <p><strong>2.3.1 设置master无密码自登陆</strong></p>
-<p>主要有三步：①生成公钥和私钥、②导入公钥到认证文件、③更改权限<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ ssh-keygen -t rsa -f ~/.ssh/id_rsa&#10;$ cat ~/.ssh/id_rsa.pub &#62;&#62; ~/.ssh/authorized_keys&#10;$ chmod 700 ~/.ssh &#38;&#38; chmod 600 ~/.ssh/*</span><br></pre></td></tr></table></figure></p>
+<p>主要有三步：①生成公钥和私钥、②导入公钥到认证文件、③更改权限<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$ </span>ssh-keygen -t rsa -f ~<span class="regexp">/.ssh/id</span>_rsa</span><br><span class="line"><span class="variable">$ </span>cat ~<span class="regexp">/.ssh/id</span>_rsa.pub <span class="prompt">&gt;&gt; </span>~<span class="regexp">/.ssh/authorized</span>_keys</span><br><span class="line"><span class="variable">$ </span>chmod <span class="number">700</span> ~<span class="regexp">/.ssh &amp;&amp; chmod 600 ~/</span>.ssh/*</span><br></pre></td></tr></table></figure></p>
 <p>测试，第一次登录可能需要yes确认，之后就可以直接登录了：<br><figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ ssh localhost</span><br><span class="line">Last login: Sat Jul <span class="number">18</span> <span class="number">22</span>:<span class="number">57</span>:<span class="number">44</span> <span class="number">2015</span> <span class="keyword">from</span> localhost</span><br></pre></td></tr></table></figure></p>
 <p>对于 slave1 和 slave2，进行无密码自登陆设置，操作同上。</p>
 <p><strong>2.3.2 设置主机-&gt;从机的无密码登录</strong></p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ cat ~/.ssh/id_rsa.pub | ssh hadoop@slave1 &#39;cat - &#62;&#62; ~/.ssh/authorized_keys&#39;</span><br></pre></td></tr></table></figure>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ cat ~/.ssh/id_rsa.pub | ssh hadoop@slave2 &#39;cat - &#62;&#62; ~/.ssh/authorized_keys&#39;</span><br></pre></td></tr></table></figure>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$ </span>cat ~<span class="regexp">/.ssh/id</span>_rsa.pub | ssh hadoop<span class="variable">@slave1</span> <span class="string">'cat - &gt;&gt; ~/.ssh/authorized_keys'</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$ </span>cat ~<span class="regexp">/.ssh/id</span>_rsa.pub | ssh hadoop<span class="variable">@slave2</span> <span class="string">'cat - &gt;&gt; ~/.ssh/authorized_keys'</span></span><br></pre></td></tr></table></figure>
 <p>测试：<br><figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[hadoop<span class="variable">@master</span> ~]<span class="variable">$ </span>ssh hadoop<span class="variable">@slave1</span></span><br><span class="line"><span class="constant">Last </span><span class="symbol">login:</span> <span class="constant">Sat Jul </span><span class="number">18</span> <span class="number">23</span><span class="symbol">:</span><span class="number">25</span><span class="symbol">:</span><span class="number">41</span> <span class="number">2015</span> from master</span><br><span class="line"></span><br><span class="line">[hadoop<span class="variable">@master</span> ~]<span class="variable">$ </span>ssh hadoop<span class="variable">@slave2</span></span><br><span class="line"><span class="constant">Last </span><span class="symbol">login:</span> <span class="constant">Sat Jul </span><span class="number">18</span> <span class="number">23</span><span class="symbol">:</span><span class="number">25</span><span class="symbol">:</span><span class="number">14</span> <span class="number">2015</span> from master</span><br></pre></td></tr></table></figure></p>
 <p><strong>2.3.3 设置从机-&gt;主机的无密码登录</strong></p>
-<p>分别在slave1、slave2上执行：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ cat ~/.ssh/id_rsa.pub | ssh hadoop@master &#39;cat - &#62;&#62; ~/.ssh/authorized_keys&#39;</span><br></pre></td></tr></table></figure></p>
+<p>分别在slave1、slave2上执行：<br><figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$ </span>cat ~<span class="regexp">/.ssh/id</span>_rsa.pub | ssh hadoop<span class="variable">@master</span> <span class="string">'cat - &gt;&gt; ~/.ssh/authorized_keys'</span></span><br></pre></td></tr></table></figure></p>
 <p><br></p>
 <h1 id="三、Hadoop集群安装配置">三、Hadoop集群安装配置</h1><p>这里会将hadoop、hbase、zookeeper的安装包都解压到<code>/home/hadoop/</code>个人主文件夹下，并重命名为hadoop、hbase、zookeeper。</p>
 <h2 id="3-1_修改hadoop配置">3.1 修改hadoop配置</h2><p>配置文件都在<code>~/hadoop/etc/</code>目录下</p>
@@ -86,7 +86,7 @@
 <p><strong>3.1.6 修改slaves文件</strong></p>
 <figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="title">slave1</span></span><br><span class="line">slave2</span><br></pre></td></tr></table></figure>
 <p>注意：三台机器上都进行相同的配置，都放在相同的路径下。</p>
-<p>使用<code>scp</code>命令进行从本地到远程（或远程到本地）的文件拷贝操作：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">scp -r /home/hadoop/hadoop     slave1:/home/hadoop&#10;scp -r /home/hadoop/hadoop     slave2:/home/hadoop</span><br></pre></td></tr></table></figure></p>
+<p>使用<code>scp</code>命令进行从本地到远程（或远程到本地）的文件拷贝操作：<br><figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">scp -r <span class="regexp">/home/</span>hadoop<span class="regexp">/hadoop     slave1:/</span>home/hadoop</span><br><span class="line">scp -r <span class="regexp">/home/</span>hadoop<span class="regexp">/hadoop     slave2:/</span>home/hadoop</span><br></pre></td></tr></table></figure></p>
 <h2 id="3-2_启动hadoop集群">3.2 启动hadoop集群</h2><p>进入master的<code>~/hadoop</code>目录，执行以下操作：<br><figure class="highlight dos"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ bin/hadoop namenode -<span class="built_in">format</span></span><br></pre></td></tr></table></figure></p>
 <p>格式化namenode，第一次启动服务前执行的操作，以后不需要执行。</p>
 <p>然后启动hadoop：<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sbin/<span class="operator"><span class="keyword">start</span>-<span class="keyword">all</span>.sh</span></span><br></pre></td></tr></table></figure></p>
@@ -98,7 +98,7 @@
 <h2 id="4-2_新建并编辑myid文件">4.2 新建并编辑myid文件</h2><p>在dataDir目录下新建myid文件，输入一个数字（master为<code>1</code>，slave1为<code>2</code>，slave2为<code>3</code>）：<br><figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$ </span>mkdir /home/hadoop/zookeeper/data</span><br><span class="line"><span class="variable">$ </span>echo <span class="string">"1"</span> &gt; <span class="regexp">/home/hadoop</span><span class="regexp">/zookeeper/data</span><span class="regexp">/myid</span></span><br></pre></td></tr></table></figure></p>
 <p>同样使用<code>scp</code>命令进行远程复制，只不过要修改每个节点上<code>myid</code>文件中的数字。</p>
 <h2 id="4-3_启动ZooKeeper集群">4.3 启动ZooKeeper集群</h2><p>在ZooKeeper集群的每个结点上，执行启动ZooKeeper服务的脚本：</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ ~/zookeeper/bin/zkServer.sh start</span><br></pre></td></tr></table></figure>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$ </span>~<span class="regexp">/zookeeper/bin</span><span class="regexp">/zkServer.sh start</span></span><br></pre></td></tr></table></figure>
 <ol>
 <li><p>如果启动报类似异常:QuorumCnxManager@384] - Cannot open channel to 2 at election address slave-02/192.168.0.178:3888 是可以忽略的,因为该服务启动时会尝试连接所有节点,而其他节点尚未启动。通过后面部分可以看到，集群在选出一个Leader后，最后稳定 了。其他结点可能也出现类似问题，属于正常。</p>
 </li>
