@@ -251,13 +251,11 @@
 <li><p>如果启动报类似异常:QuorumCnxManager@384] - Cannot open channel to 2 at election address slave-02/192.168.0.178:3888 是可以忽略的,因为该服务启动时会尝试连接所有节点,而其他节点尚未启动。通过后面部分可以看到，集群在选出一个Leader后，最后稳定 了。其他结点可能也出现类似问题，属于正常。</p>
 </li>
 <li><p>关闭防火墙。在hadoop集群环境(linux系统)中最好关闭防火墙，不然会出现很多问题，例如namenode找不到datanode等。如果不关闭防火墙，客户端使用API操作HDFS以及ZooKeeper，可能就会出现下面常见的两种异常：</p>
-</li>
-</ol>
 <ul>
 <li>使用API操作HDFS时会出现异常：java.net.NoRouteToHostException: No route to host</li>
 <li>使用API操作ZK时会出现异常：org.apache.zookeeper.KeeperException$ConnectionLossException: KeeperErrorCode = ConnectionLoss for xxxx</li>
 </ul>
-<ol>
+</li>
 <li><p>使用root权限登陆后，输入关闭防火墙命令：</p>
 <figure class="highlight puppet"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ /etc/init.d/iptables <span class="literal">stop</span></span><br><span class="line">$ <span class="keyword">service</span> iptables <span class="literal">stop</span></span><br></pre></td></tr></table></figure>
 </li>
