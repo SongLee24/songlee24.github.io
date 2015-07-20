@@ -138,6 +138,104 @@
           
           
             
+              <a class="post-title-link" href="/2015/04/21/linux-IPC/">
+                【Linux编程】进程间通信（IPC）
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          
+            发表于 2015-04-21
+          
+        </span>
+
+        
+          
+            <span class="post-category">
+              &nbsp; | &nbsp; 分类于
+              
+                <a href="/categories/System-Linux/">System-Linux</a>
+
+                
+                
+
+              
+            </span>
+          
+        
+
+        
+          
+            <span class="post-comments-count">
+            &nbsp; | &nbsp;
+            <a href="/2015/04/21/linux-IPC/#comments" >
+              <span class="post-comments-count ds-thread-count" data-thread-key="2015/04/21/linux-IPC/"></span>
+            </a>
+          </span>
+          
+        
+      </div>
+    </div>
+
+    
+      <div class="post-body">
+
+        
+        
+
+        
+          
+            <p><strong>进程间通信（IPC，InterProcess Communication）</strong>是指在不同进程之间传播或交换信息。IPC的方式通常有管道（包括无名管道和命名管道）、消息队列、信号量、共享存储、Socket、Streams等。其中 Socket和Streams支持不同主机上的两个进程IPC。</p>
+<h2 id="一、管道">一、管道</h2><p><strong>管道</strong>，通常指无名管道，是 UNIX 系统IPC最古老的形式。
+            <div class="post-more-link text-center">
+              <a class="btn" href="/2015/04/21/linux-IPC/#more">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+        
+      </div>
+    
+
+    
+      <div class="post-footer">
+        
+          <div class="post-tags">
+            
+              <a href="/tags/Linux/">
+                #Linux
+              </a>
+            
+          </div>
+        
+
+        
+
+        
+        
+          <div class="post-eof"></div>
+        
+      </div>
+    
+  </div>
+
+
+  
+    
+
+  <div class="post post-type-normal ">
+    <div class="post-header">
+
+      
+      
+        <h1 class="post-title">
+          
+          
+            
               <a class="post-title-link" href="/2015/04/08/free-list/">
                 可利用空间表（Free List）
               </a>
@@ -1029,105 +1127,6 @@
 
 
   
-    
-
-  <div class="post post-type-normal ">
-    <div class="post-header">
-
-      
-      
-        <h1 class="post-title">
-          
-          
-            
-              <a class="post-title-link" href="/2015/01/12/cpp-exception-in-constructor/">
-                C++学习之构造函数中的异常处理
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          
-            发表于 2015-01-12
-          
-        </span>
-
-        
-          
-            <span class="post-category">
-              &nbsp; | &nbsp; 分类于
-              
-                <a href="/categories/Lang-Cpp/">Lang.-Cpp</a>
-
-                
-                
-
-              
-            </span>
-          
-        
-
-        
-          
-            <span class="post-comments-count">
-            &nbsp; | &nbsp;
-            <a href="/2015/01/12/cpp-exception-in-constructor/#comments" >
-              <span class="post-comments-count ds-thread-count" data-thread-key="2015/01/12/cpp-exception-in-constructor/"></span>
-            </a>
-          </span>
-          
-        
-      </div>
-    </div>
-
-    
-      <div class="post-body">
-
-        
-        
-
-        
-          
-            <p>构造函数中可不可以抛出异常？当然可以。从语法上来说，是可以的；从实际情况来看，现在的软件系统日渐庞大和复杂，很难保证 Constructor 在执行过程中完全不发生一点异常。</p>
-<p>那么，如果构造函数中抛出异常，会发生什么情况呢？</p>
-<h3 id="一、构造函数中抛出异常将导致对象的析构函数不被执行。">一、构造函数中抛出异常将导致对象的析构函数不被执行。</h3><p>C++仅能 delete 被完全构造的对象（fully constructed objects），只有一个对象的构造函数完全运行完毕，这个对象才被完全地构造。所以如果在构造函数中抛出一个异常，这个异常将传递到创建对象的地方（程序控制权也会随之转移），这样对象就只是部分被构造，它的析构函数将不会被执行。
-            <div class="post-more-link text-center">
-              <a class="btn" href="/2015/01/12/cpp-exception-in-constructor/#more">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          
-        
-      </div>
-    
-
-    
-      <div class="post-footer">
-        
-          <div class="post-tags">
-            
-              <a href="/tags/Cpp/">
-                #Cpp
-              </a>
-            
-          </div>
-        
-
-        
-
-        
-        
-          <div class="post-eof"></div>
-        
-      </div>
-    
-  </div>
-
-
-  
 
           </div>
 
@@ -1160,11 +1159,11 @@
       <p class="site-description motion-element">放宽心，多努力</p>
       <div class="site-state motion-element">
         <div class="site-state-item site-state-posts">
-          <span class="site-state-item-count">75</span>
+          <span class="site-state-item-count">76</span>
           <span class="site-state-item-name">日志</span>
         </div>
         <div class="site-state-item site-state-tags">
-            <span class="site-state-item-count">17</span>
+            <span class="site-state-item-count">18</span>
             <span class="site-state-item-name">标签</span>
         </div>
         <div class="site-state-item site-state-pages">
