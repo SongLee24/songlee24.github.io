@@ -138,6 +138,141 @@
           
           
             
+              <a class="post-title-link" href="/2015/07/20/hadoop-hbase-zookeeper-distributed-mode/">
+                Hadoop+HBase+ZooKeeper分布式集群环境搭建
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          
+            发表于 2015-07-20
+          
+        </span>
+
+        
+          
+            <span class="post-category">
+              &nbsp; | &nbsp; 分类于
+              
+                <a href="/categories/大数据-HBase/">大数据-HBase</a>
+
+                
+                
+
+              
+            </span>
+          
+        
+
+        
+          
+            <span class="post-comments-count">
+            &nbsp; | &nbsp;
+            <a href="/2015/07/20/hadoop-hbase-zookeeper-distributed-mode/#comments" >
+              <span class="post-comments-count ds-thread-count" data-thread-key="2015/07/20/hadoop-hbase-zookeeper-distributed-mode/"></span>
+            </a>
+          </span>
+          
+        
+      </div>
+    </div>
+
+    
+      <div class="post-body">
+
+        
+        
+
+        
+          
+            <h1 id="一、环境说明">一、环境说明</h1><p>集群环境至少需要3个节点（也就是3台服务器设备）：1个Master，2个Slave，节点之间局域网连接，可以相互ping通，下面举例说明，配置节点IP分配如下：</p>
+<table>
+<thead>
+<tr>
+<th>Hostname</th>
+<th style="text-align:left">IP</th>
+<th style="text-align:left">User</th>
+<th style="text-align:left">Password</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>master</td>
+<td style="text-align:left">192.168.59.133</td>
+<td style="text-align:left">hadoop</td>
+<td style="text-align:left">123456</td>
+</tr>
+<tr>
+<td>slave1</td>
+<td style="text-align:left">192.168.59.134</td>
+<td style="text-align:left">hadoop</td>
+<td style="text-align:left">123456</td>
+</tr>
+<tr>
+<td>slave2</td>
+<td style="text-align:left">192.168.59.135</td>
+<td style="text-align:left">hadoop</td>
+<td style="text-align:left">123456</td>
+</tr>
+</tbody>
+</table>
+            <div class="post-more-link text-center">
+              <a class="btn" href="/2015/07/20/hadoop-hbase-zookeeper-distributed-mode/#more">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+        
+      </div>
+    
+
+    
+      <div class="post-footer">
+        
+          <div class="post-tags">
+            
+              <a href="/tags/HBase/">
+                #HBase
+              </a>
+            
+              <a href="/tags/Hadoop/">
+                #Hadoop
+              </a>
+            
+              <a href="/tags/ZooKeeper/">
+                #ZooKeeper
+              </a>
+            
+          </div>
+        
+
+        
+
+        
+        
+          <div class="post-eof"></div>
+        
+      </div>
+    
+  </div>
+
+
+  
+    
+
+  <div class="post post-type-normal ">
+    <div class="post-header">
+
+      
+      
+        <h1 class="post-title">
+          
+          
+            
               <a class="post-title-link" href="/2015/07/20/hbase-standalone-mode/">
                 HBase单机环境搭建
               </a>
@@ -1018,105 +1153,6 @@
 
 
   
-    
-
-  <div class="post post-type-normal ">
-    <div class="post-header">
-
-      
-      
-        <h1 class="post-title">
-          
-          
-            
-              <a class="post-title-link" href="/2015/04/29/linux-syn-mut-difference/">
-                【Linux多线程】同步与互斥的区别
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          
-            发表于 2015-04-29
-          
-        </span>
-
-        
-          
-            <span class="post-category">
-              &nbsp; | &nbsp; 分类于
-              
-                <a href="/categories/System-Linux/">System-Linux</a>
-
-                
-                
-
-              
-            </span>
-          
-        
-
-        
-          
-            <span class="post-comments-count">
-            &nbsp; | &nbsp;
-            <a href="/2015/04/29/linux-syn-mut-difference/#comments" >
-              <span class="post-comments-count ds-thread-count" data-thread-key="2015/04/29/linux-syn-mut-difference/"></span>
-            </a>
-          </span>
-          
-        
-      </div>
-    </div>
-
-    
-      <div class="post-body">
-
-        
-        
-
-        
-          
-            <p>同步与互斥这两个概念经常被混淆，所以在这里说一下它们的区别。</p>
-<h3 id="一、同步与互斥的区别">一、同步与互斥的区别</h3><h4 id="1-_同步">1. 同步</h4><p><strong>同步</strong>，又称<strong>直接制约关系</strong>，是指多个线程（或进程）为了合作完成任务，必须严格按照规定的 某种先后次序来运行。</p>
-<p>例如，线程 T2 中的语句 y 要使用线程 T1 中的语句 x 的运行结果，所以只有当语句 x 执行完成之后语句 y 才可以执行。我们可以使用信号量进行同步：
-            <div class="post-more-link text-center">
-              <a class="btn" href="/2015/04/29/linux-syn-mut-difference/#more">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          
-        
-      </div>
-    
-
-    
-      <div class="post-footer">
-        
-          <div class="post-tags">
-            
-              <a href="/tags/Linux/">
-                #Linux
-              </a>
-            
-          </div>
-        
-
-        
-
-        
-        
-          <div class="post-eof"></div>
-        
-      </div>
-    
-  </div>
-
-
-  
 
           </div>
 
@@ -1149,7 +1185,7 @@
       <p class="site-description motion-element">放宽心，多努力</p>
       <div class="site-state motion-element">
         <div class="site-state-item site-state-posts">
-          <span class="site-state-item-count">76</span>
+          <span class="site-state-item-count">77</span>
           <span class="site-state-item-name">日志</span>
         </div>
         <div class="site-state-item site-state-tags">

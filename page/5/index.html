@@ -138,6 +138,104 @@
           
           
             
+              <a class="post-title-link" href="/2014/08/15/python-FAQ-02/">
+                Python FAQ2：赋值、浅拷贝、深拷贝的区别？
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          
+            发表于 2014-08-14
+          
+        </span>
+
+        
+          
+            <span class="post-category">
+              &nbsp; | &nbsp; 分类于
+              
+                <a href="/categories/Lang-Python/">Lang.-Python</a>
+
+                
+                
+
+              
+            </span>
+          
+        
+
+        
+          
+            <span class="post-comments-count">
+            &nbsp; | &nbsp;
+            <a href="/2014/08/15/python-FAQ-02/#comments" >
+              <span class="post-comments-count ds-thread-count" data-thread-key="2014/08/15/python-FAQ-02/"></span>
+            </a>
+          </span>
+          
+        
+      </div>
+    </div>
+
+    
+      <div class="post-body">
+
+        
+        
+
+        
+          
+            <p>在写Python过程中，经常会遇到对象的拷贝，如果不理解<strong>浅拷贝</strong>和<strong>深拷贝</strong>的概念，你的代码就可能出现一些问题。所以，在这里按个人的理解谈谈它们之间的区别。<br><br></p>
+<h3 id="一、赋值（assignment）">一、赋值（assignment）</h3><p>在《<a href="http://songlee24.github.io/2014/08/12/python-FAQ-01/">Python FAQ1</a>》一文中，对赋值已经讲的很清楚了，关键要理解<strong>变量与对象的关系</strong>。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="prompt">&gt;&gt;&gt; </span>a = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]</span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>b = a</span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>print(id(a), id(b), sep=<span class="string">'\n'</span>)</span><br><span class="line"><span class="number">139701469405552</span></span><br><span class="line"><span class="number">139701469405552</span></span><br></pre></td></tr></table></figure></p>
+            <div class="post-more-link text-center">
+              <a class="btn" href="/2014/08/15/python-FAQ-02/#more">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+        
+      </div>
+    
+
+    
+      <div class="post-footer">
+        
+          <div class="post-tags">
+            
+              <a href="/tags/Python/">
+                #Python
+              </a>
+            
+          </div>
+        
+
+        
+
+        
+        
+          <div class="post-eof"></div>
+        
+      </div>
+    
+  </div>
+
+
+  
+    
+
+  <div class="post post-type-normal ">
+    <div class="post-header">
+
+      
+      
+        <h1 class="post-title">
+          
+          
+            
               <a class="post-title-link" href="/2014/08/14/python-basic-07/">
                 Python3基础（七） 输入和输出
               </a>
@@ -1023,104 +1121,6 @@
 
 
   
-    
-
-  <div class="post post-type-normal ">
-    <div class="post-header">
-
-      
-      
-        <h1 class="post-title">
-          
-          
-            
-              <a class="post-title-link" href="/2014/08/01/cpp-function-pointer/">
-                C++学习之普通函数指针与成员函数指针
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          
-            发表于 2014-08-01
-          
-        </span>
-
-        
-          
-            <span class="post-category">
-              &nbsp; | &nbsp; 分类于
-              
-                <a href="/categories/Lang-Cpp/">Lang.-Cpp</a>
-
-                
-                
-
-              
-            </span>
-          
-        
-
-        
-          
-            <span class="post-comments-count">
-            &nbsp; | &nbsp;
-            <a href="/2014/08/01/cpp-function-pointer/#comments" >
-              <span class="post-comments-count ds-thread-count" data-thread-key="2014/08/01/cpp-function-pointer/"></span>
-            </a>
-          </span>
-          
-        
-      </div>
-    </div>
-
-    
-      <div class="post-body">
-
-        
-        
-
-        
-          
-            <p><strong>函数指针（function pointer）</strong>是通过指向函数的指针间接调用函数。相信很多人对指向一般函数的函数指针使用的比较多，而对指向类成员函数的函数指针则比较陌生。我最近也被问到了这方面的问题，心中却也没有清晰的答案。故决定去查阅资料，并按照自己的思路写下这篇学习总结。<br><br></p>
-<h3 id="普通函数指针">普通函数指针</h3><p>通常我们所说的<strong>函数指针</strong>指的是指向一般普通函数的指针。和其他指针一样，函数指针指向某种特定类型，<strong>所有被同一指针运用的函数必须具有相同的形参类型和返回类型。</strong>
-            <div class="post-more-link text-center">
-              <a class="btn" href="/2014/08/01/cpp-function-pointer/#more">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          
-        
-      </div>
-    
-
-    
-      <div class="post-footer">
-        
-          <div class="post-tags">
-            
-              <a href="/tags/Cpp/">
-                #Cpp
-              </a>
-            
-          </div>
-        
-
-        
-
-        
-        
-          <div class="post-eof"></div>
-        
-      </div>
-    
-  </div>
-
-
-  
 
           </div>
 
@@ -1153,7 +1153,7 @@
       <p class="site-description motion-element">放宽心，多努力</p>
       <div class="site-state motion-element">
         <div class="site-state-item site-state-posts">
-          <span class="site-state-item-count">76</span>
+          <span class="site-state-item-count">77</span>
           <span class="site-state-item-name">日志</span>
         </div>
         <div class="site-state-item site-state-tags">
