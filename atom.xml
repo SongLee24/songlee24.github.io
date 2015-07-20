@@ -4,7 +4,7 @@
   <subtitle><![CDATA[李松]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://yoursite.com/"/>
-  <updated>2015-07-20T15:55:21.106Z</updated>
+  <updated>2015-07-20T15:59:40.349Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -19,7 +19,7 @@
     <link href="http://yoursite.com/2015/07/20/hadoop-hbase-zookeeper-distributed-mode/"/>
     <id>http://yoursite.com/2015/07/20/hadoop-hbase-zookeeper-distributed-mode/</id>
     <published>2015-07-20T14:52:53.000Z</published>
-    <updated>2015-07-20T15:55:21.106Z</updated>
+    <updated>2015-07-20T15:59:40.349Z</updated>
     <content type="html"><![CDATA[<h3 id="一、环境说明">一、环境说明</h3><p>集群环境至少需要3个节点（也就是3台服务器设备）：1个Master，2个Slave，节点之间局域网连接，可以相互ping通，下面举例说明，配置节点IP分配如下：</p>
 <table>
 <thead>
@@ -51,7 +51,7 @@
 </tr>
 </tbody>
 </table>
-<a id="more"></a>三个节点均使用<code>CentOS 6.5</code>系统，为了便于维护，集群环境配置项最好使用相同用户名、用户密码、相同hadoop、hbase、zookeeper目录结构。<br><br><strong>注：</strong> 可以通过编辑<code>/etc/sysconfig/network</code>文件来修改 hostname 。<br><br><h3>二、准备工作</h3><br><br><strong>2.1 安装JDK</strong><br><br>在三台机器上配置JDK环境，下载 <code>jdk-8u51-linux-x64.rpm</code> 文件直接安装：<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ rpm -ivh jdk-<span class="number">8u</span>51-linux-x64.rpm</span><br></pre></td></tr></table></figure>
+<a id="more"></a>三个节点均使用<code>CentOS 6.5</code>系统，为了便于维护，集群环境配置项最好使用相同用户名、用户密码、相同hadoop、hbase、zookeeper目录结构。<br><br><strong>注：</strong> 可以通过编辑<code>/etc/sysconfig/network</code>文件来修改 hostname 。<br><br>###二、准备工作<br><br><strong>2.1 安装JDK</strong><br><br>在三台机器上配置JDK环境，下载 <code>jdk-8u51-linux-x64.rpm</code> 文件直接安装：<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ rpm -ivh jdk-<span class="number">8u</span>51-linux-x64.rpm</span><br></pre></td></tr></table></figure>
 <p>修改配置文件 <code>vim /etc/profile</code>：</p>
 <figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">export JAVA_HOME=/usr/java/jdk1.<span class="number">8.0</span>_51</span><br><span class="line">export PATH=<span class="variable">$JAVA_HOME</span>/bin:<span class="variable">$PATH</span></span><br><span class="line">export CLASSPATH=.:<span class="variable">$JAVA_HOME</span>/lib/<span class="tag">dt</span><span class="class">.jar</span>:<span class="variable">$JAVA_HOME</span>/lib/tools.jar</span><br></pre></td></tr></table></figure>
 <p>然后重新加载配置文件使之生效：<br><figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="keyword">source</span> <span class="regexp">/etc/</span>profile</span><br></pre></td></tr></table></figure></p>
