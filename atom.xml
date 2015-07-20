@@ -4,7 +4,7 @@
   <subtitle><![CDATA[李松]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://yoursite.com/"/>
-  <updated>2015-07-20T14:40:31.597Z</updated>
+  <updated>2015-07-20T14:44:41.307Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -19,7 +19,7 @@
     <link href="http://yoursite.com/2015/07/20/hbase-standalone-mode/"/>
     <id>http://yoursite.com/2015/07/20/hbase-standalone-mode/</id>
     <published>2015-07-20T14:37:48.000Z</published>
-    <updated>2015-07-20T14:40:31.597Z</updated>
+    <updated>2015-07-20T14:44:41.307Z</updated>
     <content type="html"><![CDATA[<p>在搭建HBase单机环境之前，首先你要保证你已经搭建好Java环境：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ java -version&#10;java version &#34;1.8.0_51&#34;&#10;Java(TM) SE Runtime Environment (build 1.8.0_51-b16)&#10;Java HotSpot(TM) 64-Bit Server VM (build 25.51-b03, mixed mode)</span><br></pre></td></tr></table></figure></p>
 <p><code>JAVA_HOME</code>路径：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ echo $JAVA_HOME&#10;/usr/java/jdk1.8.0_51</span><br></pre></td></tr></table></figure></p>
 <a id="more"></a>在单机模式中，HBase并不使用 HDFS，仅使用本地文件系统 —— ZooKeeper程序与HBase程序运行在同一个JVM进程中。<br><br>#一、下载HBase<br><br>虚拟机：VMware-workstation-11.1.0<br>操作系统：CentOS 6.5<br>JDK：jdk1.8.0_51<br>HBase：hbase-1.0.1.1<br><br>1、 下载的是HBase最新稳定版<code>hbase-1.0.1.1-bin.tar.gz</code>，地址 <a href="http://apache.fayea.com/hbase/" target="_blank" rel="external">http://apache.fayea.com/hbase/</a><br><br>2、 解压到个人主目录下<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ tar -zxf hbase-1.0.1.1-bin.tar.gz&#10;$ cd hbase-1.0.1.1</span><br></pre></td></tr></table></figure>
@@ -51,7 +51,11 @@
     
     </summary>
     
-      <category term="HBase,ZooKeeper,Hadoop" scheme="http://yoursite.com/tags/HBase-ZooKeeper-Hadoop/"/>
+      <category term="HBase" scheme="http://yoursite.com/tags/HBase/"/>
+    
+      <category term="Hadoop" scheme="http://yoursite.com/tags/Hadoop/"/>
+    
+      <category term="ZooKeeper" scheme="http://yoursite.com/tags/ZooKeeper/"/>
     
       <category term="大数据-HBase" scheme="http://yoursite.com/categories/%E5%A4%A7%E6%95%B0%E6%8D%AE-HBase/"/>
     
