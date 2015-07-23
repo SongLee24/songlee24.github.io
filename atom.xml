@@ -4,7 +4,7 @@
   <subtitle><![CDATA[李松]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://yoursite.com/"/>
-  <updated>2015-07-23T16:58:05.919Z</updated>
+  <updated>2015-07-23T17:03:00.981Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,11 +15,11 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title><![CDATA[[转]HBase技术简介]]></title>
+    <title><![CDATA[HBase技术简介]]></title>
     <link href="http://yoursite.com/2015/07/24/hbase-introduction/"/>
     <id>http://yoursite.com/2015/07/24/hbase-introduction/</id>
     <published>2015-07-23T16:49:08.000Z</published>
-    <updated>2015-07-23T16:58:05.919Z</updated>
+    <updated>2015-07-23T17:03:00.981Z</updated>
     <content type="html"><![CDATA[<h1 id="一、HBase简介">一、HBase简介</h1><p>HBase – Hadoop Database，是一个高可靠性、高性能、面向列、可伸缩的分布式存储系统，利用HBase技术可在廉价PC Server上搭建起大规模结构化存储集群。</p>
 <p>HBase是Google BigTable的开源实现，类似Google BigTable利用GFS作为其文件存储系统，HBase利用Hadoop HDFS作为其文件存储系统；Google运行MapReduce来处理Bigtable中的海量数据，HBase同样利用Hadoop MapReduce来处理HBase中的海量数据；Google Bigtable利用 Chubby作为协同服务，HBase利用Zookeeper作为对应。<a id="more"></a></p>
 <p><img src="http://img.blog.csdn.net/20150723155042611" alt=""></p>
@@ -200,7 +200,7 @@
 <h1 id="七、结束">七、结束</h1><p>本文对HBase技术在功能和设计上进行了大致的介绍，由于篇幅有限，本文没有过多深入地描述HBase的一些细节技术。</p>
 <p><br><br><br><br><br></p>
 <hr>
-<p>参考：</p>
+<p>转自：</p>
 <p>[1] www.searchtb.com/2011/01/understanding-hbase.html<br>[2] blog.csdn.net/john_f_lau/article/category/1832241<br>[3] my.oschina.net/zhengyang841117/blog/188723</p>
 ]]></content>
     <summary type="html">
