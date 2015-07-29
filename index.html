@@ -138,6 +138,113 @@
           
           
             
+              <a class="post-title-link" href="/2015/07/29/mapreduce-word-count/">
+                第一个MapReduce程序——WordCount
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          
+            发表于 2015-07-29
+          
+        </span>
+
+        
+          
+            <span class="post-category">
+              &nbsp; | &nbsp; 分类于
+              
+                <a href="/categories/大数据-Hadoop/">大数据-Hadoop</a>
+
+                
+                
+
+              
+            </span>
+          
+        
+
+        
+          
+            <span class="post-comments-count">
+            &nbsp; | &nbsp;
+            <a href="/2015/07/29/mapreduce-word-count/#comments" >
+              <span class="post-comments-count ds-thread-count" data-thread-key="2015/07/29/mapreduce-word-count/"></span>
+            </a>
+          </span>
+          
+        
+      </div>
+    </div>
+
+    
+      <div class="post-body">
+
+        
+        
+
+        
+          
+            <p>通常我们在学习一门语言的时候，写的第一个程序就是Hello World。而在学习Hadoop时，我们要写的第一个程序就是词频统计<code>WordCount</code>程序。</p>
+<h1 id="一、MapReduce简介">一、MapReduce简介</h1><h2 id="1-1_MapReduce编程模型">1.1 MapReduce编程模型</h2><p>MapReduce采用”分而治之”的思想，把对大规模数据集的操作，分发给一个主节点管理下的各个分节点共同完成，然后通过整合各个节点的中间结果，得到最终结果。简单地说，MapReduce就是”任务的分解与结果的汇总”。</p>
+<p>在Hadoop中，用于执行MapReduce任务的机器角色有两个：
+            <div class="post-more-link text-center">
+              <a class="btn" href="/2015/07/29/mapreduce-word-count/#more">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+        
+      </div>
+    
+
+    
+      <div class="post-footer">
+        
+          <div class="post-tags">
+            
+              <a href="/tags/HDFS/">
+                #HDFS
+              </a>
+            
+              <a href="/tags/Hadoop/">
+                #Hadoop
+              </a>
+            
+              <a href="/tags/MapReduce/">
+                #MapReduce
+              </a>
+            
+          </div>
+        
+
+        
+
+        
+        
+          <div class="post-eof"></div>
+        
+      </div>
+    
+  </div>
+
+
+  
+    
+
+  <div class="post post-type-normal ">
+    <div class="post-header">
+
+      
+      
+        <h1 class="post-title">
+          
+          
+            
               <a class="post-title-link" href="/2015/07/24/hbase-introduction/">
                 HBase技术简介
               </a>
@@ -1061,105 +1168,6 @@
 
 
   
-    
-
-  <div class="post post-type-normal ">
-    <div class="post-header">
-
-      
-      
-        <h1 class="post-title">
-          
-          
-            
-              <a class="post-title-link" href="/2015/05/02/endianess/">
-                字节序：Big Endian 和 Little Endian
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          
-            发表于 2015-05-02
-          
-        </span>
-
-        
-          
-            <span class="post-category">
-              &nbsp; | &nbsp; 分类于
-              
-                <a href="/categories/System-Linux/">System-Linux</a>
-
-                
-                
-
-              
-            </span>
-          
-        
-
-        
-          
-            <span class="post-comments-count">
-            &nbsp; | &nbsp;
-            <a href="/2015/05/02/endianess/#comments" >
-              <span class="post-comments-count ds-thread-count" data-thread-key="2015/05/02/endianess/"></span>
-            </a>
-          </span>
-          
-        
-      </div>
-    </div>
-
-    
-      <div class="post-body">
-
-        
-        
-
-        
-          
-            <h3 id="一、字节序">一、字节序</h3><p><strong>字节序</strong>，也就是字节的顺序，指的是多字节的数据在内存中的存放顺序。</p>
-<p>在几乎所有的机器上，多字节对象都被存储为连续的字节序列。例如：如果C/C++中的一个<code>int</code>型变量  a 的起始地址是<code>&amp;a = 0x100</code>，那么 a 的四个字节将被存储在存储器的<code>0x100</code>, <code>0x101</code>, <code>0x102</code>, <code>0x103</code>位置。</p>
-<p>根据整数 a 在连续的 4 byte 内存中的存储顺序，字节序被分为<strong>大端序（Big Endian）</strong> 与 <strong>小端序（Little Endian）</strong>两类。 然后就牵涉出两大CPU派系：
-            <div class="post-more-link text-center">
-              <a class="btn" href="/2015/05/02/endianess/#more">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          
-        
-      </div>
-    
-
-    
-      <div class="post-footer">
-        
-          <div class="post-tags">
-            
-              <a href="/tags/Linux/">
-                #Linux
-              </a>
-            
-          </div>
-        
-
-        
-
-        
-        
-          <div class="post-eof"></div>
-        
-      </div>
-    
-  </div>
-
-
-  
 
           </div>
 
@@ -1192,11 +1200,11 @@
       <p class="site-description motion-element">放宽心，多努力</p>
       <div class="site-state motion-element">
         <div class="site-state-item site-state-posts">
-          <span class="site-state-item-count">78</span>
+          <span class="site-state-item-count">79</span>
           <span class="site-state-item-name">日志</span>
         </div>
         <div class="site-state-item site-state-tags">
-            <span class="site-state-item-count">20</span>
+            <span class="site-state-item-count">22</span>
             <span class="site-state-item-name">标签</span>
         </div>
         <div class="site-state-item site-state-pages">
