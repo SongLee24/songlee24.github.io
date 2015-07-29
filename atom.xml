@@ -4,7 +4,7 @@
   <subtitle><![CDATA[李松]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://yoursite.com/"/>
-  <updated>2015-07-29T13:37:31.542Z</updated>
+  <updated>2015-07-29T13:42:18.298Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -19,7 +19,7 @@
     <link href="http://yoursite.com/2015/07/29/mapreduce-word-count/"/>
     <id>http://yoursite.com/2015/07/29/mapreduce-word-count/</id>
     <published>2015-07-29T13:34:39.000Z</published>
-    <updated>2015-07-29T13:37:31.542Z</updated>
+    <updated>2015-07-29T13:42:18.298Z</updated>
     <content type="html"><![CDATA[<p>通常我们在学习一门语言的时候，写的第一个程序就是Hello World。而在学习Hadoop时，我们要写的第一个程序就是词频统计<code>WordCount</code>程序。</p>
 <h1 id="一、MapReduce简介">一、MapReduce简介</h1><h2 id="1-1_MapReduce编程模型">1.1 MapReduce编程模型</h2><p>MapReduce采用”分而治之”的思想，把对大规模数据集的操作，分发给一个主节点管理下的各个分节点共同完成，然后通过整合各个节点的中间结果，得到最终结果。简单地说，MapReduce就是”任务的分解与结果的汇总”。</p>
 <p>在Hadoop中，用于执行MapReduce任务的机器角色有两个：<a id="more"></a></p>
@@ -38,7 +38,7 @@
 <p><img src="http://img.blog.csdn.net/20150728184403091" alt=""></p>
 <p><br></p>
 <h1 id="二、运行WordCount程序">二、运行WordCount程序</h1><p>在运行程序之前，需要先搭建好Hadoop集群环境，参考《<a href="http://blog.csdn.net/lisonglisonglisong/article/details/46974723" target="_blank" rel="external">Hadoop+HBase+ZooKeeper分布式集群环境搭建</a>》。</p>
-<h1 id="2-1_源代码">2.1 源代码</h1><p>WordCount可以说是最简单的MapReduce程序了，只包含三个文件：一个 Map 的 Java 文件，一个 Reduce 的 Java 文件，一个负责调用的主程序 Java 文件。</p>
+<h2 id="2-1_源代码">2.1 源代码</h2><p>WordCount可以说是最简单的MapReduce程序了，只包含三个文件：一个 Map 的 Java 文件，一个 Reduce 的 Java 文件，一个负责调用的主程序 Java 文件。</p>
 <p>我们在当前用户的主文件夹下创建<code>wordcount_01/</code>目录，在该目录下再创建<code>src/</code>和<code>classes/</code>。 src 目录存放 Java 的源代码，classes 目录存放编译结果。</p>
 <p><strong>TokenizerMapper.java</strong></p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.lisong.hadoop;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"><span class="keyword">import</span> java.util.StringTokenizer;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.io.IntWritable;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.io.Text;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.mapreduce.Mapper;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TokenizerMapper</span> <span class="keyword">extends</span> <span class="title">Mapper</span>&lt;<span class="title">Object</span>, <span class="title">Text</span>, <span class="title">Text</span>, <span class="title">IntWritable</span>&gt; </span>&#123;</span><br><span class="line">	IntWritable one = <span class="keyword">new</span> IntWritable(<span class="number">1</span>);</span><br><span class="line">	Text word = <span class="keyword">new</span> Text();</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">map</span><span class="params">(Object key, Text value, Context context)</span> <span class="keyword">throws</span> IOException,InterruptedException </span>&#123;</span><br><span class="line">		StringTokenizer itr = <span class="keyword">new</span> StringTokenizer(value.toString());</span><br><span class="line">		<span class="keyword">while</span>(itr.hasMoreTokens()) &#123;</span><br><span class="line">			word.set(itr.nextToken());</span><br><span class="line">			context.write(word, one);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
