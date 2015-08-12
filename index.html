@@ -138,6 +138,121 @@
           
           
             
+              <a class="post-title-link" href="/2015/08/13/hdfs-import-to-hbase/">
+                MapReduce将HDFS文本数据导入HBase中
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          
+            发表于 2015-08-12
+          
+        </span>
+
+        
+          
+            <span class="post-category">
+              &nbsp; | &nbsp; 分类于
+              
+                <a href="/categories/大数据-HBase/">大数据-HBase</a>
+
+                
+                
+
+              
+            </span>
+          
+        
+
+        
+          
+            <span class="post-comments-count">
+            &nbsp; | &nbsp;
+            <a href="/2015/08/13/hdfs-import-to-hbase/#comments" >
+              <span class="post-comments-count ds-thread-count" data-thread-key="2015/08/13/hdfs-import-to-hbase/"></span>
+            </a>
+          </span>
+          
+        
+      </div>
+    </div>
+
+    
+      <div class="post-body">
+
+        
+        
+
+        
+          
+            <p>HBase本身提供了很多种数据导入的方式，通常有两种常用方式：</p>
+<ol>
+<li>使用HBase提供的TableOutputFormat，原理是通过一个Mapreduce作业将数据导入HBase</li>
+<li>另一种方式就是使用HBase原生Client API</li>
+</ol>
+<p>本文就是示范如何通过MapReduce作业从一个文件读取数据并写入到HBase中。</p>
+<p>首先启动Hadoop与HBase，然后创建一个空表，用于后面导入数据：
+            <div class="post-more-link text-center">
+              <a class="btn" href="/2015/08/13/hdfs-import-to-hbase/#more">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+        
+      </div>
+    
+
+    
+      <div class="post-footer">
+        
+          <div class="post-tags">
+            
+              <a href="/tags/HBase/">
+                #HBase
+              </a>
+            
+              <a href="/tags/HDFS/">
+                #HDFS
+              </a>
+            
+              <a href="/tags/Hadoop/">
+                #Hadoop
+              </a>
+            
+              <a href="/tags/MapReduce/">
+                #MapReduce
+              </a>
+            
+          </div>
+        
+
+        
+
+        
+        
+          <div class="post-eof"></div>
+        
+      </div>
+    
+  </div>
+
+
+  
+    
+
+  <div class="post post-type-normal ">
+    <div class="post-header">
+
+      
+      
+        <h1 class="post-title">
+          
+          
+            
               <a class="post-title-link" href="/2015/07/29/mapreduce-word-count/">
                 第一个MapReduce程序——WordCount
               </a>
@@ -1077,97 +1192,6 @@
 
 
   
-    
-
-  <div class="post post-type-normal ">
-    <div class="post-header">
-
-      
-      
-        <h1 class="post-title">
-          
-          
-            
-              <a class="post-title-link" href="/2015/05/03/public-key-and-private-key/">
-                理解公钥与私钥
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          
-            发表于 2015-05-03
-          
-        </span>
-
-        
-          
-            <span class="post-category">
-              &nbsp; | &nbsp; 分类于
-              
-                <a href="/categories/Basic-信息安全/">Basic-信息安全</a>
-
-                
-                
-
-              
-            </span>
-          
-        
-
-        
-          
-            <span class="post-comments-count">
-            &nbsp; | &nbsp;
-            <a href="/2015/05/03/public-key-and-private-key/#comments" >
-              <span class="post-comments-count ds-thread-count" data-thread-key="2015/05/03/public-key-and-private-key/"></span>
-            </a>
-          </span>
-          
-        
-      </div>
-    </div>
-
-    
-      <div class="post-body">
-
-        
-        
-
-        
-          
-            <p>一直都对公钥和私钥的概念不清不楚，以至于在 腾讯面试 被问到“如何在一个不安全的环境中实现安全的数据通信？”时，并没有答上来。今天查阅了一些资料，决定写一篇总结文章来加深自己的理解。</p>
-<h3 id="一、公钥算法与私钥算法">一、公钥算法与私钥算法</h3><p><strong>1、私钥算法</strong></p>
-<p><strong>私钥加密算法</strong>，又称 <strong>对称加密算法</strong>，因为这种算法解密密钥和加密密钥是相同的。也正因为同一密钥既用于加密又用于解密，所以这个密钥是不能公开的。常见的有《<a href="http://songlee24.github.io/2014/12/06/des-encrypt/">DES加密算法</a>》、《<a href="http://songlee24.github.io/2014/12/13/aes-encrypt/">AES加密算法</a>》。
-            <div class="post-more-link text-center">
-              <a class="btn" href="/2015/05/03/public-key-and-private-key/#more">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          
-        
-      </div>
-    
-
-    
-      <div class="post-footer">
-        
-
-        
-
-        
-        
-          <div class="post-eof"></div>
-        
-      </div>
-    
-  </div>
-
-
-  
 
           </div>
 
@@ -1200,7 +1224,7 @@
       <p class="site-description motion-element">放宽心，多努力</p>
       <div class="site-state motion-element">
         <div class="site-state-item site-state-posts">
-          <span class="site-state-item-count">79</span>
+          <span class="site-state-item-count">80</span>
           <span class="site-state-item-name">日志</span>
         </div>
         <div class="site-state-item site-state-tags">

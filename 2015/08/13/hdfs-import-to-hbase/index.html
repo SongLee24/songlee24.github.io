@@ -1,0 +1,969 @@
+<!doctype html>
+<html class="theme-next use-motion theme-next-next">
+<head>
+  
+
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+  <meta name="google-site-verification" content="VvyjvVXcJQa0QklHipu6pwm2PJGnnchIqX7s5JbbT_0" />
+
+
+
+  <link rel="stylesheet" type="text/css" href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5"/>
+
+
+<link rel="stylesheet" type="text/css" href="/css/main.css?v=0.4.0"/>
+
+
+    <meta name="description" content="放宽心，多努力" />
+
+
+
+	<meta name="keywords" content="HBase,HDFS,Hadoop,MapReduce," />
+
+  <title> MapReduce将HDFS文本数据导入HBase中 // 神奕的博客 </title>
+</head>
+
+<body>
+  <div class="container one-column page-post-detail">
+    <div class="headband"></div>
+
+    <div id="header" class="header">
+      <div class="header-inner">
+        <h1 class="site-meta">
+  <span class="logo-line-before"><i></i></span>
+  <a href="/" class="brand">
+      <span class="logo">
+        <i class="icon-logo"></i>
+      </span>
+      <span class="site-title">神奕的博客</span>
+  </a>
+  <span class="logo-line-after"><i></i></span>
+</h1>
+
+
+  <ul id="menu" class="menu">
+    
+      
+      <li class="menu-item menu-item-home">
+        <a href="/">
+          <i class="menu-item-icon icon-home"></i> <br />
+          首页
+        </a>
+      </li>
+    
+      
+      <li class="menu-item menu-item-categories">
+        <a href="/categories">
+          <i class="menu-item-icon icon-categories"></i> <br />
+          分类
+        </a>
+      </li>
+    
+      
+      <li class="menu-item menu-item-archives">
+        <a href="/archives">
+          <i class="menu-item-icon icon-archives"></i> <br />
+          归档
+        </a>
+      </li>
+    
+      
+      <li class="menu-item menu-item-tags">
+        <a href="/tags">
+          <i class="menu-item-icon icon-tags"></i> <br />
+          标签
+        </a>
+      </li>
+    
+      
+      <li class="menu-item menu-item-about">
+        <a href="/about">
+          <i class="menu-item-icon icon-about"></i> <br />
+          关于
+        </a>
+      </li>
+    
+  </ul>
+
+
+      </div>
+    </div>
+
+    <div id="main" class="main">
+      <div class="main-inner">
+        <div id="content" class="content">
+          
+            
+          
+
+          <div id="posts" class="posts-expand">
+            
+  
+
+  <div class="post post-type-normal ">
+    <div class="post-header">
+
+      
+      
+        <h1 class="post-title">
+          
+          
+            
+              MapReduce将HDFS文本数据导入HBase中
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          
+            发表于 2015-08-12
+          
+        </span>
+
+        
+          
+            <span class="post-category">
+              &nbsp; | &nbsp; 分类于
+              
+                <a href="/categories/大数据-HBase/">大数据-HBase</a>
+
+                
+                
+
+              
+            </span>
+          
+        
+
+        
+          
+            <span class="post-comments-count">
+            &nbsp; | &nbsp;
+            <a href="/2015/08/13/hdfs-import-to-hbase/#comments" >
+              <span class="post-comments-count ds-thread-count" data-thread-key="2015/08/13/hdfs-import-to-hbase/"></span>
+            </a>
+          </span>
+          
+        
+      </div>
+    </div>
+
+    
+      <div class="post-body">
+
+        
+        
+
+        
+          <p>HBase本身提供了很多种数据导入的方式，通常有两种常用方式：</p>
+<ol>
+<li>使用HBase提供的TableOutputFormat，原理是通过一个Mapreduce作业将数据导入HBase</li>
+<li>另一种方式就是使用HBase原生Client API</li>
+</ol>
+<p>本文就是示范如何通过MapReduce作业从一个文件读取数据并写入到HBase中。</p>
+<p>首先启动Hadoop与HBase，然后创建一个空表，用于后面导入数据：<a id="more"></a><br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="title">hbase</span><span class="params">(main)</span></span>:<span class="number">006</span>:<span class="number">0</span>&gt; create <span class="string">'mytable'</span>,<span class="string">'cf'</span></span><br><span class="line"><span class="number">0</span> <span class="function"><span class="title">row</span><span class="params">(s)</span></span> <span class="keyword">in</span> <span class="number">10.8310</span> seconds</span><br><span class="line"></span><br><span class="line">=&gt; Hbase::Table - mytable</span><br><span class="line"><span class="function"><span class="title">hbase</span><span class="params">(main)</span></span>:<span class="number">007</span>:<span class="number">0</span>&gt; list</span><br><span class="line">TABLE                                                                                                   </span><br><span class="line">mytable                                                                                                 </span><br><span class="line"><span class="number">1</span> <span class="function"><span class="title">row</span><span class="params">(s)</span></span> <span class="keyword">in</span> <span class="number">0.1220</span> seconds</span><br><span class="line"></span><br><span class="line">=&gt; [<span class="string">"mytable"</span>]</span><br><span class="line"><span class="function"><span class="title">hbase</span><span class="params">(main)</span></span>:<span class="number">008</span>:<span class="number">0</span>&gt; scan <span class="string">'mytable'</span></span><br><span class="line">ROW                         COLUMN+CELL                                                                 </span><br><span class="line"><span class="number">0</span> <span class="function"><span class="title">row</span><span class="params">(s)</span></span> <span class="keyword">in</span> <span class="number">0.2130</span> seconds</span><br></pre></td></tr></table></figure></p>
+<h1 id="一、示例程序">一、示例程序</h1><p>下面的示例程序通过<code>TableOutputFormat</code>将HDFS上具有一定格式的文本数据导入到HBase中。</p>
+<p>首先创建MapReduce作业，目录结构如下：<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Hdfs2HBase/</span><br><span class="line">├── classes</span><br><span class="line">└── src</span><br><span class="line">    ├── Hdfs2HBase<span class="class">.java</span></span><br><span class="line">    ├── Hdfs2HBaseMapper<span class="class">.java</span></span><br><span class="line">    └── Hdfs2HBaseReducer.java</span><br></pre></td></tr></table></figure></p>
+<p><strong>Hdfs2HBaseMapper.java</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.lisong.hdfs2hbase;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.io.LongWritable;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.io.Text;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.mapreduce.Mapper;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Hdfs2HBaseMapper</span> <span class="keyword">extends</span> <span class="title">Mapper</span>&lt;<span class="title">LongWritable</span>, <span class="title">Text</span>, <span class="title">Text</span>, <span class="title">Text</span>&gt; </span>&#123;</span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">map</span><span class="params">(LongWritable key, Text line, Context context)</span> <span class="keyword">throws</span> IOException,InterruptedException </span>&#123;</span><br><span class="line">                String lineStr = line.toString();</span><br><span class="line">                <span class="keyword">int</span> index = lineStr.indexOf(<span class="string">":"</span>);</span><br><span class="line">                String rowkey = lineStr.substring(<span class="number">0</span>, index);</span><br><span class="line">                String left = lineStr.substring(index+<span class="number">1</span>);</span><br><span class="line">                context.write(<span class="keyword">new</span> Text(rowkey), <span class="keyword">new</span> Text(left));</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>Hdfs2HBaseReducer.java</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.lisong.hdfs2hbase;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.io.Text;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.mapreduce.Reducer;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.hbase.io.ImmutableBytesWritable;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.hbase.client.Put;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.hbase.util.Bytes;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Hdfs2HBaseReducer</span> <span class="keyword">extends</span> <span class="title">Reducer</span>&lt;<span class="title">Text</span>, <span class="title">Text</span>, <span class="title">ImmutableBytesWritable</span>, <span class="title">Put</span>&gt; </span>&#123;</span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">reduce</span><span class="params">(Text rowkey, Iterable&lt;Text&gt; value, Context context)</span> <span class="keyword">throws</span> IOException,InterruptedException </span>&#123;</span><br><span class="line">                String k = rowkey.toString();</span><br><span class="line">                <span class="keyword">for</span>(Text val : value) &#123;</span><br><span class="line">                        Put put = <span class="keyword">new</span> Put(k.getBytes());</span><br><span class="line">                        String[] strs = val.toString().split(<span class="string">":"</span>);</span><br><span class="line">                        String family = strs[<span class="number">0</span>];</span><br><span class="line">                        String qualifier = strs[<span class="number">1</span>];</span><br><span class="line">                        String v = strs[<span class="number">2</span>];</span><br><span class="line">                        put.add(family.getBytes(), qualifier.getBytes(), v.getBytes());</span><br><span class="line">                        context.write(<span class="keyword">new</span> ImmutableBytesWritable(k.getBytes()), put);</span><br><span class="line">                &#125;</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>Hdfs2HBase.java</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.lisong.hdfs2hbase;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.conf.Configuration;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.fs.Path;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.io.LongWritable;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.io.Text;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.hbase.io.ImmutableBytesWritable;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.hbase.client.Put;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.hbase.mapreduce.TableOutputFormat;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.mapreduce.Job;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.mapreduce.lib.input.FileInputFormat;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.util.GenericOptionsParser;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Hdfs2HBase</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">		Configuration conf = <span class="keyword">new</span> Configuration();</span><br><span class="line">		String[] otherArgs = <span class="keyword">new</span> GenericOptionsParser(conf, args).getRemainingArgs();</span><br><span class="line">		<span class="keyword">if</span>(otherArgs.length != <span class="number">2</span>) &#123;</span><br><span class="line">			System.err.println(<span class="string">"Usage: wordcount &lt;infile&gt; &lt;table&gt;"</span>);</span><br><span class="line">			System.exit(<span class="number">2</span>);</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">		Job job = <span class="keyword">new</span> Job(conf, <span class="string">"hdfs2hbase"</span>);</span><br><span class="line">		job.setJarByClass(Hdfs2HBase.class);</span><br><span class="line">		job.setMapperClass(Hdfs2HBaseMapper.class);</span><br><span class="line">		job.setReducerClass(Hdfs2HBaseReducer.class);</span><br><span class="line">		</span><br><span class="line">		job.setOutputKeyClass(ImmutableBytesWritable.class);</span><br><span class="line">		job.setOutputValueClass(Put.class);</span><br><span class="line">		</span><br><span class="line">		job.setOutputFormatClass(TableOutputFormat.class);</span><br><span class="line">		</span><br><span class="line">		FileInputFormat.addInputPath(job, <span class="keyword">new</span> Path(otherArgs[<span class="number">0</span>]));</span><br><span class="line">		job.getConfiguration().set(TableOutputFormat.OUTPUT_TABLE, otherArgs[<span class="number">1</span>]);</span><br><span class="line">		</span><br><span class="line">		System.exit(job.waitForCompletion(<span class="keyword">true</span>)?<span class="number">0</span>:<span class="number">1</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>配置<code>javac</code>编译依赖环境：</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$HADOOP_HOME</span>/share/hadoop/common/hadoop-common-<span class="number">2.4</span>.<span class="number">1</span><span class="class">.jar</span></span><br><span class="line"><span class="variable">$HADOOP_HOME</span>/share/hadoop/mapreduce/hadoop-mapreduce-client-core-<span class="number">2.4</span>.<span class="number">1</span><span class="class">.jar</span></span><br><span class="line"><span class="variable">$HADOOP_HOME</span>/share/hadoop/common/lib/commons-cli-<span class="number">1.2</span>.jar</span><br></pre></td></tr></table></figure>
+<p>这里要操作HBase，故除了上面三个jar包，还需要<code>$HBASE_HOME/lib</code>目录下的jar包。为了方便，我们在<code>/etc/profile</code>的<strong><code>CLASSPATH</code></strong>里包含所有的依赖包：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">TEMP=`ls /home/hadoop/hbase/lib/*.jar`</span><br><span class="line">HBASE_JARS=`<span class="built_in">echo</span> <span class="variable">$TEMP</span> | sed <span class="string">'s/ /:/g'</span>`</span><br><span class="line"><span class="built_in">export</span> CLASSPATH=.:<span class="variable">$JAVA_HOME</span>/lib/dt.jar:<span class="variable">$JAVA_HOME</span>/lib/tools.jar:/home/hadoop/hadoop/share/hadoop/common/hadoop-common-<span class="number">2.6</span>.<span class="number">0</span>.jar:/home/hadoop/hadoop/share/hadoop/mapreduce/hadoop-mapreduce-client-core-<span class="number">2.6</span>.<span class="number">0</span>.jar:/home/hadoop/hadoop/share/hadoop/common/lib/commons-cli-<span class="number">1.2</span>.jar:<span class="variable">$HBASE_JARS</span></span><br></pre></td></tr></table></figure></p>
+<p><strong>编译</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ javac <span class="operator">-d</span> classes/ src/*.java</span><br></pre></td></tr></table></figure>
+<p><strong>打包</strong></p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ jar -cvf hdfs2hbase<span class="class">.jar</span> classes</span><br></pre></td></tr></table></figure>
+<p><strong>运行</strong></p>
+<p>创建一个<code>data.txt</code>文件，内容如下（列族是建表时创建的列族<code>cf</code>）：<br><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">r1</span><span class="pseudo">:cf</span><span class="pseudo">:c1</span><span class="pseudo">:value1</span> </span><br><span class="line"><span class="tag">r2</span><span class="pseudo">:cf</span><span class="pseudo">:c2</span><span class="pseudo">:value2</span> </span><br><span class="line"><span class="tag">r3</span><span class="pseudo">:cf</span><span class="pseudo">:c3</span><span class="pseudo">:value3</span></span><br></pre></td></tr></table></figure></p>
+<p>将文件复制到hdfs上：<br><figure class="highlight haskell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hadoop/bin/hadoop fs -put <span class="typedef"><span class="keyword">data</span>.txt /hbase</span></span><br></pre></td></tr></table></figure></p>
+<p>运行MapReduce作业：<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hadoop/bin/hadoop jar Hdfs2HBase/hdfs2hbase<span class="class">.jar</span> com<span class="class">.lisong</span><span class="class">.hdfs2hbase</span><span class="class">.Hdfs2HBase</span> /hbase/data<span class="class">.txt</span> mytable</span><br></pre></td></tr></table></figure></p>
+<p>报错<code>NoClassDefFoundError</code>找不到类定义：<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">Exception <span class="keyword">in</span> thread <span class="string">"main"</span> java<span class="class">.lang</span><span class="class">.NoClassDefFoundError</span>: org/apache/hadoop/hbase/io/ImmutableBytesWritable</span><br><span class="line">	at com<span class="class">.lisong</span><span class="class">.hdfs2hbase</span><span class="class">.Hdfs2HBase</span><span class="class">.main</span>(Hdfs2HBase<span class="class">.java</span>:<span class="number">30</span>)</span><br><span class="line">	at sun<span class="class">.reflect</span><span class="class">.NativeMethodAccessorImpl</span><span class="class">.invoke0</span>(Native Method)</span><br><span class="line">	...</span><br><span class="line">	at org<span class="class">.apache</span><span class="class">.hadoop</span><span class="class">.util</span><span class="class">.RunJar</span><span class="class">.run</span>(RunJar<span class="class">.java</span>:<span class="number">221</span>)</span><br><span class="line">	at org<span class="class">.apache</span><span class="class">.hadoop</span><span class="class">.util</span><span class="class">.RunJar</span><span class="class">.main</span>(RunJar<span class="class">.java</span>:<span class="number">136</span>)</span><br><span class="line">Caused by: java<span class="class">.lang</span><span class="class">.ClassNotFoundException</span>: org<span class="class">.apache</span><span class="class">.hadoop</span><span class="class">.hbase</span><span class="class">.io</span><span class="class">.ImmutableBytesWritable</span></span><br><span class="line">	at java<span class="class">.net</span><span class="class">.URLClassLoader</span><span class="class">.findClass</span>(URLClassLoader<span class="class">.java</span>:<span class="number">381</span>)</span><br><span class="line">	at java<span class="class">.lang</span><span class="class">.ClassLoader</span><span class="class">.loadClass</span>(ClassLoader<span class="class">.java</span>:<span class="number">424</span>)</span><br><span class="line">	at java<span class="class">.lang</span><span class="class">.ClassLoader</span><span class="class">.loadClass</span>(ClassLoader<span class="class">.java</span>:<span class="number">357</span>)</span><br><span class="line">	... <span class="number">7</span> more</span><br></pre></td></tr></table></figure></p>
+<p>原因是我没有把HBase的jar包加到<code>hadoop-env.sh</code>中。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">TEMP=`ls /home/hadoop/hbase/lib/*.jar`</span><br><span class="line">HBASE_JARS=`<span class="built_in">echo</span> <span class="variable">$TEMP</span> | sed <span class="string">'s/ /:/g'</span>`</span><br><span class="line">HADOOP_CLASSPATH=<span class="variable">$HBASE_JARS</span></span><br></pre></td></tr></table></figure></p>
+<p>再次运行发现又报了<code>Unable to initialize MapOutputCollector</code>的错误：<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">15</span>/<span class="number">08</span>/<span class="number">10</span> <span class="number">08</span>:<span class="number">55</span>:<span class="number">44</span> WARN mapred<span class="class">.MapTask</span>: Unable to initialize MapOutputCollector org<span class="class">.apache</span><span class="class">.hadoop</span><span class="class">.mapred</span><span class="class">.MapTask</span><span class="variable">$MapOutputBuffer</span></span><br><span class="line">java<span class="class">.lang</span><span class="class">.NullPointerException</span></span><br><span class="line">	at org<span class="class">.apache</span><span class="class">.hadoop</span><span class="class">.mapred</span><span class="class">.MapTask</span><span class="variable">$MapOutputBuffer</span>.<span class="function"><span class="title">init</span><span class="params">(MapTask.java:<span class="number">1008</span>)</span></span></span><br><span class="line">	at org<span class="class">.apache</span><span class="class">.hadoop</span><span class="class">.mapred</span><span class="class">.MapTask</span><span class="class">.createSortingCollector</span>(MapTask<span class="class">.java</span>:<span class="number">401</span>)</span><br><span class="line">	...</span><br><span class="line">	at java<span class="class">.lang</span><span class="class">.Thread</span><span class="class">.run</span>(Thread<span class="class">.java</span>:<span class="number">745</span>)</span><br><span class="line"><span class="number">15</span>/<span class="number">08</span>/<span class="number">10</span> <span class="number">08</span>:<span class="number">55</span>:<span class="number">44</span> INFO mapred<span class="class">.LocalJobRunner</span>: map task executor complete.</span><br><span class="line"><span class="number">15</span>/<span class="number">08</span>/<span class="number">10</span> <span class="number">08</span>:<span class="number">55</span>:<span class="number">44</span> WARN mapred<span class="class">.LocalJobRunner</span>: job_local2138114942_0001</span><br><span class="line">java<span class="class">.lang</span><span class="class">.Exception</span>: java<span class="class">.io</span><span class="class">.IOException</span>: Unable to initialize any output collector</span><br><span class="line">	at org<span class="class">.apache</span><span class="class">.hadoop</span><span class="class">.mapred</span><span class="class">.LocalJobRunner</span><span class="variable">$Job</span>.<span class="function"><span class="title">runTasks</span><span class="params">(LocalJobRunner.java:<span class="number">462</span>)</span></span></span><br><span class="line">	at org<span class="class">.apache</span><span class="class">.hadoop</span><span class="class">.mapred</span><span class="class">.LocalJobRunner</span><span class="variable">$Job</span>.<span class="function"><span class="title">run</span><span class="params">(LocalJobRunner.java:<span class="number">522</span>)</span></span></span><br><span class="line">Caused by: java<span class="class">.io</span><span class="class">.IOException</span>: Unable to initialize any output collector</span><br><span class="line">	at org<span class="class">.apache</span><span class="class">.hadoop</span><span class="class">.mapred</span><span class="class">.MapTask</span><span class="class">.createSortingCollector</span>(MapTask<span class="class">.java</span>:<span class="number">412</span>)</span><br><span class="line">	...</span><br><span class="line">	at java<span class="class">.util</span><span class="class">.concurrent</span><span class="class">.ThreadPoolExecutor</span><span class="variable">$Worker</span>.<span class="function"><span class="title">run</span><span class="params">(ThreadPoolExecutor.java:<span class="number">617</span>)</span></span></span><br><span class="line">	at java<span class="class">.lang</span><span class="class">.Thread</span><span class="class">.run</span>(Thread<span class="class">.java</span>:<span class="number">745</span>)</span><br><span class="line"><span class="number">15</span>/<span class="number">08</span>/<span class="number">10</span> <span class="number">08</span>:<span class="number">55</span>:<span class="number">44</span> INFO mapreduce<span class="class">.Job</span>: Job job_local2138114942_0001 failed with state FAILED due to: NA</span><br><span class="line"><span class="number">15</span>/<span class="number">08</span>/<span class="number">10</span> <span class="number">08</span>:<span class="number">55</span>:<span class="number">45</span> INFO mapreduce<span class="class">.Job</span>: Counters: <span class="number">0</span></span><br></pre></td></tr></table></figure></p>
+<p>原因是我没有指明Map输出的Key/Value类型，在<code>Hdfs2HBase.java</code>中添加以下两句：<br><figure class="highlight vbnet"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">job.setMapOutputKeyClass(<span class="keyword">Text</span>.<span class="keyword">class</span>);</span><br><span class="line">job.setMapOutputValueClass(<span class="keyword">Text</span>.<span class="keyword">class</span>);</span><br></pre></td></tr></table></figure></p>
+<p>如果没有专门定义Mapper输出类型的话，<code>job.setOutputKeyClass</code>和<code>job.setOutputValueClass</code>设置的是Mapper和Reducer两个的输出类型。<br><figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">job.setOutputKeyClass(ImmutableBytesWritable.<span class="keyword">class</span>);</span><br><span class="line">job.setOutputValueClass(Put.<span class="keyword">class</span>);</span><br></pre></td></tr></table></figure></p>
+<p>而Hdfs2HBaseMapper输出类型是Text/Text，所以这里需要单独指定。</p>
+<hr>
+<p><strong>修改Hdfs2HBase.java</strong><br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.lisong.hdfs2hbase;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.conf.Configuration;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.fs.Path;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.io.LongWritable;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.io.Text;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.hbase.io.ImmutableBytesWritable;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.hbase.client.Put;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.hbase.mapreduce.TableOutputFormat;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.mapreduce.Job;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.mapreduce.lib.input.FileInputFormat;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.util.GenericOptionsParser;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Hdfs2HBase</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">		Configuration conf = <span class="keyword">new</span> Configuration();</span><br><span class="line">		String[] otherArgs = <span class="keyword">new</span> GenericOptionsParser(conf, args).getRemainingArgs();</span><br><span class="line">		<span class="keyword">if</span>(otherArgs.length != <span class="number">2</span>) &#123;</span><br><span class="line">			System.err.println(<span class="string">"Usage: wordcount &lt;infile&gt; &lt;table&gt;"</span>);</span><br><span class="line">			System.exit(<span class="number">2</span>);</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">		Job job = <span class="keyword">new</span> Job(conf, <span class="string">"hdfs2hbase"</span>);</span><br><span class="line">		job.setJarByClass(Hdfs2HBase.class);</span><br><span class="line">		job.setMapperClass(Hdfs2HBaseMapper.class);</span><br><span class="line">		job.setReducerClass(Hdfs2HBaseReducer.class);</span><br><span class="line">		</span><br><span class="line">		job.setMapOutputKeyClass(Text.class);    <span class="comment">// +</span></span><br><span class="line">		job.setMapOutputValueClass(Text.class);  <span class="comment">// +</span></span><br><span class="line">	</span><br><span class="line">		job.setOutputKeyClass(ImmutableBytesWritable.class);</span><br><span class="line">		job.setOutputValueClass(Put.class);</span><br><span class="line">		</span><br><span class="line">		job.setOutputFormatClass(TableOutputFormat.class);</span><br><span class="line">		</span><br><span class="line">		FileInputFormat.addInputPath(job, <span class="keyword">new</span> Path(otherArgs[<span class="number">0</span>]));</span><br><span class="line">		job.getConfiguration().set(TableOutputFormat.OUTPUT_TABLE, otherArgs[<span class="number">1</span>]);</span><br><span class="line">		</span><br><span class="line">		System.exit(job.waitForCompletion(<span class="keyword">true</span>)?<span class="number">0</span>:<span class="number">1</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>再次编译、打包，然后运行成功！</p>
+<p>查询HBase表，验证数据是否已导入：<br><figure class="highlight nix"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">hbase(main):<span class="number">001</span>:<span class="number">0</span>&gt; scan 'mytable'</span><br><span class="line">ROW                         COLUMN+CELL                                                                 </span><br><span class="line"> r1                         <span class="variable">column=</span>cf:c1, <span class="variable">timestamp=</span><span class="number">1439223857492</span>, <span class="variable">value=</span>value1                         </span><br><span class="line"> r2                         <span class="variable">column=</span>cf:c2, <span class="variable">timestamp=</span><span class="number">1439223857492</span>, <span class="variable">value=</span>value2                         </span><br><span class="line"> r3                         <span class="variable">column=</span>cf:c3, <span class="variable">timestamp=</span><span class="number">1439223857492</span>, <span class="variable">value=</span>value3                         </span><br><span class="line"><span class="number">3</span> row(s) <span class="keyword">in</span> <span class="number">1.3820</span> seconds</span><br></pre></td></tr></table></figure></p>
+<p>可以看到，数据导入成功！</p>
+<p>由于需要频繁的与存储数据的RegionServer通信，占用资源较大，一次性入库大量数据时，TableOutputFormat效率并不好。</p>
+<p><br></p>
+<h1 id="二、拓展-TableReducer">二、拓展-TableReducer</h1><p>我们可以将<code>Hdfs2HBaseReducer.java</code>代码改成下面这样，作用是一样的：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.lisong.hdfs2hbase;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.io.Text;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.io.Writable;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.mapreduce.Reducer;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.hbase.mapreduce.TableReducer;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.hbase.io.ImmutableBytesWritable;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.hbase.client.Put;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.hbase.util.Bytes;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Hdfs2HBaseReducer</span> <span class="keyword">extends</span> <span class="title">TableReducer</span>&lt;<span class="title">Text</span>, <span class="title">Text</span>, <span class="title">ImmutableBytesWritable</span>&gt; </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">reduce</span><span class="params">(Text rowkey, Iterable&lt;Text&gt; value, Context context)</span> <span class="keyword">throws</span> IOException,InterruptedException </span>&#123;</span><br><span class="line">		String k = rowkey.toString();</span><br><span class="line">		<span class="keyword">for</span>(Text val : value) &#123;</span><br><span class="line">			Put put = <span class="keyword">new</span> Put(k.getBytes());</span><br><span class="line">			String[] strs = val.toString().split(<span class="string">":"</span>);</span><br><span class="line">			String family = strs[<span class="number">0</span>];</span><br><span class="line">			String qualifier = strs[<span class="number">1</span>];</span><br><span class="line">			String v = strs[<span class="number">2</span>];</span><br><span class="line">			put.add(family.getBytes(), qualifier.getBytes(), v.getBytes());</span><br><span class="line">			context.write(<span class="keyword">new</span> ImmutableBytesWritable(k.getBytes()), put);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这里直接继承了<code>TableReducer</code>，<code>TableReducer</code>是部分特例化的<code>Reducer</code>，它只有三个类型参数：输入Key/Value是对应Mapper的输出，输出Key可以是任意的类型，但是输出Value必须是一个<code>Put</code>或<code>Delete</code>实例。</p>
+<p><img src="http://img.blog.csdn.net/20150812105912587" alt=""></p>
+<p>编译打包运行，结果与前面的一样！</p>
+<p><br><br><br><br><br></p>
+<p>个人站点：<a href="http://songlee24.github.io/" target="_blank" rel="external">http://songlee24.github.com</a></p>
+
+        
+      </div>
+    
+
+    
+      <div class="post-footer">
+        
+          <div class="post-tags">
+            
+              <a href="/tags/HBase/">
+                #HBase
+              </a>
+            
+              <a href="/tags/HDFS/">
+                #HDFS
+              </a>
+            
+              <a href="/tags/Hadoop/">
+                #Hadoop
+              </a>
+            
+              <a href="/tags/MapReduce/">
+                #MapReduce
+              </a>
+            
+          </div>
+        
+
+        
+          <div class="post-nav">
+            <div class="post-nav-prev post-nav-item">
+              
+            </div>
+
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/2015/07/29/mapreduce-word-count/">第一个MapReduce程序——WordCount</a>
+              
+            </div>
+          </div>
+        
+
+        
+        
+      </div>
+    
+  </div>
+
+
+
+  
+    <div class="comments" id="comments">
+      
+        <div class="ds-thread" data-thread-key="2015/08/13/hdfs-import-to-hbase/"
+             data-title="MapReduce将HDFS文本数据导入HBase中" data-url="http://yoursite.com/2015/08/13/hdfs-import-to-hbase/">
+        </div>
+
+      
+    </div>
+  
+
+          </div>
+
+          
+        </div>
+
+        
+<div class="sidebar-toggle">
+  <div class="sidebar-toggle-line-wrap">
+    <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+    <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+    <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+  </div>
+</div>
+
+<div id="sidebar" class="sidebar">
+  <div class="sidebar-inner">
+
+    
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview" data-target="site-overview">
+          站点概览
+        </li>
+      </ul>
+    
+
+    <div class="site-overview">
+      <div class="site-author motion-element">
+        <img class="site-author-image" src="https://avatars0.githubusercontent.com/u/6904366?v=3&s=140" alt="Song Lee" />
+        <p class="site-author-name">Song Lee</p>
+      </div>
+      <p class="site-description motion-element">放宽心，多努力</p>
+      <div class="site-state motion-element">
+        <div class="site-state-item site-state-posts">
+          <span class="site-state-item-count">80</span>
+          <span class="site-state-item-name">日志</span>
+        </div>
+        <div class="site-state-item site-state-tags">
+            <span class="site-state-item-count">22</span>
+            <span class="site-state-item-name">标签</span>
+        </div>
+        <div class="site-state-item site-state-pages">
+            <span class="site-state-item-count">4</span>
+            <span class="site-state-item-name">页面</span>
+        </div>
+      </div>
+
+      
+        <div class="feed-link motion-element">
+          <a href="/atom.xml">
+            <i class="menu-item-icon icon-feed"></i>
+            RSS
+          </a>
+        </div>
+      
+
+      <div class="links-of-author motion-element">
+        
+          
+            <span class="links-of-author-item">
+              <a href="https://github.com/SongLee24">GitHub</a>
+            </span>
+          
+            <span class="links-of-author-item">
+              <a href="http://blog.csdn.net/lisonglisonglisong">CSDN</a>
+            </span>
+          
+            <span class="links-of-author-item">
+              <a href="http://weibo.com/lisonglisong">Weibo</a>
+            </span>
+          
+            <span class="links-of-author-item">
+              <a href="http://www.douban.com/people/122455925/">DouBan</a>
+            </span>
+          
+            <span class="links-of-author-item">
+              <a href="http://www.zhihu.com/people/shen-yi-59">ZhiHu</a>
+            </span>
+          
+        
+      </div>
+
+      
+      
+        <div class="cc-license motion-element">
+          <a href="http://creativecommons.org/licenses/by-nc-sa/4.0" class="cc-opacity" target="_blank">
+            <img src="/images/cc-by-nc-sa.svg" alt="Creative Commons" />
+          </a>
+        </div>
+      
+
+    </div>
+
+    
+      <div class="post-toc-wrap sidebar-panel-active">
+        <div class="post-toc-indicator-top post-toc-indicator"></div>
+        <div class="post-toc">
+          
+          
+            <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#一、示例程序"><span class="nav-number">1.</span> <span class="nav-text">一、示例程序</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#二、拓展-TableReducer"><span class="nav-number">2.</span> <span class="nav-text">二、拓展-TableReducer</span></a></li></ol></div>
+          
+        </div>
+        <div class="post-toc-indicator-bottom post-toc-indicator"></div>
+      </div>
+    
+
+  </div>
+</div>
+
+
+      </div>
+    </div>
+
+    <div id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy; &nbsp;  2014 - 
+  2015
+  <span class="with-love">
+    <i class="icon-heart"></i>
+  </span>
+  <span class="author">Song Lee</span>
+</div>
+
+<div class="powered-by">
+  <div style="float:left;margin-top:7px;margin-right:10px;">
+	<script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1254974724'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s11.cnzz.com/z_stat.php%3Fid%3D1254974724%26show%3Dpic' type='text/javascript'%3E%3C/script%3E"));</script>
+  </div>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+
+      </div>
+    </div>
+
+    <div class="back-to-top"></div>
+  </div>
+
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript">
+    $(document).ready(function() {
+      $(".fancybox").fancybox();
+    });
+  </script>
+
+  <script type="text/javascript">
+  function hasMobileUA () {
+    var nav = window.navigator;
+    var ua = nav.userAgent;
+    var pa = /iPad|iPhone|Android|Opera Mini|BlackBerry|webOS|UCWEB|Blazer|PSP|IEMobile|Symbian/g;
+
+    return pa.test(ua);
+  }
+
+  function isDesktop () {
+    return screen.width > 991 && !hasMobileUA();
+  }
+
+  function isTablet () {
+    return screen.width < 992 && screen.width > 767 && hasMobileUA();
+  }
+
+  function isMobile () {
+    return screen.width < 767 && hasMobileUA();
+  }
+
+  function escapeSelector (selector) {
+    return selector.replace(/[!"$%&'()*+,.\/:;<=>?@[\\\]^`{|}~]/g, "\\$&")
+  }
+</script>
+
+  
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
+
+  <script type="text/javascript" id="motion.global">
+  $(document).ready(function () {
+    var body = $('body');
+    var isSidebarVisible = false;
+    var sidebarToggle = $('.sidebar-toggle');
+    var sidebarToggleLine1st = $('.sidebar-toggle-line-first')
+    var sidebarToggleLine2nd = $('.sidebar-toggle-line-middle');
+    var sidebarToggleLine3rd = $('.sidebar-toggle-line-last');
+    var sidebar = $('.sidebar');
+
+    var SIDEBAR_WIDTH = '320px';
+    var SIDEBAR_DISPLAY_DURATION = 300;
+
+    var sidebarToogleLineStatusInit = {width: '100%', opacity: 1, left: 0, rotateZ: 0, top: 0};
+
+    var sidebarToggleLine1stStatusInit = sidebarToogleLineStatusInit;
+    var sidebarToggleLine1stStatusArrow = {width: '50%', rotateZ: '-45deg', top: '2px'};
+    var sidebarToogleLine1stStatusClose = {width: '100%', rotateZ: '-45deg', top: '5px'};
+
+    var sidebarToggleLine2ndStatusInit = sidebarToogleLineStatusInit;
+    var sidebarToggleLine2ndStatusArrow = {width: '90%'};
+    var sidebarToogleLine2ndStatusClose = {opacity: 0};
+
+    var sidebarToggleLine3rdStatusInit = sidebarToogleLineStatusInit;
+    var sidebarToggleLine3rdStatusArrow = {width: '50%', rotateZ: '45deg', top: '-2px'};
+    var sidebarToogleLine3rdStatusClose = {width: '100%', rotateZ: '45deg', top: '-5px'};
+
+    LogoAndMenuMotion();
+    sidebatToggleMotion();
+    postsListMotion();
+    backToTopMotion();
+
+
+    $(document)
+      .on('sidebar.isShowing', function () {
+        isDesktop() && body.velocity(
+          {paddingRight: SIDEBAR_WIDTH},
+          SIDEBAR_DISPLAY_DURATION
+        );
+        sidebarContentMotion();
+      })
+      .on('sidebar.isHiding', function () {});
+
+    function LogoAndMenuMotion() {
+      $.Velocity.RunSequence([
+        { e: $('.brand'), p: { opacity: 1 }, o: { duration: 100 } },
+        { e: $('.logo'), p: { opacity: 1, top: 0 }, o: { duration: 50} },
+        
+        { e: $('.logo-line-before i'), p: { translateX: "100%" }, o: { duration: 500, sequenceQueue: false } },
+        { e: $('.logo-line-after i'), p: { translateX: "-100%" }, o: { duration: 500, sequenceQueue: false } },
+        
+        { e: $('.site-title'), p: { opacity: 1, top: 0 }, o: { duration: 200 } }
+      ]);
+      $('.menu-item').velocity('transition.slideDownIn', {display: null});
+    }
+
+
+    function backToTopMotion () {
+      var b2top = $('.back-to-top');
+      b2top.on('click', function () {
+        body.velocity('scroll');
+      });
+    }
+
+    function sidebarShowMotion () {
+
+      sidebarToggleLine1st.velocity(sidebarToogleLine1stStatusClose);
+      sidebarToggleLine2nd.velocity(sidebarToogleLine2ndStatusClose);
+      sidebarToggleLine3rd.velocity(sidebarToogleLine3rdStatusClose);
+
+      sidebar.velocity({width: SIDEBAR_WIDTH}, {
+        display: 'block',
+        duration: SIDEBAR_DISPLAY_DURATION,
+        complete: function () {
+          sidebar.addClass('sidebar-active');
+          sidebar.trigger('sidebar.didShow');
+        }
+      });
+      sidebar.trigger('sidebar.isShowing');
+    }
+
+    function sidebarHideMotion () {
+      isDesktop() && body.velocity({paddingRight: 0});
+      sidebar.velocity('reverse');
+
+      sidebarToggleLine1st.velocity(sidebarToggleLine1stStatusInit);
+      sidebarToggleLine2nd.velocity(sidebarToggleLine2ndStatusInit);
+      sidebarToggleLine3rd.velocity(sidebarToggleLine3rdStatusInit);
+
+      sidebar.removeClass('sidebar-active');
+      sidebar.trigger('sidebar.isHiding');
+    };
+
+    function sidebarContentMotion () {
+      $('.sidebar .motion-element').velocity(
+        'transition.slideRightIn',
+        {stagger: 50, drag: true}
+      );
+    }
+
+    function postsListMotion () {
+      var postMotionOptions = window.postMotionOptions || {stagger: 300, drag: true};
+      $('.post').velocity('transition.slideDownIn', postMotionOptions);
+    }
+
+    function sidebatToggleMotion () {
+      sidebarToggle.on('click', function () {
+        isSidebarVisible ? sidebarHideMotion() : sidebarShowMotion();
+        isSidebarVisible = !isSidebarVisible;
+      });
+
+      sidebarToggle.hover(function () {
+        if (isSidebarVisible) {return}
+        sidebarToggleLine1st.velocity('stop').velocity(sidebarToggleLine1stStatusArrow);
+        sidebarToggleLine2nd.velocity('stop').velocity(sidebarToggleLine2ndStatusArrow);
+        sidebarToggleLine3rd.velocity('stop').velocity(sidebarToggleLine3rdStatusArrow);
+      }, function () {
+        if (isSidebarVisible) {return}
+        sidebarToggleLine1st.velocity('stop').velocity(sidebarToggleLine1stStatusInit);
+        sidebarToggleLine2nd.velocity('stop').velocity(sidebarToggleLine2ndStatusInit);
+        sidebarToggleLine3rd.velocity('stop').velocity(sidebarToggleLine3rdStatusInit);
+      });
+    }
+  });
+
+</script>
+
+
+
+
+
+  
+  
+<script type="text/javascript" id="bootstrap.scrollspy.custom">
+  /* ========================================================================
+  * Bootstrap: scrollspy.js v3.3.2
+  * http://getbootstrap.com/javascript/#scrollspy
+  * ========================================================================
+  * Copyright 2011-2015 Twitter, Inc.
+  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
+  * ======================================================================== */
+
+  /**
+   * Custom by iissnan
+   *
+   * - Add a `clear.bs.scrollspy` event.
+   * - Esacpe targets selector.
+   */
+
+
+  +function ($) {
+    'use strict';
+
+    // SCROLLSPY CLASS DEFINITION
+    // ==========================
+
+    function ScrollSpy(element, options) {
+      this.$body          = $(document.body)
+      this.$scrollElement = $(element).is(document.body) ? $(window) : $(element)
+      this.options        = $.extend({}, ScrollSpy.DEFAULTS, options)
+      this.selector       = (this.options.target || '') + ' .nav li > a'
+      this.offsets        = []
+      this.targets        = []
+      this.activeTarget   = null
+      this.scrollHeight   = 0
+
+      this.$scrollElement.on('scroll.bs.scrollspy', $.proxy(this.process, this))
+      this.refresh()
+      this.process()
+    }
+
+    ScrollSpy.VERSION  = '3.3.2'
+
+    ScrollSpy.DEFAULTS = {
+      offset: 10
+    }
+
+    ScrollSpy.prototype.getScrollHeight = function () {
+      return this.$scrollElement[0].scrollHeight || Math.max(this.$body[0].scrollHeight, document.documentElement.scrollHeight)
+    }
+
+    ScrollSpy.prototype.refresh = function () {
+      var that          = this
+      var offsetMethod  = 'offset'
+      var offsetBase    = 0
+
+      this.offsets      = []
+      this.targets      = []
+      this.scrollHeight = this.getScrollHeight()
+
+      if (!$.isWindow(this.$scrollElement[0])) {
+        offsetMethod = 'position'
+        offsetBase   = this.$scrollElement.scrollTop()
+      }
+
+      this.$body
+        .find(this.selector)
+        .map(function () {
+          var $el   = $(this)
+          var href  = $el.data('target') || $el.attr('href')
+          var $href = /^#./.test(href) && $(escapeSelector(href)) // Need to escape selector.
+
+          return ($href
+            && $href.length
+            && $href.is(':visible')
+            && [[$href[offsetMethod]().top + offsetBase, href]]) || null
+        })
+        .sort(function (a, b) { return a[0] - b[0] })
+        .each(function () {
+          that.offsets.push(this[0])
+          that.targets.push(this[1])
+        })
+
+
+    }
+
+    ScrollSpy.prototype.process = function () {
+      var scrollTop    = this.$scrollElement.scrollTop() + this.options.offset
+      var scrollHeight = this.getScrollHeight()
+      var maxScroll    = this.options.offset + scrollHeight - this.$scrollElement.height()
+      var offsets      = this.offsets
+      var targets      = this.targets
+      var activeTarget = this.activeTarget
+      var i
+
+      if (this.scrollHeight != scrollHeight) {
+        this.refresh()
+      }
+
+      if (scrollTop >= maxScroll) {
+        return activeTarget != (i = targets[targets.length - 1]) && this.activate(i)
+      }
+
+      if (activeTarget && scrollTop < offsets[0]) {
+        $(this.selector).trigger('clear.bs.scrollspy')  // Add a custom event.
+        this.activeTarget = null
+        return this.clear()
+      }
+
+      for (i = offsets.length; i--;) {
+        activeTarget != targets[i]
+          && scrollTop >= offsets[i]
+          && (!offsets[i + 1] || scrollTop <= offsets[i + 1])
+          && this.activate(targets[i])
+      }
+    }
+
+    ScrollSpy.prototype.activate = function (target) {
+      this.activeTarget = target
+
+      this.clear()
+
+      var selector = this.selector +
+        '[data-target="' + target + '"],' +
+        this.selector + '[href="' + target + '"]'
+
+      var active = $(selector)
+        .parents('li')
+        .addClass('active')
+
+      if (active.parent('.dropdown-menu').length) {
+        active = active
+          .closest('li.dropdown')
+          .addClass('active')
+      }
+
+      active.trigger('activate.bs.scrollspy')
+    }
+
+    ScrollSpy.prototype.clear = function () {
+      $(this.selector)
+        .parentsUntil(this.options.target, '.active')
+        .removeClass('active')
+    }
+
+
+    // SCROLLSPY PLUGIN DEFINITION
+    // ===========================
+
+    function Plugin(option) {
+      return this.each(function () {
+        var $this   = $(this)
+        var data    = $this.data('bs.scrollspy')
+        var options = typeof option == 'object' && option
+
+        if (!data) $this.data('bs.scrollspy', (data = new ScrollSpy(this, options)))
+        if (typeof option == 'string') data[option]()
+      })
+    }
+
+    var old = $.fn.scrollspy
+
+    $.fn.scrollspy             = Plugin
+    $.fn.scrollspy.Constructor = ScrollSpy
+
+
+    // SCROLLSPY NO CONFLICT
+    // =====================
+
+    $.fn.scrollspy.noConflict = function () {
+      $.fn.scrollspy = old
+      return this
+    }
+
+
+    // SCROLLSPY DATA-API
+    // ==================
+
+    $(window).on('load.bs.scrollspy.data-api', function () {
+      $('[data-spy="scroll"]').each(function () {
+        var $spy = $(this)
+        Plugin.call($spy, $spy.data())
+      })
+    })
+
+  }(jQuery);
+</script>
+
+
+<script type="text/javascript" id="sidebar.toc.highlight">
+  $(document).ready(function () {
+    var tocSelector = '.post-toc';
+    var $tocSelector = $(tocSelector);
+    var activeCurrentSelector = '.active-current';
+
+    $tocSelector
+      .on('activate.bs.scrollspy', function () {
+        var $currentActiveElement = $(tocSelector + ' .active').last();
+
+        removeCurrentActiveClass();
+        $currentActiveElement.addClass('active-current');
+
+        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
+      })
+      .on('clear.bs.scrollspy', function () {
+        removeCurrentActiveClass();
+      });
+
+    function removeCurrentActiveClass () {
+      $(tocSelector + ' ' + activeCurrentSelector)
+        .removeClass(activeCurrentSelector.substring(1));
+    }
+
+    function processTOC () {
+      getTOCMaxHeight();
+      toggleTOCOverflowIndicators();
+    }
+
+    function getTOCMaxHeight () {
+      var $sidebarInner = $('.sidebar-inner');
+      var height = $('.sidebar').height() -
+                   $tocSelector.position().top -
+                   $('.post-toc-indicator-bottom').height();
+
+      $tocSelector.css('height', height);
+
+      return height;
+    }
+
+    function toggleTOCOverflowIndicators () {
+      tocOverflowIndicator(
+        '.post-toc-indicator-top',
+        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
+      );
+
+      tocOverflowIndicator(
+        '.post-toc-indicator-bottom',
+        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
+      )
+    }
+
+    $(document).on('sidebar.didShow', function () {
+      processTOC();
+    });
+
+    $('body').scrollspy({ target: tocSelector });
+    $(window).on('resize', function () {
+      if ( $('.sidebar').hasClass('sidebar-active') ) {
+        processTOC();
+      }
+    });
+
+    onScroll($tocSelector);
+
+    function onScroll (element) {
+      element.on('mousewheel DOMMouseScroll', function (event) {
+          var oe = event.originalEvent;
+          var delta = oe.wheelDelta || -oe.detail;
+          var self = this;
+
+          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+          event.preventDefault();
+
+          toggleTOCOverflowIndicators();
+      });
+    }
+
+    function tocOverflowIndicator (indicator, action) {
+      $(indicator).velocity('stop').velocity({
+        opacity: action === 'show' ? 0.4 : 0
+      }, { duration: 100 });
+    }
+
+  });
+</script>
+
+
+  <script type="text/javascript" id="sidebar.nav">
+    $(document).ready(function () {
+      var html = $('html');
+
+      $('.sidebar-nav li').on('click', function () {
+        var item = $(this);
+        var activeTabClassName = 'sidebar-nav-active';
+        var activePanelClassName = 'sidebar-panel-active';
+        if (item.hasClass(activeTabClassName)) {
+          return;
+        }
+
+        var currentTarget = $('.' + activePanelClassName);
+        var target = $('.' + item.data('target'));
+
+        currentTarget.velocity('transition.slideUpOut', 200, function () {
+          target
+            .velocity('stop')
+            .velocity('transition.slideDownIn', 200)
+            .addClass(activePanelClassName);
+        });
+
+        item.siblings().removeClass(activeTabClassName);
+        item.addClass(activeTabClassName);
+      });
+
+      $('.post-toc a').on('click', function (e) {
+        e.preventDefault();
+        var offset = $(escapeSelector(this.getAttribute('href'))).offset().top;
+        html.velocity('stop').velocity('scroll', {
+          offset: offset  + 'px',
+          mobileHA: false
+        });
+      });
+
+      // Expand sidebar on post detail page by default, when post has a toc.
+      var $tocContent = $('.post-toc-content');
+      if ($tocContent.length > 0 && $tocContent.html().trim().length > 0 && isDesktop()) {
+        setTimeout(function () {
+          $('.sidebar-toggle').trigger('click');
+        }, 800);
+      }
+    });
+  </script>
+
+
+
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"16"},"slide":{"type":"slide","bdImg":"2","bdPos":"left","bdTop":"195.5"},"image":{"viewList":["qzone","tsina","tqq","renren","weixin"],"viewText":"分享到：","viewSize":"16"},"selectShare":{"bdContainerClass":null,"bdSelectMiniList":["qzone","tsina","tqq","renren","weixin"]}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+
+
+  
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for (i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"songlee24"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+  
+</body>
+</html>
