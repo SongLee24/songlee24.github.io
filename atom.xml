@@ -4,7 +4,7 @@
   <subtitle><![CDATA[李松]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://yoursite.com/"/>
-  <updated>2015-08-12T23:42:57.706Z</updated>
+  <updated>2015-08-15T14:32:02.456Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -13,6 +13,81 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[-ROOT-表和.META.表结构详解]]></title>
+    <link href="http://yoursite.com/2015/08/15/root-and-meta-table-structure/"/>
+    <id>http://yoursite.com/2015/08/15/root-and-meta-table-structure/</id>
+    <published>2015-08-15T14:29:27.000Z</published>
+    <updated>2015-08-15T14:32:02.456Z</updated>
+    <content type="html"><![CDATA[<p>在《<a href="http://songlee24.github.io/2015/07/24/hbase-introduction/" target="_blank" rel="external">HBase技术简介</a>》中我们知道，HBase中有两个特殊的表：<code>-ROOT-</code>和<code>.META.</code>。</p>
+<p>由于HBase中的表可能非常大，故HBase会将表按行分成多个region，然后分配到多台RegionServer上。数据访问的整个流程如下图所示：<a id="more"></a></p>
+<center><br><img src="http://img.blog.csdn.net/20150815181211282" alt=""><br></center>
+
+<p>注意两点：</p>
+<ol>
+<li>Client端在访问数据的过程中并没有涉及到Master节点，也就是说HBase日常的数据操作并不需要Master，不会造成Master的负担。</li>
+<li>并不是每次数据访问都要执行上面的整个流程，因为很多数据都会被Cache起来。</li>
+</ol>
+<hr>
+<p>从存储结构和操作方法的角度来说，<code>-ROOT-</code>、<code>.META.</code>与其他表没有任何区别。它们与众不同的地方是HBase用它们来存贮一个重要的系统信息：</p>
+<ul>
+<li>-ROOT-：记录.META.表的Region信息。</li>
+<li>.META.：记录用户表的Region信息。</li>
+</ul>
+<p>其中-ROOT-表本身只会有一个region，这样保证了只需要三次跳转，就能定位到任意region，</p>
+<h1 id="一、META表结构">一、META表结构</h1><p>在 HBase Shell 里对<code>.META.</code>表进行 scan 和 describe ：</p>
+<p><img src="http://img.blog.csdn.net/20150812143409121" alt=""></p>
+<p>可以看出，<code>.META.</code>表的结构如下：</p>
+<p><img src="http://img.blog.csdn.net/20150812121857591" alt=""></p>
+<p><code>.META.</code>表中每一行记录了一个Region的信息。</p>
+<p><strong>1)  RowKey</strong></p>
+<p>RowKey就是Region Name，它的命名形式是<code>TableName,StartKey,TimeStamp.Encoded.</code>。</p>
+<p>其中 Encoded 是<code>TableName,StartKey,TimeStamp</code>的md5值。</p>
+<p>例如：<br><figure class="highlight autohotkey"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mytable,,<span class="number">1438832261249</span>.ea2b47e1eba6dd9a7121315cdf0e4f67.</span><br></pre></td></tr></table></figure></p>
+<p>表名是<code>mytable</code>，StartKey为空，时间戳是<code>1438832261249</code>，前面三部分的md5是：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">echo</span> -n <span class="string">"mytable,,1438832261249"</span> | md5sum   <span class="comment"># -n选项表示不输出换行符</span></span><br><span class="line">ea2b47e1eba6dd9a7121315cdf0e4f67  -</span><br></pre></td></tr></table></figure></p>
+<p><strong>2)  Column Family</strong></p>
+<p><code>.META.</code>表有两个Column Family：<code>info</code> 和 <code>historian</code>。</p>
+<p>其中<code>info</code>包含了三个Column：</p>
+<ul>
+<li><code>regioninfo</code>：region的详细信息，包括StartKey、EndKey以及Table信息等等。</li>
+<li><code>server</code>：管理该region的 RegionServer 的地址。</li>
+<li><code>serverstartcode</code>：RegionServer 开始托管该region的时间。</li>
+</ul>
+<p>至于<code>historian</code>：</p>
+<blockquote>
+<pre><code>That was <span class="operator">a</span> family used <span class="built_in">to</span> keep track <span class="operator">of</span> region operations like <span class="built_in">open</span>,
+</code></pre><p>close, compact, etc. It proved to be more troublesome than handy so we<br>disabled this feature until coming up with a better solution. The<br>family stayed for backward compatibility.</p>
+</blockquote>
+<p>大致的意思是：这个Column Family是用来追踪一些region操作的，例如open、close、compact等。事实证明这非常的麻烦，所以在想出一个更好的解决方案之前我们禁用了此功能。这个列族会保持向后兼容。</p>
+<p><strong>综上所述</strong>，<code>.META.</code>表中保存了所有用户表的region信息，在进行数据访问时，它是必不可少的一个环节。当Region被拆分、合并或者重新分配的时候，都需要来修改这张表的内容 来保证访问数据时能够正确地定位region。</p>
+<h1 id="二、ROOT表结构">二、ROOT表结构</h1><p>当用户表特别大时，用户表的region也会非常多。<code>.META.</code>表存储了这些region信息，也变得非常大，这时<code>.META.</code>自己也需要划分成多个Region，托管到多个RegionServer上。</p>
+<p>这时就出现了一个问题：<strong>当<code>.META.</code>被托管在多个RegionServer上，如何去定位<code>.META.</code>呢？</strong> HBase的做法是用另外一个表来记录<code>.META.</code>的Region信息，就和<code>.META.</code>记录用户表的Region信息一样，这个表就是<strong><code>-ROOT-</code></strong>表。</p>
+<p>在 HBase Shell 里对<code>-ROOT-</code>表进行 scan 和 describe ：</p>
+<p><img src="http://img.blog.csdn.net/20150815194826244" alt=""></p>
+<p><code>-ROOT-</code>表的结构如下：</p>
+<p><img src="http://img.blog.csdn.net/20150815200306658" alt=""></p>
+<p>可以看出，除了没有<code>historian</code>列族之外，<code>-ROOT-</code>表的结构与<code>.META.</code>表的结构是一样的。另外，<code>-ROOT-</code>表的 RowKey 没有采用时间戳，也没有Encoded值，而是直接指定一个数字。</p>
+<p><code>-ROOT-</code>表永远只有一个Region，也就只会存放在一台RegionServer上。—— 在进行数据访问时，需要知道管理<code>-ROOT-</code>表的RegionServer的地址。这个地址被存在 <strong>ZooKeeper</strong> 中。</p>
+<p><br><br><br><br><br><br>个人站点：<a href="http://songlee24.github.io/" target="_blank" rel="external">http://songlee24.github.com</a><br><br></p>
+<hr>
+<p>参考：www.greatwqs.iteye.com/blog/1838904</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>在《<a href="http://songlee24.github.io/2015/07/24/hbase-introduction/">HBase技术简介</a>》中我们知道，HBase中有两个特殊的表：<code>-ROOT-</code>和<code>.META.</code>。</p>
+<p>由于HBase中的表可能非常大，故HBase会将表按行分成多个region，然后分配到多台RegionServer上。数据访问的整个流程如下图所示：]]>
+    
+    </summary>
+    
+      <category term="HBase" scheme="http://yoursite.com/tags/HBase/"/>
+    
+      <category term="Hadoop" scheme="http://yoursite.com/tags/Hadoop/"/>
+    
+      <category term="ZooKeeper" scheme="http://yoursite.com/tags/ZooKeeper/"/>
+    
+      <category term="大数据-HBase" scheme="http://yoursite.com/categories/%E5%A4%A7%E6%95%B0%E6%8D%AE-HBase/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[MapReduce将HDFS文本数据导入HBase中]]></title>
@@ -1693,56 +1768,6 @@
     <summary type="html">
     <![CDATA[<h1 id="一、题目描述">一、题目描述</h1><p><strong>描述：</strong></p>
 <p>N位同学站成一排，音乐老师要请其中的(N-K)位同学出列，使得剩下的K位同学不交换位置就能排成合唱队形。<br>合唱队形是指这样的一种队形：设K位同学从左到右依次编号为1, 2, …, K，他们的身高分别为T1, T2, …, TK，则他们的身高满足T1 &lt; T2 &lt; … &lt; Ti , Ti &gt; Ti+1 &gt; … &gt; TK (1 &lt;= i &lt;= K) 。<br>你的任务是，已知所有N位同学的身高，计算最少需要几位同学出列，可以使得剩下的同学排成合唱队形。]]>
-    
-    </summary>
-    
-      <category term="OJ" scheme="http://yoursite.com/tags/OJ/"/>
-    
-      <category term="试题-OJ" scheme="http://yoursite.com/categories/%E8%AF%95%E9%A2%98-OJ/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[华为OJ2011-最长公共子串]]></title>
-    <link href="http://yoursite.com/2015/03/18/hua-wei-OJ2011/"/>
-    <id>http://yoursite.com/2015/03/18/hua-wei-OJ2011/</id>
-    <published>2015-03-18T11:19:52.000Z</published>
-    <updated>2015-05-10T11:24:31.089Z</updated>
-    <content type="html"><![CDATA[<h3 id="一、题目描述">一、题目描述</h3><p><strong>描述：</strong></p>
-<p> 计算两个字符串的最大公共子串（Longest Common Substring）的长度，字符区分大小写。</p>
-<p><strong>输入：</strong></p>
-<p>输入两个字符串<a id="more"></a></p>
-<p><strong>输出：</strong></p>
-<p>输出一个整数</p>
-<p><strong>样例输入：</strong><br><figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="title">asdfas</span> werasdfaswer</span><br></pre></td></tr></table></figure></p>
-<p><strong>样例输出：</strong><br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">6</span><br></pre></td></tr></table></figure></p>
-<p><br></p>
-<h3 id="二、解题报告">二、解题报告</h3><p>与最长公共子序列（参见《<a href="http://songlee24.github.io/2014/11/27/dynamic-programming/" target="_blank" rel="external">动态规划DP</a>》）一样，最长公共子串也可以使用动态规划解决，只不过思路不太一样。准确地说，是打表的方式不一样。</p>
-<p>举个例子：s1 = <code>bab</code>，s2 = <code>caba</code>。表如下</p>
-<center><br><img src="http://img.blog.csdn.net/20150423105150153" alt=""><br></center>
-
-<p>具体打表的方法是：</p>
-<ul>
-<li>第一行、第一列初始化为 0；</li>
-<li>对于其他的格子：<ul>
-<li>若对应的两个字符相等，格子的值设为左上角的值加 1。</li>
-<li>若对应的两个字符不相等，直接置 0 。</li>
-</ul>
-</li>
-</ul>
-<p><br><br>这样的话，表中的最大元素就是 最长公共子串 的<strong>长度</strong>。并且也可以很容易看出最长公共子串有 2 个，分别是<code>ba</code>和<code>ab</code>。</p>
-<p>C++代码如下：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#<span class="keyword">include</span> &lt;iostream&gt;</span></span><br><span class="line"><span class="preprocessor">#<span class="keyword">include</span> &lt;sstream&gt;</span></span><br><span class="line"><span class="preprocessor">#<span class="keyword">include</span> &lt;string&gt;</span></span><br><span class="line"><span class="preprocessor">#<span class="keyword">include</span> &lt;vector&gt;</span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">getLCStringLength</span><span class="params">(<span class="built_in">string</span> s1, <span class="built_in">string</span> s2)</span></span><br><span class="line"></span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(s1 == <span class="string">""</span> || s2 == <span class="string">""</span>)</span><br><span class="line">		<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">int</span> m = s1.size();</span><br><span class="line">	<span class="keyword">int</span> n = s2.size();</span><br><span class="line">	<span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; &gt; table(m+<span class="number">1</span>, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;(n+<span class="number">1</span>));</span><br><span class="line"></span><br><span class="line">	<span class="keyword">int</span> biggest = <span class="number">0</span>;  <span class="comment">// 记录表中最大值</span></span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;m+<span class="number">1</span>; ++i)  </span><br><span class="line">	&#123;  </span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>; j&lt;n+<span class="number">1</span>; ++j)  </span><br><span class="line">		&#123;  </span><br><span class="line">			<span class="comment">// 第一行和第一列置0  </span></span><br><span class="line">			<span class="keyword">if</span> (i == <span class="number">0</span> || j == <span class="number">0</span>)  </span><br><span class="line">				table[i][j] = <span class="number">0</span>;  </span><br><span class="line"></span><br><span class="line">			<span class="keyword">else</span> <span class="keyword">if</span>(s1[i-<span class="number">1</span>] == s2[j-<span class="number">1</span>])  </span><br><span class="line">			&#123;</span><br><span class="line">				table[i][j] = table[i-<span class="number">1</span>][j-<span class="number">1</span>] + <span class="number">1</span>;  </span><br><span class="line">				<span class="keyword">if</span>(table[i][j] &gt; biggest)</span><br><span class="line">					biggest = table[i][j];</span><br><span class="line">			&#125;</span><br><span class="line"></span><br><span class="line">			<span class="keyword">else</span>  <span class="comment">// 不相等置0</span></span><br><span class="line">				table[i][j] = <span class="number">0</span>;  </span><br><span class="line">		&#125;  </span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> biggest;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span> <span class="params">()</span></span><br><span class="line"></span>&#123;</span><br><span class="line">	<span class="built_in">string</span> input, s1, s2;</span><br><span class="line">	getline(<span class="built_in">cin</span>, input);</span><br><span class="line">	<span class="function"><span class="built_in">stringstream</span> <span class="title">ss</span><span class="params">(input)</span></span>;</span><br><span class="line">	ss &gt;&gt; s1;</span><br><span class="line">	ss &gt;&gt; s2;</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; getLCStringLength(s1, s2) &lt;&lt; endl;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p><br></p>
-<h3 id="三、扩展">三、扩展</h3><p>如何输出所有的最长公共子串？</p>
-<p>很简单，我们记录下 s1 和 s2 的公共子串分别在 s1 、s2 中起始位置（即表中值为 1 的坐标）。打表完成以后，我们已经知道了最长公共子串的长度<code>length</code>，通过<code>substr()</code>判断即可：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">s1.substr(i-<span class="number">1</span>, length) == s2.substr(j-<span class="number">1</span>, length)</span><br></pre></td></tr></table></figure></p>
-<p>C++代码如下：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#<span class="keyword">include</span> &lt;iostream&gt;</span></span><br><span class="line"><span class="preprocessor">#<span class="keyword">include</span> &lt;string&gt;</span></span><br><span class="line"><span class="preprocessor">#<span class="keyword">include</span> &lt;vector&gt;</span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">printLCString</span><span class="params">(<span class="built_in">string</span> s1, <span class="built_in">string</span> s2)</span></span><br><span class="line"></span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(s1 == <span class="string">""</span> || s2 == <span class="string">""</span>)</span><br><span class="line">		<span class="keyword">return</span>;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">int</span> m = s1.size();</span><br><span class="line">	<span class="keyword">int</span> n = s2.size();</span><br><span class="line">	<span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; &gt; table(m+<span class="number">1</span>, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;(n+<span class="number">1</span>));</span><br><span class="line"></span><br><span class="line">	<span class="keyword">int</span> biggest = <span class="number">0</span>;  <span class="comment">// 记录表中最大值</span></span><br><span class="line">	<span class="built_in">vector</span>&lt;pair&lt;<span class="keyword">int</span>, <span class="keyword">int</span>&gt; &gt; firstPos;  <span class="comment">// 记录子串开始的坐标 </span></span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;m+<span class="number">1</span>; ++i)  </span><br><span class="line">	&#123;  </span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>; j&lt;n+<span class="number">1</span>; ++j)  </span><br><span class="line">		&#123;  </span><br><span class="line">			<span class="comment">// 第一行和第一列置0  </span></span><br><span class="line">			<span class="keyword">if</span> (i == <span class="number">0</span> || j == <span class="number">0</span>)  </span><br><span class="line">				table[i][j] = <span class="number">0</span>;  </span><br><span class="line">			<span class="keyword">else</span> <span class="keyword">if</span>(s1[i-<span class="number">1</span>] == s2[j-<span class="number">1</span>])  </span><br><span class="line">			&#123;</span><br><span class="line">				table[i][j] = table[i-<span class="number">1</span>][j-<span class="number">1</span>] + <span class="number">1</span>;  </span><br><span class="line">				<span class="keyword">if</span>(table[i][j] &gt; biggest)</span><br><span class="line">					biggest = table[i][j];</span><br><span class="line">				<span class="keyword">if</span>(table[i][j] == <span class="number">1</span>) </span><br><span class="line">					firstPos.push_back(make_pair(i, j));</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">else</span>  <span class="comment">// 不相等置0</span></span><br><span class="line">				table[i][j] = <span class="number">0</span>;  </span><br><span class="line">		&#125;  </span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">// 输出所有的最长公共子串</span></span><br><span class="line">	<span class="built_in">vector</span>&lt;pair&lt;<span class="keyword">int</span>, <span class="keyword">int</span>&gt; &gt;::iterator beg = firstPos.begin();</span><br><span class="line">	<span class="keyword">for</span>( ; beg!=firstPos.end(); ++beg)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">int</span> start1 = beg-&gt;first-<span class="number">1</span>;</span><br><span class="line">		<span class="keyword">int</span> start2 = beg-&gt;second-<span class="number">1</span>;</span><br><span class="line">		<span class="keyword">if</span>(s1.substr(start1, biggest) == s2.substr(start2, biggest))</span><br><span class="line">			<span class="built_in">cout</span> &lt;&lt; s1.substr(start1, biggest) &lt;&lt; endl;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span> <span class="params">()</span></span><br><span class="line"></span>&#123;</span><br><span class="line">	<span class="built_in">string</span> s1 = <span class="string">"hello,world,james"</span>;</span><br><span class="line">	<span class="built_in">string</span> s2 = <span class="string">"james is saying hello"</span>;</span><br><span class="line">	printLCString(s1, s2);</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p><br><br><br><br><br><br><br>个人站点：<a href="http://songlee24.github.io/" target="_blank" rel="external">http://songlee24.github.com</a></p>
-]]></content>
-    <summary type="html">
-    <![CDATA[<h3 id="一、题目描述">一、题目描述</h3><p><strong>描述：</strong></p>
-<p> 计算两个字符串的最大公共子串（Longest Common Substring）的长度，字符区分大小写。</p>
-<p><strong>输入：</strong></p>
-<p>输入两个字符串]]>
     
     </summary>
     
