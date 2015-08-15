@@ -4,7 +4,7 @@
   <subtitle><![CDATA[李松]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://yoursite.com/"/>
-  <updated>2015-08-15T14:32:02.456Z</updated>
+  <updated>2015-08-15T14:36:10.792Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -19,7 +19,7 @@
     <link href="http://yoursite.com/2015/08/15/root-and-meta-table-structure/"/>
     <id>http://yoursite.com/2015/08/15/root-and-meta-table-structure/</id>
     <published>2015-08-15T14:29:27.000Z</published>
-    <updated>2015-08-15T14:32:02.456Z</updated>
+    <updated>2015-08-15T14:36:10.792Z</updated>
     <content type="html"><![CDATA[<p>在《<a href="http://songlee24.github.io/2015/07/24/hbase-introduction/" target="_blank" rel="external">HBase技术简介</a>》中我们知道，HBase中有两个特殊的表：<code>-ROOT-</code>和<code>.META.</code>。</p>
 <p>由于HBase中的表可能非常大，故HBase会将表按行分成多个region，然后分配到多台RegionServer上。数据访问的整个流程如下图所示：<a id="more"></a></p>
 <center><br><img src="http://img.blog.csdn.net/20150815181211282" alt=""><br></center>
@@ -36,6 +36,7 @@
 <li>.META.：记录用户表的Region信息。</li>
 </ul>
 <p>其中-ROOT-表本身只会有一个region，这样保证了只需要三次跳转，就能定位到任意region，</p>
+<p><br></p>
 <h1 id="一、META表结构">一、META表结构</h1><p>在 HBase Shell 里对<code>.META.</code>表进行 scan 和 describe ：</p>
 <p><img src="http://img.blog.csdn.net/20150812143409121" alt=""></p>
 <p>可以看出，<code>.META.</code>表的结构如下：</p>
@@ -56,11 +57,11 @@
 </ul>
 <p>至于<code>historian</code>：</p>
 <blockquote>
-<pre><code>That was <span class="operator">a</span> family used <span class="built_in">to</span> keep track <span class="operator">of</span> region operations like <span class="built_in">open</span>,
-</code></pre><p>close, compact, etc. It proved to be more troublesome than handy so we<br>disabled this feature until coming up with a better solution. The<br>family stayed for backward compatibility.</p>
+<p>That was a family used to keep track of region operations like open,<br>close, compact, etc. It proved to be more troublesome than handy so we<br>disabled this feature until coming up with a better solution. The<br>family stayed for backward compatibility.</p>
 </blockquote>
 <p>大致的意思是：这个Column Family是用来追踪一些region操作的，例如open、close、compact等。事实证明这非常的麻烦，所以在想出一个更好的解决方案之前我们禁用了此功能。这个列族会保持向后兼容。</p>
 <p><strong>综上所述</strong>，<code>.META.</code>表中保存了所有用户表的region信息，在进行数据访问时，它是必不可少的一个环节。当Region被拆分、合并或者重新分配的时候，都需要来修改这张表的内容 来保证访问数据时能够正确地定位region。</p>
+<p><br></p>
 <h1 id="二、ROOT表结构">二、ROOT表结构</h1><p>当用户表特别大时，用户表的region也会非常多。<code>.META.</code>表存储了这些region信息，也变得非常大，这时<code>.META.</code>自己也需要划分成多个Region，托管到多个RegionServer上。</p>
 <p>这时就出现了一个问题：<strong>当<code>.META.</code>被托管在多个RegionServer上，如何去定位<code>.META.</code>呢？</strong> HBase的做法是用另外一个表来记录<code>.META.</code>的Region信息，就和<code>.META.</code>记录用户表的Region信息一样，这个表就是<strong><code>-ROOT-</code></strong>表。</p>
 <p>在 HBase Shell 里对<code>-ROOT-</code>表进行 scan 和 describe ：</p>
