@@ -192,8 +192,7 @@
             <blockquote>
 <h2 id="前言">前言</h2><p><strong>日志收集是大数据的基石。</strong>许多公司的业务平台每天都会产生大量的日志数据。收集业务日志数据，供离线和在线的分析系统使用，正是日志收集系统的要做的事情。高可用性，高可靠性和可扩展性是日志收集系统所具有的基本特征。</p>
 </blockquote>
-<h2 id="一、Scribe简介">一、Scribe简介</h2><p>目前在互联网公司比较常见日志收集系统有<strong>Flume</strong>和<strong>Scribe</strong>。</p>
-<p>Scribe是Facebook开源的一个基于thrift的日志收集框架，它为日志收集提供了一种容错且可扩展的方案。scribe可以从不同数据源，不同机器上收集日志，然后将它们存入一个中央存储系统，以便集中统计分析处理。<strong>奇虎360</strong>就是用的Scribe来收集业务日志，但是在原生的基础上他们做了很多定制：zookeeper负载均衡、支持写HDFS、支持写Kestrel队列、支持写QBus/Kafka等。<br>
+<h2 id="一、Scribe简介">一、Scribe简介</h2><p>目前在互联网公司比较常见日志收集系统有<strong>Flume</strong>和<strong>Scribe</strong>。<br>
             <div class="post-more-link text-center">
               <a class="btn" href="/2016/02/23/log-collection-system-arch/#more">
                 阅读全文 &raquo;
