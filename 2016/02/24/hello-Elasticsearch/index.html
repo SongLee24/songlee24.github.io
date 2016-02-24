@@ -1,0 +1,1120 @@
+<!doctype html>
+<html class="theme-next use-motion theme-next-next">
+<head>
+  
+
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+  <meta name="google-site-verification" content="VvyjvVXcJQa0QklHipu6pwm2PJGnnchIqX7s5JbbT_0" />
+
+
+
+  <link rel="stylesheet" type="text/css" href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5"/>
+
+
+<link rel="stylesheet" type="text/css" href="/css/main.css?v=0.4.0"/>
+
+
+    <meta name="description" content="放宽心，多努力" />
+
+
+
+	<meta name="keywords" content="Elasticsearch,Lucene," />
+
+  <title> 初识Elasticsearch // 神奕的博客 </title>
+</head>
+
+<body>
+  <div class="container one-column page-post-detail">
+    <div class="headband"></div>
+
+    <div id="header" class="header">
+      <div class="header-inner">
+        <h1 class="site-meta">
+  <span class="logo-line-before"><i></i></span>
+  <a href="/" class="brand">
+      <span class="logo">
+        <i class="icon-logo"></i>
+      </span>
+      <span class="site-title">神奕的博客</span>
+  </a>
+  <span class="logo-line-after"><i></i></span>
+</h1>
+
+
+  <ul id="menu" class="menu">
+    
+      
+      <li class="menu-item menu-item-home">
+        <a href="/">
+          <i class="menu-item-icon icon-home"></i> <br />
+          首页
+        </a>
+      </li>
+    
+      
+      <li class="menu-item menu-item-categories">
+        <a href="/categories">
+          <i class="menu-item-icon icon-categories"></i> <br />
+          分类
+        </a>
+      </li>
+    
+      
+      <li class="menu-item menu-item-archives">
+        <a href="/archives">
+          <i class="menu-item-icon icon-archives"></i> <br />
+          归档
+        </a>
+      </li>
+    
+      
+      <li class="menu-item menu-item-tags">
+        <a href="/tags">
+          <i class="menu-item-icon icon-tags"></i> <br />
+          标签
+        </a>
+      </li>
+    
+      
+      <li class="menu-item menu-item-about">
+        <a href="/about">
+          <i class="menu-item-icon icon-about"></i> <br />
+          关于
+        </a>
+      </li>
+    
+  </ul>
+
+
+      </div>
+    </div>
+
+    <div id="main" class="main">
+      <div class="main-inner">
+        <div id="content" class="content">
+          
+            
+          
+
+          <div id="posts" class="posts-expand">
+            
+  
+
+  <div class="post post-type-normal ">
+    <div class="post-header">
+
+      
+      
+        <h1 class="post-title">
+          
+          
+            
+              初识Elasticsearch
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          
+            发表于 2016-02-24
+          
+        </span>
+
+        
+          
+            <span class="post-category">
+              &nbsp; | &nbsp; 分类于
+              
+                <a href="/categories/大数据-Elasticsearch/">大数据-Elasticsearch</a>
+
+                
+                
+
+              
+            </span>
+          
+        
+
+        
+          
+            <span class="post-comments-count">
+            &nbsp; | &nbsp;
+            <a href="/2016/02/24/hello-Elasticsearch/#comments" >
+              <span class="post-comments-count ds-thread-count" data-thread-key="2016/02/24/hello-Elasticsearch/"></span>
+            </a>
+          </span>
+          
+        
+      </div>
+    </div>
+
+    
+      <div class="post-body">
+
+        
+        
+
+        
+          <p>本文仅是个人的学习笔记，有问题请指正。</p>
+<h2 id="一、简介">一、简介</h2><p>在大数据领域，自从有了 Hadoop 以后，大家渐渐习惯收集日志到 HDFS 中，然后每天运行 MapReduce 任务做统计报表。<strong>但是</strong>，面对诸如“新上线的版本过去几分钟在各地反馈如何”,“昨天23:40左右这个投诉用户有没有异常”这种即时的开放性问题，传统的日志处理方案显得非常的笨拙和低效。复杂多变的实时数据分析需求，需要的是灵活快捷的响应处理，Elasticsearch的出现让这个问题得到了很好的解决！<br><a id="more"></a><br><strong>Elasticsearch</strong>是一个基于<strong>Apache Lucene</strong>的实时分布式搜索和分析引擎。它让你以前所未有的速度处理大数据成为可能。</p>
+<p>Elasticsearch以全文搜索、结构化搜索、分析或将这三者混合使用来提供强大的功能，目前已经有很多企业在使用它：</p>
+<ol>
+<li><p>国外有Wikipedia、StackOverflow、Github、Facebook、Quora、LinkedIn、Netflix等公司都在使用Elasticsearch。</p>
+<ul>
+<li><strong>Wikipedia</strong>使用 ES 提供全文搜索并高亮关键字，以及输入实时搜索(search-as-you-type)和搜索纠错(did-you-mean)等搜索建议功能。</li>
+<li>StackOverflow结合全文搜索与地理位置查询，以及more-like-this功能来找到相关的问题和答案。</li>
+<li>Github使用Elasticsearch检索1300亿行的代码。</li>
+<li>……</li>
+</ul>
+</li>
+<li><p>国内像百度、阿里巴巴、腾讯、新浪等公司都在使用</p>
+<ul>
+<li>百度在casio、云分析、网盟、预测、文库、直达号、钱包、风控等业务上都应用了ES，单集群每天导入30TB+数据，总共每天60TB+。</li>
+<li>……</li>
+</ul>
+</li>
+</ol>
+<p>Elasticsearch，简单点理解，就是在Lucene的基础上封装了一层分布式架构，它有如下特点：</p>
+<ul>
+<li>处理方式灵活。Elasticsearch 是实时全文索引，不需要像 storm 那样预先编程才能使用；</li>
+<li>配置简易上手。Elasticsearch 全部采用 JSON 接口，目前业界通用的配置语法设计；</li>
+<li>集群线性扩展。Elasticsearch 集群可以扩展到上百台服务器，处理PB级结构化或非结构化数据；</li>
+<li>检索性能高效。虽然每次查询都是实时计算，但是优秀的设计和实现基本可以达到百亿级数据查询的秒级响应；</li>
+</ul>
+<h2 id="二、基本概念">二、基本概念</h2><h3 id="2-1_索引（Index）">2.1 索引（Index）</h3><p>ElasticSearch把数据存放到一个或者多个索引中。如果用关系型数据库模型对比，索引的地位与数据库实例(Database)相当。索引存放和读取的基本单元是文档（Document）。ElasticSearch内部用Apache Lucene实现索引中数据的读写。要知道，在ElasticSearch中被视为单独的一个索引，在Lucene中可能不止一个。这是因为在分布式体系中，ElasticSearch会用到分片（shards）和备份（replicas）机制将一个索引存储多份。</p>
+<h3 id="2-2_文档（Document）">2.2 文档（Document）</h3><p>在ElasticSearch的世界中，文档(Document)是主要的存在实体(在Lucene中也是如此)。所有的ElasticSearch应用需求到最后都可以统一建模成一个检索模型：检索相关文档。文档(Document)由一个或者多个域(Field)组成，每个域(Field)由一个域名(此域名非彼域名)和一个或者多个值组成(有多个值的值称为多值域(multi-valued))。在ElasticSeach中，每个文档(Document)都可能会有不同的域(Field)集合；也就是说文档(Document)是没有固定的模式和统一的结构。文档(Document)之间保持结构的相似性即可(Lucene中的文档(Document)也秉持着相同的规定)。实际上，ElasticSearch中的文档(Document)就是Lucene中的文档(Document)。从客户端的角度来看，文档(Document)就是一个JSON对象(关于JSON格式的相关信息,请参看hhtp://en.wikipedia.org/wiki/JSON)。</p>
+<h3 id="2-3_文档类型（Type）">2.3 文档类型（Type）</h3><p>每个文档在ElasticSearch中都必须设定它的类型。文档类型使得同一个索引中在存储结构不同文档时，只需要依据文档类型就可以找到对应的参数映射(Mapping)信息，方便文档的存取。</p>
+<h3 id="2-4_节点（Node）">2.4 节点（Node）</h3><p>单独一个ElasticSearch服务器实例称为一个节点。对于许多应用场景来说，部署一个单节点的ElasticSearch服务器就足够了。但是考虑到容错性和数据过载，配置多节点的ElasticSearch集群是明智的选择。</p>
+<h3 id="2-5_集群（Cluster）">2.5 集群（Cluster）</h3><p>集群是多个ElasticSearch节点的集合。这些节点齐心协力应对单个节点无法处理的搜索需求和数据存储需求。集群同时也是应对由于部分机器(节点)运行中断或者升级导致无法提供服务这一问题的利器。ElasticSearch提供的集群各个节点几乎是无缝连接(所谓无缝连接，即集群对外而言是一个整体，增加一个节点或者去掉一个节点对用户而言是透明的&lt;个人理解，仅供参考&gt;)。在ElasticSearch中配置一个集群非常简单，在我们看来，这是在与同类产品中竞争所体现出的最大优势。</p>
+<h3 id="2-6_分片（Shard）">2.6 分片（Shard）</h3><p>前面已经提到，集群能够存储超出单机容量的信息。为了实现这种需求，ElasticSearch把数据分发到多个存储Lucene索引的物理机上。这些Lucene索引称为分片索引，这个分发的过程称为索引分片(Sharding)。在ElasticSearch集群中，索引分片(Sharding)是自动完成的，而且所有分片索引(Shard)是作为一个整体呈现给用户的。需要注意的是，尽管索引分片这个过程是自动的，但是在应用中需要事先调整好参数。因为集群中分片的数量需要在索引创建前配置好，而且服务器启动后是无法修改的，至少目前无法修改。</p>
+<h3 id="2-7_副本（Replica）">2.7 副本（Replica）</h3><p>通过索引分片机制(Sharding)可以向ElasticSearch集群中导入超过单机容量的数据，客户端操作任意一个节点即可实现对集群数据的读写操作。当集群负载增长，用户搜索请求阻塞在单个节点上时，通过索引副本(Replica)机制就可以解决这个问题。索引副本(Replica)机制的的思路很简单：为索引分片创建一份新的拷贝，它可以像原来的主分片一样处理用户搜索请求。同时也顺便保证了数据的安全性。即如果主分片数据丢失，ElasticSearch通过索引副本使得数据不丢失。索引副本可以随时添加或者删除，所以用户可以在需要的时候动态调整其数量。</p>
+<h3 id="2-8_时间之门（Gateway）">2.8 时间之门（Gateway）</h3><p>在运行的过程中，ElasticSearch会收集集群的状态、索引的参数等信息。这些数据被存储在Gateway中。</p>
+<h2 id="三、文档操作">三、文档操作</h2><h3 id="3-1_插入Doc">3.1 插入Doc</h3><figure class="highlight haskell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="title">curl</span> -<span class="type">XPUT</span> 'http://localhost:<span class="number">9200</span>/&#123;index&#125;/&#123;<span class="typedef"><span class="keyword">type</span>&#125;/<span class="container">&#123;<span class="title">id</span>&#125;</span>' -d </span></span><br><span class="line">'&#123;</span><br><span class="line">    <span class="string">"field"</span> : <span class="string">"content"</span>,</span><br><span class="line">    ...</span><br><span class="line">&#125;'</span><br></pre></td></tr></table></figure>
+<p>在插入的过程中index会自动创建，一个Doc由<code>_index</code>、<code>_type</code>、<code>_id</code>唯一指定（如果不指定ID，则会自动生成）。另外，在插入的过程中可以通过<code>?version=</code>、<code>?timestamp=</code>、<code>?ttl=</code>指定一些参数。具体参看《<a href="https://www.elastic.co/guide/en/elasticsearch/reference/1.6/docs-index_.html" target="_blank" rel="external">Index API</a>》</p>
+<h3 id="3-2_获取Doc">3.2 获取Doc</h3><p>一个Document是由<code>_index</code>、<code>_type</code>、<code>_id</code>三个属性唯一标识。<br><figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="title">curl</span> -XGET <span class="string">'http://localhost:9200/website/blog/001'</span></span><br></pre></td></tr></table></figure></p>
+<p>还可以通过<code>/_source</code>只显示Doc的内容:</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">curl -XGET 'http:<span class="comment">//localhost:9200/website/blog/1/_source'</span></span><br><span class="line"></span><br><span class="line">&#123;</span><br><span class="line">  <span class="string">"title"</span>: <span class="string">"My first blog entry"</span>,</span><br><span class="line">  <span class="string">"text"</span>:  <span class="string">"Just trying this out..."</span>,</span><br><span class="line">  <span class="string">"date"</span>:  <span class="string">"2014/01/01"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><strong>pretty</strong><br>在任意的查询字符串中增加pretty参数。会让Elasticsearch美化输出JSON结果以便更加容易阅读</p>
+</blockquote>
+<h3 id="3-3_删除Doc">3.3 删除Doc</h3><figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="title">curl</span> -XDELETE <span class="string">'http://localhost:9200/twitter/tweet/1'</span></span><br></pre></td></tr></table></figure>
+<h3 id="3-4_更新Doc">3.4 更新Doc</h3><p>执行PUT操作，如果已经存在，就相当于更新操作：<br><figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">curl -XPUT 'http:<span class="comment">//localhost:9200/website/blog/001' -d</span></span><br><span class="line">'&#123;</span><br><span class="line">  <span class="string">"field"</span>: <span class="string">"value"</span>,</span><br><span class="line">  ...</span><br><span class="line">&#125;'</span><br></pre></td></tr></table></figure></p>
+<p>可以看到输出结果：<br><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">"<span class="attribute">_index</span>": <span class="value"><span class="string">"website"</span></span>,</span><br><span class="line">"<span class="attribute">_type</span>": <span class="value"><span class="string">"blog"</span></span>,</span><br><span class="line">"<span class="attribute">_id</span>": <span class="value"><span class="string">"001"</span></span>,</span><br><span class="line">"<span class="attribute">_version</span>": <span class="value"><span class="number">2</span></span>,</span><br><span class="line">"<span class="attribute">created</span>": <span class="value"><span class="literal">false</span></span><br><span class="line"></span>&#125;</span><br></pre></td></tr></table></figure></p>
+<p><code>created: false</code>创建失败， 是因为已经存在指定文档。</p>
+<p>在内部，Elasticsearch已经标记旧文档为删除并添加了一个完整的新文档。旧版本文档不会立即消失，但你也不能去访问它。Elasticsearch会在你继续索引更多数据时清理被删除的文档。</p>
+<h3 id="3-5_检查文档是否存在">3.5 检查文档是否存在</h3><figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ curl -i -XHEAD <span class="string">'http://localhost:9200/website/blog/001'</span></span><br><span class="line"></span><br><span class="line">HTTP/<span class="number">1.1</span> <span class="number">200</span> OK</span><br><span class="line">Content-<span class="string">Type:</span> text/plain; charset=UTF-<span class="number">8</span></span><br><span class="line">Content-<span class="string">Length:</span> <span class="number">0</span></span><br></pre></td></tr></table></figure>
+<h3 id="3-6_Multi_Get">3.6  Multi Get</h3><p><strong>Multi Get</strong>使用关键字<code>_mget</code>，可以一次获取多个文档，而且这些文档可以跨索引、跨类型。<br><figure class="highlight scilab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">curl <span class="string">'localhost:9200/_mget'</span> -d <span class="string">'&#123;</span><br><span class="line">    "</span>docs<span class="string">" : [</span><br><span class="line">        &#123;</span><br><span class="line">            "</span>_index<span class="string">" : "</span>INDEX1<span class="string">",</span><br><span class="line">            "</span>_type<span class="string">" : "</span>type<span class="string">",</span><br><span class="line">            "</span>_id<span class="string">" : "</span><span class="number">3</span><span class="string">"</span><br><span class="line">        &#125;,</span><br><span class="line">        &#123;</span><br><span class="line">            "</span>_index<span class="string">" : "</span>INDEX2<span class="string">",</span><br><span class="line">            "</span>_type<span class="string">" : "</span>type<span class="string">",</span><br><span class="line">            "</span>_id<span class="string">" : "</span><span class="number">1</span><span class="string">"</span><br><span class="line">        &#125;</span><br><span class="line">    ]</span><br><span class="line">&#125;'</span></span><br></pre></td></tr></table></figure></p>
+<figure class="highlight scilab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">curl <span class="string">'localhost:9200/&#123;index&#125;/_mget'</span> -d <span class="string">'&#123;</span><br><span class="line">    "</span>docs<span class="string">" : [</span><br><span class="line">        &#123;</span><br><span class="line">            "</span>_type<span class="string">" : "</span>type<span class="string">",</span><br><span class="line">            "</span>_id<span class="string">" : "</span><span class="number">1</span><span class="string">"</span><br><span class="line">        &#125;,</span><br><span class="line">        &#123;</span><br><span class="line">            "</span>_type<span class="string">" : "</span>type<span class="string">",</span><br><span class="line">            "</span>_id<span class="string">" : "</span><span class="number">2</span><span class="string">"</span><br><span class="line">        &#125;</span><br><span class="line">    ]</span><br><span class="line">&#125;'</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">curl <span class="symbol">'localhost</span>:<span class="number">9200</span>/&#123;index&#125;/&#123;<span class="class"><span class="keyword">type</span>&#125;<span class="title">/_mget</span>' <span class="title">-d</span> '&#123;</span></span><br><span class="line">    <span class="string">"ids"</span> : [<span class="string">"1"</span>, <span class="string">"2"</span>]</span><br><span class="line">&#125;'</span><br></pre></td></tr></table></figure>
+<h3 id="3-7_Bulk">3.7 Bulk</h3><p>Bulk API使用关键字<code>_bulk</code>，允许我们通过一次请求来实现多个文档的create、index、update或delete。</p>
+<p>bulk的请求结构如下：<br><figure class="highlight livescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#123; <span class="attribute">action</span>: &#123; metadata &#125;&#125;<span class="string">\n</span></span><br><span class="line">&#123; request body        &#125;<span class="string">\n</span></span><br><span class="line">&#123; <span class="attribute">action</span>: &#123; metadata &#125;&#125;<span class="string">\n</span></span><br><span class="line">&#123; request body        &#125;<span class="string">\n</span></span><br><span class="line">...</span><br></pre></td></tr></table></figure></p>
+<p>加入我们把一个批量请求写在一个文件<code>bulk_format</code>中：<br><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123;"<span class="attribute">create</span>":<span class="value">&#123;"<span class="attribute">_index</span>":<span class="value"><span class="string">"website"</span></span>,"<span class="attribute">_type</span>":<span class="value"><span class="string">"blog"</span></span>,"<span class="attribute">_id</span>":<span class="value"><span class="string">"004"</span></span>&#125;</span>&#125;</span><br><span class="line">&#123;"<span class="attribute">title</span>":<span class="value"><span class="string">"The Hero"</span></span>,"<span class="attribute">text</span>":<span class="value"><span class="string">"I have been watching the TV Series..."</span></span>,"<span class="attribute">date</span>":<span class="value"><span class="string">"2015/09/11"</span></span>&#125;</span><br><span class="line">&#123;"<span class="attribute">delete</span>":<span class="value">&#123;"<span class="attribute">_index</span>":<span class="value"><span class="string">"website"</span></span>,"<span class="attribute">_type</span>":<span class="value"><span class="string">"blog"</span></span>,"<span class="attribute">_id</span>":<span class="value"><span class="string">"001"</span></span>&#125;</span>&#125;</span><br></pre></td></tr></table></figure></p>
+<p>执行批量请求（<code>--data-binary</code>保留换行符）：<br><figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$ </span>curl -s -<span class="constant">XPOST </span><span class="symbol">localhost:</span><span class="number">9200</span>/<span class="constant">_bulk </span>--data-binary <span class="variable">@bulk_format</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="四、索引操作">四、索引操作</h2><h3 id="4-1_创建索引">4.1 创建索引</h3><figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">$ curl -XPUT 'http:<span class="comment">//localhost:9200/twitter/'</span></span><br><span class="line"></span><br><span class="line">$ curl -XPUT 'http:<span class="comment">//localhost:9200/twitter/' -d '&#123;</span></span><br><span class="line">    <span class="string">"settings"</span> : &#123;</span><br><span class="line">        <span class="string">"number_of_shards"</span> : <span class="number">3</span>,</span><br><span class="line">        <span class="string">"number_of_replicas"</span> : <span class="number">2</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;'</span><br><span class="line"></span><br><span class="line">curl -XPUT localhost:<span class="number">9200</span>/test -d '&#123;</span><br><span class="line">    <span class="string">"settings"</span> : &#123;</span><br><span class="line">        <span class="string">"number_of_shards"</span> : <span class="number">1</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="string">"mappings"</span> : &#123;</span><br><span class="line">        <span class="string">"type1"</span> : &#123;</span><br><span class="line">            <span class="string">"_source"</span> : &#123; <span class="string">"enabled"</span> : <span class="keyword">false</span> &#125;,</span><br><span class="line">            <span class="string">"properties"</span> : &#123;</span><br><span class="line">                <span class="string">"field1"</span> : &#123; <span class="string">"type"</span> : <span class="string">"string"</span>, <span class="string">"index"</span> : <span class="string">"not_analyzed"</span> &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;'</span><br></pre></td></tr></table></figure>
+<h3 id="4-2_删除索引">4.2 删除索引</h3><figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$ </span>curl -<span class="constant">XDELETE </span><span class="string">'http://localhost:9200/twitter/'</span></span><br></pre></td></tr></table></figure>
+<h3 id="4-3_获取索引信息">4.3 获取索引信息</h3><figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$ curl -XGET <span class="string">localhost:</span><span class="number">9200</span>/movie</span><br><span class="line"></span><br><span class="line">$ curl -XGET <span class="string">localhost:</span><span class="number">9200</span><span class="regexp">/movie/</span>_aliases</span><br><span class="line"></span><br><span class="line">$ curl -XGET <span class="string">localhost:</span><span class="number">9200</span><span class="regexp">/movie/</span>_mapping</span><br><span class="line"></span><br><span class="line">$ curl -XGET <span class="string">localhost:</span><span class="number">9200</span><span class="regexp">/movie/</span>_setting</span><br></pre></td></tr></table></figure>
+<p>Get到的是索引的<code>aliases</code>、<code>mappings</code>、<code>setting</code>等信息。</p>
+<h3 id="4-4_Open/Close索引">4.4 Open/Close索引</h3><p>关闭一个索引之后，将不能read/write。<br><figure class="highlight ocaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">curl -<span class="type">XPOST</span> <span class="symbol">'localhost</span>:<span class="number">9200</span>/my_index/_close'</span><br><span class="line"></span><br><span class="line">curl -<span class="type">XPOST</span> <span class="symbol">'localhost</span>:<span class="number">9200</span>/my_index/_open'</span><br></pre></td></tr></table></figure></p>
+<h2 id="五、检索">五、检索</h2><h3 id="5-1_概述">5.1  概述</h3><p>ElasticSearch中的检索主要分为两类：确切值、全文检索</p>
+<ul>
+<li>确切值：这类检索就是给定某个field的一个确定的值或一个范围，进行完全匹配。</li>
+<li>全文检索：全文检索会计算每个文档与查询语句的相关性，会给出一个相关性评分<code>_score</code>。</li>
+</ul>
+<p>在Elasticsearch中，每一个字段的数据都是默认被索引的，用于快速检索。字段是否被索引由<code>&quot;index&quot;</code>参数控制，它的取值有三个：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">值</th>
+<th style="text-align:center">解释</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">analyzed</td>
+<td style="text-align:center">首先分析这个字符串，然后索引。换言之，以全文形式索引此字段。</td>
+</tr>
+<tr>
+<td style="text-align:center">not_analyzed</td>
+<td style="text-align:center">索引这个字段，使之可以被搜索，但是索引内容和指定值一样。不分析此字段。</td>
+</tr>
+<tr>
+<td style="text-align:center">no</td>
+<td style="text-align:center">不索引这个字段。这个字段不能为搜索到。</td>
+</tr>
+</tbody>
+</table>
+<p><code>string</code>类型字段默认值是<code>analyzed</code>，用于全文检索。其他简单类型——<code>long</code>、<code>double</code>、<code>date</code>等只能取<code>no</code>和<code>not_analyzed</code>，它们的值不能被分析。</p>
+<p><img src="http://img.blog.csdn.net/20160224101136930" alt=""></p>
+<p>对于string型字段，在被分析之后，所得的结果（单词）会用来建立<strong>倒排索引</strong>。在进行检索时，检索字符串也会经过相同的<strong>分析器</strong>，然后用所得的结果在倒排索引中进行匹配，匹配的越多相关性<code>_score</code>打分越高。</p>
+<figure class="highlight ocaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ curl -<span class="type">XGET</span> <span class="symbol">'localhost</span>:<span class="number">9200</span>/_analyze?analyzer=standard&amp;pretty' -d <span class="symbol">'The</span> quick brown foxes jumped over the <span class="keyword">lazy</span> dog'</span><br></pre></td></tr></table></figure>
+<h3 id="5-2_检索API">5.2 检索API</h3><p>搜索的关键字是<code>_search</code>，我们可以跨索引、跨类型进行搜索（假设<code>gb</code>，<code>us</code>是索引，<code>user</code>,<code>tweet</code>是类型）：<br><figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">/_search         <span class="comment"># 在所有索引的所有类型中搜索</span></span><br><span class="line"></span><br><span class="line">/gb/_search      <span class="comment"># 在索引gb的所有类型中搜索</span></span><br><span class="line"></span><br><span class="line">/gb,us/_search   <span class="comment"># 在索引gb和us的所有类型中搜索</span></span><br><span class="line"></span><br><span class="line">/g*,u*/_search   <span class="comment"># 在以g或u开头的索引的所有类型中搜索</span></span><br><span class="line"></span><br><span class="line">/gb/<span class="built_ins">user</span>/_search  <span class="comment"># 在索引gb的类型user中搜索</span></span><br><span class="line"></span><br><span class="line">/gb,us/<span class="built_ins">user</span>,tweet/_search  <span class="comment"># 在索引gb和us的类型为user和tweet中搜索</span></span><br><span class="line"></span><br><span class="line">/_all/<span class="built_ins">user</span>,tweet/_search   <span class="comment"># 在所有索引中的搜索类型user和tweet的文档</span></span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p><strong>利用字符串查询</strong></p>
+</blockquote>
+<p>通过查询字符串进行搜索就是 通过HTTP参数传递查询的关键字：<br><figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ curl -XGET <span class="string">localhost:</span><span class="number">9200</span><span class="regexp">/movie/</span>_search?q=runtime:<span class="number">90</span></span><br></pre></td></tr></table></figure></p>
+<ul>
+<li>q：查询</li>
+<li>fields：指定返回的字段</li>
+<li>timeout：指定超时时间</li>
+<li>size：指定返回的结果数</li>
+<li>sort：指定按某字段排序，<code>fieldName:desc/asc</code></li>
+<li>analyzer：指定分析器</li>
+</ul>
+<blockquote>
+<p><strong>利用DSL查询（结构化查询语句）</strong></p>
+</blockquote>
+<p>所谓<strong>结构化查询语句</strong>是指通过JSON请求体来指定查询条件。</p>
+<figure class="highlight scilab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">curl -XGET localhost:<span class="number">9200</span>/movie/info/_search -d <span class="string">'&#123;</span><br><span class="line">  "</span>query<span class="string">": &#123;</span><br><span class="line">    "</span>term<span class="string">": &#123;</span><br><span class="line">      "</span>runtime<span class="string">": 90</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;'</span></span><br></pre></td></tr></table></figure>
+<p>Elasticsearch检索分为两部分：<strong>Query</strong> 和 <strong>Filter</strong>。两者的区别在于：filter是不计算相关性的，同时可以cache。因此，filter速度要快于query。</p>
+<ul>
+<li><strong>from/size</strong>：用于结果分页，默认from 0 , size 10</li>
+<li><strong>sort</strong>：根据一个或多个字段进行排序</li>
+<li><strong>fields</strong>：只返回每个结果的指定字段</li>
+</ul>
+<p>常用的查询过滤语句:</p>
+<ul>
+<li><p><strong>query</strong>：</p>
+<ul>
+<li>term : 主要用于精确匹配哪些值，比如数字，日期，布尔值或 not_analyzed的字符串(未经分析的文本数据类型)</li>
+<li>terms : 跟 term 类似，但 terms 允许指定多个匹配条件。 如果某个字段指定了多个值，那么文档需要一起去做匹配。</li>
+<li>match : 标准查询，不管你需要全文本查询还是精确查询基本上都可以用它。</li>
+<li>multi_match：在match查询的基础上同时搜索多个字段</li>
+<li>match_all : 空查询，返回所有文档</li>
+<li>range ： 范围查询</li>
+<li>regexp ：正则匹配</li>
+<li>prefix ： 前缀匹配</li>
+<li>ids：根据id查询文档</li>
+<li>filtered：通过 filtered 可以在请求体中同时包含 <code>&quot;query&quot;</code> 和 <code>&quot;filter&quot;</code> 子句。</li>
+<li>bool ： 一种复合查询，把其余类型的查询包裹进来。支持<code>must</code>（相当于<code>AND</code>），<code>must_not</code>（相当于<code>NOT</code>），<code>should</code>（相当于<code>OR</code>）。</li>
+</ul>
+</li>
+<li><p><strong>filter</strong>：</p>
+<ul>
+<li>同上</li>
+<li>and</li>
+<li>or</li>
+<li>not</li>
+</ul>
+</li>
+</ul>
+<h3 id="5-3-_聚合（Aggregation）">5.3. 聚合（Aggregation）</h3><p>假设有一个索引 movie 存储了一组电影相关信息，格式如下：<br><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    "<span class="attribute">name</span>": <span class="value"><span class="string">"Avengers: Age of Ultron"</span></span>,</span><br><span class="line">    "<span class="attribute">rating</span>": <span class="value"><span class="number">7.8</span></span>,</span><br><span class="line">    "<span class="attribute">description</span>": <span class="value"><span class="string">"When Tony Stark and Bruce Banner try to jump-start a dormant peacekeeping..."</span></span>,</span><br><span class="line">    "<span class="attribute">stars</span>": <span class="value">[<span class="string">"Joss Whedon"</span>,<span class="string">"Robert Downey Jr"</span>,<span class="string">"Chris Evans"</span>,<span class="string">"Mark Ruffalo"</span>]</span>,</span><br><span class="line">    "<span class="attribute">type</span>": <span class="value">[<span class="string">"Action"</span>,<span class="string">"Adventure"</span>,<span class="string">"Sci-Fi"</span>]</span>,</span><br><span class="line">    "<span class="attribute">runtime</span>": <span class="value"><span class="number">141</span></span><br><span class="line"></span>&#125;</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li><p><strong>Min Aggregation</strong>：找出播放时间最短的电影</p>
+<figure class="highlight scilab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">$ curl <span class="string">'localhost:9200/movie/_search?fields=aggregations&amp;pretty'</span> -d <span class="string">'</span><br><span class="line">&#123;</span><br><span class="line">	"</span>aggs<span class="string">" : &#123;</span><br><span class="line">		"</span>min_runtime<span class="string">": &#123; </span><br><span class="line">			"</span><span class="built_in">min</span><span class="string">" : &#123;</span><br><span class="line">				"</span>field<span class="string">":"</span>runtime<span class="string">"</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;'</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>Max Aggregation</strong>：找出评分最高的电影</p>
+<figure class="highlight scilab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">curl <span class="string">'localhost:9200/movie/_search?fields=aggregations&amp;pretty'</span> -d <span class="string">'</span><br><span class="line">&#123;</span><br><span class="line">	"</span>aggs<span class="string">" : &#123;</span><br><span class="line">		"</span>max_rating<span class="string">": &#123; </span><br><span class="line">			"</span>max<span class="string">" : &#123;</span><br><span class="line">				"</span>field<span class="string">":"</span>rating<span class="string">"</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;'</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>Sum Aggregation</strong>：求所有电影的播放时间的总和</p>
+<figure class="highlight scilab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">curl <span class="string">'localhost:9200/movie/_search?fields=aggregations&amp;pretty'</span> -d <span class="string">'</span><br><span class="line">&#123;</span><br><span class="line">	"</span>aggs<span class="string">" : &#123;</span><br><span class="line">		"</span>intraday_return<span class="string">": &#123; </span><br><span class="line">			"</span><span class="built_in">sum</span><span class="string">" : &#123;</span><br><span class="line">				"</span>field<span class="string">":"</span>runtime<span class="string">"</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;'</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>Avg Aggregation</strong>：求所有电影的平均评分</p>
+<figure class="highlight scilab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">curl <span class="string">'localhost:9200/movie/_search?fields=aggregations&amp;pretty'</span> -d <span class="string">'</span><br><span class="line">&#123;</span><br><span class="line">	"</span>aggs<span class="string">" : &#123;</span><br><span class="line">		"</span>avg_rating<span class="string">": &#123; </span><br><span class="line">			"</span>avg<span class="string">" : &#123;</span><br><span class="line">				"</span>field<span class="string">":"</span>rating<span class="string">"</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;'</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>Stats Aggregation</strong>：统计所有电影的rating字段，包括min，max，sum，avg.</p>
+<figure class="highlight scilab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">curl <span class="string">'localhost:9200/movie/_search?fields=aggregations&amp;pretty'</span> -d <span class="string">'</span><br><span class="line">&#123;</span><br><span class="line">	"</span>aggs<span class="string">" : &#123;</span><br><span class="line">		"</span>ratings_stats<span class="string">": &#123; </span><br><span class="line">			"</span>stats<span class="string">" : &#123;</span><br><span class="line">				"</span>field<span class="string">":"</span>rating<span class="string">"</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;'</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>Filter Aggregation</strong>：先条件过滤再求平均。（搜索+聚合）</p>
+<figure class="highlight scilab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">curl <span class="string">'localhost:9200/movie/_search?fields=aggregations&amp;pretty'</span> -d <span class="string">'</span><br><span class="line">&#123;</span><br><span class="line">	"</span>aggs<span class="string">" : &#123;</span><br><span class="line">		"</span>runtime_products<span class="string">": &#123;</span><br><span class="line">			"</span>filter<span class="string">":&#123;"</span>term<span class="string">":&#123;"</span>runtime<span class="string">":90&#125;&#125;, </span><br><span class="line">			"</span>aggs<span class="string">" : &#123;</span><br><span class="line">				"</span>avg_rating<span class="string">":&#123;</span><br><span class="line">					"</span>avg<span class="string">":&#123;"</span>field<span class="string">":"</span>rating<span class="string">"&#125;</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;'</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>Terms Aggregation</strong>：统计各种类型的电影的数量。</p>
+<figure class="highlight scilab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">curl <span class="string">'localhost:9200/movie/_search?fields=aggregations&amp;pretty'</span> -d <span class="string">'</span><br><span class="line">&#123;</span><br><span class="line">	"</span>aggs<span class="string">" : &#123;</span><br><span class="line">		"</span>types<span class="string">": &#123; </span><br><span class="line">			"</span>terms<span class="string">" : &#123;</span><br><span class="line">				"</span>field<span class="string">":"</span>type<span class="string">"</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;'</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>Range Aggregation</strong>：统计评分在小于3、3到5、5到8、8到10的电影的数量。</p>
+<figure class="highlight scilab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">curl <span class="string">'localhost:9200/movie/_search?fields=aggregations&amp;pretty'</span> -d <span class="string">'</span><br><span class="line">&#123;</span><br><span class="line">	"</span>aggs<span class="string">" : &#123;</span><br><span class="line">		"</span>rating_ranges<span class="string">": &#123; </span><br><span class="line">			"</span>range<span class="string">" : &#123;</span><br><span class="line">				"</span>field<span class="string">":"</span>rating<span class="string">",</span><br><span class="line">				"</span>ranges<span class="string">":[</span><br><span class="line">					&#123;"</span>to<span class="string">":3&#125;,</span><br><span class="line">					&#123;"</span>from<span class="string">":3,"</span>to<span class="string">":5&#125;,</span><br><span class="line">					&#123;"</span>from<span class="string">":5,"</span>to<span class="string">":8&#125;,</span><br><span class="line">					&#123;"</span>from<span class="string">":8,"</span>to<span class="string">":10&#125;</span><br><span class="line">				]</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;'</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>Histogram Aggregation</strong>：以3为步长，统计评分在0-3、3-6、6-9、9-12的电影的数量。</p>
+<figure class="highlight scilab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">curl <span class="string">'localhost:9200/movie/_search?fields=aggregations&amp;pretty'</span> -d <span class="string">'</span><br><span class="line">&#123;</span><br><span class="line">	"</span>aggs<span class="string">" : &#123;</span><br><span class="line">		"</span>ratings<span class="string">": &#123; </span><br><span class="line">			"</span>histogram<span class="string">" : &#123;</span><br><span class="line">				"</span>field<span class="string">":"</span>rating<span class="string">",</span><br><span class="line">				"</span>interval<span class="string">":3</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;'</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="六、集群管理与监控">六、集群管理与监控</h2><h3 id="6-1_监控">6.1 监控</h3><p>cluster级别的API总是以<code>http://localhost:9200/_cluster/</code>开头。</p>
+<p><strong>6.1.1、查看集群 health 状态</strong><br><figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">curl -XGET 'http:<span class="comment">//localhost:9200/_cluster/health?pretty'</span></span><br><span class="line"></span><br><span class="line">#也可以查看某个索引的 health 状态：</span><br><span class="line"></span><br><span class="line">curl -XGET 'http:<span class="comment">//localhost:9200/_cluster/health/movie'</span></span><br></pre></td></tr></table></figure></p>
+<p><strong>6.1.2、查看集群state</strong></p>
+<figure class="highlight pf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -XGET 'http://localhost:<span class="number">9200</span>/_cluster/<span class="keyword">state</span>'</span><br></pre></td></tr></table></figure>
+<p>该命令会输出所有的nodes和shards的状态信息，但是由于太多，可读性不高。</p>
+<p><strong>6.1.3. 查看集群的stats</strong></p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ curl -XGET <span class="string">localhost:</span><span class="number">9200</span><span class="regexp">/_cluster/</span>stats</span><br></pre></td></tr></table></figure>
+<p>统计信息包括shards、nodes、docs、store、还有操作系统CPU、内存、进程、JVM、文件系统等相关统计信息。</p>
+<p><strong>6.1.4. 查看节点的stats</strong><br><figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="title">curl</span> -XGET <span class="string">'http://localhost:9200/_nodes/stats'</span></span><br></pre></td></tr></table></figure></p>
+<p><strong>6.1.5. 查看节点信息</strong></p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="title">curl</span> -XGET <span class="string">'http://localhost:9200/_nodes'</span></span><br></pre></td></tr></table></figure>
+<h3 id="6-2_格式化输出">6.2 格式化输出</h3><p>ElasticSearch提供了<code>_cat</code>命令用以格式化输出，将JSON结果以列表的形式输出。</p>
+<p><strong>输出集群健康状态：</strong><br><figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$ </span>curl <span class="string">'localhost:9200/_cat/health'</span></span><br></pre></td></tr></table></figure></p>
+<p><strong>输出当前的master节点：</strong><br><figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$ </span>curl <span class="string">'localhost:9200/_cat/master'</span></span><br></pre></td></tr></table></figure></p>
+<p><strong>输出所有的nodes信息：</strong><br><figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$ </span>curl <span class="string">'localhost:9200/_cat/nodes'</span></span><br></pre></td></tr></table></figure></p>
+<p><strong>输出所有doc数：</strong><br><figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$ </span>curl <span class="string">'localhost:9200/_cat/count'</span></span><br></pre></td></tr></table></figure></p>
+<p><strong>输出索引别名：</strong><br><figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$ </span>curl <span class="string">'localhost:9200/_cat/aliases?v'</span></span><br></pre></td></tr></table></figure></p>
+<p><strong>输出所有索引的状态和统计数据：</strong><br><figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$ </span>curl <span class="string">'localhost:9200/_cat/indices'</span></span><br></pre></td></tr></table></figure></p>
+<p><strong>输出每个节点的shards分配情况：</strong><br><figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$ </span>curl <span class="string">'localhost:9200/_cat/allocation'</span></span><br></pre></td></tr></table></figure></p>
+<p><strong>输出每个shard的统计信息：</strong><br><figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$ </span>curl <span class="string">'localhost:9200/_cat/shards'</span></span><br></pre></td></tr></table></figure></p>
+<p><strong>输出当前recovery的进度：</strong><br><figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$ </span>curl <span class="string">'localhost:9200/_cat/recovery'</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="6-3_集群管理">6.3 集群管理</h3><p><strong>6.3.1、重定向（reroute）</strong></p>
+<p>重定向是指手动控制shard的分布，包括三种操作：</p>
+<ul>
+<li><strong>移动（move）</strong>:把分片从一节点移动到另一个节点。可以指定索引名和分片号。 </li>
+<li><strong>取消（cancel）</strong>:取消分配一个分片。可以指定索引名和分片号。node参数可以指定在那个节点取消正在分配的分片。allow_primary参数支持取消分配主分片。 </li>
+<li><strong>分配（allocate）</strong>:分配一个未分配的分片到指定节点。可以指定索引名和分片号。node参数指定分配到那个节点。allow_primary参数可以强制分配主分片，不过这样可能导致数据丢失。 <figure class="highlight scilab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">$ curl -XPOST <span class="string">'localhost:9200/_cluster/reroute'</span> -d <span class="string">'</span><br><span class="line">    &#123;"</span>commands<span class="string">":[&#123;</span><br><span class="line">        "</span>move<span class="string">":&#123;</span><br><span class="line">            "</span>index<span class="string">":"</span>movie<span class="string">",</span><br><span class="line">            "</span>shard<span class="string">":2,</span><br><span class="line">            "</span>from_node<span class="string">":"</span><span class="transposed_variable">eng1.</span><span class="transposed_variable">lycc.</span><span class="transposed_variable">eseng2.</span><span class="number">09</span><span class="string">",</span><br><span class="line">            "</span>to_node<span class="string">":"</span><span class="transposed_variable">eng1.</span><span class="transposed_variable">lycc.</span><span class="transposed_variable">eseng2.</span><span class="number">08</span><span class="string">"</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;]</span><br><span class="line">    &#125;'</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p><strong>6.3.2、关闭（shutdown）</strong></p>
+<p>关闭所有节点<br><figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="title">curl</span> -XPOST <span class="string">'http://localhost:9200/_shutdown'</span></span><br></pre></td></tr></table></figure></p>
+<p>关闭指定节点<br><figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="title">curl</span> -XPOST <span class="string">'http://localhost:9200/_cluster/nodes/nodeId1,nodeId2/_shutdown'</span></span><br></pre></td></tr></table></figure></p>
+<p>延迟关闭<br><figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="title">curl</span> -XPOST <span class="string">'http://localhost:9200/_cluster/nodes/_local/_shutdown?delay=10s'</span></span><br></pre></td></tr></table></figure></p>
+
+        
+      </div>
+    
+
+    
+      <div class="post-footer">
+        
+          <div class="post-tags">
+            
+              <a href="/tags/Elasticsearch/">
+                #Elasticsearch
+              </a>
+            
+              <a href="/tags/Lucene/">
+                #Lucene
+              </a>
+            
+          </div>
+        
+
+        
+          <div class="post-nav">
+            <div class="post-nav-prev post-nav-item">
+              
+            </div>
+
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/2016/02/23/log-collection-system-arch/">基于Scribe的奇虎360日志收集系统架构</a>
+              
+            </div>
+          </div>
+        
+
+        
+        
+      </div>
+    
+  </div>
+
+
+
+  
+    <div class="comments" id="comments">
+      
+        <div class="ds-thread" data-thread-key="2016/02/24/hello-Elasticsearch/"
+             data-title="初识Elasticsearch" data-url="http://yoursite.com/2016/02/24/hello-Elasticsearch/">
+        </div>
+
+      
+    </div>
+  
+
+          </div>
+
+          
+        </div>
+
+        
+<div class="sidebar-toggle">
+  <div class="sidebar-toggle-line-wrap">
+    <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+    <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+    <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+  </div>
+</div>
+
+<div id="sidebar" class="sidebar">
+  <div class="sidebar-inner">
+
+    
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview" data-target="site-overview">
+          站点概览
+        </li>
+      </ul>
+    
+
+    <div class="site-overview">
+      <div class="site-author motion-element">
+        <img class="site-author-image" src="https://avatars0.githubusercontent.com/u/6904366?v=3&s=140" alt="Song Lee" />
+        <p class="site-author-name">Song Lee</p>
+      </div>
+      <p class="site-description motion-element">放宽心，多努力</p>
+      <div class="site-state motion-element">
+        <div class="site-state-item site-state-posts">
+          <span class="site-state-item-count">84</span>
+          <span class="site-state-item-name">日志</span>
+        </div>
+        <div class="site-state-item site-state-tags">
+            <span class="site-state-item-count">27</span>
+            <span class="site-state-item-name">标签</span>
+        </div>
+        <div class="site-state-item site-state-pages">
+            <span class="site-state-item-count">4</span>
+            <span class="site-state-item-name">页面</span>
+        </div>
+      </div>
+
+      
+        <div class="feed-link motion-element">
+          <a href="/atom.xml">
+            <i class="menu-item-icon icon-feed"></i>
+            RSS
+          </a>
+        </div>
+      
+
+      <div class="links-of-author motion-element">
+        
+          
+            <span class="links-of-author-item">
+              <a href="https://github.com/SongLee24">GitHub</a>
+            </span>
+          
+            <span class="links-of-author-item">
+              <a href="http://blog.csdn.net/lisonglisonglisong">CSDN</a>
+            </span>
+          
+            <span class="links-of-author-item">
+              <a href="http://weibo.com/lisonglisong">Weibo</a>
+            </span>
+          
+            <span class="links-of-author-item">
+              <a href="http://www.douban.com/people/122455925/">DouBan</a>
+            </span>
+          
+            <span class="links-of-author-item">
+              <a href="http://www.zhihu.com/people/shen-yi-59">ZhiHu</a>
+            </span>
+          
+        
+      </div>
+
+      
+      
+        <div class="cc-license motion-element">
+          <a href="http://creativecommons.org/licenses/by-nc-sa/4.0" class="cc-opacity" target="_blank">
+            <img src="/images/cc-by-nc-sa.svg" alt="Creative Commons" />
+          </a>
+        </div>
+      
+
+    </div>
+
+    
+      <div class="post-toc-wrap sidebar-panel-active">
+        <div class="post-toc-indicator-top post-toc-indicator"></div>
+        <div class="post-toc">
+          
+          
+            <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#一、简介"><span class="nav-number">1.</span> <span class="nav-text">一、简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二、基本概念"><span class="nav-number">2.</span> <span class="nav-text">二、基本概念</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1_索引（Index）"><span class="nav-number">2.1.</span> <span class="nav-text">2.1 索引（Index）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2_文档（Document）"><span class="nav-number">2.2.</span> <span class="nav-text">2.2 文档（Document）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3_文档类型（Type）"><span class="nav-number">2.3.</span> <span class="nav-text">2.3 文档类型（Type）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-4_节点（Node）"><span class="nav-number">2.4.</span> <span class="nav-text">2.4 节点（Node）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-5_集群（Cluster）"><span class="nav-number">2.5.</span> <span class="nav-text">2.5 集群（Cluster）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-6_分片（Shard）"><span class="nav-number">2.6.</span> <span class="nav-text">2.6 分片（Shard）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-7_副本（Replica）"><span class="nav-number">2.7.</span> <span class="nav-text">2.7 副本（Replica）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-8_时间之门（Gateway）"><span class="nav-number">2.8.</span> <span class="nav-text">2.8 时间之门（Gateway）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三、文档操作"><span class="nav-number">3.</span> <span class="nav-text">三、文档操作</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1_插入Doc"><span class="nav-number">3.1.</span> <span class="nav-text">3.1 插入Doc</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2_获取Doc"><span class="nav-number">3.2.</span> <span class="nav-text">3.2 获取Doc</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-3_删除Doc"><span class="nav-number">3.3.</span> <span class="nav-text">3.3 删除Doc</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-4_更新Doc"><span class="nav-number">3.4.</span> <span class="nav-text">3.4 更新Doc</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-5_检查文档是否存在"><span class="nav-number">3.5.</span> <span class="nav-text">3.5 检查文档是否存在</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-6_Multi_Get"><span class="nav-number">3.6.</span> <span class="nav-text">3.6  Multi Get</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-7_Bulk"><span class="nav-number">3.7.</span> <span class="nav-text">3.7 Bulk</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#四、索引操作"><span class="nav-number">4.</span> <span class="nav-text">四、索引操作</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#4-1_创建索引"><span class="nav-number">4.1.</span> <span class="nav-text">4.1 创建索引</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-2_删除索引"><span class="nav-number">4.2.</span> <span class="nav-text">4.2 删除索引</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-3_获取索引信息"><span class="nav-number">4.3.</span> <span class="nav-text">4.3 获取索引信息</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-4_Open/Close索引"><span class="nav-number">4.4.</span> <span class="nav-text">4.4 Open/Close索引</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#五、检索"><span class="nav-number">5.</span> <span class="nav-text">五、检索</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#5-1_概述"><span class="nav-number">5.1.</span> <span class="nav-text">5.1  概述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-2_检索API"><span class="nav-number">5.2.</span> <span class="nav-text">5.2 检索API</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-3-_聚合（Aggregation）"><span class="nav-number">5.3.</span> <span class="nav-text">5.3. 聚合（Aggregation）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#六、集群管理与监控"><span class="nav-number">6.</span> <span class="nav-text">六、集群管理与监控</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#6-1_监控"><span class="nav-number">6.1.</span> <span class="nav-text">6.1 监控</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-2_格式化输出"><span class="nav-number">6.2.</span> <span class="nav-text">6.2 格式化输出</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-3_集群管理"><span class="nav-number">6.3.</span> <span class="nav-text">6.3 集群管理</span></a></li></ol></li></ol></div>
+          
+        </div>
+        <div class="post-toc-indicator-bottom post-toc-indicator"></div>
+      </div>
+    
+
+  </div>
+</div>
+
+
+      </div>
+    </div>
+
+    <div id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy; &nbsp;  2014 - 
+  2016
+  <span class="with-love">
+    <i class="icon-heart"></i>
+  </span>
+  <span class="author">Song Lee</span>
+</div>
+
+<div class="powered-by">
+  <div style="float:left;margin-top:7px;margin-right:10px;">
+	<script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1254974724'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s11.cnzz.com/z_stat.php%3Fid%3D1254974724%26show%3Dpic' type='text/javascript'%3E%3C/script%3E"));</script>
+  </div>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+
+      </div>
+    </div>
+
+    <div class="back-to-top"></div>
+  </div>
+
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript">
+    $(document).ready(function() {
+      $(".fancybox").fancybox();
+    });
+  </script>
+
+  <script type="text/javascript">
+  function hasMobileUA () {
+    var nav = window.navigator;
+    var ua = nav.userAgent;
+    var pa = /iPad|iPhone|Android|Opera Mini|BlackBerry|webOS|UCWEB|Blazer|PSP|IEMobile|Symbian/g;
+
+    return pa.test(ua);
+  }
+
+  function isDesktop () {
+    return screen.width > 991 && !hasMobileUA();
+  }
+
+  function isTablet () {
+    return screen.width < 992 && screen.width > 767 && hasMobileUA();
+  }
+
+  function isMobile () {
+    return screen.width < 767 && hasMobileUA();
+  }
+
+  function escapeSelector (selector) {
+    return selector.replace(/[!"$%&'()*+,.\/:;<=>?@[\\\]^`{|}~]/g, "\\$&")
+  }
+</script>
+
+  
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
+
+  <script type="text/javascript" id="motion.global">
+  $(document).ready(function () {
+    var body = $('body');
+    var isSidebarVisible = false;
+    var sidebarToggle = $('.sidebar-toggle');
+    var sidebarToggleLine1st = $('.sidebar-toggle-line-first')
+    var sidebarToggleLine2nd = $('.sidebar-toggle-line-middle');
+    var sidebarToggleLine3rd = $('.sidebar-toggle-line-last');
+    var sidebar = $('.sidebar');
+
+    var SIDEBAR_WIDTH = '320px';
+    var SIDEBAR_DISPLAY_DURATION = 300;
+
+    var sidebarToogleLineStatusInit = {width: '100%', opacity: 1, left: 0, rotateZ: 0, top: 0};
+
+    var sidebarToggleLine1stStatusInit = sidebarToogleLineStatusInit;
+    var sidebarToggleLine1stStatusArrow = {width: '50%', rotateZ: '-45deg', top: '2px'};
+    var sidebarToogleLine1stStatusClose = {width: '100%', rotateZ: '-45deg', top: '5px'};
+
+    var sidebarToggleLine2ndStatusInit = sidebarToogleLineStatusInit;
+    var sidebarToggleLine2ndStatusArrow = {width: '90%'};
+    var sidebarToogleLine2ndStatusClose = {opacity: 0};
+
+    var sidebarToggleLine3rdStatusInit = sidebarToogleLineStatusInit;
+    var sidebarToggleLine3rdStatusArrow = {width: '50%', rotateZ: '45deg', top: '-2px'};
+    var sidebarToogleLine3rdStatusClose = {width: '100%', rotateZ: '45deg', top: '-5px'};
+
+    LogoAndMenuMotion();
+    sidebatToggleMotion();
+    postsListMotion();
+    backToTopMotion();
+
+
+    $(document)
+      .on('sidebar.isShowing', function () {
+        isDesktop() && body.velocity(
+          {paddingRight: SIDEBAR_WIDTH},
+          SIDEBAR_DISPLAY_DURATION
+        );
+        sidebarContentMotion();
+      })
+      .on('sidebar.isHiding', function () {});
+
+    function LogoAndMenuMotion() {
+      $.Velocity.RunSequence([
+        { e: $('.brand'), p: { opacity: 1 }, o: { duration: 100 } },
+        { e: $('.logo'), p: { opacity: 1, top: 0 }, o: { duration: 50} },
+        
+        { e: $('.logo-line-before i'), p: { translateX: "100%" }, o: { duration: 500, sequenceQueue: false } },
+        { e: $('.logo-line-after i'), p: { translateX: "-100%" }, o: { duration: 500, sequenceQueue: false } },
+        
+        { e: $('.site-title'), p: { opacity: 1, top: 0 }, o: { duration: 200 } }
+      ]);
+      $('.menu-item').velocity('transition.slideDownIn', {display: null});
+    }
+
+
+    function backToTopMotion () {
+      var b2top = $('.back-to-top');
+      b2top.on('click', function () {
+        body.velocity('scroll');
+      });
+    }
+
+    function sidebarShowMotion () {
+
+      sidebarToggleLine1st.velocity(sidebarToogleLine1stStatusClose);
+      sidebarToggleLine2nd.velocity(sidebarToogleLine2ndStatusClose);
+      sidebarToggleLine3rd.velocity(sidebarToogleLine3rdStatusClose);
+
+      sidebar.velocity({width: SIDEBAR_WIDTH}, {
+        display: 'block',
+        duration: SIDEBAR_DISPLAY_DURATION,
+        complete: function () {
+          sidebar.addClass('sidebar-active');
+          sidebar.trigger('sidebar.didShow');
+        }
+      });
+      sidebar.trigger('sidebar.isShowing');
+    }
+
+    function sidebarHideMotion () {
+      isDesktop() && body.velocity({paddingRight: 0});
+      sidebar.velocity('reverse');
+
+      sidebarToggleLine1st.velocity(sidebarToggleLine1stStatusInit);
+      sidebarToggleLine2nd.velocity(sidebarToggleLine2ndStatusInit);
+      sidebarToggleLine3rd.velocity(sidebarToggleLine3rdStatusInit);
+
+      sidebar.removeClass('sidebar-active');
+      sidebar.trigger('sidebar.isHiding');
+    };
+
+    function sidebarContentMotion () {
+      $('.sidebar .motion-element').velocity(
+        'transition.slideRightIn',
+        {stagger: 50, drag: true}
+      );
+    }
+
+    function postsListMotion () {
+      var postMotionOptions = window.postMotionOptions || {stagger: 300, drag: true};
+      $('.post').velocity('transition.slideDownIn', postMotionOptions);
+    }
+
+    function sidebatToggleMotion () {
+      sidebarToggle.on('click', function () {
+        isSidebarVisible ? sidebarHideMotion() : sidebarShowMotion();
+        isSidebarVisible = !isSidebarVisible;
+      });
+
+      sidebarToggle.hover(function () {
+        if (isSidebarVisible) {return}
+        sidebarToggleLine1st.velocity('stop').velocity(sidebarToggleLine1stStatusArrow);
+        sidebarToggleLine2nd.velocity('stop').velocity(sidebarToggleLine2ndStatusArrow);
+        sidebarToggleLine3rd.velocity('stop').velocity(sidebarToggleLine3rdStatusArrow);
+      }, function () {
+        if (isSidebarVisible) {return}
+        sidebarToggleLine1st.velocity('stop').velocity(sidebarToggleLine1stStatusInit);
+        sidebarToggleLine2nd.velocity('stop').velocity(sidebarToggleLine2ndStatusInit);
+        sidebarToggleLine3rd.velocity('stop').velocity(sidebarToggleLine3rdStatusInit);
+      });
+    }
+  });
+
+</script>
+
+
+
+
+
+  
+  
+<script type="text/javascript" id="bootstrap.scrollspy.custom">
+  /* ========================================================================
+  * Bootstrap: scrollspy.js v3.3.2
+  * http://getbootstrap.com/javascript/#scrollspy
+  * ========================================================================
+  * Copyright 2011-2015 Twitter, Inc.
+  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
+  * ======================================================================== */
+
+  /**
+   * Custom by iissnan
+   *
+   * - Add a `clear.bs.scrollspy` event.
+   * - Esacpe targets selector.
+   */
+
+
+  +function ($) {
+    'use strict';
+
+    // SCROLLSPY CLASS DEFINITION
+    // ==========================
+
+    function ScrollSpy(element, options) {
+      this.$body          = $(document.body)
+      this.$scrollElement = $(element).is(document.body) ? $(window) : $(element)
+      this.options        = $.extend({}, ScrollSpy.DEFAULTS, options)
+      this.selector       = (this.options.target || '') + ' .nav li > a'
+      this.offsets        = []
+      this.targets        = []
+      this.activeTarget   = null
+      this.scrollHeight   = 0
+
+      this.$scrollElement.on('scroll.bs.scrollspy', $.proxy(this.process, this))
+      this.refresh()
+      this.process()
+    }
+
+    ScrollSpy.VERSION  = '3.3.2'
+
+    ScrollSpy.DEFAULTS = {
+      offset: 10
+    }
+
+    ScrollSpy.prototype.getScrollHeight = function () {
+      return this.$scrollElement[0].scrollHeight || Math.max(this.$body[0].scrollHeight, document.documentElement.scrollHeight)
+    }
+
+    ScrollSpy.prototype.refresh = function () {
+      var that          = this
+      var offsetMethod  = 'offset'
+      var offsetBase    = 0
+
+      this.offsets      = []
+      this.targets      = []
+      this.scrollHeight = this.getScrollHeight()
+
+      if (!$.isWindow(this.$scrollElement[0])) {
+        offsetMethod = 'position'
+        offsetBase   = this.$scrollElement.scrollTop()
+      }
+
+      this.$body
+        .find(this.selector)
+        .map(function () {
+          var $el   = $(this)
+          var href  = $el.data('target') || $el.attr('href')
+          var $href = /^#./.test(href) && $(escapeSelector(href)) // Need to escape selector.
+
+          return ($href
+            && $href.length
+            && $href.is(':visible')
+            && [[$href[offsetMethod]().top + offsetBase, href]]) || null
+        })
+        .sort(function (a, b) { return a[0] - b[0] })
+        .each(function () {
+          that.offsets.push(this[0])
+          that.targets.push(this[1])
+        })
+
+
+    }
+
+    ScrollSpy.prototype.process = function () {
+      var scrollTop    = this.$scrollElement.scrollTop() + this.options.offset
+      var scrollHeight = this.getScrollHeight()
+      var maxScroll    = this.options.offset + scrollHeight - this.$scrollElement.height()
+      var offsets      = this.offsets
+      var targets      = this.targets
+      var activeTarget = this.activeTarget
+      var i
+
+      if (this.scrollHeight != scrollHeight) {
+        this.refresh()
+      }
+
+      if (scrollTop >= maxScroll) {
+        return activeTarget != (i = targets[targets.length - 1]) && this.activate(i)
+      }
+
+      if (activeTarget && scrollTop < offsets[0]) {
+        $(this.selector).trigger('clear.bs.scrollspy')  // Add a custom event.
+        this.activeTarget = null
+        return this.clear()
+      }
+
+      for (i = offsets.length; i--;) {
+        activeTarget != targets[i]
+          && scrollTop >= offsets[i]
+          && (!offsets[i + 1] || scrollTop <= offsets[i + 1])
+          && this.activate(targets[i])
+      }
+    }
+
+    ScrollSpy.prototype.activate = function (target) {
+      this.activeTarget = target
+
+      this.clear()
+
+      var selector = this.selector +
+        '[data-target="' + target + '"],' +
+        this.selector + '[href="' + target + '"]'
+
+      var active = $(selector)
+        .parents('li')
+        .addClass('active')
+
+      if (active.parent('.dropdown-menu').length) {
+        active = active
+          .closest('li.dropdown')
+          .addClass('active')
+      }
+
+      active.trigger('activate.bs.scrollspy')
+    }
+
+    ScrollSpy.prototype.clear = function () {
+      $(this.selector)
+        .parentsUntil(this.options.target, '.active')
+        .removeClass('active')
+    }
+
+
+    // SCROLLSPY PLUGIN DEFINITION
+    // ===========================
+
+    function Plugin(option) {
+      return this.each(function () {
+        var $this   = $(this)
+        var data    = $this.data('bs.scrollspy')
+        var options = typeof option == 'object' && option
+
+        if (!data) $this.data('bs.scrollspy', (data = new ScrollSpy(this, options)))
+        if (typeof option == 'string') data[option]()
+      })
+    }
+
+    var old = $.fn.scrollspy
+
+    $.fn.scrollspy             = Plugin
+    $.fn.scrollspy.Constructor = ScrollSpy
+
+
+    // SCROLLSPY NO CONFLICT
+    // =====================
+
+    $.fn.scrollspy.noConflict = function () {
+      $.fn.scrollspy = old
+      return this
+    }
+
+
+    // SCROLLSPY DATA-API
+    // ==================
+
+    $(window).on('load.bs.scrollspy.data-api', function () {
+      $('[data-spy="scroll"]').each(function () {
+        var $spy = $(this)
+        Plugin.call($spy, $spy.data())
+      })
+    })
+
+  }(jQuery);
+</script>
+
+
+<script type="text/javascript" id="sidebar.toc.highlight">
+  $(document).ready(function () {
+    var tocSelector = '.post-toc';
+    var $tocSelector = $(tocSelector);
+    var activeCurrentSelector = '.active-current';
+
+    $tocSelector
+      .on('activate.bs.scrollspy', function () {
+        var $currentActiveElement = $(tocSelector + ' .active').last();
+
+        removeCurrentActiveClass();
+        $currentActiveElement.addClass('active-current');
+
+        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
+      })
+      .on('clear.bs.scrollspy', function () {
+        removeCurrentActiveClass();
+      });
+
+    function removeCurrentActiveClass () {
+      $(tocSelector + ' ' + activeCurrentSelector)
+        .removeClass(activeCurrentSelector.substring(1));
+    }
+
+    function processTOC () {
+      getTOCMaxHeight();
+      toggleTOCOverflowIndicators();
+    }
+
+    function getTOCMaxHeight () {
+      var $sidebarInner = $('.sidebar-inner');
+      var height = $('.sidebar').height() -
+                   $tocSelector.position().top -
+                   $('.post-toc-indicator-bottom').height();
+
+      $tocSelector.css('height', height);
+
+      return height;
+    }
+
+    function toggleTOCOverflowIndicators () {
+      tocOverflowIndicator(
+        '.post-toc-indicator-top',
+        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
+      );
+
+      tocOverflowIndicator(
+        '.post-toc-indicator-bottom',
+        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
+      )
+    }
+
+    $(document).on('sidebar.didShow', function () {
+      processTOC();
+    });
+
+    $('body').scrollspy({ target: tocSelector });
+    $(window).on('resize', function () {
+      if ( $('.sidebar').hasClass('sidebar-active') ) {
+        processTOC();
+      }
+    });
+
+    onScroll($tocSelector);
+
+    function onScroll (element) {
+      element.on('mousewheel DOMMouseScroll', function (event) {
+          var oe = event.originalEvent;
+          var delta = oe.wheelDelta || -oe.detail;
+          var self = this;
+
+          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+          event.preventDefault();
+
+          toggleTOCOverflowIndicators();
+      });
+    }
+
+    function tocOverflowIndicator (indicator, action) {
+      $(indicator).velocity('stop').velocity({
+        opacity: action === 'show' ? 0.4 : 0
+      }, { duration: 100 });
+    }
+
+  });
+</script>
+
+
+  <script type="text/javascript" id="sidebar.nav">
+    $(document).ready(function () {
+      var html = $('html');
+
+      $('.sidebar-nav li').on('click', function () {
+        var item = $(this);
+        var activeTabClassName = 'sidebar-nav-active';
+        var activePanelClassName = 'sidebar-panel-active';
+        if (item.hasClass(activeTabClassName)) {
+          return;
+        }
+
+        var currentTarget = $('.' + activePanelClassName);
+        var target = $('.' + item.data('target'));
+
+        currentTarget.velocity('transition.slideUpOut', 200, function () {
+          target
+            .velocity('stop')
+            .velocity('transition.slideDownIn', 200)
+            .addClass(activePanelClassName);
+        });
+
+        item.siblings().removeClass(activeTabClassName);
+        item.addClass(activeTabClassName);
+      });
+
+      $('.post-toc a').on('click', function (e) {
+        e.preventDefault();
+        var offset = $(escapeSelector(this.getAttribute('href'))).offset().top;
+        html.velocity('stop').velocity('scroll', {
+          offset: offset  + 'px',
+          mobileHA: false
+        });
+      });
+
+      // Expand sidebar on post detail page by default, when post has a toc.
+      var $tocContent = $('.post-toc-content');
+      if ($tocContent.length > 0 && $tocContent.html().trim().length > 0 && isDesktop()) {
+        setTimeout(function () {
+          $('.sidebar-toggle').trigger('click');
+        }, 800);
+      }
+    });
+  </script>
+
+
+
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"16"},"slide":{"type":"slide","bdImg":"2","bdPos":"left","bdTop":"195.5"},"image":{"viewList":["qzone","tsina","tqq","renren","weixin"],"viewText":"分享到：","viewSize":"16"},"selectShare":{"bdContainerClass":null,"bdSelectMiniList":["qzone","tsina","tqq","renren","weixin"]}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+
+
+  
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for (i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"songlee24"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+  
+</body>
+</html>
