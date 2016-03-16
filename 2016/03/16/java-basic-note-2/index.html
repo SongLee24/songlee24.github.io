@@ -1,0 +1,1109 @@
+<!doctype html>
+<html class="theme-next use-motion theme-next-next">
+<head>
+  
+
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+  <meta name="google-site-verification" content="VvyjvVXcJQa0QklHipu6pwm2PJGnnchIqX7s5JbbT_0" />
+
+
+
+  <link rel="stylesheet" type="text/css" href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5"/>
+
+
+<link rel="stylesheet" type="text/css" href="/css/main.css?v=0.4.0"/>
+
+
+    <meta name="description" content="放宽心，多努力" />
+
+
+
+	<meta name="keywords" content="Java," />
+
+  <title> Java基础笔记（二） 集合、泛型、异常处理 // 神奕的博客 </title>
+</head>
+
+<body>
+  <div class="container one-column page-post-detail">
+    <div class="headband"></div>
+
+    <div id="header" class="header">
+      <div class="header-inner">
+        <h1 class="site-meta">
+  <span class="logo-line-before"><i></i></span>
+  <a href="/" class="brand">
+      <span class="logo">
+        <i class="icon-logo"></i>
+      </span>
+      <span class="site-title">神奕的博客</span>
+  </a>
+  <span class="logo-line-after"><i></i></span>
+</h1>
+
+
+  <ul id="menu" class="menu">
+    
+      
+      <li class="menu-item menu-item-home">
+        <a href="/">
+          <i class="menu-item-icon icon-home"></i> <br />
+          首页
+        </a>
+      </li>
+    
+      
+      <li class="menu-item menu-item-categories">
+        <a href="/categories">
+          <i class="menu-item-icon icon-categories"></i> <br />
+          分类
+        </a>
+      </li>
+    
+      
+      <li class="menu-item menu-item-archives">
+        <a href="/archives">
+          <i class="menu-item-icon icon-archives"></i> <br />
+          归档
+        </a>
+      </li>
+    
+      
+      <li class="menu-item menu-item-tags">
+        <a href="/tags">
+          <i class="menu-item-icon icon-tags"></i> <br />
+          标签
+        </a>
+      </li>
+    
+      
+      <li class="menu-item menu-item-about">
+        <a href="/about">
+          <i class="menu-item-icon icon-about"></i> <br />
+          关于
+        </a>
+      </li>
+    
+  </ul>
+
+
+      </div>
+    </div>
+
+    <div id="main" class="main">
+      <div class="main-inner">
+        <div id="content" class="content">
+          
+            
+          
+
+          <div id="posts" class="posts-expand">
+            
+  
+
+  <div class="post post-type-normal ">
+    <div class="post-header">
+
+      
+      
+        <h1 class="post-title">
+          
+          
+            
+              Java基础笔记（二） 集合、泛型、异常处理
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          
+            发表于 2016-03-16
+          
+        </span>
+
+        
+          
+            <span class="post-category">
+              &nbsp; | &nbsp; 分类于
+              
+                <a href="/categories/Lang-Java/">Lang.-Java</a>
+
+                
+                
+
+              
+            </span>
+          
+        
+
+        
+          
+            <span class="post-comments-count">
+            &nbsp; | &nbsp;
+            <a href="/2016/03/16/java-basic-note-2/#comments" >
+              <span class="post-comments-count ds-thread-count" data-thread-key="2016/03/16/java-basic-note-2/"></span>
+            </a>
+          </span>
+          
+        
+      </div>
+    </div>
+
+    
+      <div class="post-body">
+
+        
+        
+
+        
+          <p>本文主要是我在看《疯狂Java讲义》时的读书笔记，阅读的比较仓促，就用 markdown 写了个概要。</p>
+<h1 id="第七章_Java集合（重点）">第七章 Java集合（重点）</h1><p><strong>1、 Java集合概述</strong></p>
+<p>Java集合类是一种工具类，主要用来存储数量不定的对象，类似于<strong>容器</strong>。Java主要有四大集合体系：<code>Set</code>、 <code>List</code>、<code>Queue</code>、<code>Map</code>。<br><a id="more"></a><br>所有的集合类都位于<code>java.util</code>包下，后来为了支持多线程又在<code>java.util.concurrent</code>包下提供了一些线程安全的集合类（本章不讨论）。</p>
+<p>Java集合类主要派生自两个接口类：<strong>Collection</strong> 和 <strong>Map</strong>，继承树如下图：</p>
+<p><img src="http://img.blog.csdn.net/20160311102217317" alt=""></p>
+<hr>
+<p><img src="http://img.blog.csdn.net/20160311102607475" alt=""></p>
+<hr>
+<p>图中粗边框的Set、List、Queue、Map仍然是接口，而以灰色覆盖的是常用的实现类，比如<code>HashSet</code>、<code>TreeSet</code>、<code>ArrayList</code>、<code>LinkedList</code>、<code>ArrayDeque</code>、<code>HashMap</code>、<code>TreeMap</code>等。</p>
+<p><strong>2、如何遍历集合</strong></p>
+<p><strong>Iterator接口遍历集合</strong></p>
+<p><code>Iterator</code>迭代器提供了遍历Collection集合元素的统一编程接口，它定义了几个方法：</p>
+<ul>
+<li><code>boolean hasNext()</code>：集合元素是否被遍历完</li>
+<li><code>Object next()</code>：返回集合里的下一个元素</li>
+<li><code>void remove()</code>：删除集合里上一次next方法返回的元素</li>
+<li><code>void forEachRemaining(Consumer action)</code>：Java 8新增方法，用于Lambda表达式遍历集合。</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.HashSet;</span><br><span class="line"><span class="keyword">import</span> java.util.Iterator;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyClass</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		HashSet&lt;String&gt; set = <span class="keyword">new</span> HashSet&lt;String&gt;();</span><br><span class="line">		set.add(<span class="string">"Firstly"</span>);</span><br><span class="line">		set.add(<span class="string">"Secondly"</span>);</span><br><span class="line">		set.add(<span class="string">"Thirdly"</span>);</span><br><span class="line"> </span><br><span class="line">		Iterator it = set.iterator();</span><br><span class="line">		<span class="keyword">while</span>(it.hasNext()) &#123;	</span><br><span class="line">			System.out.println(it.next());</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<hr>
+<p><strong>Lambda表达式遍历集合</strong></p>
+<p>Java 8支持lambda表达式，并且为每个可迭代的集合类新增了一个<code>forEach(Consumer action)</code>方法，参数类型是一个函数式接口。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.HashSet;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyClass</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		HashSet&lt;String&gt; set = <span class="keyword">new</span> HashSet&lt;String&gt;();</span><br><span class="line">		set.add(<span class="string">"Firstly"</span>);</span><br><span class="line">		set.add(<span class="string">"Secondly"</span>);</span><br><span class="line">		set.add(<span class="string">"Thirdly"</span>);</span><br><span class="line">		set.forEach(obj -&gt; System.out.println(obj));  <span class="comment">// Lambda表达式</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<hr>
+<p><strong>foreach循环遍历集合</strong></p>
+<p>类似于C++11中的范围循环<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.HashSet;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyClass</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		HashSet&lt;String&gt; set = <span class="keyword">new</span> HashSet&lt;String&gt;();</span><br><span class="line">		set.add(<span class="string">"Firstly"</span>);</span><br><span class="line">		set.add(<span class="string">"Secondly"</span>);</span><br><span class="line">		set.add(<span class="string">"Thirdly"</span>);</span><br><span class="line">		<span class="keyword">for</span>(Object obj : set) &#123;</span><br><span class="line">			System.out.println(obj);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<hr>
+<p><strong>3、Set集合</strong></p>
+<p><strong>HashSet类</strong></p>
+<ul>
+<li>采用Hash算法来存储集合中的元素（由hashCode值决定存储位置），故拥有很好的存取和查找性能。</li>
+<li>不允许包含相同的元素，相同的标准是<strong>“通过<code>equals()</code>比较相等且<code>hashCode()</code>返回值也相等”</strong></li>
+<li>不能保证元素的排列顺序，顺序可能与添加顺序不同。</li>
+<li>集合元素值可以是<code>null</code>。</li>
+</ul>
+<p><strong>TreeSet类</strong></p>
+<ul>
+<li>采用红黑树来存储集合中的元素。</li>
+<li>不允许包含相同的元素，相同的标准是<strong>“通过<code>compareTo(Object obj)</code>比较返回0”</strong></li>
+<li>集合中的元素是有序的，默认使用<code>compareTo</code>升序排列，当然你也可以通过<code>Comparator</code>对象自定义排序规则。</li>
+<li>集合元素不可以是<code>null</code>。</li>
+</ul>
+<p><strong>EnumSet类</strong></p>
+<ul>
+<li>采用位向量的形式存储元素，紧凑高校，运行效率高。</li>
+<li>集合中的多个枚举值必须属于同一个枚举类</li>
+<li>各元素按Enum类内的定义顺序有序</li>
+<li>集合元素不可以是<code>null</code>。</li>
+</ul>
+<p>结论：上述Set的三个实现类都不是线性安全的。<code>HashSet</code>和<code>TreeSet</code>作为Set类的两个典型实现，前者的性能总是比后者好，因为后者需要额外维护一棵红黑树，但后者是有序的，所以需要根据具体需求来选择。</p>
+<hr>
+<p><strong>4、Queue集合</strong></p>
+<p>Queue用于模拟“先进先出”队列，不允许随机访问。</p>
+<p><strong>PriorityQueue类</strong></p>
+<ul>
+<li>不同于FIFO队列，PriorityQueue是按优先权排列，默认就是按元素大小进行排列。</li>
+<li>本质上是一个<strong>最小堆</strong>。</li>
+<li>不允许插入null元素</li>
+</ul>
+<p><strong>Deque接口与ArrayDeque类</strong></p>
+<ul>
+<li>Deque是Queue的子接口，它代表一个<strong>双端队列</strong>。而<code>ArrayDeque</code>类是Deque的一个典型实现。</li>
+<li>ArrayDeque类是基于数组实现的。</li>
+<li>ArrayDeque类是一个双端队列，所以即可以作为队列使用，也可以作为栈使用。</li>
+</ul>
+<hr>
+<p><strong>5、List集合</strong></p>
+<p><strong>ArrayList类与Vector类</strong></p>
+<ul>
+<li>ArrayList类和Vector类都是基于数组实现的（<code>Object[]</code>）;</li>
+<li>ArrayList类和Vector类在用法上完全相同，但Vector是一个古老的类，有很多缺点，尽量少用；</li>
+<li>ArrayList类和Vector类的显著区别：<code>ArrayList</code>是线程不安全的，<code>Vector</code>是线程安全的。</li>
+</ul>
+<p><strong>LinkedList类</strong></p>
+<ul>
+<li>同时实现了List接口与Deque接口，所以可以作为List集合、双端队列、栈使用。</li>
+<li>LinkedList类是基于<strong>链表</strong>实现的，插入/删除性能好。</li>
+</ul>
+<hr>
+<p><strong>6、Map集合</strong></p>
+<p><strong>HashMap类与Hashtable类</strong></p>
+<ul>
+<li>HashMap与Hashtable的关系完全类似于ArrayList和Vector，<code>Hashtable</code>太古老，尽量少用；<ul>
+<li>HashMap线程不安全，Hashtable线程安全</li>
+<li>HashMap可以插入null作为key/value，但Hashtable不可以</li>
+</ul>
+</li>
+<li>HashMap/Hashtable不能保证元素的顺序，因为它们的key保存方式与HashSet完全相同。</li>
+<li>HashMap/Hashtable判断两个key相等的标准：两个key通过<code>equals()</code>比较返回true时，它们的<code>hashCode()</code>也相等。</li>
+</ul>
+<p><strong>TreeMap类</strong></p>
+<ul>
+<li>基于红黑树实现，每个kv对就是红黑树的一个节点。</li>
+<li>类似于<code>TreeSet</code>类，<code>TreeMap</code>类根据key保持有序。默认使用 compareTo() 升序排列，当然你也可以通过 Comparator 对象自定义排序规则。</li>
+<li>不允许包含相同的元素，相同的标准是<strong>“通过<code>compareTo(Object obj)</code>比较返回0”</strong></li>
+</ul>
+<p><strong>EnumMap类</strong></p>
+<ul>
+<li>类似于<code>EnumSet</code>类，<code>EnumMap</code>类的key必须是同一个枚举类的枚举值</li>
+<li>根据 key 有序（枚举类中定义的顺序）</li>
+<li>不允许null作为key，但允许null作为value。</li>
+</ul>
+<hr>
+<p><strong>7、什么是rehash？</strong></p>
+<p>所谓的<code>rehash</code>，是指当hash表中的槽位被填满到一定程度（最大负载因子）时，hash表会自动成倍地增加容量，并将原来的对象重新分配，hash到新的表中。</p>
+<p>最大负载因子，即<strong>负载极限</strong>。HashSet、HashMap、Hashtable的默认负载极限是<code>0.75</code>，这是时间和空间上的一种折中，在保证查询性能的同时，尽量减少哈希表的内存开销。</p>
+<hr>
+<p><strong>8、操作集合的工具类Collections</strong></p>
+<p>Java提供了一个操作Set、List和Map等集合的工具类<code>Collections</code>，该工具类里提供了大量方法对集合元素进行排序、查找和修改……另外，还可以对集合对象实现同步控制以及将集合对象设置为不可变。</p>
+<p><strong>线程同步控制</strong></p>
+<p>上面介绍的集合类中，除了古老的Vector和Hashtable之外，都是线程不安全的。Collections工具类提供了多个<code>synchronizedXxx()</code>方法，用于将指定集合包装成线程安全的集合：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.*;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyClass</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		List l = Collections.synchronizedList(<span class="keyword">new</span> ArrayList());</span><br><span class="line">		Set s = Collections.synchronizedSet(<span class="keyword">new</span> HashSet());</span><br><span class="line">		Map m = Collections.synchronizedMap(<span class="keyword">new</span> HashMap());</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><strong>设置不可变集合</strong></p>
+<p>Collections提供了三个方法来返回一个不可变的集合：</p>
+<ul>
+<li><code>emptyXxx()</code>：返回一个空的、不可变的集合对象。</li>
+<li><code>singletonXxx()</code>：返回一个只有一个元素、且不可改变的集合对象。</li>
+<li><code>unmodifiableXxx()</code>：返回指定集合对象的不可变版本（只读）。</li>
+</ul>
+<h1 id="第八章_泛型">第八章 泛型</h1><p><strong>1、泛型的概念</strong></p>
+<p>在Java没有泛型之前，一旦把一个对象“丢进”Java集合中，集合就会忘记对象的类型，把所有对象当成 Object 类型处理。当从集合中取出对象后，就需要进行强制类型转换。这种强制类型转换不仅使代码臃肿，而且容易引起<code>ClassCastException</code>异常。下面就是一个例子：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.ArrayList;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyClass</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		ArrayList strs = <span class="keyword">new</span> ArrayList();</span><br><span class="line">		strs.add(<span class="string">"one"</span>);</span><br><span class="line">		strs.add(<span class="string">"two"</span>);</span><br><span class="line">		strs.add(<span class="number">3</span>);    <span class="comment">// 把一个Integer对象丢进了集合</span></span><br><span class="line">        <span class="comment">// 遍历输出时报ClassCastException异常</span></span><br><span class="line">		strs.forEach(str -&gt; System.out.println(((String)str).length()));</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>从Java 5以后，Java引入了<strong>“参数化类型”</strong>的概念，允许程序在创建集合时指定集合元素的类型。注意，如果没有传入类型实参，那么类型参数 T 将会当成<code>Object</code>类型处理。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ArrayList&lt;String&gt; strs = <span class="keyword">new</span> ArrayList&lt;String&gt;();</span><br><span class="line">ArrayList&lt;String&gt; strs = <span class="keyword">new</span> ArrayList&lt;&gt;();    <span class="comment">// 后面可以只带尖括号</span></span><br></pre></td></tr></table></figure></p>
+<p>这种参数化类型就称为<strong>泛型（Generic）</strong></p>
+<hr>
+<p><strong>2、泛型的好处</strong></p>
+<ul>
+<li>增加泛型支持之后，集合完全可以记住元素的类型，并可以在<strong>编译时</strong>检查添加元素是否满足类型要求，不满足的话，编译器会提示错误；</li>
+<li>泛型可以减少强制类型转换，使代码更加简洁；</li>
+<li>泛型可以保证如果程序在编译时没有发出警告，运行时就不会产生<code>ClassCastException</code>异常，使程序更加健壮。</li>
+</ul>
+<hr>
+<p><strong>3、自定义泛型类</strong></p>
+<p>相信学过《<a href="http://songlee24.github.io/2014/07/18/cpp-template/" target="_blank" rel="external">C++函数模板与类模板</a>》的，对Java的泛型编程并不难理解，这里就不赘述了。示例：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">People</span>&lt;<span class="title">T</span>&gt; </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">private</span> T info;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">People</span><span class="params">()</span></span>&#123;&#125;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">People</span><span class="params">(T info)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">this</span>.info = info;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> T <span class="title">getInfo</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">this</span>.info;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		People&lt;String&gt; he = <span class="keyword">new</span> People&lt;&gt;(<span class="string">"James Bond"</span>);</span><br><span class="line">		People&lt;Integer&gt; she = <span class="keyword">new</span> People&lt;&gt;(<span class="number">25</span>);</span><br><span class="line">		System.out.println(<span class="string">"his name is "</span>+he.getInfo()+<span class="string">", her age is "</span>+she.getInfo());</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>另外，Java中还可以对类型参数 T 进行限制：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">People</span>&lt;<span class="title">T</span> <span class="keyword">extends</span> <span class="title">Number</span>&gt; </span>&#123;</span><br><span class="line">	<span class="comment">//......</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>这时传入的类型实参 必须是Number类或它的子类。</p>
+<hr>
+<p><strong>4、类型通配符</strong></p>
+<p>将一个问号作为 类型实参 传给支持泛型的集合，比如<code>List&lt;?&gt;</code>，它的元素类型可以匹配任何类型，这个问号<code>？</code>被称为<strong>通配符</strong>。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.*;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyClass</span></span>&#123;</span><br><span class="line">	<span class="comment">// 遍历元素类型未知的List集合</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">traverse</span><span class="params">(List&lt;?&gt; list)</span> </span>&#123;</span><br><span class="line">		list.forEach(e -&gt; System.out.println(e));</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		List&lt;String&gt; myList = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">		myList.add(<span class="string">"Kobe"</span>);</span><br><span class="line">		myList.add(<span class="string">"LeBron"</span>);		</span><br><span class="line">		MyClass myClass = <span class="keyword">new</span> MyClass();</span><br><span class="line">		myClass.traverse(myList);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>设定通配符的上限</strong>：</p>
+<p><code>List&lt;?&gt;</code>表示匹配所有的类型。<strong>但是</strong>有时候我们希望只匹配一部分，比如只匹配某个类以及它的子类，就可以这样写：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">List&lt;? extends People&gt;</span><br></pre></td></tr></table></figure></p>
+<p>这里的问号<code>?</code>仍代表一个未知类型，但这个未知类型必须是People类或它的子类。</p>
+<p><strong>设定通配符的下限</strong>：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">List&lt;? <span class="keyword">super</span> People&gt;</span><br></pre></td></tr></table></figure></p>
+<p>这里的问号<code>?</code>仍代表一个未知类型，但这个未知类型必须是People类或它的父类。</p>
+<hr>
+<p><strong>5、自定义泛型方法</strong></p>
+<p>语法如下：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">修饰符 &lt;T, S&gt; 返回值类型 函数名(形参列表)</span><br><span class="line">&#123;</span><br><span class="line">	<span class="comment">// 函数体</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>例如下面这个泛型方法：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> &lt;T&gt; <span class="function"><span class="keyword">void</span> <span class="title">myFunction</span><span class="params">(Collection&lt;T&gt; arr, Collection&lt;T&gt; c)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">for</span>(T elem : arr) &#123;</span><br><span class="line">    	c.add(elem);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>上述泛型方法可以直接调用，编译器会根据实参<strong>推断</strong>类型参数的值。但其实，也可以直接用<strong>类型通配符</strong>替代（两个Collection的元素类型没有依赖关系的情况下）：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">myFunction</span><span class="params">(Collection&lt;?&gt; arr, Collection&lt;?&gt; c)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">for</span>(T elem : arr) &#123;</span><br><span class="line">    	c.add(elem);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h1 id="第九章_异常处理">第九章 异常处理</h1><p><strong>1、Java异常的继承体系</strong></p>
+<p><img src="http://img.blog.csdn.net/20160315001000655" alt=""></p>
+<p>如上图所示，<code>java.lang.Throwable</code>是Java中所有可以错误和异常的父类。Java把所有的非正常情况分为两类：</p>
+<ul>
+<li><p><strong>Error（错误）</strong>：一般指与虚拟机相关的问题，如系统崩溃、虚拟机错误、动态链接失败等，应用程序无法处理这些错误。</p>
+</li>
+<li><p><strong>Exception（异常）</strong>：指应用程序本身可以处理的异常。</p>
+<ul>
+<li>运行时异常：指<code>RuntimeException</code>类及其子类异常，编译器不会检查这些异常。</li>
+<li>非运行时异常：也叫Checked异常，是指<code>RuntimeException</code>以外的 Exception。这些异常不处理，程序就不能编译通过。如<code>IOException</code>、<code>SQLException</code>等</li>
+</ul>
+</li>
+</ul>
+<hr>
+<p><strong>2、异常处理机制</strong></p>
+<p>Java的异常机制主要依赖于<code>try</code>、<code>catch</code>、<code>finally</code>、<code>throw</code>和<code>throws</code>五个关键字。</p>
+<p><strong>捕获异常：try-catch语句</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">	statement1</span><br><span class="line">	statement2   <span class="comment">// 出现异常，系统生成异常对象ex</span></span><br><span class="line">	......</span><br><span class="line">&#125; <span class="keyword">catch</span> (ExceptionClass1 e1) &#123;    <span class="comment">// ex对象是否属于ExceptionClass1类及其子类</span></span><br><span class="line">	exception handler statement1</span><br><span class="line">	......</span><br><span class="line">&#125; <span class="keyword">catch</span> (ExceptionClass2 e2) &#123;    <span class="comment">// 一旦捕获，try-catch语句结束</span></span><br><span class="line">	exception handler statement</span><br><span class="line">	......</span><br><span class="line">&#125;</span><br><span class="line">......</span><br></pre></td></tr></table></figure>
+<p>如果找不到能捕获该异常的catch块，则运行时环境终止，Java程序也将退出。</p>
+<p><strong>捕获异常：try-catch-finally语句</strong></p>
+<p>try-catch 语句还可以包括第三部分，就是finally块。无论是否出现异常，finally块总会被执行；甚至在try块或catch块中return了，finally块也会被执行。（除非<code>System.exit()</code>）<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">	<span class="comment">// 业务实现代码</span></span><br><span class="line">	......</span><br><span class="line">&#125; <span class="keyword">catch</span> (ExceptionClass1 e1) &#123;</span><br><span class="line">	<span class="comment">// 异常处理块1</span></span><br><span class="line">	......</span><br><span class="line">&#125; <span class="keyword">catch</span> (ExceptionClass2 e2) &#123;</span><br><span class="line">	<span class="comment">// 异常处理块2</span></span><br><span class="line">	......</span><br><span class="line">&#125;</span><br><span class="line">......</span><br><span class="line"><span class="keyword">finally</span> &#123;</span><br><span class="line">	<span class="comment">// 资源回收块</span></span><br><span class="line">    ......</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>finally块通常用来回收在try块里打开的一些物理资源，例如数据库连接、网络连接、磁盘文件等。</p>
+<p><strong>抛出异常：throws</strong></p>
+<p><code>throws</code>关键字只能用在<strong>方法签名</strong>中。如果当前函数不知道如何处理这种异常，则应该使用 throws 抛出异常，交由上一级调用者处理 —— 若<code>main</code>方法 throws 异常，该异常将交给JVM处理（打印跟踪栈信息并终止程序运行）。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> IOException</span></span><br></pre></td></tr></table></figure></p>
+<p><strong>抛出异常：throw</strong></p>
+<p>当程序出现错误时，系统会自动抛出异常；除此之外，程序也可以自己抛出异常。<code>throw</code>单独作为语句使用，用于抛出一个具体的异常对象。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">throw</span> <span class="keyword">new</span> Exception(<span class="string">"您输入的格式有误！"</span>);</span><br></pre></td></tr></table></figure></p>
+<hr>
+<p><strong>3、打印异常信息</strong></p>
+<p>当在catch块中捕获了异常，你可能想要获取或打印异常对象的相关信息。所有的异常对象都包含几个常用方法：</p>
+<ul>
+<li><code>getMessage()</code>：返回该异常的详细描述字符串。</li>
+<li><code>printStackTrace()</code>：将该异常的跟踪栈信息输出到标准错误输出。</li>
+<li><code>printStackTrace(PrintStream s)</code>：将该异常的跟踪栈信息输出到指定输出流。</li>
+<li><code>getStackTrace()</code>：返回该异常的跟踪栈信息。</li>
+</ul>
+<hr>
+<p><strong>4、自定义异常类</strong></p>
+<p>用户自定义异常都应该继承<code>Exception</code>基类，当然如果希望自定义运行时异常，则应该继承<code>RuntimeException</code>基类。</p>
+<p>定义异常类时通常需要提供两个构造器：一个是无参数的构造器，另一个是带一个字符串参数的构造器（该字符串作为异常对象的描述信息）。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">InputException</span> <span class="keyword">extends</span> <span class="title">Exception</span> </span><br><span class="line"></span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">InputException</span><span class="params">()</span></span>&#123;&#125;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">InputException</span><span class="params">(String msg)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">super</span>(msg);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<hr>
+<p><strong>5、异常链</strong></p>
+<p>对于大型应用而言，通常有严格的分层关系，上层功能的实现依赖下层的API，如图：</p>
+<p><img src="http://img.blog.csdn.net/20160315023946974" alt=""></p>
+<p>如果当 中间层 访问 持久层出现SQLException异常时，程序不应该把底层的SQLException异常传到用户界面，因为：</p>
+<ul>
+<li>用户并不想看到底层的SQLException异常，该异常对他们使用该系统没有任何帮助；</li>
+<li>将底层异常暴露出来不安全。</li>
+</ul>
+<p>所以通常的做法就是：程序先捕获原始异常，然后抛出一个新的业务异常。（新的业务异常中包含对用户的提示信息）<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">	<span class="comment">// 业务逻辑代码</span></span><br><span class="line">	......</span><br><span class="line">&#125; <span class="keyword">catch</span> (SQLException sqle) &#123;</span><br><span class="line">	<span class="comment">// 把原始异常记录下来，留给管理员</span></span><br><span class="line">	......</span><br><span class="line">	<span class="keyword">throw</span> <span class="keyword">new</span> UserException(<span class="string">"访问数据库出现异常"</span>);</span><br><span class="line">&#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">	<span class="comment">//把原始异常记录下来，留给管理员</span></span><br><span class="line">	......</span><br><span class="line">	<span class="keyword">throw</span> <span class="keyword">new</span> UserException(<span class="string">"系统出现未知异常"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>这种捕获一个异常然后接着抛出另一个异常，并把原始异常信息保存下来是一种典型的链式处理，也被称作<strong>“异常链”</strong>。</p>
+<p>从Java 4以后，所有<code>Throwable</code>子类在构造器中都可以接收一个Exception对象，这样就可以很容易把原始异常作为参数传递给新的异常，创建并抛出新的异常。也能通过异常链追踪到异常最初发生的位置。示例如下：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserException</span> <span class="keyword">extends</span> <span class="title">Exception</span> </span><br><span class="line"></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">UserException</span><span class="params">()</span></span>&#123;&#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">UserException</span><span class="params">(String msg)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>(msg);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">UserException</span><span class="params">(Throwable t)</span> </span>&#123;  <span class="comment">// 带Throwable参数的构造器</span></span><br><span class="line">    	<span class="keyword">super</span>(t);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/*---------------------------------------------*/</span></span><br><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">	<span class="comment">// 业务逻辑代码</span></span><br><span class="line">	...</span><br><span class="line">&#125; <span class="keyword">catch</span> (SQLException sqle) &#123;</span><br><span class="line">	<span class="keyword">throw</span> <span class="keyword">new</span> UserException(sqle);  <span class="comment">// 封装原始异常</span></span><br><span class="line">&#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">	<span class="keyword">throw</span> <span class="keyword">new</span> UserException(e);     <span class="comment">// 封装原始异常</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+
+        
+      </div>
+    
+
+    
+      <div class="post-footer">
+        
+          <div class="post-tags">
+            
+              <a href="/tags/Java/">
+                #Java
+              </a>
+            
+          </div>
+        
+
+        
+          <div class="post-nav">
+            <div class="post-nav-prev post-nav-item">
+              
+            </div>
+
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/2016/03/16/java-basic-note-1/">Java基础笔记（一） 数据类型、面向对象、基础类库</a>
+              
+            </div>
+          </div>
+        
+
+        
+        
+      </div>
+    
+  </div>
+
+
+
+  
+    <div class="comments" id="comments">
+      
+        <div class="ds-thread" data-thread-key="2016/03/16/java-basic-note-2/"
+             data-title="Java基础笔记（二） 集合、泛型、异常处理" data-url="http://yoursite.com/2016/03/16/java-basic-note-2/">
+        </div>
+
+      
+    </div>
+  
+
+          </div>
+
+          
+        </div>
+
+        
+<div class="sidebar-toggle">
+  <div class="sidebar-toggle-line-wrap">
+    <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+    <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+    <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+  </div>
+</div>
+
+<div id="sidebar" class="sidebar">
+  <div class="sidebar-inner">
+
+    
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview" data-target="site-overview">
+          站点概览
+        </li>
+      </ul>
+    
+
+    <div class="site-overview">
+      <div class="site-author motion-element">
+        <img class="site-author-image" src="https://avatars0.githubusercontent.com/u/6904366?v=3&s=140" alt="Song Lee" />
+        <p class="site-author-name">Song Lee</p>
+      </div>
+      <p class="site-description motion-element">放宽心，多努力</p>
+      <div class="site-state motion-element">
+        <div class="site-state-item site-state-posts">
+          <span class="site-state-item-count">86</span>
+          <span class="site-state-item-name">日志</span>
+        </div>
+        <div class="site-state-item site-state-tags">
+            <span class="site-state-item-count">28</span>
+            <span class="site-state-item-name">标签</span>
+        </div>
+        <div class="site-state-item site-state-pages">
+            <span class="site-state-item-count">4</span>
+            <span class="site-state-item-name">页面</span>
+        </div>
+      </div>
+
+      
+        <div class="feed-link motion-element">
+          <a href="/atom.xml">
+            <i class="menu-item-icon icon-feed"></i>
+            RSS
+          </a>
+        </div>
+      
+
+      <div class="links-of-author motion-element">
+        
+          
+            <span class="links-of-author-item">
+              <a href="https://github.com/SongLee24">GitHub</a>
+            </span>
+          
+            <span class="links-of-author-item">
+              <a href="http://blog.csdn.net/lisonglisonglisong">CSDN</a>
+            </span>
+          
+            <span class="links-of-author-item">
+              <a href="http://weibo.com/lisonglisong">Weibo</a>
+            </span>
+          
+            <span class="links-of-author-item">
+              <a href="http://www.douban.com/people/122455925/">DouBan</a>
+            </span>
+          
+            <span class="links-of-author-item">
+              <a href="http://www.zhihu.com/people/shen-yi-59">ZhiHu</a>
+            </span>
+          
+        
+      </div>
+
+      
+      
+        <div class="cc-license motion-element">
+          <a href="http://creativecommons.org/licenses/by-nc-sa/4.0" class="cc-opacity" target="_blank">
+            <img src="/images/cc-by-nc-sa.svg" alt="Creative Commons" />
+          </a>
+        </div>
+      
+
+    </div>
+
+    
+      <div class="post-toc-wrap sidebar-panel-active">
+        <div class="post-toc-indicator-top post-toc-indicator"></div>
+        <div class="post-toc">
+          
+          
+            <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#第七章_Java集合（重点）"><span class="nav-number">1.</span> <span class="nav-text">第七章 Java集合（重点）</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第八章_泛型"><span class="nav-number">2.</span> <span class="nav-text">第八章 泛型</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第九章_异常处理"><span class="nav-number">3.</span> <span class="nav-text">第九章 异常处理</span></a></li></ol></div>
+          
+        </div>
+        <div class="post-toc-indicator-bottom post-toc-indicator"></div>
+      </div>
+    
+
+  </div>
+</div>
+
+
+      </div>
+    </div>
+
+    <div id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy; &nbsp;  2014 - 
+  2016
+  <span class="with-love">
+    <i class="icon-heart"></i>
+  </span>
+  <span class="author">Song Lee</span>
+</div>
+
+<div class="powered-by">
+  <div style="float:left;margin-top:7px;margin-right:10px;">
+	<script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1254974724'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s11.cnzz.com/z_stat.php%3Fid%3D1254974724%26show%3Dpic' type='text/javascript'%3E%3C/script%3E"));</script>
+  </div>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+
+      </div>
+    </div>
+
+    <div class="back-to-top"></div>
+  </div>
+
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript">
+    $(document).ready(function() {
+      $(".fancybox").fancybox();
+    });
+  </script>
+
+  <script type="text/javascript">
+  function hasMobileUA () {
+    var nav = window.navigator;
+    var ua = nav.userAgent;
+    var pa = /iPad|iPhone|Android|Opera Mini|BlackBerry|webOS|UCWEB|Blazer|PSP|IEMobile|Symbian/g;
+
+    return pa.test(ua);
+  }
+
+  function isDesktop () {
+    return screen.width > 991 && !hasMobileUA();
+  }
+
+  function isTablet () {
+    return screen.width < 992 && screen.width > 767 && hasMobileUA();
+  }
+
+  function isMobile () {
+    return screen.width < 767 && hasMobileUA();
+  }
+
+  function escapeSelector (selector) {
+    return selector.replace(/[!"$%&'()*+,.\/:;<=>?@[\\\]^`{|}~]/g, "\\$&")
+  }
+</script>
+
+  
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
+
+  <script type="text/javascript" id="motion.global">
+  $(document).ready(function () {
+    var body = $('body');
+    var isSidebarVisible = false;
+    var sidebarToggle = $('.sidebar-toggle');
+    var sidebarToggleLine1st = $('.sidebar-toggle-line-first')
+    var sidebarToggleLine2nd = $('.sidebar-toggle-line-middle');
+    var sidebarToggleLine3rd = $('.sidebar-toggle-line-last');
+    var sidebar = $('.sidebar');
+
+    var SIDEBAR_WIDTH = '320px';
+    var SIDEBAR_DISPLAY_DURATION = 300;
+
+    var sidebarToogleLineStatusInit = {width: '100%', opacity: 1, left: 0, rotateZ: 0, top: 0};
+
+    var sidebarToggleLine1stStatusInit = sidebarToogleLineStatusInit;
+    var sidebarToggleLine1stStatusArrow = {width: '50%', rotateZ: '-45deg', top: '2px'};
+    var sidebarToogleLine1stStatusClose = {width: '100%', rotateZ: '-45deg', top: '5px'};
+
+    var sidebarToggleLine2ndStatusInit = sidebarToogleLineStatusInit;
+    var sidebarToggleLine2ndStatusArrow = {width: '90%'};
+    var sidebarToogleLine2ndStatusClose = {opacity: 0};
+
+    var sidebarToggleLine3rdStatusInit = sidebarToogleLineStatusInit;
+    var sidebarToggleLine3rdStatusArrow = {width: '50%', rotateZ: '45deg', top: '-2px'};
+    var sidebarToogleLine3rdStatusClose = {width: '100%', rotateZ: '45deg', top: '-5px'};
+
+    LogoAndMenuMotion();
+    sidebatToggleMotion();
+    postsListMotion();
+    backToTopMotion();
+
+
+    $(document)
+      .on('sidebar.isShowing', function () {
+        isDesktop() && body.velocity(
+          {paddingRight: SIDEBAR_WIDTH},
+          SIDEBAR_DISPLAY_DURATION
+        );
+        sidebarContentMotion();
+      })
+      .on('sidebar.isHiding', function () {});
+
+    function LogoAndMenuMotion() {
+      $.Velocity.RunSequence([
+        { e: $('.brand'), p: { opacity: 1 }, o: { duration: 100 } },
+        { e: $('.logo'), p: { opacity: 1, top: 0 }, o: { duration: 50} },
+        
+        { e: $('.logo-line-before i'), p: { translateX: "100%" }, o: { duration: 500, sequenceQueue: false } },
+        { e: $('.logo-line-after i'), p: { translateX: "-100%" }, o: { duration: 500, sequenceQueue: false } },
+        
+        { e: $('.site-title'), p: { opacity: 1, top: 0 }, o: { duration: 200 } }
+      ]);
+      $('.menu-item').velocity('transition.slideDownIn', {display: null});
+    }
+
+
+    function backToTopMotion () {
+      var b2top = $('.back-to-top');
+      b2top.on('click', function () {
+        body.velocity('scroll');
+      });
+    }
+
+    function sidebarShowMotion () {
+
+      sidebarToggleLine1st.velocity(sidebarToogleLine1stStatusClose);
+      sidebarToggleLine2nd.velocity(sidebarToogleLine2ndStatusClose);
+      sidebarToggleLine3rd.velocity(sidebarToogleLine3rdStatusClose);
+
+      sidebar.velocity({width: SIDEBAR_WIDTH}, {
+        display: 'block',
+        duration: SIDEBAR_DISPLAY_DURATION,
+        complete: function () {
+          sidebar.addClass('sidebar-active');
+          sidebar.trigger('sidebar.didShow');
+        }
+      });
+      sidebar.trigger('sidebar.isShowing');
+    }
+
+    function sidebarHideMotion () {
+      isDesktop() && body.velocity({paddingRight: 0});
+      sidebar.velocity('reverse');
+
+      sidebarToggleLine1st.velocity(sidebarToggleLine1stStatusInit);
+      sidebarToggleLine2nd.velocity(sidebarToggleLine2ndStatusInit);
+      sidebarToggleLine3rd.velocity(sidebarToggleLine3rdStatusInit);
+
+      sidebar.removeClass('sidebar-active');
+      sidebar.trigger('sidebar.isHiding');
+    };
+
+    function sidebarContentMotion () {
+      $('.sidebar .motion-element').velocity(
+        'transition.slideRightIn',
+        {stagger: 50, drag: true}
+      );
+    }
+
+    function postsListMotion () {
+      var postMotionOptions = window.postMotionOptions || {stagger: 300, drag: true};
+      $('.post').velocity('transition.slideDownIn', postMotionOptions);
+    }
+
+    function sidebatToggleMotion () {
+      sidebarToggle.on('click', function () {
+        isSidebarVisible ? sidebarHideMotion() : sidebarShowMotion();
+        isSidebarVisible = !isSidebarVisible;
+      });
+
+      sidebarToggle.hover(function () {
+        if (isSidebarVisible) {return}
+        sidebarToggleLine1st.velocity('stop').velocity(sidebarToggleLine1stStatusArrow);
+        sidebarToggleLine2nd.velocity('stop').velocity(sidebarToggleLine2ndStatusArrow);
+        sidebarToggleLine3rd.velocity('stop').velocity(sidebarToggleLine3rdStatusArrow);
+      }, function () {
+        if (isSidebarVisible) {return}
+        sidebarToggleLine1st.velocity('stop').velocity(sidebarToggleLine1stStatusInit);
+        sidebarToggleLine2nd.velocity('stop').velocity(sidebarToggleLine2ndStatusInit);
+        sidebarToggleLine3rd.velocity('stop').velocity(sidebarToggleLine3rdStatusInit);
+      });
+    }
+  });
+
+</script>
+
+
+
+
+
+  
+  
+<script type="text/javascript" id="bootstrap.scrollspy.custom">
+  /* ========================================================================
+  * Bootstrap: scrollspy.js v3.3.2
+  * http://getbootstrap.com/javascript/#scrollspy
+  * ========================================================================
+  * Copyright 2011-2015 Twitter, Inc.
+  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
+  * ======================================================================== */
+
+  /**
+   * Custom by iissnan
+   *
+   * - Add a `clear.bs.scrollspy` event.
+   * - Esacpe targets selector.
+   */
+
+
+  +function ($) {
+    'use strict';
+
+    // SCROLLSPY CLASS DEFINITION
+    // ==========================
+
+    function ScrollSpy(element, options) {
+      this.$body          = $(document.body)
+      this.$scrollElement = $(element).is(document.body) ? $(window) : $(element)
+      this.options        = $.extend({}, ScrollSpy.DEFAULTS, options)
+      this.selector       = (this.options.target || '') + ' .nav li > a'
+      this.offsets        = []
+      this.targets        = []
+      this.activeTarget   = null
+      this.scrollHeight   = 0
+
+      this.$scrollElement.on('scroll.bs.scrollspy', $.proxy(this.process, this))
+      this.refresh()
+      this.process()
+    }
+
+    ScrollSpy.VERSION  = '3.3.2'
+
+    ScrollSpy.DEFAULTS = {
+      offset: 10
+    }
+
+    ScrollSpy.prototype.getScrollHeight = function () {
+      return this.$scrollElement[0].scrollHeight || Math.max(this.$body[0].scrollHeight, document.documentElement.scrollHeight)
+    }
+
+    ScrollSpy.prototype.refresh = function () {
+      var that          = this
+      var offsetMethod  = 'offset'
+      var offsetBase    = 0
+
+      this.offsets      = []
+      this.targets      = []
+      this.scrollHeight = this.getScrollHeight()
+
+      if (!$.isWindow(this.$scrollElement[0])) {
+        offsetMethod = 'position'
+        offsetBase   = this.$scrollElement.scrollTop()
+      }
+
+      this.$body
+        .find(this.selector)
+        .map(function () {
+          var $el   = $(this)
+          var href  = $el.data('target') || $el.attr('href')
+          var $href = /^#./.test(href) && $(escapeSelector(href)) // Need to escape selector.
+
+          return ($href
+            && $href.length
+            && $href.is(':visible')
+            && [[$href[offsetMethod]().top + offsetBase, href]]) || null
+        })
+        .sort(function (a, b) { return a[0] - b[0] })
+        .each(function () {
+          that.offsets.push(this[0])
+          that.targets.push(this[1])
+        })
+
+
+    }
+
+    ScrollSpy.prototype.process = function () {
+      var scrollTop    = this.$scrollElement.scrollTop() + this.options.offset
+      var scrollHeight = this.getScrollHeight()
+      var maxScroll    = this.options.offset + scrollHeight - this.$scrollElement.height()
+      var offsets      = this.offsets
+      var targets      = this.targets
+      var activeTarget = this.activeTarget
+      var i
+
+      if (this.scrollHeight != scrollHeight) {
+        this.refresh()
+      }
+
+      if (scrollTop >= maxScroll) {
+        return activeTarget != (i = targets[targets.length - 1]) && this.activate(i)
+      }
+
+      if (activeTarget && scrollTop < offsets[0]) {
+        $(this.selector).trigger('clear.bs.scrollspy')  // Add a custom event.
+        this.activeTarget = null
+        return this.clear()
+      }
+
+      for (i = offsets.length; i--;) {
+        activeTarget != targets[i]
+          && scrollTop >= offsets[i]
+          && (!offsets[i + 1] || scrollTop <= offsets[i + 1])
+          && this.activate(targets[i])
+      }
+    }
+
+    ScrollSpy.prototype.activate = function (target) {
+      this.activeTarget = target
+
+      this.clear()
+
+      var selector = this.selector +
+        '[data-target="' + target + '"],' +
+        this.selector + '[href="' + target + '"]'
+
+      var active = $(selector)
+        .parents('li')
+        .addClass('active')
+
+      if (active.parent('.dropdown-menu').length) {
+        active = active
+          .closest('li.dropdown')
+          .addClass('active')
+      }
+
+      active.trigger('activate.bs.scrollspy')
+    }
+
+    ScrollSpy.prototype.clear = function () {
+      $(this.selector)
+        .parentsUntil(this.options.target, '.active')
+        .removeClass('active')
+    }
+
+
+    // SCROLLSPY PLUGIN DEFINITION
+    // ===========================
+
+    function Plugin(option) {
+      return this.each(function () {
+        var $this   = $(this)
+        var data    = $this.data('bs.scrollspy')
+        var options = typeof option == 'object' && option
+
+        if (!data) $this.data('bs.scrollspy', (data = new ScrollSpy(this, options)))
+        if (typeof option == 'string') data[option]()
+      })
+    }
+
+    var old = $.fn.scrollspy
+
+    $.fn.scrollspy             = Plugin
+    $.fn.scrollspy.Constructor = ScrollSpy
+
+
+    // SCROLLSPY NO CONFLICT
+    // =====================
+
+    $.fn.scrollspy.noConflict = function () {
+      $.fn.scrollspy = old
+      return this
+    }
+
+
+    // SCROLLSPY DATA-API
+    // ==================
+
+    $(window).on('load.bs.scrollspy.data-api', function () {
+      $('[data-spy="scroll"]').each(function () {
+        var $spy = $(this)
+        Plugin.call($spy, $spy.data())
+      })
+    })
+
+  }(jQuery);
+</script>
+
+
+<script type="text/javascript" id="sidebar.toc.highlight">
+  $(document).ready(function () {
+    var tocSelector = '.post-toc';
+    var $tocSelector = $(tocSelector);
+    var activeCurrentSelector = '.active-current';
+
+    $tocSelector
+      .on('activate.bs.scrollspy', function () {
+        var $currentActiveElement = $(tocSelector + ' .active').last();
+
+        removeCurrentActiveClass();
+        $currentActiveElement.addClass('active-current');
+
+        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
+      })
+      .on('clear.bs.scrollspy', function () {
+        removeCurrentActiveClass();
+      });
+
+    function removeCurrentActiveClass () {
+      $(tocSelector + ' ' + activeCurrentSelector)
+        .removeClass(activeCurrentSelector.substring(1));
+    }
+
+    function processTOC () {
+      getTOCMaxHeight();
+      toggleTOCOverflowIndicators();
+    }
+
+    function getTOCMaxHeight () {
+      var $sidebarInner = $('.sidebar-inner');
+      var height = $('.sidebar').height() -
+                   $tocSelector.position().top -
+                   $('.post-toc-indicator-bottom').height();
+
+      $tocSelector.css('height', height);
+
+      return height;
+    }
+
+    function toggleTOCOverflowIndicators () {
+      tocOverflowIndicator(
+        '.post-toc-indicator-top',
+        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
+      );
+
+      tocOverflowIndicator(
+        '.post-toc-indicator-bottom',
+        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
+      )
+    }
+
+    $(document).on('sidebar.didShow', function () {
+      processTOC();
+    });
+
+    $('body').scrollspy({ target: tocSelector });
+    $(window).on('resize', function () {
+      if ( $('.sidebar').hasClass('sidebar-active') ) {
+        processTOC();
+      }
+    });
+
+    onScroll($tocSelector);
+
+    function onScroll (element) {
+      element.on('mousewheel DOMMouseScroll', function (event) {
+          var oe = event.originalEvent;
+          var delta = oe.wheelDelta || -oe.detail;
+          var self = this;
+
+          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+          event.preventDefault();
+
+          toggleTOCOverflowIndicators();
+      });
+    }
+
+    function tocOverflowIndicator (indicator, action) {
+      $(indicator).velocity('stop').velocity({
+        opacity: action === 'show' ? 0.4 : 0
+      }, { duration: 100 });
+    }
+
+  });
+</script>
+
+
+  <script type="text/javascript" id="sidebar.nav">
+    $(document).ready(function () {
+      var html = $('html');
+
+      $('.sidebar-nav li').on('click', function () {
+        var item = $(this);
+        var activeTabClassName = 'sidebar-nav-active';
+        var activePanelClassName = 'sidebar-panel-active';
+        if (item.hasClass(activeTabClassName)) {
+          return;
+        }
+
+        var currentTarget = $('.' + activePanelClassName);
+        var target = $('.' + item.data('target'));
+
+        currentTarget.velocity('transition.slideUpOut', 200, function () {
+          target
+            .velocity('stop')
+            .velocity('transition.slideDownIn', 200)
+            .addClass(activePanelClassName);
+        });
+
+        item.siblings().removeClass(activeTabClassName);
+        item.addClass(activeTabClassName);
+      });
+
+      $('.post-toc a').on('click', function (e) {
+        e.preventDefault();
+        var offset = $(escapeSelector(this.getAttribute('href'))).offset().top;
+        html.velocity('stop').velocity('scroll', {
+          offset: offset  + 'px',
+          mobileHA: false
+        });
+      });
+
+      // Expand sidebar on post detail page by default, when post has a toc.
+      var $tocContent = $('.post-toc-content');
+      if ($tocContent.length > 0 && $tocContent.html().trim().length > 0 && isDesktop()) {
+        setTimeout(function () {
+          $('.sidebar-toggle').trigger('click');
+        }, 800);
+      }
+    });
+  </script>
+
+
+
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"16"},"slide":{"type":"slide","bdImg":"2","bdPos":"left","bdTop":"195.5"},"image":{"viewList":["qzone","tsina","tqq","renren","weixin"],"viewText":"分享到：","viewSize":"16"},"selectShare":{"bdContainerClass":null,"bdSelectMiniList":["qzone","tsina","tqq","renren","weixin"]}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+
+
+  
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for (i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"songlee24"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+  
+</body>
+</html>
