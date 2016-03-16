@@ -1,0 +1,1284 @@
+<!doctype html>
+<html class="theme-next use-motion theme-next-next">
+<head>
+  
+
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+  <meta name="google-site-verification" content="VvyjvVXcJQa0QklHipu6pwm2PJGnnchIqX7s5JbbT_0" />
+
+
+
+  <link rel="stylesheet" type="text/css" href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5"/>
+
+
+<link rel="stylesheet" type="text/css" href="/css/main.css?v=0.4.0"/>
+
+
+    <meta name="description" content="放宽心，多努力" />
+
+
+
+	<meta name="keywords" content="Java," />
+
+  <title> Java基础笔记（一） 数据类型、面向对象、基础类库 // 神奕的博客 </title>
+</head>
+
+<body>
+  <div class="container one-column page-post-detail">
+    <div class="headband"></div>
+
+    <div id="header" class="header">
+      <div class="header-inner">
+        <h1 class="site-meta">
+  <span class="logo-line-before"><i></i></span>
+  <a href="/" class="brand">
+      <span class="logo">
+        <i class="icon-logo"></i>
+      </span>
+      <span class="site-title">神奕的博客</span>
+  </a>
+  <span class="logo-line-after"><i></i></span>
+</h1>
+
+
+  <ul id="menu" class="menu">
+    
+      
+      <li class="menu-item menu-item-home">
+        <a href="/">
+          <i class="menu-item-icon icon-home"></i> <br />
+          首页
+        </a>
+      </li>
+    
+      
+      <li class="menu-item menu-item-categories">
+        <a href="/categories">
+          <i class="menu-item-icon icon-categories"></i> <br />
+          分类
+        </a>
+      </li>
+    
+      
+      <li class="menu-item menu-item-archives">
+        <a href="/archives">
+          <i class="menu-item-icon icon-archives"></i> <br />
+          归档
+        </a>
+      </li>
+    
+      
+      <li class="menu-item menu-item-tags">
+        <a href="/tags">
+          <i class="menu-item-icon icon-tags"></i> <br />
+          标签
+        </a>
+      </li>
+    
+      
+      <li class="menu-item menu-item-about">
+        <a href="/about">
+          <i class="menu-item-icon icon-about"></i> <br />
+          关于
+        </a>
+      </li>
+    
+  </ul>
+
+
+      </div>
+    </div>
+
+    <div id="main" class="main">
+      <div class="main-inner">
+        <div id="content" class="content">
+          
+            
+          
+
+          <div id="posts" class="posts-expand">
+            
+  
+
+  <div class="post post-type-normal ">
+    <div class="post-header">
+
+      
+      
+        <h1 class="post-title">
+          
+          
+            
+              Java基础笔记（一） 数据类型、面向对象、基础类库
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          
+            发表于 2016-03-16
+          
+        </span>
+
+        
+          
+            <span class="post-category">
+              &nbsp; | &nbsp; 分类于
+              
+                <a href="/categories/Lang-Java/">Lang.-Java</a>
+
+                
+                
+
+              
+            </span>
+          
+        
+
+        
+          
+            <span class="post-comments-count">
+            &nbsp; | &nbsp;
+            <a href="/2016/03/16/java-basic-note-1/#comments" >
+              <span class="post-comments-count ds-thread-count" data-thread-key="2016/03/16/java-basic-note-1/"></span>
+            </a>
+          </span>
+          
+        
+      </div>
+    </div>
+
+    
+      <div class="post-body">
+
+        
+        
+
+        
+          <p>本文主要是我在看《疯狂Java讲义》时的读书笔记，阅读的比较仓促，就用 markdown 写了个概要。</p>
+<h1 id="第一章_Java概述">第一章 Java概述</h1><p><img src="http://img.blog.csdn.net/20141124190237680?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvbGlzb25nbGlzb25nbGlzb25n/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" alt=""></p>
+<hr>
+<p><strong>Java SE</strong>：（Java Platform, Standard Edition）整个Java技术的核心和基础，它是Java ME和Java EE编程的基础。</p>
+<p><strong>Java ME</strong>：（Java Platform, Micro Edition）主要用于控制移动设备和信息家电等有限存储的设备。<br><a id="more"></a><br><strong>Java EE</strong>：（Java Platform，Enterprise Edition）提供了企业应用开发相关的完整解决方案，是Java技术中应用最广泛的部分。</p>
+<hr>
+<p><img src="http://img.blog.csdn.net/20141124190252203?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvbGlzb25nbGlzb25nbGlzb25n/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" alt=""></p>
+<p><strong>JVM</strong>：（Java Virtual Machine）Java虚拟机，负责解释执行字节码文件。（JVM是Java程序跨平台的关键）</p>
+<hr>
+<p><strong>1、Java程序的组织形式</strong></p>
+<p>Java是一种纯粹的面向对象的程序设计语言，即必须以<strong>类（class）</strong>的形式存在。类是Java程序的最小程序单位。（Java程序不允许可执行语句、方法等成分独立存在，所有的程序部分都必须放在类定义里）</p>
+<p>Java程序的入口是一个类中的<strong>main方法</strong>：<code>public static void main(String[] args)</code></p>
+<p><strong>2、源文件的命名规则</strong></p>
+<p><img src="http://img.blog.csdn.net/20141124190331328?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvbGlzb25nbGlzb25nbGlzb25n/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" alt=""></p>
+<p><strong>3、垃圾回收机制</strong></p>
+<p>Java不需要程序员直接控制内存回收，程序的内存分配和回收都是由JRE在后台自动进行的。JRE会负责回收那些不再使用的内存，这种机制称为<strong>垃圾回收（Garbage Collection）</strong>。</p>
+<p><br></p>
+<h1 id="第二章_Java数据类型">第二章 Java数据类型</h1><p>Java中的所有关键字（都是小写）：</p>
+<p><img src="http://img.blog.csdn.net/20141124190344479?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvbGlzb25nbGlzb25nbGlzb25n/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" alt=""></p>
+<p>除了上面48个关键字之外，Java还包含<code>goto</code>和<code>const</code>两个保留字（未来可能用作关键字）与 三个特殊的字面值：<code>true</code>、<code>false</code>、<code>null</code>。</p>
+<hr>
+<p><img src="http://img.blog.csdn.net/20141124190356335?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvbGlzb25nbGlzb25nbGlzb25n/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" alt=""></p>
+<p><strong>引用类型</strong>就是对一个对象的引用。实际上，引用类型变量就是一个指针，只是Java语言里不再使用指针这个说法。</p>
+<p><br></p>
+<h1 id="第三章_深入Java数组">第三章 深入Java数组</h1><p><strong>1、数组的定义与初始化</strong></p>
+<p>在Java中，<strong>数组</strong>也是一种数据类型，而且是一种引用数据类型。</p>
+<p><strong>定义数组</strong>：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">type[] arrayName;  <span class="comment">// 建议使用这种形式</span></span><br><span class="line">type arrayName[];</span><br></pre></td></tr></table></figure></p>
+<p>注意：定义一个数组时，仅仅是定义了一个引用变量（也就是一个指针），它还未指向任何有效的内存，因此，定义数组时不能指定数组的长度。</p>
+<p><img src="http://img.blog.csdn.net/20141124190823766?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvbGlzb25nbGlzb25nbGlzb25n/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" alt=""></p>
+<hr>
+<p><strong>2、数组在内存中的运行机制</strong></p>
+<p>数组是一种引用数据类型，所以数组变量只是一个引用。通过这个引用访问它所指向的有效内存（数组对象本身）。</p>
+<p>通常，如果数组引用变量是一个局部变量，它会被存储在<strong>栈（stack）内存</strong>中，而实际的数组对象被存储在<strong>堆（heap）内存</strong>中，如下图所示：</p>
+<p><img src="http://img.blog.csdn.net/20141124190847260?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvbGlzb25nbGlzb25nbGlzb25n/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" alt=""></p>
+<p>下面看一个例子：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span>[] a = &#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>&#125;;</span><br><span class="line"><span class="keyword">int</span>[] b = <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">4</span>];</span><br><span class="line">b = a;</span><br></pre></td></tr></table></figure></p>
+<p><img src="http://img.blog.csdn.net/20141124190948412?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvbGlzb25nbGlzb25nbGlzb25n/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" alt=""></p>
+<p>从上面的例子可以看出，Java的引用类型就相当于C/C++中的指针类型。</p>
+<hr>
+<p><strong>3、栈内存与堆内存</strong></p>
+<p><strong>栈内存</strong>：当一个方法执行时，每个方法都会建立自己的内存栈，在这个方法内定义的变量将会逐个放入这块栈内存里，随着方法的执行结束，内存栈也将自然销毁。</p>
+<p><strong>堆内存</strong>：当我们在程序中创建（new）一个对象时，该对象会被保存到<strong>运行时数据区</strong>中，以便反复利用（因为对象的创建成本通常较大），这个运行时数据区就是<strong>堆内存</strong>。堆内存中的对象不会随方法的结束而销毁，只有当一个对象没有任何引用变量引用它时，系统的垃圾回收器才会在合适的时候回收它。</p>
+<p>操作数组的工具类：<code>java.util.Arrays</code></p>
+<p><br></p>
+<h1 id="第四章_面向对象（上）">第四章 面向对象（上）</h1><p>定义类：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[修饰符] <span class="class"><span class="keyword">class</span> 类名</span><br><span class="line"></span>&#123;</span><br><span class="line">    零到多个构造器定义</span><br><span class="line">    零到多个Field</span><br><span class="line">    零到多个方法</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>其中的修饰符可以是<code>public</code>、<code>final</code>、<code>abstract</code>或省略。</p>
+<hr>
+<ol>
+<li><p>类也是引用数据类型，用类定义的变量也只是一个引用（或者说指针），里面只是存放了一个地址值。</p>
+</li>
+<li><p><code>static</code>修饰的方法不能直接访问没有<code>static</code>修饰的成员。（理由很简单：静态成员是独立于具体对象而存在，属于类本身，而非静态成员是依赖于具体的对象的）</p>
+</li>
+<li><p>Java里方法的参数传递方式只有一种：<strong>值传递</strong>。基本数据类型和引用数据类型都是将实参的一个副本传给形参，只不过引用数据类型拷贝的是地址值！</p>
+</li>
+</ol>
+<hr>
+<p><strong>可变参数函数：</strong></p>
+<p>JDK 1.5之后，Java允许为方法指定数量不确定的形参，通过在最后一个形参的类型后增加三个点（…），代码实例如下：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyClass</span> </span>&#123;</span><br><span class="line">	<span class="javadoc">/**</span><br><span class="line">	 * 可变参数的方法</span><br><span class="line">	 */</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">func</span><span class="params">(<span class="keyword">int</span> a, String... str)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">for</span>(String s : str) &#123;</span><br><span class="line">			System.out.println(s);</span><br><span class="line">		&#125;</span><br><span class="line">		System.out.println(a);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="javadoc">/**</span><br><span class="line">	 * 程序入口-main</span><br><span class="line">	 */</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		func(<span class="number">15</span>, <span class="string">"第一个字符串"</span>,<span class="string">"第二个字符串"</span>,<span class="string">"第三个字符串"</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>当然，如果你觉得这样麻烦，可以直接用一个数组代替</p>
+<hr>
+<p><strong>方法重载：</strong></p>
+<p>Java允许同一个类里定义多个同名方法，只要形参列表不同就行。</p>
+<hr>
+<p>在Java中，根据变量定义位置的不同，可以将变量分为两大类：成员变量 和 局部变量</p>
+<p><img src="http://img.blog.csdn.net/20141124191846332?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvbGlzb25nbGlzb25nbGlzb25n/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" alt=""></p>
+<p>1、成员变量的初始化和内存中的运行机制</p>
+<ul>
+<li>当系统加载类、或者创建该类的实例时，系统自动为成员变量分配内存空间，并自动指定初始值。</li>
+<li><strong>类 Field</strong>（静态成员变量），系统会在类加载时为其分配内存空间，并指定默认初始值。</li>
+<li><strong>实例 Field</strong> 是在创建实例时分配内存空间并指定初始值的，注意：实例变量指向的是这部分内存。</li>
+</ul>
+<p>2、局部变量的初始化和内存中的运行机制</p>
+<ul>
+<li>局部变量定义后，必须经过显式初始化后才能使用，系统不会为局部变量执行初始化。</li>
+<li>也就是说，定义局部变量后，系统并未为这个变量分配内存空间，直到等到程序为这个变量赋初值时才分配，并将初值保存在这块内存中。</li>
+<li>局部变量总是保存在其所在方法的栈内存中，所以它不属于任何类或实例。</li>
+<li>如果是基本类型的局部变量，则栈内存中是变量的值；如果是引用类型的局部变量，则栈内存中存放的是地址，引用堆内存中的实际对象。</li>
+</ul>
+<hr>
+<p><strong>类的封装</strong></p>
+<p>封装是面向对象的三大特征之一。为了实现良好的封装，需要：</p>
+<ul>
+<li>将 Field 和实现细节隐藏起来，不允许外部直接访问。</li>
+<li>把方法作为外部接口暴露出来，让方法来控制对 Field 进行安全的访问和操作。</li>
+</ul>
+<p>Java中提供了4个访问控制级别：<code>private</code>、<code>protected</code>、<code>public</code>和不加任何访问控制符（<code>default</code>），它们的访问控制级别由小到大：</p>
+<p><img src="http://img.blog.csdn.net/20141124191904225?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvbGlzb25nbGlzb25nbGlzb25n/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" alt=""></p>
+<p><img src="http://img.blog.csdn.net/20141124191917656?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvbGlzb25nbGlzb25nbGlzb25n/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" alt=""></p>
+<hr>
+<p><strong>package、import 和 import static</strong></p>
+<p><strong>包（package）</strong>：为了解决类的命名冲突，Java引入了包机制，提供了类的多层命名空间。</p>
+<p>如果一个类被放于某个包中，则我们应该在该Java源文件的第一个非注释行添加如下代码：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> packageName;</span><br></pre></td></tr></table></figure></p>
+<p><code>import</code>语句可以导入指定包下某个类或全部类，但<code>import</code>语句并不是必需的，只要坚持在类里面使用其他类的全名，则可以无须使用<code>import</code>语句。</p>
+<p>注意：在JDK 1.5以后增加了一种静态导入（<code>import static</code>）的语法，用于导入指定类的某个静态 Field、方法或该类全部的静态 Field、方法。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="keyword">static</span> <span class="keyword">package</span>.subpackage...className.fieldName;  <span class="comment">// 导入某一静态变量</span></span><br><span class="line"><span class="keyword">import</span> <span class="keyword">static</span> <span class="keyword">package</span>.subpackage...className.methodName; <span class="comment">// 导入某一静态方法</span></span><br><span class="line"><span class="keyword">import</span> <span class="keyword">static</span> <span class="keyword">package</span>.subpackage...className.*;  <span class="comment">// 导入该类的所有静态Field、方法</span></span><br></pre></td></tr></table></figure></p>
+<p>用一句话归纳<code>import</code>和<code>import static</code>的作用：使用import可以省略写包名，而使用import static则可以连类名都省略。</p>
+<hr>
+<p><strong>Java的常用包</strong></p>
+<p>Java的核心类都放在<code>java</code>这个包及其子包下，Java扩展的许多类都放在<code>javax</code>包及其子包下。下面几个包是Java语言中的常用包：</p>
+<ul>
+<li><code>java.lang</code>：这个包下包含了Java语言的核心类，如 String、Math、System 和 Thread 类等，使用这个包下的类无须使用 import 语句导入，系统会自动导入这个包下的所有类。</li>
+<li><code>java.util</code>：这个包下包含了Java的大量工具类/接口和集合框架类/接口，例如 Arrays、List 和 Set 等。</li>
+<li><code>java.net</code>：这个包下包含了一些Java网络编程相关的类/接口。</li>
+<li><code>java.io</code>：这个包下包含了一些Java输入/输出编程相关的类/接口。</li>
+<li><code>java.text</code>：这个包下包含了一些Java格式化相关的类。</li>
+<li><code>java.sql</code>：这个包下包含了Java进行 JDBC 数据库编程的相关类/接口。</li>
+<li><code>java.awt</code>：这个包下包含了抽象窗口工具集（Abstract Window Toolkits）的相关类/接口，这些类主要用于构建 GUI 程序。</li>
+<li><code>java.swing</code>：这个包下包含了 Swing 图形用户界面编程的相关类/接口，这些类可用于构建平台无关的 GUI 程序。</li>
+</ul>
+<hr>
+<p><strong>构造器</strong></p>
+<p>构造器也就是构造函数！！！</p>
+<p>Java类可以包含一个或一个以上的构造器。一旦程序员提供了自定义的构造器，系统就不再提供默认的无参构造器了。（所以如果为一个类编写了有参数的构造器，通常建议为该类也额外提供一个无参数的构造器）</p>
+<hr>
+<p><strong>类的继承</strong></p>
+<p>继承是面向对象的三大特征之一。Java的继承具有<strong>单继承</strong>的特点，每个子类只有一个直接父类。</p>
+<p>继承的语法格式：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">修饰符 <span class="class"><span class="keyword">class</span> <span class="title">Derive</span> <span class="keyword">extends</span> <span class="title">Base</span></span><br><span class="line"></span>&#123;</span><br><span class="line">	<span class="comment">// 类定义部分</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>Java使用<code>extends</code>作为继承的关键字，<code>extends</code>在英文中是扩展的意思。</p>
+<p>重写父类的方法要遵循<strong>“两同两小一大”</strong>的规则：</p>
+<ul>
+<li><strong>“两同”</strong>：方法名相同，形参列表相同。</li>
+<li><strong>“两小”</strong>：子类方法返回值类型应比父类方法返回值类型更小或相等，子类方法声明抛出的异常类应比父类方法声明抛出的异常类更小或相等。</li>
+<li><strong>“一大”</strong>：子类方法的访问权限应比父类方法的访问权限更大或相等。</li>
+</ul>
+<p>如果需要在子类方法中调用父类中被覆盖的方法，若被覆盖的是实例方法，使用<code>super</code>作为调用者；若被覆盖的是类方法，使用<strong>父类类名</strong>作为调用者。</p>
+<hr>
+<p><strong>构造器的执行顺序</strong></p>
+<p>子类不会获得父类的构造器，但子类构造器里可以调用父类构造器。有如下几种情况：</p>
+<ul>
+<li>子类构造器函数体的第一行使用<code>super</code>显式调用父类构造器。</li>
+<li>子类构造器函数体的第一行使用<code>this</code>显示调用本类中重载的构造器，执行本类中另一个构造器时即会调用父类构造器。</li>
+<li>子类构造器函数体中既没有<code>super</code>调用，也没有<code>this</code>调用，系统将会在执行子类构造器之前，隐式调用父类无参数的构造器。</li>
+</ul>
+<p>不管上面哪种情况，当调用子类构造器来初始化子类对象时，父类构造器总会在子类构造器之前执行；不仅如此，执行父类构造器时，系统会再次上溯执行其父类构造器……依此类推，创建任何Java对象，最先执行的总是<code>java.lang.Object</code>类的构造器。</p>
+<hr>
+<p><strong>多态</strong></p>
+<p>多态是面向对象的三大特征之一。</p>
+<p>Java引用变量有两个类型：一个是编译时类型，一个是运行时类型。<strong>编译时类型</strong>由声明该变量时的类型决定，<strong>运行时类型</strong>由实际赋给该变量的对象决定。两个类型不一致时，就可能出现多态。</p>
+<p>当把一个子类对象直接赋给父类引用变量时，这个引用变量的编译时类型是 BaseClass，而运行时类型是 SubClass，当运行时调用该引用变量的方法时，其方法行为总是表现出子类方法的行为特征，而不是父类方法的行为特征。也就是说：相同类型的变量 调用同一个方法时，呈现出多种不同的行为特征，这就是多态。</p>
+<p>多态的两个前提： 要有<strong>继承（inheritance）</strong>，要有<strong>方法重写（override）</strong>。</p>
+<hr>
+<p><strong>instanceof 运算符</strong></p>
+<p><code>instanceof</code>是Java中的一个二元运算符，它的作用是在运行时判断左边对象是否是右边类（或其子类）的实例。如果是，返回<code>true</code>，否则返回<code>false</code>。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyClass</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		String str = <span class="string">""</span>;   <span class="comment">// str 是String类型引用变量</span></span><br><span class="line">		Object obj = <span class="string">""</span>;   <span class="comment">// obj 的编译时类型是 Object，但实际类型是 String </span></span><br><span class="line">		System.out.println(<span class="string">"str 是 String 的实例："</span> + (str <span class="keyword">instanceof</span> String)); <span class="comment">// true</span></span><br><span class="line">		System.out.println(<span class="string">"str 是 Object 的实例："</span> + (str <span class="keyword">instanceof</span> Object)); <span class="comment">// true</span></span><br><span class="line">		System.out.println(<span class="string">"obj 是 String 的实例："</span> + (obj <span class="keyword">instanceof</span> String)); <span class="comment">// true</span></span><br><span class="line">		System.out.println(<span class="string">"obj 是 Object 的实例："</span> + (obj <span class="keyword">instanceof</span> Object)); <span class="comment">// true</span></span><br><span class="line">		System.out.println(<span class="string">"obj 是 Math 的实例："</span> + (obj <span class="keyword">instanceof</span> Math)); <span class="comment">// false</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>需要注意：<code>instanceof</code>运算符前面操作数的编译时类型要么与后面的类相同，要么与后面的类具有父子继承关系，否则会引起编译错误。</p>
+<p><code>instanceof</code>运算符的常用之处：在进行强制类型转换之前，首先判断前一个对象是否是后一个类的实例，是否可以成功转换，从而保证代码更加健壮。</p>
+<hr>
+<p><strong>初始化块</strong></p>
+<p>初始化块是Java类里可出现的第4种成员（前面依次有 Field、方法和构造器）。与构造器的作用类似，初始化块也可以对Java对象进行初始化操作。</p>
+<p>初始化块的语法格式如下：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[修饰符] &#123;</span><br><span class="line">	<span class="comment">// 可执行代码</span></span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>初始化块的修饰符只能是<code>static</code>，使用 static 修饰的初始化块被称为<strong>静态初始化块</strong>。</p>
+<p>一个类里可以有多个初始化块，先定义的初始化块先执行，后定义的初始化块后执行，下面是一个例子：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyClass</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">int</span> a = <span class="number">5</span>;</span><br><span class="line">		System.out.println(<span class="string">"第一个初始化块！"</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	&#123;</span><br><span class="line">		System.out.println(<span class="string">"第二个初始化块！"</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">MyClass</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		System.out.println(<span class="string">"类的无参数构造器！"</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">new</span> MyClass();   <span class="comment">// 创建一个对象</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>控制台输出结果：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">第一个初始化块！</span><br><span class="line">第二个初始化块！</span><br><span class="line">类的无参数构造器！</span><br></pre></td></tr></table></figure></p>
+<p>可以看出，初始化块是在构造器之前执行的。创建一个 Java 对象时，不仅会执行该类的普通初始化块和构造器，而且系统会一直上溯到<code>java.lang.Object</code>类，先执行 java.lang.Object 类的初始化块，开始执行 java.lang.Object 的构造器，依次向下执行其父类的初始化块，开始执行其父类的构造器……最后才执行该类的初始化块和构造器，返回该类的对象。</p>
+<p>虽然 Java 允许一个类中定义多个的普通初始化块，但这没有任何意义，所以如果要使用初始化块的话定义一个就行了。</p>
+<hr>
+<p><strong>初始化块和构造器的区别</strong></p>
+<p>初始化块总是在构造器之前执行。虽然它们的作用非常相似，但依然存在一些差异的。</p>
+<p>与构造器不同的是，初始化块是一段固定执行的代码，它不能接受任何参数。因此，如果有一段初始化的代码对所有对象完全相同，且无须接收任何参数，就可以把这段初始化代码提取到初始化块中。</p>
+<p><img src="http://img.blog.csdn.net/20141124192430734?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvbGlzb25nbGlzb25nbGlzb25n/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" alt=""></p>
+<p>通过把多个构造器中的相同代码提取到初始化块中，能更好地提高初始化代码的复用，提高整个应用的可维护性。</p>
+<hr>
+<p><strong>静态初始化块</strong></p>
+<p>初始化块的修饰符只能是<code>static</code>，使用 static 修饰的初始化块被称为<strong>静态初始化块</strong>。</p>
+<p>静态初始化块，也属于类的静态成员，因此静态初始化块不能访问非静态成员（包括实例Field和实例方法）。静态初始化块用于对整个类进行初始化处理，通常用于对类Field执行初始化处理。</p>
+<p>系统将在类初始化阶段执行静态初始化块，而不是在创建对象时才执行。因此，静态初始化块总是比普通初始化块先执行。与普通初始化块类似的是，系统在类初始化阶段不仅会执行本类的静态初始化块，还会一直上溯到 java.lang.Object 类（如果它包含静态初始化块），从上往下依次执行其父类的静态初始化块……最后才执行该类的静态初始化块。经过这个过程，才完成了该类的初始化。而只有类完成初始化以后，才可以在系统中使用这个类，包括访问这个类的类Field、类方法，或者用这个类来创建实例。</p>
+<p><br></p>
+<h1 id="第五章_面向对象（下）">第五章 面向对象（下）</h1><p><strong>包装类</strong></p>
+<p>Java 是面向对象的编程语言，但它也包含了 8 种基本数据类型。基本数据类型的数据不具备“对象”的特性：没有Field、方法可以被调用。</p>
+<p>所有引用类型的变量都继承了<code>Object</code>类，都可当成 Object 类型变量使用，但基本数据类型的变量却不可以。为了解决这个问题，Java 提供了<strong>包装类（Wrapper Class）</strong>，可以把 8 个基本类型的值包装成对象使用。</p>
+<p><img src="http://img.blog.csdn.net/20141124192458156?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvbGlzb25nbGlzb25nbGlzb25n/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" alt=""></p>
+<p>把基本数据类型变量 包装成 对应的包装类对象 是通过对应包装类的构造器来实现的，不仅如此，8个包装类中除了 Character 之外，还可以通过传入一个字符串来构建包装类对象。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyClass</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">boolean</span> b1 = <span class="keyword">true</span>;</span><br><span class="line">		<span class="keyword">int</span> i1 = <span class="number">5</span>;</span><br><span class="line">		</span><br><span class="line">		Boolean <span class="number">_</span>b = <span class="keyword">new</span> Boolean(b1);</span><br><span class="line">		Integer <span class="number">_</span>i = <span class="keyword">new</span> Integer(i1);</span><br><span class="line">		Float <span class="number">_f</span> = <span class="keyword">new</span> Float(<span class="string">"3.14"</span>);</span><br><span class="line">		</span><br><span class="line">		<span class="comment">// 取出包装类对象里的值</span></span><br><span class="line">		<span class="keyword">boolean</span> b2 = <span class="number">_</span>b.booleanValue();</span><br><span class="line">		<span class="keyword">int</span> i2 = <span class="number">_</span>i.intValue();</span><br><span class="line">		<span class="keyword">float</span> f2 = <span class="number">_f</span>.floatValue();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>可能你会觉得，这样的转换有些繁琐。但从 JDK 1.5 开始提供了<strong>自动装箱（Autoboxing）</strong> 和 <strong>自动拆箱（AutoUnboxing）</strong>功能，即可以把一个基本类型变量直接赋给对应的包装类变量或 Object 变量（自动装箱），也可以把包装类对象直接赋给一个对应的基本类型变量。</p>
+<hr>
+<p><strong>基本类型变量与字符串的转换</strong></p>
+<p><img src="http://img.blog.csdn.net/20141124192816810?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvbGlzb25nbGlzb25nbGlzb25n/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" alt=""></p>
+<hr>
+<p><strong>toString( )方法</strong></p>
+<p><code>toString()</code>方法是 Object 类里的一个实例方法，而所有的 Java 类都是 Object 类的子类，因此所有的 Java 对象都具有 toString() 方法。</p>
+<p>不仅如此，所有的 Java 对象都可以和字符串进行连接运算，也可以使用<code>System.out.println()</code>进行输出。当进行上面的操作时，系统会自动调用 Java 对象的 <code>toString()</code>方法，使用其返回的字符串。</p>
+<p>Object 类的<code>toString</code>方法是一个“自我描述”的方法，它总是返回该对象实现类的“类名@hashCode”值。但是这个返回值并不能真正实现“自我描述”的功能，这时可以对这个方法进行重写。</p>
+<hr>
+<p><strong>==和equals的区别</strong></p>
+<p>Java 程序中判断两个变量是否相等有两种方式：一种是使用<code>==</code>运算符，另一种是使用<code>equals</code>方法。</p>
+<ul>
+<li>对于基本类型变量来说，它们并没有<code>equals</code>方法，只能使用<code>==</code>判断两个变量的值是否相等。</li>
+<li>对于引用类型变量来说，<code>==</code>运算符是判断两个引用变量是否指向内存中的同一个对象，也就是比较对象的内存地址；而<code>equals</code>是比较两个对象的值是否相等（String类，Integer类等等）。</li>
+</ul>
+<p>需要知道的是，equals 方法是 Object 类的一个实例方法。在 Object 类中<code>equals</code>方法和<code>==</code>没有任何区别，都是判断两个变量是否指向同一个对象。而String类，Integer类等等一些类，是重写了equals方法，才使得equals和“==”不同。</p>
+<p>所以，当自己创建类时，想要自定义相等的标准，必须重写equals方法。</p>
+<hr>
+<p><strong>final修饰符</strong></p>
+<p>Java 提供了<code>final</code>关键字来修饰变量、方法和类。系统不允许为 <code>final</code>变量重新赋值，子类不允许覆盖父类的<code>final</code>方法，不允许继承<code>final</code>类。</p>
+<ul>
+<li><p>final 成员变量必须由程序员显式地指定初始值，系统不会对 final 成员变量进行隐式初始化。对于 final 修饰的类 Field，必须在声明该Field时或在静态初始化块中指定初始值；对于 final 修饰的实例 Field，必须在声明该Field时、普通初始化块或构造器中指定初始值。</p>
+</li>
+<li><p>前面说过，系统不会为局部变量执行隐式初始化，必须由程序员显式指定。对于 final 修饰的局部变量，可以在声明时指定初始值，也可以在后面的代码中对其赋值，但只能一次。</p>
+</li>
+<li><p>final 修饰基本类型变量时，表示变量的值不能被改变；final 修饰引用类型变量时，表示该变量所引用的地址不能被改变，即一直引用同一个对象，但这个对象是可以改变的。</p>
+</li>
+<li><p>当定义 final 变量时就为该变量指定了初始值，而且该初始值可以在编译时就被确定下来，那么这个变量就变成了“宏变量”。编译器会把程序中所有用到该变量的地方直接替换成该变量的值。</p>
+</li>
+</ul>
+<hr>
+<p><strong>抽象类与抽象方法</strong></p>
+<p>Java 中使用<code>abstract</code>修饰符来定义抽象类和抽象方法。有抽象方法的类必须定义成抽象类，但抽象类里可以没有抽象方法。</p>
+<p>抽象类不能被实例化，只能当作父类被其他子类继承。抽象方法没有函数体，必须由子类提供实现（即重写）。</p>
+<p>与<code>abstract</code>不能同时使用的关键字：</p>
+<ol>
+<li>final和abstract不能同时使用，因为它们是对立的。</li>
+<li>static和abstract不能同时修饰某个方法，因为如果一个抽象方法被定义成静态方法，通过类名调用该方法将出现错误。</li>
+<li>private和abstract不能同时修饰某个方法，因为抽象方法必须被子类重写才有意义，而子类不能访问和重写父类的 private 方法。</li>
+</ol>
+<hr>
+<p><strong>接口（interface）</strong></p>
+<p>上面说到，抽象类既可以包含抽象方法，也可以普通方法。而接口（interface）是一种更彻底的抽象，接口里的所有方法都是抽象方法。</p>
+<p>接口定义的是多个类共同的公共行为规范，故它里面通常是定义一组公用方法。基本语法如下：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[修饰符] <span class="class"><span class="keyword">interface</span> 接口名 <span class="keyword">extends</span> 父接口1,父接口2...</span><br><span class="line"></span>&#123;</span><br><span class="line">    零个到多个常量定义...</span><br><span class="line">    零个到多个抽象方法定义...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>修饰符可以是 public 或者省略，如果省略了 public 访问控制符，则默认采用包权限访问控制符。另外，与类继承不同的是，接口继承中一个接口可以有多个直接父接口（接口只能继承接口而不能继承类）。</p>
+<p>由于接口是一种规范，因此接口里不能包含构造器和初始化块。接口里可以包含3种成员： Field（只能是常量）、方法（只能是抽象方法）、内部类（包括内部接口、枚举）。</p>
+<ul>
+<li>接口里所有成员都是<code>public</code>访问权限。</li>
+<li>接口里的常量 Field 是使用<code>public static final</code>修饰符来修饰，不管定义时是否指定。</li>
+<li>接口里的方法是自动使用<code>public abstract</code>修饰符修饰，不管定义方法时是否指定。</li>
+<li>接口里的内部类（接口、枚举类）是自动使用<code>public static</code>修饰符修饰，不管定义时是否指定。</li>
+</ul>
+<p>接口不能用于创建实例，其主要用途是被实现类实现。实现使用<code>implements</code>关键字：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[修饰符] <span class="class"><span class="keyword">class</span> 类名 <span class="keyword">extends</span> 父类 <span class="keyword">implements</span> 接口1,接口2...</span><br><span class="line"></span>&#123;</span><br><span class="line">	<span class="comment">// 类体部分</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>一个类只能有一个直接父类，但一个类可以实现多个接口。实现接口与继承父类相似，也可以获得所实现的接口里定义的成员，因此可以把实现接口理解为一种特殊的继承。</p>
+<hr>
+<p><strong>接口与抽象类的比较</strong></p>
+<p>相同点：</p>
+<ul>
+<li>接口和抽象类都不能被实例化，它们都用于被其他类实现或继承。</li>
+<li>接口和抽象类都可以包含抽象方法，实现接口或继承抽象类的普通子类都必须实现这些抽象方法。</li>
+</ul>
+<p>不同点：</p>
+<ul>
+<li>接口里只能包含抽象方法，而抽象类既可以抽象方法也可以包含普通方法，还可以没有抽象方法。</li>
+<li>接口里不能定义静态方法（因为全部是抽象方法），抽象类里可以定义静态方法。</li>
+<li>接口里只能定义静态常量 Field，而抽象类既可以定义普通 Field，也可以定义静态常量 Field。</li>
+<li>接口里不包含构造器和初始化块，而抽象类里完全可以包含。</li>
+<li>一个类最多只能有一个直接父类，但却可以直接实现多个接口（弥补Java单继承的不足）。</li>
+</ul>
+<hr>
+<p><strong>内部类</strong></p>
+<p>在Java类里只能包含5种成员：Field、方法、构造器、初始化块、内部类（包括接口和枚举类）。前四种类成员已经介绍过了，下面介绍一下内部类。</p>
+<p>内部类也叫嵌套类，语法格式：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">OuterClass</span></span><br><span class="line"></span>&#123;</span><br><span class="line">	<span class="comment">// 此处可以定义内部类</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>通常，我们把内部类作为成员内部类来定义，而不是作为局部内部类（在方法里定义的内部类）。</p>
+<p><img src="http://img.blog.csdn.net/20141124193040860?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvbGlzb25nbGlzb25nbGlzb25n/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" alt=""></p>
+<p>非静态内部类里不允许定义静态成员，而静态内部类里可以定义静态成员，也可以定义非静态成员。</p>
+<p>根据静态成员不能访问非静态成员的规则，外部类的静态方法不能使用非静态内部类，静态内部类也不能访问外部类的非static成员。</p>
+<hr>
+<p><strong>枚举类</strong></p>
+<p>枚举类是一种不能自由创建对象的类，它的对象在定义类时已经固定下来。枚举类特别适合定义像行星、季节这样的类，它们能创建的实例是有限且确定的。</p>
+<p>在 Java 1.5 以前，要定义一个枚举类，必须手动去实现。下面就是一个 Season 枚举类的例子：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Season</span> </span>&#123;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">final</span> String name;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">final</span> String description;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> Season SPRING = <span class="keyword">new</span> Season(<span class="string">"春天"</span>,<span class="string">"春暖花开"</span>);</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> Season SUMMER = <span class="keyword">new</span> Season(<span class="string">"夏天"</span>,<span class="string">"夏日炎炎"</span>);</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> Season FALL = <span class="keyword">new</span> Season(<span class="string">"秋天"</span>,<span class="string">"秋高气爽"</span>);</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> Season WINTER = <span class="keyword">new</span> Season(<span class="string">"冬天"</span>,<span class="string">"围炉赏雪"</span>);</span><br><span class="line">	</span><br><span class="line">	<span class="comment">// 私有化构造器</span></span><br><span class="line">	<span class="function"><span class="keyword">private</span> <span class="title">Season</span><span class="params">(String name, String description)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">this</span>.name = name;</span><br><span class="line">		<span class="keyword">this</span>.description = description;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">// 只为两个 Field 提供 getter 方法</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> String <span class="title">getName</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> name;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> String <span class="title">getDescription</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> description;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>上面的 Season 类是一个不可变类，它只能创建4种对象，可以通过Season.SPRING的方式来取得 Season 对象。</p>
+<p>Java 1.5 新增了一个<code>enum</code>关键字，用以定义枚举类：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">enum</span> Season &#123;</span><br><span class="line">	SPRING,SUMMER,FALL,WINTER;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><strong>枚举类（enum）</strong>是一种特殊的类，它一样可以有自己的 Field、方法和构造器，可以实现一个或者多个接口。因为它特殊，所以有几点需要注意：</p>
+<ol>
+<li>用<code>enum</code>定义的枚举类默认继承了<code>java.lang.Enum</code>类，而不是继承 Object 类。</li>
+<li>用<code>enum</code>定义的非抽象的枚举类默认使用 final 修饰，因此枚举类不能派生子类。</li>
+<li>枚举类的构造器默认使用且只能使用<code>private</code>访问控制符修饰。</li>
+<li>枚举类的所有实例必须在枚举类的第一行显式列出，并且系统会自动添加<code>public static final</code>修饰。</li>
+</ol>
+<p><br></p>
+<h1 id="第六章_Java基础类库">第六章 Java基础类库</h1><p><strong>1、与用户交互</strong></p>
+<p><strong>main 方法详解</strong></p>
+<p>我们知道Java程序的入口是<code>public static void main(String[] args)</code></p>
+<ul>
+<li><p>public：因为main方法是由 JVM 调用，所以使用 public 修饰符把这个方法暴露出来。</p>
+</li>
+<li><p>static：JVM 调用主方法时，是直接通过该类名来调用主方法，所以使用 static 修饰。</p>
+</li>
+<li><p>void：因为主方法被JVM调用，该方法的返回值将返回给JVM，这没有任何意义，因此main方法没有返回值。</p>
+</li>
+</ul>
+<p>main方法有一个字符串数组形参，当通过命令行运行Java程序时，在类名后紧跟一个或多个字符串，JVM就会把这些字符串依次赋给<code>args</code>数组元素，例如下面一段代码：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyClass</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		System.out.println(args.length);  <span class="comment">// 输出args数组长度</span></span><br><span class="line">		<span class="keyword">for</span>(String arg : args) &#123;    <span class="comment">// 遍历</span></span><br><span class="line">			System.out.println(arg);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>在CMD窗口中编译、运行：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">[master<span class="annotation">@localhost</span> ~]$ javac MyClass.java     <span class="comment">// 编译</span></span><br><span class="line">[master<span class="annotation">@localhost</span> ~]$ java MyClass           <span class="comment">// 运行，无参数</span></span><br><span class="line"><span class="number">0</span></span><br><span class="line">[master<span class="annotation">@localhost</span> ~]$ java MyClass first second third   <span class="comment">// 运行，后跟三个参数</span></span><br><span class="line"><span class="number">3</span></span><br><span class="line">first</span><br><span class="line">second</span><br><span class="line">third</span><br><span class="line">[master<span class="annotation">@localhost</span> ~]$ java MyClass <span class="string">"first second third"</span>   <span class="comment">// 运行，双引号内是一个整体</span></span><br><span class="line"><span class="number">1</span></span><br><span class="line">first second third</span><br></pre></td></tr></table></figure></p>
+<p>从上面的运行结果可以看出，如果某参数本身包含了空格，则应该将该参数用双引号（“”）括起来，否则JVM会把这个空格当成参数分隔符。</p>
+<p><img src="file:///C:\Users\SongLee\Desktop\Java笔记\java\Java笔记（二）001.png" alt=""></p>
+<hr>
+<p><strong>使用 Scanner 获取键盘输入</strong></p>
+<p><code>Scanner</code>是一个基于正则表达式的文本扫描器，它可以从文件、输入流、字符串中解析出基本类型值和字符串值。</p>
+<p>Scanner主要提供了两个方法来扫描输入：</p>
+<ul>
+<li><p><code>hasNextXxx()</code>：是否还有下一个输入项，其中 Xxx 可以是 Int、Long 等。如果判断字符串则直接用 hasNext。</p>
+</li>
+<li><p><code>nextXxx()</code>：获取下一个输入项，Xxx 含义同上。获取字符串直接用 next。</p>
+</li>
+</ul>
+<p>下面是用Scanner读取键盘输入的示例：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyClass</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		<span class="comment">// System.in 代表标准输入，即键盘输入</span></span><br><span class="line">		Scanner sc = <span class="keyword">new</span> Scanner(System.in);</span><br><span class="line">		<span class="comment">// 判断是否还有下一个输入项</span></span><br><span class="line">		<span class="keyword">while</span>(sc.hasNext()) &#123;</span><br><span class="line">			System.out.println(<span class="string">"键盘输入的内容是："</span> + sc.next());</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>默认情况下，Scanner使用空格作为多个输入项之间的分隔符。如果我们想一次读取一行，可以把Scanner的分隔符设置为回车符，使用函数<code>sc.useDelimiter(&quot;\n&quot;)</code>。事实上，Scanner提供了两个更简单的方法逐行读取，即<code>hasNextLine()</code>和<code>nextLine()</code>。</p>
+<p>Scanner还可以读取文件输入，只要在创建Scanner对象时传入一个<code>File</code>对象：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyClass</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">		<span class="comment">// 读取文件</span></span><br><span class="line">		Scanner sc = <span class="keyword">new</span> Scanner(<span class="keyword">new</span> File(<span class="string">"D://MyClass.java"</span>));</span><br><span class="line">		<span class="comment">// 逐行输出</span></span><br><span class="line">		<span class="keyword">while</span>(sc.hasNextLine()) &#123;</span><br><span class="line">			System.out.println(sc.nextLine());</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<hr>
+<p><strong>使用 BufferedReader 获取键盘输入</strong></p>
+<p>Scanner是Java 5新增的工具类。在此之前，程序通常通过<code>BufferedReader</code>类来读取键盘输入。</p>
+<p>BufferedReader 是Java IO流中的一个字符缓存流，它必须建立在另一个字符流的基础之上。但标准输入（System.in）是字节流，程序需要使用转换流<code>InputStreamReader</code>将其包装成字符流。故通过 BufferedReader 读取键盘输入的代码如下：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyClass</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">		BufferedReader br = <span class="keyword">new</span> BufferedReader(<span class="keyword">new</span> InputStreamReader(System.in));</span><br><span class="line">		String line = <span class="keyword">null</span>;</span><br><span class="line">		<span class="comment">// 逐行读取</span></span><br><span class="line">		<span class="keyword">while</span>((line = br.readLine()) != <span class="keyword">null</span>) &#123;</span><br><span class="line">			System.out.println(<span class="string">"键盘输入的是："</span> + line);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>当然，BufferedReader 也可以用来读取文件：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyClass</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">		FileReader fr = <span class="keyword">new</span> FileReader(<span class="string">"D://MyClass.java"</span>);</span><br><span class="line">		BufferedReader br = <span class="keyword">new</span> BufferedReader(fr);</span><br><span class="line">		String line = <span class="keyword">null</span>;</span><br><span class="line">		<span class="comment">// 逐行读取</span></span><br><span class="line">		<span class="keyword">while</span>((line = br.readLine()) != <span class="keyword">null</span>) &#123;</span><br><span class="line">			System.out.println(line);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<hr>
+<p><strong>2、系统相关</strong></p>
+<p>Java程序在不同的操作系统上运行时，可能需要取得平台相关的属性，或者调用平台命令完成特定功能。Java提供了<code>System</code>类和<code>Runtime</code>类来与程序的运行平台进行交互。</p>
+<p><strong>System类</strong></p>
+<p>System 类代表了当前 Java 程序的运行平台，程序不能创建该类对象，但可以调用它的类Field和类方法。System类提供了：</p>
+<ul>
+<li><p>标准输入（in）/标准输出（out）/错误输出（err），它们都是类Field。</p>
+</li>
+<li><p>访问程序所在平台的环境变量、系统属性的方法。请看示例代码</p>
+</li>
+<li><p>加载文件和动态链接库的方法（<code>load()</code>/<code>loadLibrary()</code>）。</p>
+</li>
+<li><p>获取系统当前时间。</p>
+</li>
+</ul>
+<p>获取环境变量/系统属性的示例代码：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyClass</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">		<span class="comment">// 获取系统所有的环境变量</span></span><br><span class="line">		Map&lt;String,String&gt; env = System.getenv();</span><br><span class="line">		<span class="keyword">for</span>(String name : env.keySet()) &#123; <span class="comment">// 遍历输出</span></span><br><span class="line">			System.out.println(name + <span class="string">"---&gt;"</span> + env.get(name));</span><br><span class="line">		&#125;</span><br><span class="line">		System.out.println(System.getenv(<span class="string">"JAVA_HOME"</span>));</span><br><span class="line">		</span><br><span class="line">		<span class="comment">// 获取系统属性</span></span><br><span class="line">		System.out.println(System.getProperty(<span class="string">"os.name"</span>)); <span class="comment">// Linux</span></span><br><span class="line">		System.out.println(System.getProperty(<span class="string">"os.arch"</span>)); <span class="comment">// amd64</span></span><br><span class="line">		System.out.println(System.getProperty(<span class="string">"user.timezone"</span>)); <span class="comment">// Asia/Shanghai</span></span><br><span class="line">		System.out.println(System.getProperty(<span class="string">"user.name"</span>));  <span class="comment">// SongLee</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>如果想查看能够获取哪些属性，我们可以获取所有的系统属性并保存到本地文件中：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Properties props = System.getProperties();</span><br><span class="line">props.store(<span class="keyword">new</span> FileOutputStream(<span class="string">"D://props.txt"</span>), <span class="string">"System Properties"</span>);</span><br></pre></td></tr></table></figure></p>
+<p>至于 System 类中两个获取系统当前时间的方法：<code>currentTimeMillis()</code>和<code>nanoTime()</code>，它们都返回 long 型整数（与1970.1.1的时间差），前者以毫秒为单位，后者以纳秒为单位。</p>
+<hr>
+<p><strong>Runtime类</strong></p>
+<p><code>Runtime</code>类代表Java程序的运行时环境，每个Java程序都有一个与之对应的Runtime实例，通过<code>getRuntime()</code>方法可获取该Runtime对象。Runtime类提供了：</p>
+<ul>
+<li><p>获取JVM相关信息，如处理器数量、内存信息等。</p>
+</li>
+<li><p>加载文件和动态链接库的方法（<code>load()</code>/<code>loadLibrary()</code>）</p>
+</li>
+<li><p>运行操作系统命令（<code>exec()</code>）</p>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyClass</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">    		Runtime rt = Runtime.getRuntime();</span><br><span class="line">		</span><br><span class="line">		System.out.println(<span class="string">"处理器数量："</span> + rt.availableProcessors());</span><br><span class="line">		System.out.println(<span class="string">"空闲内存数："</span> + rt.freeMemory());</span><br><span class="line">		System.out.println(<span class="string">"总的内存数："</span> + rt.totalMemory());</span><br><span class="line">		System.out.println(<span class="string">"最大可用内存数："</span> + rt.maxMemory());</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<hr>
+<p><strong>3、常用类</strong></p>
+<p><strong>Object类</strong></p>
+<p><code>Object</code>类是所有类/数组/枚举类的父类。当定义一个类时没有使用<code>extends</code>时，则该类默认继承Object父类。 Object类提供了几个常用方法：</p>
+<ul>
+<li><code>boolean equals(Object obj)</code>：判断两个对象地址是否相同</li>
+<li><code>protected void finalize()</code>：强制执行垃圾回收</li>
+<li><code>Class&lt;?&gt; getClass()</code>：返回该对象的运行时类</li>
+<li><code>int hashCode()</code>：返回该对象的hashCode值</li>
+<li><code>String toString()</code>：返回”运行时类名@十六进制hashCode值”</li>
+</ul>
+<hr>
+<p><strong>String、StringBuffer、StringBuilder的区别</strong></p>
+<ul>
+<li><p><code>String</code>类：它是不可变类，一旦创建，字符序列不可改变。</p>
+</li>
+<li><p><code>StringBuffer</code>类：它代表一个字符序列可变的字符串，通过<code>append()</code>/<code>insert()</code>/<code>reverse()</code>等方法可以改变对象的字符序列，并且<strong>线程安全</strong>。一旦生成了最终想要的字符串，可以toString()导出String对象。</p>
+</li>
+<li><p><code>StringBuilder</code>类：和StringBuffer相同，只不过StringBuilder不是线程安全的，所以性能略高。</p>
+</li>
+</ul>
+<hr>
+<p><strong>Math类</strong></p>
+<p>Math类中提供了大量的静态方法用来完成复杂的数学运算，请自行查询API。另外，Math类还有两个静态变量：PI（π）和E（e）<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyClass</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		System.out.println(Math.PI);   <span class="comment">// 3.141592653589793</span></span><br><span class="line">		System.out.println(Math.E);    <span class="comment">// 2.718281828459045</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<hr>
+<p><strong>Random 与 ThreadLocalRandom类</strong></p>
+<ol>
+<li><p><code>Random</code>类：用于生产一个伪随机数，默认使用当前时间作为种子，也可以指定种子。</p>
+</li>
+<li><p><code>ThreadLocalRandom</code>类：它是Random的增强版，在并发环境下线程安全。且需通过<code>current()</code>静态方法获取实例对象。</p>
+</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.concurrent.ThreadLocalRandom;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyClass</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		ThreadLocalRandom rand = ThreadLocalRandom.current();</span><br><span class="line">		<span class="keyword">int</span> num1 = rand.nextInt(<span class="number">4</span>, <span class="number">20</span>);</span><br><span class="line">		<span class="keyword">double</span> num2 = rand.nextDouble(<span class="number">4.0</span>, <span class="number">20.0</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<hr>
+<p><strong>BigDecimal类</strong></p>
+<p>我们知道float、double两种基本浮点类型在进行运算时容易发生<strong>精度丢失</strong>。为了能精确表示和计算浮点数，Java提供了<code>BigDecimal</code>类。该类有add/subtract/multiply/divide/pow等方法……<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.math.BigDecimal;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyClass</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		System.out.println(<span class="string">"0.05 + 0.01 = "</span> + (<span class="number">0.05</span>+<span class="number">0.01</span>));</span><br><span class="line">		</span><br><span class="line">		BigDecimal f1 = BigDecimal.valueOf(<span class="number">0.05</span>);</span><br><span class="line">		BigDecimal f2 = BigDecimal.valueOf(<span class="number">0.01</span>);</span><br><span class="line">		System.out.println(<span class="string">"0.05 + 0.01 = "</span> + f1.add(f2));</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 输出：</span></span><br><span class="line"><span class="comment">// 0.05 + 0.01 = 0.060000000000000005</span></span><br><span class="line"><span class="comment">// 0.05 + 0.01 = 0.06</span></span><br></pre></td></tr></table></figure></p>
+<hr>
+<p><strong>时间和日期类</strong></p>
+<ul>
+<li><p><code>Date</code>类：java.util.Date类是一个设计糟糕的类，而且从JDK 1.0就开始存在，已经过时，官方推荐尽量少用。</p>
+</li>
+<li><p><code>Calendar</code>类：这是一个抽象类，不能创建对象。但可以通过几个静态方法<code>getInstance()</code>方法获取GregorianCalendar类的对象，可以指定TimeZone、Locale，不指定则使用系统默认的。</p>
+</li>
+<li><p><code>java.time.*</code>类：Java 8专门新增了一个<strong>java.time</strong>包，包含了<code>Clock</code>/<code>Duration</code>/<code>LocalDate</code>/<code>LocalTime</code>/<code>Year</code>/<code>Month</code>/<code>DayOfWeek</code>等等类。</p>
+</li>
+</ul>
+<hr>
+<p><strong>正则类</strong></p>
+<p>在String类中提供了几个正则匹配的方法，比如<code>matches(String regex)</code>和<code>split(String regex)</code>。除此之外，Java还提供了Pattern和Matcher两个类专门用于正则表达式。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.regex.Pattern;</span><br><span class="line"><span class="keyword">import</span> java.util.regex.Matcher;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyClass</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		Pattern pattern = Pattern.compile(<span class="string">"\\s.*a"</span>);</span><br><span class="line">		Matcher match = pattern.matcher(<span class="string">"Hello Java!"</span>);</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">while</span>(match.find()) &#123;	</span><br><span class="line">			System.out.println(match.group());   <span class="comment">// 输出 Java</span></span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+
+        
+      </div>
+    
+
+    
+      <div class="post-footer">
+        
+          <div class="post-tags">
+            
+              <a href="/tags/Java/">
+                #Java
+              </a>
+            
+          </div>
+        
+
+        
+          <div class="post-nav">
+            <div class="post-nav-prev post-nav-item">
+              
+            </div>
+
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/2016/02/24/hello-Elasticsearch/">初识Elasticsearch</a>
+              
+            </div>
+          </div>
+        
+
+        
+        
+      </div>
+    
+  </div>
+
+
+
+  
+    <div class="comments" id="comments">
+      
+        <div class="ds-thread" data-thread-key="2016/03/16/java-basic-note-1/"
+             data-title="Java基础笔记（一） 数据类型、面向对象、基础类库" data-url="http://yoursite.com/2016/03/16/java-basic-note-1/">
+        </div>
+
+      
+    </div>
+  
+
+          </div>
+
+          
+        </div>
+
+        
+<div class="sidebar-toggle">
+  <div class="sidebar-toggle-line-wrap">
+    <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+    <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+    <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+  </div>
+</div>
+
+<div id="sidebar" class="sidebar">
+  <div class="sidebar-inner">
+
+    
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview" data-target="site-overview">
+          站点概览
+        </li>
+      </ul>
+    
+
+    <div class="site-overview">
+      <div class="site-author motion-element">
+        <img class="site-author-image" src="https://avatars0.githubusercontent.com/u/6904366?v=3&s=140" alt="Song Lee" />
+        <p class="site-author-name">Song Lee</p>
+      </div>
+      <p class="site-description motion-element">放宽心，多努力</p>
+      <div class="site-state motion-element">
+        <div class="site-state-item site-state-posts">
+          <span class="site-state-item-count">85</span>
+          <span class="site-state-item-name">日志</span>
+        </div>
+        <div class="site-state-item site-state-tags">
+            <span class="site-state-item-count">28</span>
+            <span class="site-state-item-name">标签</span>
+        </div>
+        <div class="site-state-item site-state-pages">
+            <span class="site-state-item-count">4</span>
+            <span class="site-state-item-name">页面</span>
+        </div>
+      </div>
+
+      
+        <div class="feed-link motion-element">
+          <a href="/atom.xml">
+            <i class="menu-item-icon icon-feed"></i>
+            RSS
+          </a>
+        </div>
+      
+
+      <div class="links-of-author motion-element">
+        
+          
+            <span class="links-of-author-item">
+              <a href="https://github.com/SongLee24">GitHub</a>
+            </span>
+          
+            <span class="links-of-author-item">
+              <a href="http://blog.csdn.net/lisonglisonglisong">CSDN</a>
+            </span>
+          
+            <span class="links-of-author-item">
+              <a href="http://weibo.com/lisonglisong">Weibo</a>
+            </span>
+          
+            <span class="links-of-author-item">
+              <a href="http://www.douban.com/people/122455925/">DouBan</a>
+            </span>
+          
+            <span class="links-of-author-item">
+              <a href="http://www.zhihu.com/people/shen-yi-59">ZhiHu</a>
+            </span>
+          
+        
+      </div>
+
+      
+      
+        <div class="cc-license motion-element">
+          <a href="http://creativecommons.org/licenses/by-nc-sa/4.0" class="cc-opacity" target="_blank">
+            <img src="/images/cc-by-nc-sa.svg" alt="Creative Commons" />
+          </a>
+        </div>
+      
+
+    </div>
+
+    
+      <div class="post-toc-wrap sidebar-panel-active">
+        <div class="post-toc-indicator-top post-toc-indicator"></div>
+        <div class="post-toc">
+          
+          
+            <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#第一章_Java概述"><span class="nav-number">1.</span> <span class="nav-text">第一章 Java概述</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第二章_Java数据类型"><span class="nav-number">2.</span> <span class="nav-text">第二章 Java数据类型</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第三章_深入Java数组"><span class="nav-number">3.</span> <span class="nav-text">第三章 深入Java数组</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第四章_面向对象（上）"><span class="nav-number">4.</span> <span class="nav-text">第四章 面向对象（上）</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第五章_面向对象（下）"><span class="nav-number">5.</span> <span class="nav-text">第五章 面向对象（下）</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第六章_Java基础类库"><span class="nav-number">6.</span> <span class="nav-text">第六章 Java基础类库</span></a></li></ol></div>
+          
+        </div>
+        <div class="post-toc-indicator-bottom post-toc-indicator"></div>
+      </div>
+    
+
+  </div>
+</div>
+
+
+      </div>
+    </div>
+
+    <div id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy; &nbsp;  2014 - 
+  2016
+  <span class="with-love">
+    <i class="icon-heart"></i>
+  </span>
+  <span class="author">Song Lee</span>
+</div>
+
+<div class="powered-by">
+  <div style="float:left;margin-top:7px;margin-right:10px;">
+	<script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1254974724'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s11.cnzz.com/z_stat.php%3Fid%3D1254974724%26show%3Dpic' type='text/javascript'%3E%3C/script%3E"));</script>
+  </div>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+
+      </div>
+    </div>
+
+    <div class="back-to-top"></div>
+  </div>
+
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript">
+    $(document).ready(function() {
+      $(".fancybox").fancybox();
+    });
+  </script>
+
+  <script type="text/javascript">
+  function hasMobileUA () {
+    var nav = window.navigator;
+    var ua = nav.userAgent;
+    var pa = /iPad|iPhone|Android|Opera Mini|BlackBerry|webOS|UCWEB|Blazer|PSP|IEMobile|Symbian/g;
+
+    return pa.test(ua);
+  }
+
+  function isDesktop () {
+    return screen.width > 991 && !hasMobileUA();
+  }
+
+  function isTablet () {
+    return screen.width < 992 && screen.width > 767 && hasMobileUA();
+  }
+
+  function isMobile () {
+    return screen.width < 767 && hasMobileUA();
+  }
+
+  function escapeSelector (selector) {
+    return selector.replace(/[!"$%&'()*+,.\/:;<=>?@[\\\]^`{|}~]/g, "\\$&")
+  }
+</script>
+
+  
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
+
+  <script type="text/javascript" id="motion.global">
+  $(document).ready(function () {
+    var body = $('body');
+    var isSidebarVisible = false;
+    var sidebarToggle = $('.sidebar-toggle');
+    var sidebarToggleLine1st = $('.sidebar-toggle-line-first')
+    var sidebarToggleLine2nd = $('.sidebar-toggle-line-middle');
+    var sidebarToggleLine3rd = $('.sidebar-toggle-line-last');
+    var sidebar = $('.sidebar');
+
+    var SIDEBAR_WIDTH = '320px';
+    var SIDEBAR_DISPLAY_DURATION = 300;
+
+    var sidebarToogleLineStatusInit = {width: '100%', opacity: 1, left: 0, rotateZ: 0, top: 0};
+
+    var sidebarToggleLine1stStatusInit = sidebarToogleLineStatusInit;
+    var sidebarToggleLine1stStatusArrow = {width: '50%', rotateZ: '-45deg', top: '2px'};
+    var sidebarToogleLine1stStatusClose = {width: '100%', rotateZ: '-45deg', top: '5px'};
+
+    var sidebarToggleLine2ndStatusInit = sidebarToogleLineStatusInit;
+    var sidebarToggleLine2ndStatusArrow = {width: '90%'};
+    var sidebarToogleLine2ndStatusClose = {opacity: 0};
+
+    var sidebarToggleLine3rdStatusInit = sidebarToogleLineStatusInit;
+    var sidebarToggleLine3rdStatusArrow = {width: '50%', rotateZ: '45deg', top: '-2px'};
+    var sidebarToogleLine3rdStatusClose = {width: '100%', rotateZ: '45deg', top: '-5px'};
+
+    LogoAndMenuMotion();
+    sidebatToggleMotion();
+    postsListMotion();
+    backToTopMotion();
+
+
+    $(document)
+      .on('sidebar.isShowing', function () {
+        isDesktop() && body.velocity(
+          {paddingRight: SIDEBAR_WIDTH},
+          SIDEBAR_DISPLAY_DURATION
+        );
+        sidebarContentMotion();
+      })
+      .on('sidebar.isHiding', function () {});
+
+    function LogoAndMenuMotion() {
+      $.Velocity.RunSequence([
+        { e: $('.brand'), p: { opacity: 1 }, o: { duration: 100 } },
+        { e: $('.logo'), p: { opacity: 1, top: 0 }, o: { duration: 50} },
+        
+        { e: $('.logo-line-before i'), p: { translateX: "100%" }, o: { duration: 500, sequenceQueue: false } },
+        { e: $('.logo-line-after i'), p: { translateX: "-100%" }, o: { duration: 500, sequenceQueue: false } },
+        
+        { e: $('.site-title'), p: { opacity: 1, top: 0 }, o: { duration: 200 } }
+      ]);
+      $('.menu-item').velocity('transition.slideDownIn', {display: null});
+    }
+
+
+    function backToTopMotion () {
+      var b2top = $('.back-to-top');
+      b2top.on('click', function () {
+        body.velocity('scroll');
+      });
+    }
+
+    function sidebarShowMotion () {
+
+      sidebarToggleLine1st.velocity(sidebarToogleLine1stStatusClose);
+      sidebarToggleLine2nd.velocity(sidebarToogleLine2ndStatusClose);
+      sidebarToggleLine3rd.velocity(sidebarToogleLine3rdStatusClose);
+
+      sidebar.velocity({width: SIDEBAR_WIDTH}, {
+        display: 'block',
+        duration: SIDEBAR_DISPLAY_DURATION,
+        complete: function () {
+          sidebar.addClass('sidebar-active');
+          sidebar.trigger('sidebar.didShow');
+        }
+      });
+      sidebar.trigger('sidebar.isShowing');
+    }
+
+    function sidebarHideMotion () {
+      isDesktop() && body.velocity({paddingRight: 0});
+      sidebar.velocity('reverse');
+
+      sidebarToggleLine1st.velocity(sidebarToggleLine1stStatusInit);
+      sidebarToggleLine2nd.velocity(sidebarToggleLine2ndStatusInit);
+      sidebarToggleLine3rd.velocity(sidebarToggleLine3rdStatusInit);
+
+      sidebar.removeClass('sidebar-active');
+      sidebar.trigger('sidebar.isHiding');
+    };
+
+    function sidebarContentMotion () {
+      $('.sidebar .motion-element').velocity(
+        'transition.slideRightIn',
+        {stagger: 50, drag: true}
+      );
+    }
+
+    function postsListMotion () {
+      var postMotionOptions = window.postMotionOptions || {stagger: 300, drag: true};
+      $('.post').velocity('transition.slideDownIn', postMotionOptions);
+    }
+
+    function sidebatToggleMotion () {
+      sidebarToggle.on('click', function () {
+        isSidebarVisible ? sidebarHideMotion() : sidebarShowMotion();
+        isSidebarVisible = !isSidebarVisible;
+      });
+
+      sidebarToggle.hover(function () {
+        if (isSidebarVisible) {return}
+        sidebarToggleLine1st.velocity('stop').velocity(sidebarToggleLine1stStatusArrow);
+        sidebarToggleLine2nd.velocity('stop').velocity(sidebarToggleLine2ndStatusArrow);
+        sidebarToggleLine3rd.velocity('stop').velocity(sidebarToggleLine3rdStatusArrow);
+      }, function () {
+        if (isSidebarVisible) {return}
+        sidebarToggleLine1st.velocity('stop').velocity(sidebarToggleLine1stStatusInit);
+        sidebarToggleLine2nd.velocity('stop').velocity(sidebarToggleLine2ndStatusInit);
+        sidebarToggleLine3rd.velocity('stop').velocity(sidebarToggleLine3rdStatusInit);
+      });
+    }
+  });
+
+</script>
+
+
+
+
+
+  
+  
+<script type="text/javascript" id="bootstrap.scrollspy.custom">
+  /* ========================================================================
+  * Bootstrap: scrollspy.js v3.3.2
+  * http://getbootstrap.com/javascript/#scrollspy
+  * ========================================================================
+  * Copyright 2011-2015 Twitter, Inc.
+  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
+  * ======================================================================== */
+
+  /**
+   * Custom by iissnan
+   *
+   * - Add a `clear.bs.scrollspy` event.
+   * - Esacpe targets selector.
+   */
+
+
+  +function ($) {
+    'use strict';
+
+    // SCROLLSPY CLASS DEFINITION
+    // ==========================
+
+    function ScrollSpy(element, options) {
+      this.$body          = $(document.body)
+      this.$scrollElement = $(element).is(document.body) ? $(window) : $(element)
+      this.options        = $.extend({}, ScrollSpy.DEFAULTS, options)
+      this.selector       = (this.options.target || '') + ' .nav li > a'
+      this.offsets        = []
+      this.targets        = []
+      this.activeTarget   = null
+      this.scrollHeight   = 0
+
+      this.$scrollElement.on('scroll.bs.scrollspy', $.proxy(this.process, this))
+      this.refresh()
+      this.process()
+    }
+
+    ScrollSpy.VERSION  = '3.3.2'
+
+    ScrollSpy.DEFAULTS = {
+      offset: 10
+    }
+
+    ScrollSpy.prototype.getScrollHeight = function () {
+      return this.$scrollElement[0].scrollHeight || Math.max(this.$body[0].scrollHeight, document.documentElement.scrollHeight)
+    }
+
+    ScrollSpy.prototype.refresh = function () {
+      var that          = this
+      var offsetMethod  = 'offset'
+      var offsetBase    = 0
+
+      this.offsets      = []
+      this.targets      = []
+      this.scrollHeight = this.getScrollHeight()
+
+      if (!$.isWindow(this.$scrollElement[0])) {
+        offsetMethod = 'position'
+        offsetBase   = this.$scrollElement.scrollTop()
+      }
+
+      this.$body
+        .find(this.selector)
+        .map(function () {
+          var $el   = $(this)
+          var href  = $el.data('target') || $el.attr('href')
+          var $href = /^#./.test(href) && $(escapeSelector(href)) // Need to escape selector.
+
+          return ($href
+            && $href.length
+            && $href.is(':visible')
+            && [[$href[offsetMethod]().top + offsetBase, href]]) || null
+        })
+        .sort(function (a, b) { return a[0] - b[0] })
+        .each(function () {
+          that.offsets.push(this[0])
+          that.targets.push(this[1])
+        })
+
+
+    }
+
+    ScrollSpy.prototype.process = function () {
+      var scrollTop    = this.$scrollElement.scrollTop() + this.options.offset
+      var scrollHeight = this.getScrollHeight()
+      var maxScroll    = this.options.offset + scrollHeight - this.$scrollElement.height()
+      var offsets      = this.offsets
+      var targets      = this.targets
+      var activeTarget = this.activeTarget
+      var i
+
+      if (this.scrollHeight != scrollHeight) {
+        this.refresh()
+      }
+
+      if (scrollTop >= maxScroll) {
+        return activeTarget != (i = targets[targets.length - 1]) && this.activate(i)
+      }
+
+      if (activeTarget && scrollTop < offsets[0]) {
+        $(this.selector).trigger('clear.bs.scrollspy')  // Add a custom event.
+        this.activeTarget = null
+        return this.clear()
+      }
+
+      for (i = offsets.length; i--;) {
+        activeTarget != targets[i]
+          && scrollTop >= offsets[i]
+          && (!offsets[i + 1] || scrollTop <= offsets[i + 1])
+          && this.activate(targets[i])
+      }
+    }
+
+    ScrollSpy.prototype.activate = function (target) {
+      this.activeTarget = target
+
+      this.clear()
+
+      var selector = this.selector +
+        '[data-target="' + target + '"],' +
+        this.selector + '[href="' + target + '"]'
+
+      var active = $(selector)
+        .parents('li')
+        .addClass('active')
+
+      if (active.parent('.dropdown-menu').length) {
+        active = active
+          .closest('li.dropdown')
+          .addClass('active')
+      }
+
+      active.trigger('activate.bs.scrollspy')
+    }
+
+    ScrollSpy.prototype.clear = function () {
+      $(this.selector)
+        .parentsUntil(this.options.target, '.active')
+        .removeClass('active')
+    }
+
+
+    // SCROLLSPY PLUGIN DEFINITION
+    // ===========================
+
+    function Plugin(option) {
+      return this.each(function () {
+        var $this   = $(this)
+        var data    = $this.data('bs.scrollspy')
+        var options = typeof option == 'object' && option
+
+        if (!data) $this.data('bs.scrollspy', (data = new ScrollSpy(this, options)))
+        if (typeof option == 'string') data[option]()
+      })
+    }
+
+    var old = $.fn.scrollspy
+
+    $.fn.scrollspy             = Plugin
+    $.fn.scrollspy.Constructor = ScrollSpy
+
+
+    // SCROLLSPY NO CONFLICT
+    // =====================
+
+    $.fn.scrollspy.noConflict = function () {
+      $.fn.scrollspy = old
+      return this
+    }
+
+
+    // SCROLLSPY DATA-API
+    // ==================
+
+    $(window).on('load.bs.scrollspy.data-api', function () {
+      $('[data-spy="scroll"]').each(function () {
+        var $spy = $(this)
+        Plugin.call($spy, $spy.data())
+      })
+    })
+
+  }(jQuery);
+</script>
+
+
+<script type="text/javascript" id="sidebar.toc.highlight">
+  $(document).ready(function () {
+    var tocSelector = '.post-toc';
+    var $tocSelector = $(tocSelector);
+    var activeCurrentSelector = '.active-current';
+
+    $tocSelector
+      .on('activate.bs.scrollspy', function () {
+        var $currentActiveElement = $(tocSelector + ' .active').last();
+
+        removeCurrentActiveClass();
+        $currentActiveElement.addClass('active-current');
+
+        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
+      })
+      .on('clear.bs.scrollspy', function () {
+        removeCurrentActiveClass();
+      });
+
+    function removeCurrentActiveClass () {
+      $(tocSelector + ' ' + activeCurrentSelector)
+        .removeClass(activeCurrentSelector.substring(1));
+    }
+
+    function processTOC () {
+      getTOCMaxHeight();
+      toggleTOCOverflowIndicators();
+    }
+
+    function getTOCMaxHeight () {
+      var $sidebarInner = $('.sidebar-inner');
+      var height = $('.sidebar').height() -
+                   $tocSelector.position().top -
+                   $('.post-toc-indicator-bottom').height();
+
+      $tocSelector.css('height', height);
+
+      return height;
+    }
+
+    function toggleTOCOverflowIndicators () {
+      tocOverflowIndicator(
+        '.post-toc-indicator-top',
+        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
+      );
+
+      tocOverflowIndicator(
+        '.post-toc-indicator-bottom',
+        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
+      )
+    }
+
+    $(document).on('sidebar.didShow', function () {
+      processTOC();
+    });
+
+    $('body').scrollspy({ target: tocSelector });
+    $(window).on('resize', function () {
+      if ( $('.sidebar').hasClass('sidebar-active') ) {
+        processTOC();
+      }
+    });
+
+    onScroll($tocSelector);
+
+    function onScroll (element) {
+      element.on('mousewheel DOMMouseScroll', function (event) {
+          var oe = event.originalEvent;
+          var delta = oe.wheelDelta || -oe.detail;
+          var self = this;
+
+          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+          event.preventDefault();
+
+          toggleTOCOverflowIndicators();
+      });
+    }
+
+    function tocOverflowIndicator (indicator, action) {
+      $(indicator).velocity('stop').velocity({
+        opacity: action === 'show' ? 0.4 : 0
+      }, { duration: 100 });
+    }
+
+  });
+</script>
+
+
+  <script type="text/javascript" id="sidebar.nav">
+    $(document).ready(function () {
+      var html = $('html');
+
+      $('.sidebar-nav li').on('click', function () {
+        var item = $(this);
+        var activeTabClassName = 'sidebar-nav-active';
+        var activePanelClassName = 'sidebar-panel-active';
+        if (item.hasClass(activeTabClassName)) {
+          return;
+        }
+
+        var currentTarget = $('.' + activePanelClassName);
+        var target = $('.' + item.data('target'));
+
+        currentTarget.velocity('transition.slideUpOut', 200, function () {
+          target
+            .velocity('stop')
+            .velocity('transition.slideDownIn', 200)
+            .addClass(activePanelClassName);
+        });
+
+        item.siblings().removeClass(activeTabClassName);
+        item.addClass(activeTabClassName);
+      });
+
+      $('.post-toc a').on('click', function (e) {
+        e.preventDefault();
+        var offset = $(escapeSelector(this.getAttribute('href'))).offset().top;
+        html.velocity('stop').velocity('scroll', {
+          offset: offset  + 'px',
+          mobileHA: false
+        });
+      });
+
+      // Expand sidebar on post detail page by default, when post has a toc.
+      var $tocContent = $('.post-toc-content');
+      if ($tocContent.length > 0 && $tocContent.html().trim().length > 0 && isDesktop()) {
+        setTimeout(function () {
+          $('.sidebar-toggle').trigger('click');
+        }, 800);
+      }
+    });
+  </script>
+
+
+
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"16"},"slide":{"type":"slide","bdImg":"2","bdPos":"left","bdTop":"195.5"},"image":{"viewList":["qzone","tsina","tqq","renren","weixin"],"viewText":"分享到：","viewSize":"16"},"selectShare":{"bdContainerClass":null,"bdSelectMiniList":["qzone","tsina","tqq","renren","weixin"]}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+
+
+  
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for (i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"songlee24"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+  
+</body>
+</html>
