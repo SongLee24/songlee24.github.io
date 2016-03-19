@@ -4,7 +4,7 @@
   <subtitle><![CDATA[李松]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://yoursite.com/"/>
-  <updated>2016-03-19T07:23:12.876Z</updated>
+  <updated>2016-03-19T07:28:30.760Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,11 +15,11 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title><![CDATA[java basic note 3]]></title>
+    <title><![CDATA[Java基础笔记（三） 多线程]]></title>
     <link href="http://yoursite.com/2016/03/19/java-basic-note-3/"/>
     <id>http://yoursite.com/2016/03/19/java-basic-note-3/</id>
     <published>2016-03-19T07:21:39.000Z</published>
-    <updated>2016-03-19T07:23:12.876Z</updated>
+    <updated>2016-03-19T07:28:30.760Z</updated>
     <content type="html"><![CDATA[<p>本文主要是我在看《疯狂Java讲义》时的读书笔记，阅读的比较仓促，就用 markdown 写了个概要。</p>
 <h1 id="第十章_多线程">第十章 多线程</h1><h2 id="1、进程和线程的概念">1、进程和线程的概念</h2><p>当一个程序进入内存运行时，即变成一个进程（Process）。进程是系统进行资源分配和调度的一个独立单位。—— 进程三特征：<br><a id="more"></a></p>
 <ul>
