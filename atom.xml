@@ -4,7 +4,7 @@
   <subtitle><![CDATA[李松]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://yoursite.com/"/>
-  <updated>2016-03-31T11:46:59.526Z</updated>
+  <updated>2016-03-31T11:54:01.179Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -19,13 +19,11 @@
     <link href="http://yoursite.com/2016/03/31/java-basic-note-4/"/>
     <id>http://yoursite.com/2016/03/31/java-basic-note-4/</id>
     <published>2016-03-31T11:42:57.000Z</published>
-    <updated>2016-03-31T11:46:59.526Z</updated>
+    <updated>2016-03-31T11:54:01.179Z</updated>
     <content type="html"><![CDATA[<p>本文主要是我在看《疯狂Java讲义》时的读书笔记，阅读的比较仓促，就用 markdown 写了个概要。</p>
-<h1 id="第十一章_I/O与序列化">第十一章 I/O与序列化</h1><h2 id="1、File类">1、File类</h2><p>Java中访问本地系统是通过<code>java.io.File</code>类。 File类可以使用 <strong>绝对路径</strong> 或 <strong>相对路径</strong> 来创建 File 对象，然后调用 File 对象的方法来操作文件和目录。</p>
-<p><strong>&gt;&gt; File类常用方法</strong></p>
+<h1 id="第十一章_I/O与序列化">第十一章 I/O与序列化</h1><h2 id="1、File类">1、File类</h2><p>Java中访问本地系统是通过<code>java.io.File</code>类。 File类可以使用 <strong>绝对路径</strong> 或 <strong>相对路径</strong> 来创建 File 对象，然后调用 File 对象的方法来操作文件和目录。<br><a id="more"></a><br><strong>&gt;&gt; File类常用方法</strong></p>
 <ol>
 <li><p>访问文件名相关的方法</p>
-<a id="more"></a>
 <ul>
 <li><code>String getName()</code>：获取文件名</li>
 <li><code>String getPath()</code>：获取路径名</li>
@@ -150,16 +148,14 @@
 <h2 id="4、输入/输出流体系">4、输入/输出流体系</h2><p>Java的输入/输出体系提供了近40个类，如下表 —— <strong>粗体</strong>标出的类属于节点流，必须直接与指定的物理节点关联；<em>斜体</em>标出的代表抽象基类，无法直接创建实例。</p>
 <p><img src="http://img.blog.csdn.net/20160329173315803" alt=""></p>
 <p>从表中可以看出，我们不仅可以把 数组 或 字符串 当作物理节点来访问，也可以把 管道 作为物理节点进行进程间通信。另外，Java提供了 4 个缓冲流（处理流），用以增加缓冲功能，提高输入输出效率。</p>
-<p><strong>&gt;&gt; 转换流</strong></p>
-<p>Java提供了两个转换流，用来将字节流转换成字符流：</p>
+<h3 id="&gt;&gt;_转换流"><strong>&gt;&gt; 转换流</strong></h3><p>Java提供了两个转换流，用来将字节流转换成字符流：</p>
 <ul>
 <li><code>InputStreamReader</code>：将字节输入流转换成字符输入流；</li>
 <li><code>OutputStreamWriter</code>：将字节输出流转换成字符输出流。</li>
 </ul>
 <p>由于字符流比字节流操作更方便，如果输入输出的是二进制内容，通常使用字节流；而如果是文本内容，则应该考虑字符流。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyClass</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">		InputStreamReader reader = <span class="keyword">new</span> InputStreamReader(System.in);</span><br><span class="line">		BufferedReader br = <span class="keyword">new</span> BufferedReader(reader);</span><br><span class="line">		String line = <span class="keyword">null</span>;</span><br><span class="line">		<span class="keyword">while</span>((line = br.readLine()) != <span class="keyword">null</span>) &#123;</span><br><span class="line">			<span class="keyword">if</span>(line.equals(<span class="string">"exit"</span>)) &#123;</span><br><span class="line">				System.exit(<span class="number">1</span>);</span><br><span class="line">			&#125;</span><br><span class="line">			System.out.println(<span class="string">"输入内容为："</span>+line);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>如上例所示，标准输入<code>System.in</code>是 InputStream 类的实例，使用不太方便。由于键盘输入都是文本内容，所以可以使用<code>InputStreamReader</code>转换成字符流，普通的 Reader 读取输入依然不方便，可以再将普通 Reader 包装成<code>BufferedReader</code>，然后逐行进行读取。</p>
-<p><strong>&gt;&gt; 推回输入流</strong></p>
-<p>Java提供了两个与众不同的流<code>PushbackInputStream</code>、<code>PushbackReader</code>，叫推回输入流。</p>
+<h3 id="&gt;&gt;_推回输入流"><strong>&gt;&gt; 推回输入流</strong></h3><p>Java提供了两个与众不同的流<code>PushbackInputStream</code>、<code>PushbackReader</code>，叫推回输入流。</p>
 <ul>
 <li><p><code>void unread(int b)</code>：将一个字节/字符推回到推回缓冲区里，从而允许重复读取刚刚读取的内容；</p>
 </li>
@@ -478,10 +474,7 @@
 ]]></content>
     <summary type="html">
     <![CDATA[<p>本文主要是我在看《疯狂Java讲义》时的读书笔记，阅读的比较仓促，就用 markdown 写了个概要。</p>
-<h1 id="第十一章_I/O与序列化">第十一章 I/O与序列化</h1><h2 id="1、File类">1、File类</h2><p>Java中访问本地系统是通过<code>java.io.File</code>类。 File类可以使用 <strong>绝对路径</strong> 或 <strong>相对路径</strong> 来创建 File 对象，然后调用 File 对象的方法来操作文件和目录。</p>
-<p><strong>&gt;&gt; File类常用方法</strong></p>
-<ol>
-<li><p>访问文件名相关的方法</p>]]>
+<h1 id="第十一章_I/O与序列化">第十一章 I/O与序列化</h1><h2 id="1、File类">1、File类</h2><p>Java中访问本地系统是通过<code>java.io.File</code>类。 File类可以使用 <strong>绝对路径</strong> 或 <strong>相对路径</strong> 来创建 File 对象，然后调用 File 对象的方法来操作文件和目录。<br>]]>
     
     </summary>
     
