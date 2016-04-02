@@ -4,7 +4,7 @@
   <subtitle><![CDATA[李松]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://yoursite.com/"/>
-  <updated>2016-03-31T12:05:29.924Z</updated>
+  <updated>2016-04-02T04:02:40.200Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -19,8 +19,9 @@
     <link href="http://yoursite.com/2016/03/31/java-basic-note-4/"/>
     <id>http://yoursite.com/2016/03/31/java-basic-note-4/</id>
     <published>2016-03-31T11:42:57.000Z</published>
-    <updated>2016-03-31T12:05:29.924Z</updated>
-    <content type="html"><![CDATA[<p>本文主要是我在看《疯狂Java讲义》时的读书笔记，阅读的比较仓促，就用 markdown 写了个概要。</p>
+    <updated>2016-04-02T04:02:40.200Z</updated>
+    <content type="html"><![CDATA[<font color="red">本文主要是我在看《疯狂Java讲义》时的读书笔记，阅读的比较仓促，就用 markdown 写了个概要。</font>
+
 <h1 id="第十一章_I/O与序列化">第十一章 I/O与序列化</h1><h2 id="1、File类">1、File类</h2><p>Java中访问本地系统是通过<code>java.io.File</code>类。 File类可以使用 <strong>绝对路径</strong> 或 <strong>相对路径</strong> 来创建 File 对象，然后调用 File 对象的方法来操作文件和目录。<br><a id="more"></a><br><strong>&gt;&gt; File类常用方法</strong></p>
 <ol>
 <li><p>访问文件名相关的方法</p>
@@ -473,7 +474,8 @@
 </ul>
 ]]></content>
     <summary type="html">
-    <![CDATA[<p>本文主要是我在看《疯狂Java讲义》时的读书笔记，阅读的比较仓促，就用 markdown 写了个概要。</p>
+    <![CDATA[<font color=red>本文主要是我在看《疯狂Java讲义》时的读书笔记，阅读的比较仓促，就用 markdown 写了个概要。</font>
+
 <h1 id="第十一章_I/O与序列化">第十一章 I/O与序列化</h1><h2 id="1、File类">1、File类</h2><p>Java中访问本地系统是通过<code>java.io.File</code>类。 File类可以使用 <strong>绝对路径</strong> 或 <strong>相对路径</strong> 来创建 File 对象，然后调用 File 对象的方法来操作文件和目录。<br>]]>
     
     </summary>
